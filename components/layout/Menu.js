@@ -103,7 +103,7 @@ export default function Menu() {
                 </li>
               </ul>
             </div>
-            <div className="menu-col">
+            {/* <div className="menu-col">
               <h6 className="color-brand-2 mb-15">Railway Logistics</h6>
               <div className="menu-image">
                 <img src="/assets/imgs/page/homepage1/menu4.png" alt="transp" />
@@ -125,8 +125,8 @@ export default function Menu() {
                   <Link href="/services">Rail Logistics Consulting</Link>
                 </li>
               </ul>
-            </div>
-            <div className="menu-col">
+            </div> */}
+            {/* <div className="menu-col">
               <h6 className="color-brand-2 mb-15">Warehouse</h6>
               <div className="menu-image">
                 <img src="/assets/imgs/page/homepage1/menu5.png" alt="transp" />
@@ -148,7 +148,7 @@ export default function Menu() {
                   <Link href="/services">Inventory Management</Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </li>
         <li className="has-children">

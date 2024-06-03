@@ -56,7 +56,7 @@ export default function Hero1Slider() {
                     </h1>
                     <div className="row">
                       <div className="col-lg-6">
-                        <p
+                        {/* <p
                           className="font-md color-white mb-20 wow animate__animated animate__fadeInUp"
                           data-wow-delay=".0s"
                         >
@@ -69,7 +69,7 @@ export default function Hero1Slider() {
                           delivery, every time. Experience the convenience and
                           reliability of Premium Logistics for all your shipping
                           needs."
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                     {/* <div className="box-button mt-30">

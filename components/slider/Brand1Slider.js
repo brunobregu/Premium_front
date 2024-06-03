@@ -10,8 +10,8 @@ export default function Brand1Slider() {
         spaceBetween={30}
         loop={true}
         autoplay={{
-          delay: 1500,
-          disableOnInteraction: true,
+          delay: 2500,
+          disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
