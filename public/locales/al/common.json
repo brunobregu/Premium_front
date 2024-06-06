@@ -1,4 +1,16 @@
 {
   "header": "Partneri juaj global i logjistikes",
-  "welcome-back": "Mire se vjen"
+  "welcome-back": "Mire se vjen",
+  "email-address": "Adresa e email-it",
+  "enter-your-password": "Futni fjalëkalimin tuaj",
+  "forgot-your-password": "Keni harruar fjalëkalimin?",
+  "submit": "Dërgo",
+  "dont-have-an-account": "Nuk keni një llogari?",
+  "sign-up": "Regjistrohu",
+
+  "create-an-account": "Krijo një llogari",
+  "full-name": "Emri i plotë",
+  "phone-number": "Numri i telefonit *",
+  "already-have-an-account? Sign In": "Keni tashmë  një llogari?",
+  "sign-in": "Hyr"
 }

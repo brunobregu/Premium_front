@@ -32,14 +32,14 @@ export default function Login() {
                       <input
                         className="form-control"
                         type="text"
-                        placeholder="Email Address *"
+                        placeholder={t("email-address")}
                       />
                     </div>
                     <div className="form-group">
                       <input
                         className="form-control"
                         type="password"
-                        placeholder="Enter Your Password"
+                        placeholder={t("enter-your-password")}
                       />
                     </div>
                     <div className="form-group">
@@ -55,7 +55,7 @@ export default function Login() {
                         </div> */}
                         <div className="box-forgotpass">
                           <Link className="font-xs color-brand-2" href="#">
-                            Forgot your password?
+                            {t("forgot-your-password")}
                           </Link>
                         </div>
                       </div>
@@ -66,18 +66,18 @@ export default function Login() {
                           <input
                             className="btn btn-brand-1-big mr-20"
                             type="submit"
-                            defaultValue="Sign In"
+                            defaultValue={t("submit")}
                           />
                         </div>
                         <div className="box-text-form-login">
                           <span className="font-xs color-grey-500">
-                            Don't Have an Account?
+                            {t("dont-have-an-account")}
                           </span>
                           <Link
                             className="font-xs color-brand-2"
                             href="/register"
                           >
-                            Sign up
+                            {t("sign-up")}
                           </Link>
                         </div>
                       </div>
@@ -139,8 +139,8 @@ export default function Login() {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"]))
+      ...(await serverSideTranslations(locale, ["common"])),
       // Will be passed to the page component as props
-    }
+    },
   };
 }
