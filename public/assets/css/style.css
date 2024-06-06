@@ -2984,12 +2984,10 @@ iframe {
 }
 
 .dropdown-cart {
-  display: none;
-  visibility: hidden;
-  position: absolute;
-  right: -70px;
+  display: block;
+  position: relative;
+  z-index: 1000;
   top: calc(100% + 22px);
-  z-index: 99;
   width: 320px;
   background-color: #fff;
   padding: 22px;
@@ -2998,31 +2996,20 @@ iframe {
   border-radius: 0 0 4px 4px;
   border: 1px solid #818692;
 }
-.dropdown-cart.dropdown-open {
-  display: block;
-  visibility: visible;
-}
 
 .dropdown-account {
+  position: relative;
+  display: block;
   width: 200px;
-  right: 0;
-  display: none;
-  visibility: hidden;
-  position: absolute;
-  top: calc(100% + 30px);
   border-radius: 8px;
   z-index: 99;
-  width: 220px;
   background-color: #fff;
   padding: 22px;
+  margin-top: 30px;
   box-shadow: 0px 5px 30px rgba(19, 27, 34, 0.12);
   -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   border: 1px solid #cde2e7;
-}
-.dropdown-account.dropdown-open {
-  display: block;
-  visibility: visible;
 }
 .dropdown-account ul li {
   display: -webkit-box;
