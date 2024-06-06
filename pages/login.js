@@ -1,7 +1,12 @@
 import Layout from "@/components/layout/Layout";
 import Brand1Slider from "@/components/slider/Brand1Slider";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
+
 export default function Login() {
+  const { t } = useTranslation("common");
+
   return (
     <>
       <Layout>
@@ -10,7 +15,7 @@ export default function Login() {
             <div className="col-lg-6">
               <div className="box-login-left">
                 <h2 className="color-brand-2 mb-10 wow animate__animated animate__fadeIn">
-                  Welcome back
+                  {t("welcome-back")}
                 </h2>
                 {/* <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
                   Access to all features. No credit card required.
@@ -129,4 +134,13 @@ export default function Login() {
       </Layout>
     </>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"]))
+      // Will be passed to the page component as props
+    }
+  };
 }
