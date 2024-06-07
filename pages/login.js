@@ -4,17 +4,30 @@ import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useForm } from "react-hook-form";
+import { serialize } from "cookie";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const { t } = useTranslation("common");
+  const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit
   } = useForm();
 
-  function onSubmit(data) {
-    console.log(data);
+  async function onSubmit(data) {
+    try {
+      const cookie = serialize("session", JSON.stringify(data), {
+        httpOnly: false,
+        maxAge: 60 * 60 * 24 * 7, // One week
+        path: "/"
+      });
+      document.cookie = cookie;
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
