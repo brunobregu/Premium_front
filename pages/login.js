@@ -3,9 +3,19 @@ import Brand1Slider from "@/components/slider/Brand1Slider";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { useForm } from "react-hook-form";
 
 export default function Login() {
   const { t } = useTranslation("common");
+  const {
+    register,
+    formState: { errors },
+    handleSubmit
+  } = useForm();
+
+  function onSubmit(data) {
+    console.log(data);
+  }
 
   return (
     <>
@@ -27,20 +37,58 @@ export default function Login() {
                   </span>
                 </div>
                 <div className="box-form-login wow animate__animated animate__fadeIn">
-                  <form action="#">
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <input
+                        {...register("email", {
+                          required: t("form-validation.email.required"),
+                          maxLength: {
+                            value: 220,
+                            message: t("form-validation.email.maxLength")
+                          },
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: t("form-validation.email.invalid")
+                          }
+                        })}
                         className="form-control"
                         type="text"
                         placeholder={t("email-address")}
                       />
+                      {errors.email?.message && (
+                        <p
+                          style={{ marginTop: 10, color: "#FF3E3E" }}
+                          role="alert"
+                        >
+                          {errors.email?.message}
+                        </p>
+                      )}
                     </div>
                     <div className="form-group">
                       <input
+                        {...register("password", {
+                          required: t("form-validation.password.required"),
+                          maxLength: {
+                            value: 220,
+                            message: t("form-validation.password.maxLength")
+                          },
+                          minLength: {
+                            value: 4,
+                            message: t("form-validation.password.minLength")
+                          }
+                        })}
                         className="form-control"
                         type="password"
                         placeholder={t("enter-your-password")}
                       />
+                      {errors.email?.message && (
+                        <p
+                          style={{ marginTop: 10, color: "#FF3E3E" }}
+                          role="alert"
+                        >
+                          {errors.password?.message}
+                        </p>
+                      )}
                     </div>
                     <div className="form-group">
                       <div className="d-flex justify-content-between">
@@ -139,8 +187,8 @@ export default function Login() {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ["common"]))
       // Will be passed to the page component as props
-    },
+    }
   };
 }

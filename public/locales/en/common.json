@@ -20,5 +20,18 @@
   "sign-in": "Sign in",
 
   "what-we-offer": "What We Offer",
-  "welcome-to-our-transportation-services-agency": "Welcome to our logistics company. We specialize in transporting goods from the USA and Korea to Albania, providing the most reliable and efficient service in the industry. With our extensive experience and dedicated team, we ensure that your shipments arrive safely and on time. Trust us for all your logistics needs."
+  "welcome-to-our-transportation-services-agency": "Welcome to our logistics company. We specialize in transporting goods from the USA and Korea to Albania, providing the most reliable and efficient service in the industry. With our extensive experience and dedicated team, we ensure that your shipments arrive safely and on time. Trust us for all your logistics needs.",
+
+  "form-validation": {
+    "email": {
+      "required": "Email is required",
+      "maxLength": "Your email is too long",
+      "invalid": "Invalid email address"
+    },
+    "password": {
+      "required": "Password is required",
+      "maxLength": "Your password is too long",
+      "minLength": "Your password is too short"
+    }
+  }
 }
