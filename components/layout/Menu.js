@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function Menu() {
   const router = useRouter();
+  const { t } = useTranslation("common");
 
   return (
     <>
       <ul className="main-menu">
         <li>
           <Link className="active" href="/">
-            Home
+            {t("home")}
           </Link>
           {/* <ul className="sub-menu">
             <li>
@@ -27,10 +29,10 @@ export default function Menu() {
           </ul> */}
         </li>
         <li>
-          <Link href="/about">About Us</Link>
+          <Link href="/about">{t("about-us")}</Link>
         </li>
         <li className="has-children">
-          <Link href="#">Services</Link>
+          <Link href="#">{t("services")}</Link>
           <div className="sub-menu five-col">
             <div className="menu-col">
               <h6 className="color-brand-2 mb-15">Sea Forwarding</h6>
@@ -152,31 +154,31 @@ export default function Menu() {
           </div>
         </li>
         <li className="has-children">
-          <Link href="#">Pages</Link>
+          <Link href="#">{t("pages")}</Link>
           <ul className="sub-menu">
             <li>
-              <Link href="/service-detail">Service Detail</Link>
+              <Link href="/service-detail">{t("service-detail")}</Link>
             </li>
             <li>
-              <Link href="/trackyourparcel">Track Your Parcel</Link>
+              <Link href="/trackyourparcel">{t("track-your-parcel")}</Link>
             </li>
             <li>
-              <Link href="/workprocess">Work Process</Link>
+              <Link href="/workprocess">{t("work-process")}</Link>
             </li>
             <li>
-              <Link href="/request-a-quote">Request a quote</Link>
+              <Link href="/request-a-quote">{t("request-a-quote")}</Link>
             </li>
             <li>
-              <Link href="/our-team">Our team</Link>
+              <Link href="/our-team">{t("our-team")}</Link>
             </li>
             <li>
-              <Link href="/faqs">FAQ's</Link>
+              <Link href="/faqs">{t("faq")}</Link>
             </li>
             <li>
-              <Link href="/register">Register</Link>
+              <Link href="/register">{t("register")}</Link>
             </li>
             <li>
-              <Link href="/login">Login</Link>
+              <Link href="/login">{t("login")}</Link>
             </li>
             {/* <li>
               <Link href="/comingsoon">Coming soon</Link>
@@ -198,7 +200,7 @@ export default function Menu() {
           </ul>
         </li> */}
         <li>
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact">{t("contact")}</Link>
         </li>
       </ul>
     </>

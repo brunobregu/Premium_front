@@ -1,5 +1,19 @@
 {
-  "header": "Partneri juaj global i logjistikes",
+  "home": "Kryefaqja",
+  "about-us": "Rreth Nesh",
+  "services": "Shërbime",
+  "pages": "Faqet",
+  "contact": "Kontakt",
+
+  "service-detail": "Detaje Shërbimi",
+  "track-your-parcel": "Gjurmo Paketën Tuaj",
+  "work-process": "Procesi i Punës",
+  "request-a-quote": "Kërkoni një ofertë",
+  "our-team": "Ekipi Ynë",
+  "faq": "Pyetje të Shpeshta",
+  "register": "Regjistrohu",
+  "login": "Hyrje",
+
   "welcome-back": "Mire se vjen",
   "languages": {
     "en": "Anglisht",

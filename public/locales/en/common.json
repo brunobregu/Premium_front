@@ -1,4 +1,19 @@
 {
+  "home": "Home",
+  "about-us": "About us",
+  "services": "Services",
+  "pages": "Pages",
+  "contact": "Contact",
+
+  "service-detail": "Service Detail",
+  "track-your-parcel": "Track Your Parcel",
+  "work-process": "Work Process",
+  "request-a-quote": "Request a quote",
+  "our-team": "Our team",
+  "faq": "FAQ's",
+  "register": "Register",
+  "login": "Login",
+
   "header": "Your Global Shipping Partner",
   "welcome-back": "Welcome back",
   "languages": {
