@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 
 import Menu from "./Menu";
 import LanguageDropdown from "./LanguageDropdown";
+import { parse, serialize } from "cookie";
+import { useRouter } from "next/router";
 
 export default function Header({ topBarStyle, handleMobileMenuOpen }) {
   const [scroll, setScroll] = useState(0);
+  const [cookie, setCookie] = useState({});
   useEffect(() => {
     document.addEventListener("scroll", () => {
       const scrollCheck = window.scrollY > 100;
@@ -14,6 +17,27 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
       }
     });
   });
+  useEffect(() => {
+    try {
+      const sessionCookie = parse(document ? document.cookie : "");
+      console.log(sessionCookie["session"]);
+
+      setCookie(JSON.parse(sessionCookie["session"]));
+    } catch (error) {}
+  }, []);
+
+  const router = useRouter();
+
+  function logout() {
+    const cookie = serialize("session", "", {
+      httpOnly: false,
+      maxAge: 0, // One week
+      path: "/"
+    });
+    document.cookie = cookie;
+    router.reload("/");
+  }
+
   return (
     <>
       <div className={topBarStyle ? topBarStyle : ""}>
@@ -147,12 +171,21 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
               <div className="header-right">
                 <LanguageDropdown />
                 <div className="d-none d-sm-inline-block">
-                  <Link
-                    className="btn btn-default mr-10 hover-up"
-                    href="/login"
-                  >
-                    Login
-                  </Link>
+                  {cookie["email"] ? (
+                    <button
+                      className="btn btn-default mr-10 hover-up"
+                      onClick={logout}
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <Link
+                      className="btn btn-default mr-10 hover-up"
+                      href="/login"
+                    >
+                      Login
+                    </Link>
+                  )}
                   <Link
                     className="btn btn-brand-1 d-none d-xl-inline-block hover-up"
                     href="/request-a-quote"
