@@ -1,18 +1,19 @@
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 export default function Services1() {
+  const { t } = useTranslation("common");
   return (
     <>
       <section className="section mt-100">
         <div className="container">
           <h2 className="mb-20 wow animate__animated animate__fadeIn">
-            What We Offer
+            {t("what-we-offer")}
           </h2>
           <div className="row align-items-end">
             <div className="col-lg-8 col-md-8 mb-30">
               <p className="font-md color-gray-700 wow animate__animated animate__fadeIn">
-                [Welcome to our tranporation services agency. We are the best at
-                our trans-portation service ever.]
+                {t("welcome-to-our-transportation-services-agency")}
               </p>
             </div>
             {/* <div className="col-lg-4 col-md-4 mb-30 text-md-end text-start">

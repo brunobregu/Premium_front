@@ -189,14 +189,14 @@ export default function Menu() {
             </li> */}
           </ul>
         </li>
-        <li className="has-children">
+        {/* <li className="has-children">
           <Link href="/blog">Blog</Link>
           <ul className="sub-menu">
             <li>
               <Link href="/blog-single">Blog Details</Link>
             </li>
           </ul>
-        </li>
+        </li> */}
         <li>
           <Link href="/contact">Contact</Link>
         </li>

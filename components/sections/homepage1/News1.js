@@ -4,7 +4,7 @@ export default function News1() {
   return (
     <>
       <section className="section mt-110">
-        <div className="container">
+        {/* <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-8 col-md-8">
               <h2 className="mb-2 wow animate__animated animate__fadeIn0">
@@ -59,7 +59,7 @@ export default function News1() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );

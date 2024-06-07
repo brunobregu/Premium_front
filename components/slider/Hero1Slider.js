@@ -16,7 +16,7 @@ export default function Hero1Slider() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundImage: "url(assets/imgs/page/homepage1/banner.png)"
+        backgroundImage: "url(assets/imgs/page/homepage1/banner.png)",
       }}
     >
       <div className="banner-1">
@@ -54,7 +54,12 @@ export default function Hero1Slider() {
                       <input
                         className="form-control"
                         type="text"
-                        placeholder="Your package tracking number"
+                        placeholder="Zip Code"
+                      />
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Destination"
                       />
                       <input
                         className="btn btn-brand-1 btn-track"

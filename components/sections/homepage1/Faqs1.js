@@ -23,7 +23,7 @@ export default function Faqs1() {
                       alt="transp"
                     />
                   </div>
-                  <div className="image-bottom">
+                  {/* <div className="image-bottom">
                     <div className="image-faq-1">
                       <img
                         src="/assets/imgs/page/homepage1/img-faq2.png"
@@ -36,7 +36,7 @@ export default function Faqs1() {
                         alt="transp"
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -54,7 +54,7 @@ export default function Faqs1() {
                   >
                     Contact Us
                   </Link>
-                  <Link
+                  {/* <Link
                     className="btn btn-link-medium wow animate__animated animate__fadeIn"
                     href="#"
                   >
@@ -73,7 +73,7 @@ export default function Faqs1() {
                         d="M14 5l7 7m0 0l-7 7m7-7H3"
                       />
                     </svg>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>

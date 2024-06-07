@@ -24,14 +24,14 @@ export default function Home() {
         <Brands1 />
         <Services1 />
         <Info1 />
-        <Info2 />
+        {/* <Info2 /> */}
         <Howitwork1 />
         <Testimonial1 />
         <Projects1 />
-        <Requestquote1 />
+        {/* <Requestquote1 /> */}
         {/* <Pricing1 /> */}
         <Faqs1 />
-        <Cta1 />
+        {/* <Cta1 /> */}
         <News1 />
         <Bgmap />
       </Layout>
@@ -42,8 +42,8 @@ export default function Home() {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"]))
+      ...(await serverSideTranslations(locale, ["common"])),
       // Will be passed to the page component as props
-    }
+    },
   };
 }

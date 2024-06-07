@@ -70,7 +70,7 @@ export default function About() {
                   channel="youtube"
                   autoplay
                   isOpen={isOpen}
-                  videoId="vfhzo499OeA"
+                  videoId="MMyZ9Pu01RI"
                   onClose={() => setOpen(false)}
                 />
               </div>
@@ -813,8 +813,8 @@ export default function About() {
           </div>
         </div>
         <div className="mt-50" />
-        <section className="section mt-50">
-          <div className="container">
+        {/* <section className="section mt-50">
+           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-8 col-md-8">
                 <h2 className=" color-brand-2 mb-20 title-padding-left wow animate__animated animate__fadeIn">
@@ -873,8 +873,8 @@ export default function About() {
               </div>
             </div>
           </div>
-        </section>
-        <section className="section pt-70 pb-70 bg-get-quote">
+        </section> */}
+        {/* <section className="section pt-70 pb-70 bg-get-quote">
           <div className="container">
             <div className="box-get-quote">
               <div className="get-quote-left">
@@ -910,7 +910,7 @@ export default function About() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <div className="mt-50" />
         <section className="section mt-50">
           <div className="container">

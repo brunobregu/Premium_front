@@ -40,7 +40,7 @@ export default function TrackParcel() {
                   </div>
                 </form>
               </div>
-              <div className="mt-40 d-flex justify-content-center">
+              {/* <div className="mt-40 d-flex justify-content-center">
                 <Link
                   className="hover-up mr-10 wow animate__animated animate__fadeIn"
                   href="#"
@@ -59,13 +59,13 @@ export default function TrackParcel() {
                     alt="transp"
                   />
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
         <section className="section pt-85">
           <div className="container">
-            <div className="row mt-50 align-items-center">
+            <div className="row align-items-center">
               <div className="col-lg-6 mb-30">
                 <h6 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn">
                   International tracking for
@@ -263,7 +263,7 @@ export default function TrackParcel() {
           </div>
         </section>
         <div className="mt-50" />
-        <section className="section pt-80 mb-70 bg-faqs">
+        {/* <section className="section pt-80 mb-70 bg-faqs">
           <div className="container">
             <div className="row">
               <div className="col-lg-6">
@@ -338,7 +338,7 @@ export default function TrackParcel() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="section mt-100">
           <div className="container">
             <div className="row align-items-center">
@@ -400,7 +400,7 @@ export default function TrackParcel() {
                     src="/assets/imgs/page/homepage3/img-info-6.png"
                     alt="transp"
                   />
-                  <div className="box-button-play">
+                  {/* <div className="box-button-play">
                     <a
                       className="btn btn-play popup-youtube hover-up wow animate__animated animate__fadeIn"
                       onClick={() => setOpen(true)}
@@ -415,7 +415,7 @@ export default function TrackParcel() {
                         Watch video tour
                       </span>
                     </a>
-                  </div>
+                  </div> */}
                   <ModalVideo
                     channel="youtube"
                     autoplay
@@ -429,7 +429,7 @@ export default function TrackParcel() {
           </div>
         </section>
         <div className="mt-90" />
-        <div className="section bg-map d-block">
+        {/* <div className="section bg-map d-block">
           <div className="container">
             <div className="box-newsletter">
               <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
@@ -568,7 +568,7 @@ export default function TrackParcel() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </Layout>
     </>
   );

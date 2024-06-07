@@ -7244,7 +7244,7 @@ input:checked + .slider:before {
   top: 0px;
   left: -96px;
   right: -96px;
-  height: 570px;
+  height: 420px;
   background-color: #e0f0f6;
   background-image: url(../imgs/page/trackyourparcel/world-map.png);
   background-position: top center;
@@ -7263,7 +7263,7 @@ input:checked + .slider:before {
 
 .form-trackparcel {
   margin-top: 55px;
-  margin-bottom: 60px;
+  margin-bottom: 0px;
 }
 .form-trackparcel form .form-group {
   display: flex;

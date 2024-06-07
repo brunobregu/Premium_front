@@ -1,4 +1,19 @@
 {
   "header": "Your Global Shipping Partner",
-  "welcome-back": "Welcome back"
+  "welcome-back": "Welcome back",
+  "email-address": "Email",
+  "enter-your-password": "Password",
+  "forgot-your-password": "Forgot your password?",
+  "submit": "Submit",
+  "dont-have-an-account": "Don't have an account?",
+  "sign-up": "Sign up",
+
+  "create-an-account": "Create an account",
+  "full-name": "Full name",
+  "phone-number": "Telephone number *",
+  "already-have-an-account? Sign In": "Already have an account?",
+  "sign-in": "Sign in",
+
+  "what-we-offer": "What We Offer",
+  "welcome-to-our-transportation-services-agency": "Welcome to our logistics company. We specialize in transporting goods from the USA and Korea to Albania, providing the most reliable and efficient service in the industry. With our extensive experience and dedicated team, we ensure that your shipments arrive safely and on time. Trust us for all your logistics needs."
 }
