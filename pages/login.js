@@ -1,7 +1,7 @@
 import Layout from "@/components/layout/Layout";
 import Brand1Slider from "@/components/slider/Brand1Slider";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useForm } from "react-hook-form";
 

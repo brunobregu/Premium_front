@@ -1,7 +1,25 @@
 import Layout from "@/components/layout/Layout";
 import Brand1Slider from "@/components/slider/Brand1Slider";
 import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { Controller, useForm } from "react-hook-form";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+
 export default function Register() {
+  const { t } = useTranslation("common");
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    control
+  } = useForm();
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   return (
     <>
       <Layout>
@@ -22,42 +40,124 @@ export default function Register() {
                   </span>
                 </div>
                 <div className="box-form-login wow animate__animated animate__fadeIn">
-                  <form action="#">
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
                           <input
+                            {...register("fullName", {
+                              required: t("form-validation.fullName.required"),
+                              maxLength: {
+                                value: 220,
+                                message: t("form-validation.fullName.maxLength")
+                              },
+                              minLength: {
+                                value: 4,
+                                message: t("form-validation.fullName.minLength")
+                              }
+                            })}
                             className="form-control"
                             type="text"
-                            placeholder="Full name"
+                            placeholder={t("fullName")}
                           />
+
+                          {errors.fullName?.message && (
+                            <p
+                              style={{ marginTop: 10, color: "#FF3E3E" }}
+                              role="alert"
+                            >
+                              {errors.fullName?.message}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Phone Number *"
+                          <Controller
+                            name="phoneNumber"
+                            control={control}
+                            rules={{
+                              validate: (value) =>
+                                isValidPhoneNumber(value ?? "")
+                            }}
+                            render={({ field }) => (
+                              <PhoneInput
+                                {...field}
+                                defaultCountry="AL"
+                                id="phoneNumber"
+                                className="form-control"
+                                numberInputProps={{
+                                  className: "form-control"
+                                }}
+                                placeholder="Phone Number *"
+                              />
+                            )}
                           />
+                          {errors["phoneNumber"] && (
+                            <p
+                              style={{ marginTop: 10, color: "#FF3E3E" }}
+                              role="alert"
+                            >
+                              {t("form-validation.phoneNumber")}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="col-md-12">
                         <div className="form-group">
                           <input
+                            {...register("email", {
+                              required: t("form-validation.email.required"),
+                              maxLength: {
+                                value: 220,
+                                message: t("form-validation.email.maxLength")
+                              },
+                              pattern: {
+                                value:
+                                  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: t("form-validation.email.invalid")
+                              }
+                            })}
                             className="form-control"
                             type="text"
-                            placeholder="Email Address *"
+                            placeholder={t("email-address") + "*"}
                           />
+                          {errors.email?.message && (
+                            <p
+                              style={{ marginTop: 10, color: "#FF3E3E" }}
+                              role="alert"
+                            >
+                              {errors.email?.message}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="col-md-12">
                         <div className="form-group">
                           <input
+                            {...register("password", {
+                              required: t("form-validation.password.required"),
+                              maxLength: {
+                                value: 220,
+                                message: t("form-validation.password.maxLength")
+                              },
+                              minLength: {
+                                value: 4,
+                                message: t("form-validation.password.minLength")
+                              }
+                            })}
                             className="form-control"
                             type="password"
-                            placeholder="Enter Your Password"
+                            placeholder={t("enter-your-password") + "*"}
                           />
+                          {errors.email?.message && (
+                            <p
+                              style={{ marginTop: 10, color: "#FF3E3E" }}
+                              role="alert"
+                            >
+                              {errors.password?.message}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div className="col-md-12">
@@ -163,4 +263,13 @@ export default function Register() {
       </Layout>
     </>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"]))
+      // Will be passed to the page component as props
+    }
+  };
 }

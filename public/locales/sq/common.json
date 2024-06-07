@@ -11,6 +11,7 @@
   "submit": "Dërgo",
   "dont-have-an-account": "Nuk keni një llogari?",
   "sign-up": "Regjistrohu",
+  "fullName": "Emri i plote",
 
   "create-an-account": "Krijo një llogari",
   "full-name": "Emri i plotë",
@@ -30,6 +31,12 @@
       "required": "Fjalekalimi eshte i detyruar",
       "maxLength": "Fjalekalimi eshte shume i gjate",
       "minLength": "Fjalekalimi eshte shume i shkurter"
-    }
+    },
+    "fullName": {
+      "required": "Emri i plote eshte i detyruar",
+      "maxLength": "Emri i plote eshte shume i gjate",
+      "minLength": "Emri i plote eshte shume i shkurter"
+    },
+    "phoneNumber": "Numri i telefonit nuk eshte i sakte"
   }
 }

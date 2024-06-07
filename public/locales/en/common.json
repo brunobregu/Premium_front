@@ -12,6 +12,7 @@
   "submit": "Submit",
   "dont-have-an-account": "Don't have an account?",
   "sign-up": "Sign up",
+  "fullName": "Full name",
 
   "create-an-account": "Create an account",
   "full-name": "Full name",
@@ -32,6 +33,12 @@
       "required": "Password is required",
       "maxLength": "Your password is too long",
       "minLength": "Your password is too short"
-    }
+    },
+    "fullName": {
+      "required": "Full name is required",
+      "maxLength": "Full name is too long",
+      "minLength": "Full name is too short"
+    },
+    "phoneNumber": "Invalid Phone number"
   }
 }
