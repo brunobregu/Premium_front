@@ -3018,14 +3018,15 @@ iframe {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 0 0 20px;
+  color: #afeae4;
+  cursor: pointer;
+  align-items: center;
 }
 .dropdown-account ul li:last-child {
   margin: 0;
 }
-.dropdown-account ul li a {
-  color: #afeae4;
-}
-.dropdown-account ul li a:hover {
+
+.dropdown-account ul li:hover {
   color: #fec201;
 }
 

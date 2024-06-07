@@ -1,6 +1,11 @@
 {
   "header": "Your Global Shipping Partner",
   "welcome-back": "Welcome back",
+  "languages": {
+    "en": "English",
+    "sq": "Albanian"
+  },
+
   "email-address": "Email",
   "enter-your-password": "Password",
   "forgot-your-password": "Forgot your password?",

@@ -1,6 +1,10 @@
 {
   "header": "Partneri juaj global i logjistikes",
   "welcome-back": "Mire se vjen",
+  "languages": {
+    "en": "Anglisht",
+    "sq": "Shqip"
+  },
   "email-address": "Adresa e email-it",
   "enter-your-password": "Futni fjalëkalimin tuaj",
   "forgot-your-password": "Keni harruar fjalëkalimin?",
