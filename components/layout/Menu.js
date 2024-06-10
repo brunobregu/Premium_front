@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 export default function Menu() {
-  const router = useRouter();
   const { t } = useTranslation("common");
+  const router = useRouter();
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function Menu() {
           </ul> */}
         </li>
         <li>
-          <Link href="/about">{t("about-us")}</Link>
+          <Link href="/about"> {t("about-us")}</Link>
         </li>
         <li className="has-children">
           <Link href="#">{t("services")}</Link>

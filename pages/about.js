@@ -5,8 +5,13 @@ import Testimonial2Slider from "@/components/slider/Testimonial2Slider";
 import Link from "next/link";
 import { useState } from "react";
 import ModalVideo from "react-modal-video";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
 export default function About() {
   const [isOpen, setOpen] = useState(false);
+  const { t } = useTranslation("common");
+
   return (
     <>
       <Layout>
@@ -14,9 +19,12 @@ export default function About() {
           <div className="container">
             <div className="box-pageheader-1 text-center">
               <h2 className="color-brand-1 mt-15 mb-10 wow animate__animated animate__fadeIn">
-                About Us
+                {t("about-us")}
               </h2>
               <p className="font-md color-white wow animate__animated animate__fadeIn">
+                {t("about-us-desc")}
+              </p>
+              {/* <p className="font-md color-white wow animate__animated animate__fadeIn">
                 Premium Logistics is a leading shipping company based in
                 Albania, specializing in global shipping services.{" "}
                 <br className="d-none d-lg-block" /> With years of experience in
@@ -28,7 +36,7 @@ export default function About() {
                 <br className="d-none d-lg-block" /> At Premium Logistics, we
                 prioritize efficiency, safety, and customer service, ensuring
                 that your shipments arrive on time, every time.
-              </p>
+              </p> */}
             </div>
           </div>
         </section>
@@ -37,17 +45,12 @@ export default function About() {
             <div className="row align-items-center">
               <div className="col-lg-6 mb-30">
                 <h2 className="color-brand-2 mb-25 wow animate__animated animate__fadeIn">
-                  Simplifying complex shipping challenges with innovative
-                  solutions
+                  {t(
+                    "simplifying-complex-shipping-challenges-with-innovative-solutions"
+                  )}
                 </h2>
                 <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                  Logistics companies are essential to the smooth functioning of
-                  global supply chains. They offer a range of services such as
-                  transportation, warehousing, inventory management, and
-                  distribution to businesses across different industries. The
-                  role of logistics companies has become increasingly important
-                  in recent years due to the growth of e-commerce and global
-                  trade.
+                  {t("premium-logistics-text")}
                 </p>
                 <div className="box-button mt-40">
                   <Link
@@ -114,31 +117,27 @@ export default function About() {
               <div className="col-lg-6">
                 <div className="box-info-aabout-2">
                   <h2 className="color-brand-2 mt-15 mb-25 wow animate__animated animate__fadeIn">
-                    Globally Connected by Large Network
+                    {t("globally-connected-large-network")}
                   </h2>
                   <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                    At Logistic Transp, our mission is to provide our clients
-                    with exceptional transportation services that meet and
-                    exceed their expectations. We aim to be the most reliable,
-                    efficient, and cost-effective transportation provider in the
-                    industry.
+                    {t("premium-logistics-mission")}
                   </p>
                   <div className="box-button mt-40">
                     <div className="row">
                       <div className="col-lg-6 mb-30">
                         <h6 className="chart-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                          Affordable Cost
+                          {t("affordable-cost")}
                         </h6>
                         <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                          The latest design trends meet hand-crafted templates.
+                          {t("affordable-cost-description")}
                         </p>
                       </div>
                       <div className="col-lg-6 mb-30">
                         <h6 className="feature-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                          Shot Time Delivery
+                          {t("short-time-delivery")}
                         </h6>
                         <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                          The latest design trends meet hand-crafted templates.
+                          {t("short-time-delivery-description")}
                         </p>
                       </div>
                     </div>
@@ -150,28 +149,23 @@ export default function About() {
               <div className="col-lg-6">
                 <div className="box-info-aabout-2">
                   <h2 className="color-brand-2 mt-15 mb-25 wow animate__animated animate__fadeIn">
-                    Globally Connected by Large Network
+                    {t("globally-connected-large-network")}
                   </h2>
                   <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                    Logistic Transp was founded in 2005 by a group of
-                    transportation professionals who saw an opportunity to
-                    provide a better level of service to businesses. Since our
-                    founding, we have grown to become a leading transportation
-                    provider, with a presence in over 30 countries around the
-                    world.
+                    {t("premium-logistics-founding")}
                   </p>
                   <div className="box-button mt-40">
                     <Link
                       className="btn btn-brand-2 mr-20 wow animate__animated animate__fadeIn"
                       href="/contact"
                     >
-                      Contact Us
+                      {t("contact-us")}
                     </Link>
                     <Link
                       className="btn btn-link-medium wow animate__animated animate__fadeIn"
                       href="#"
                     >
-                      Learn More
+                      {t("learn-more")}
                       <svg
                         className="w-6 h-6 icon-16 ml-5"
                         fill="none"
@@ -212,14 +206,10 @@ export default function About() {
                     Our Partners
                   </span> */}
                   <h2 className="color-brand-2 mt-15 mb-25 wow animate__animated animate__fadeIn">
-                    We have established strong relationships with our partners
+                    {t("established-strong-relationships")}
                   </h2>
                   <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                    We strive to become pioneers in the field, providing first
-                    quality and cost-effective service, and smart solutions to
-                    the market. Our 30 years’ experience in the shipping,
-                    transport and logistics industry is our strength, which
-                    support us to deliver our promises to our customers.
+                    {t("premium-logistics-pioneers")}
                   </p>
                   {/* <div className="box-button d-flex mt-40">
                     <Link
@@ -254,31 +244,28 @@ export default function About() {
                   Get in touch
                 </span> */}
                 <h3 className="color-grey-900 mb-20 mt-15 wow animate__animated animate__fadeIn">
-                  Proud to Deliver
+                  {t("proud-deliver-excellence")}
                   <br className="d-none d-lg-block" />
-                  Excellence Every Time
+                  {t("proud-deliver-excellence_1")}
                 </h3>
                 <p className="font-md color-grey-900 mb-40 wow animate__animated animate__fadeIn">
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                  qui officia deserunt mollit laborum — semper quis lectus
-                  nulla. Interactively transform magnetic growth strategies
-                  whereas prospective "outside the box" thinking.
+                  {t("premium-logistics-commitment")}
                 </p>
                 <div className="row">
                   <div className="col-lg-6 mb-30">
                     <h6 className="chart-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                      Boost your sale
+                      {t("boost-your-sale")}
                     </h6>
                     <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                      The latest design trends meet hand-crafted templates.
+                      {t("boost-your-sale-description")}
                     </p>
                   </div>
                   <div className="col-lg-6 mb-30">
                     <h6 className="feature-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                      Introducing New Features
+                      {t("introducing-new-features")}
                     </h6>
                     <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                      The latest design trends meet hand-crafted templates.
+                      {t("introducing-new-features-description")}
                     </p>
                   </div>
                 </div>
@@ -287,13 +274,13 @@ export default function About() {
                     className="btn btn-brand-2 mr-20 wow animate__animated animate__fadeIn"
                     href="/contact"
                   >
-                    Contact Us
+                    {t("contact-us")}
                   </Link>
                   <Link
                     className="btn btn-link-medium wow animate__animated animate__fadeIn"
                     href="#"
                   >
-                    Learn More
+                    {t("learn-more")}
                     <svg
                       className="w-6 h-6 icon-16 ml-5"
                       fill="none"
@@ -320,12 +307,12 @@ export default function About() {
             <div className="row align-items-center">
               <div className="col-lg-12">
                 <h2 className=" mb-20 wow animate__animated animate__fadeIn">
-                  Meet Our Team
+                  {t("meet-our-team")}
                 </h2>
                 <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                  Welcome to our tranporation services agency. We are
+                  {t("premium-logistics-welcome")}
                   <br className="d-none d-lg-block" />
-                  the best at our trans-portation service ever.
+                  {t("premium-logistics-welcome_1")}
                 </p>
               </div>
             </div>
@@ -566,7 +553,7 @@ export default function About() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
+              {/* <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
                     {" "}
@@ -621,8 +608,8 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
+              </div> */}
+              {/* <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
                     {" "}
@@ -677,8 +664,8 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
+              </div> */}
+              {/* <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
                     {" "}
@@ -733,8 +720,8 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
+              </div> */}
+              {/* <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
                     {" "}
@@ -789,7 +776,7 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -912,7 +899,7 @@ export default function About() {
           </div>
         </section> */}
         <div className="mt-50" />
-        <section className="section mt-50">
+        {/* <section className="section mt-50">
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-8 col-md-8">
@@ -969,12 +956,12 @@ export default function About() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <div className="section bg-map d-block">
           <div className="container">
             <div className="box-newsletter">
               <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-                Get in Touch
+                {t("get-in-touch")}
               </h3>
               <div className="row">
                 <div className="col-lg-5 mb-30">
@@ -986,7 +973,7 @@ export default function About() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Your name *"
+                              placeholder={t("full-name") + " *"}
                             />
                           </div>
                         </div>
@@ -995,7 +982,7 @@ export default function About() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Your email *"
+                              placeholder={t("email-address") + " *"}
                             />
                           </div>
                         </div>
@@ -1031,7 +1018,7 @@ export default function About() {
                           <input
                             className="btn btn-brand-1-big"
                             type="submit"
-                            defaultValue="Submit Now"
+                            defaultValue={t("submit")}
                           />
                         </div>
                       </div>
@@ -1113,4 +1100,13 @@ export default function About() {
       </Layout>
     </>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      // Will be passed to the page component as props
+    },
+  };
 }

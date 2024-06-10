@@ -50,12 +50,13 @@ export default function Services1() {
                       alt="transp"
                     />
                   </div>
+
                   <div className="card-info">
-                    <h5 className="color-brand-2 mb-15">Sea Forwarding</h5>
+                    <h5 className="color-brand-2 mb-15">
+                      {t("sea-forwarding")}
+                    </h5>
                     <p className="font-sm color-grey-900 mb-35">
-                      We are professional in ocean freight with more than 12
-                      years of experience and have shipped more than 100k
-                      shipments.
+                      {t("sea-forwarding-description")}
                     </p>
                     <div className="box-button-offer mb-30">
                       {/* <a className="btn btn-link font-sm color-brand-2">
@@ -105,11 +106,11 @@ export default function Services1() {
                     />
                   </div>
                   <div className="card-info">
-                    <h5 className="color-brand-2 mb-15">Land Transportation</h5>
+                    <h5 className="color-brand-2 mb-15">
+                      {t("land-transportation")}
+                    </h5>
                     <p className="font-sm color-grey-900 mb-35">
-                      We are professional in ocean freight with more than 12
-                      years of experience and have shipped more than 100k
-                      shipments.
+                      {t("land-transportation-description")}
                     </p>
                     <div className="box-button-offer mb-30">
                       {/* <a className="btn btn-link font-sm color-brand-2">
@@ -145,12 +146,11 @@ export default function Services1() {
                   </div>
                   <div className="card-info">
                     <h5 className="color-brand-2 mb-15">
-                      Warehouse &amp; Distribution
+                      {t("warehouse-distribution")} &amp;{" "}
+                      {t("warehouse-distribution_1")}
                     </h5>
                     <p className="font-sm color-grey-900 mb-35">
-                      We are professional in ocean freight with more than 12
-                      years of experience and have shipped more than 100k
-                      shipments.
+                      {t("warehouse-distribution-description")}
                     </p>
                     <div className="box-button-offer mb-30">
                       {/* <a className="btn btn-link font-sm color-brand-2">

@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 export default function Info1() {
+  const { t } = useTranslation("common");
   return (
     <>
       <section className="section mt-85">
@@ -8,12 +10,12 @@ export default function Info1() {
           <div className="text-center">
             {/* <img className="mb-15" src="/assets/imgs/template/icons/favicon.svg" alt="transp" /> */}
             <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-              Delivering Results for Industry Leaders
+              {t("delivering-results-industry-leaders")}
             </p>
             <h2 className="color-brand-2 mb-65 mt-15 wow animate__animated animate__fadeIn">
-              We are proud of our workforce
+              {t("proud-workforce")}
               <br className="d-none d-lg-block" />
-              and have worked hard.
+              {t("proud-workforce_1")}
             </h2>
           </div>
           <div className="row mt-50 align-items-center">
@@ -37,14 +39,10 @@ export default function Info1() {
             <div className="col-xl-5 col-lg-6 mb-30">
               <div className="box-info-pround">
                 <h3 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn">
-                  Fast shipping with the most modern technology
+                  {t("fast-shipping-modern-technology")}
                 </h3>
                 <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
-                  Over the years, we have worked together to expand our network
-                  of partners to deliver reliability and consistency. We’ve also
-                  made significant strides to tightly integrate technology with
-                  our processes, giving our clients greater visibility into
-                  every engagement.
+                  {t("network-expansion")}
                 </p>
                 <div className="mt-30">
                   <ul className="list-ticks">
@@ -63,7 +61,7 @@ export default function Info1() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      Task tracking
+                      {t("task-tracking")}
                     </li>
                     <li className="wow animate__animated animate__fadeIn">
                       <svg
@@ -80,7 +78,7 @@ export default function Info1() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      Create task dependencies
+                      {t("task-visualization")}
                     </li>
                     <li className="wow animate__animated animate__fadeIn">
                       <svg
@@ -97,7 +95,7 @@ export default function Info1() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      Task visualization
+                      {t("meet-deadlines-faster")}
                     </li>
                     <li className="wow animate__animated animate__fadeIn">
                       <svg
@@ -114,7 +112,7 @@ export default function Info1() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      hare files, discuss
+                      {t("create-task-dependencies")}
                     </li>
                     <li className="wow animate__animated animate__fadeIn">
                       <svg
@@ -131,7 +129,7 @@ export default function Info1() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      Meet deadlines faster
+                      {t("share-files-discuss")}
                     </li>
                     <li className="wow animate__animated animate__fadeIn">
                       <svg
@@ -148,7 +146,7 @@ export default function Info1() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      Track time spent on each project
+                      {t("track-time-spent")}
                     </li>
                   </ul>
                 </div>

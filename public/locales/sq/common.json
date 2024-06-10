@@ -1,9 +1,110 @@
 {
   "home": "Kryefaqja",
   "about-us": "Rreth Nesh",
+  "about-us-desc": "Premium Logistics është një kompani udhëheqëse në transportin detar me bazë në Shqipëri, e specializuar në shërbime globale të transportit. Me vite përvojë në industri, ne kemi ndërtuar një reputacion për shkëlqim, besueshmëri dhe kënaqësi të klientëve. Ekipi ynë i përkushtuar është i angazhuar të ofrojë zgjidhje të pandërprera të transportit të përshtatura për të përmbushur nevojat unike të klientëve tanë. Në Premium Logistics, ne prioritetizojmë efikasitetin, sigurinë dhe shërbimin ndaj klientit, duke siguruar që dërgesat tuaja të mbërrijnë në kohë, çdo herë.",
+  "simplifying-complex-shipping-challenges-with-innovative-solutions": "Thjeshtimi i sfidave komplekse të transportit me zgjidhje inovative",
+  "premium-logistics-text": "Premium Logistics, me seli në Shqipëri, është thelbësore për funksionimin e qetë të zinxhirëve global të furnizimit. Ne ofrojmë një gamë shërbimesh si transporti, magazinimi, menaxhimi i inventarit dhe shpërndarja për bizneset në industri të ndryshme. Roli ynë është bërë gjithnjë e më i rëndësishëm vitet e fundit për shkak të rritjes së tregtisë elektronike dhe tregtisë globale.",
+
+  
+  "globally-connected-large-network": "I Lidhur Globalisht me Një Rrjet të Madh",
+  "premium-logistics-mission": "Në Premium Logistics, misioni ynë është të ofrojmë klientëve tanë shërbime të jashtëzakonshme të transportit që përmbushin dhe tejkalojnë pritshmëritë e tyre. Synojmë të jemi ofruesi më i besueshëm, efikas dhe me kosto efektive i transportit në industri.",
+  "affordable-cost": "Kosto e Përballueshme",
+  "affordable-cost-description": "Tendencat më të fundit të dizajnit takohen me shabllonet e punuara me dorë.",
+  "short-time-delivery": "Dorëzim në Kohë të Shkurtër",
+  "short-time-delivery-description": "Tendencat më të fundit të dizajnit takohen me shabllonet e punuara me dorë.",
+
+  "premium-logistics-founding": "Premium Logistics u themelua nga një grup profesionistësh të transportit të cilët panë një mundësi për të ofruar një nivel më të mirë shërbimi për bizneset. Që nga themelimi ynë, ne kemi rritur për t'u bërë një ofrues kryesor i transportit, me prani në mbi 30 vende të botës.",
+  "contact-us": "Na Kontaktoni",
+  "learn-more": "Mësoni Më Shumë",
+
+  
+  "established-strong-relationships": "Kemi vendosur marrëdhënie të forta me partnerët tanë",
+  "premium-logistics-pioneers": "Në Premium Logistics, përpiqemi të bëhemi pionierë në fushë, duke ofruar shërbime të cilësisë së parë dhe me kosto efektive, dhe zgjidhje të zgjuara për tregun. 30 vite përvojë në industrinë e transportit detar, transportit dhe logjistikës janë forca jonë, që na mbështet për të përmbushur premtimet tona ndaj klientëve.",
+
+  "proud-deliver-excellence": "Krenar për të ofruar",
+  "proud-deliver-excellence_1": "shkëlqim çdo herë",
+  "premium-logistics-commitment": "Në Premium Logistics, jemi krenarë që ofrojmë shkëlqim çdo herë. Përkushtimi ynë ndaj cilësisë dhe kënaqësisë së klientëve është i pashembullt. Ne ofrojmë zgjidhje inovative për të përmbushur nevojat tuaja logjistike dhe për të siguruar dorëzimin në kohë.",
+  "boost-your-sale": "Rritni shitjen tuaj",
+  "boost-your-sale-description": "Tendencat më të fundit të dizajnit takohen me shabllonet e punuara me dorë.",
+  "introducing-new-features": "Prezantimi i Veçorive të Reja",
+  "introducing-new-features-description": "Tendencat më të fundit të dizajnit takohen me shabllonet e punuara me dorë.",
+  
+  "meet-our-team": "Takoni Ekipin Tonë",
+  "premium-logistics-welcome": "Mirë se vini në Premium Logistics. Ne jemi ",
+  "premium-logistics-welcome_1": "më të mirët në ofrimin e shërbimeve të transportit, duke siguruar shkëlqim dhe besueshmëri në çdo dorëzim.",
+
+  "sea-forwarding": "Transporti Detar",
+  "sea-forwarding-description": "Në Premium Logistics, ne jemi ekspertë në transportin detar me mbi 12 vite përvojë, duke transportuar më shumë se 100k ngarkesa.",
+  "land-transportation": "Transporti Tokësor",
+  "land-transportation-description": "Në Premium Logistics, ne jemi ekspertë në transportin tokësor me mbi 12 vite përvojë, duke siguruar dorëzimin e më shumë se 100k ngarkesa.",
+  "warehouse-distribution": "Magazinimi",
+  "warehouse-distribution_1": "Shpërndarje",
+  "warehouse-distribution-description": "Në Premium Logistics, ne ekselencojmë në shërbimet e magazinimit dhe shpërndarjes me mbi 12 vite përvojë, duke trajtuar më shumë se 100k ngarkesa.",
+
+   "delivering-results-industry-leaders": "Dorëzimi i Rezultateve për Udhëheqësit e Industrisë",
+  "proud-workforce": "Jemi krenarë për fuqinë tonë punëtore ",
+  "proud-workforce_1": "dhe kemi punuar shumë në Premium Logistics.",
+  "fast-shipping-modern-technology": "Transport i shpejtë me teknologjinë më moderne",
+  "network-expansion": "Gjatë viteve, në Premium Logistics, kemi zgjeruar rrjetin tonë të partnerëve për të ofruar besueshmëri dhe vazhdimësi. Kemi bërë hapa të mëdhenj për të integruar teknologjinë me proceset tona, duke u dhënë klientëve tanë më shumë dukshmëri në çdo angazhim.",
+  "task-tracking": "Gjurmimi i detyrave",
+  "task-visualization": "Vizualizimi i detyrave",
+  "meet-deadlines-faster": "Plotësimi i afateve më shpejt",
+  "create-task-dependencies": "Krijimi i varësive të detyrave",
+  "share-files-discuss": "Ndarja e skedarëve, diskutimi",
+  "track-time-spent": "Gjurmimi i kohës së shpenzuar në çdo projekt",
+
+  "how-it-works": "Si Funksionon",
+  "how-it-works-description": "Ju zgjidhni qytetet ku dëshironi të dorëzoni. Të gjitha dërgesat janë brenda një zone specifike shërbimi dhe shërbimet e dorëzimit ndryshojnë sipas vendndodhjes. Çfarëdo mënyre ose kërkese, Premium Logistics do të gjejë dhe rezervojë zgjidhjen ideale të transportit të shpejtë për të siguruar një dorëzim në kohë.",
+  "customer-places-order": "Klienti bën porosinë",
+  "inspection-quality-check": "Inspektimi dhe kontrolli i cilësisë së mallrave",
+  "payment-successful": "Pagesa e suksesshme",
+  "payment-methods": "Payoneer, Paypal, ose kartë krediti Visa",
+  "warehouse-receives-order": "Magazina merr porosinë",
+  "check-accuracy": "Kontrolloni saktësinë e mallrave.",
+  "item-picked-packed-shipped": "Artikulli përzgjidhet, paketohet dhe dërgohet",
+  "ship-local-carrier": "Dërgoni mallrat tek një transportues lokal",
+  "delivered-measure-success": "Dorëzuar & Matni suksesin",
+  "update-order-status": "Përditësoni statusin e porosisë në sistem",
+  "25-years-experience": "Ne kemi 25 vite përvojë në këtë pasion",
+  "experience-description": "Me mbi 25 vite përvojë, Premium Logistics siguron shërbimin më të lartë të cilësisë, duke u përshtatur me të gjitha nevojat tuaja logjistike.",
+
+  "what-customers-saying": "Çfarë po thonë klientët tanë",
+  "hear-from-customers": "Dëgjoni nga klientët tanë të cilët kanë përjetuar",
+  "hear-from-customers_1": "shërbim të jashtëzakonshëm dhe kursime të kostove me Premium Logistics.",
+
+  "what-we-have-done": "Çfarë Kemi Bërë",
+  "check-out-projects": "Shikoni disa nga projektet e suksesshme që kemi përfunduar me partnerët tanë të çmuar.",
+  "view-all-projects": "Shikoni të Gjitha Projektet",
+  "view-details": "Shikoni Detajet",
+
+  "frequently-asked-questions": "Pyetje të Shpeshta",
+  "faq-description": "Gjithçka që duhet të dini për shërbimet tona logjistike dhe faturimin. Nuk mund të gjeni përgjigjen që kërkoni? Ju lutem kontaktoni ekipin tonë të mbështetjes.",
+  "faqs": "Pyetje të Shpeshta",
+  "feeling-inquisitive": "Ndjeheni kurioz? Lexoni disa nga pyetjet tona të shpeshta ose kontaktoni mbështetësit tanë për ndihmë.",
+  "return-item": "Si mund të kthej një artikull të blerë online?",
+  "cancel-change-order": "A mund të anuloj ose ndryshoj porosinë time?",
+  "promotional-discount-code": "Kam një kod promocional ose zbritjeje.",
+  "delivery-types": "Cilat janë llojet e dorëzimit që përdorni?",
+  "pay-for-purchases": "Si mund të paguaj për blerjet e mia?",
+  "need-more-help": "Keni nevojë për më shumë ndihmë?",
+
+  "still-have-question": "Ende keni pyetje?",
+  "cant-find-answer": "Nuk mund të gjeni përgjigjen që kërkoni? Ju lutem bisedoni me ekipin tonë miqësor.",
+  "your-name": "Emri juaj *",
+  "your-email": "Email-i juaj *",
+  "your-phone-number": "Numri juaj i telefonit",
+  "subject": "Subjekti",
+  "message-note": "Mesazhi / Shënimi",
+
+  "branches-worldwide": "Ne kemi degë në shumë",
+  "branches-worldwide_1": "rajone të botës",
+  "experience-handling-formalities": "Në Premium Logistics, ne kemi përvojë të gjerë në trajtimin e formaliteteve dhe dokumentacionit të nevojshëm për importet dhe eksportet tuaja. Ne punojmë me të gjitha stacionet ndërkombëtare për të garantuar që ngarkesa juaj do të arrijë në destinacionin e saj pa asnjë vonesë.",
+
+
   "services": "Shërbime",
   "pages": "Faqet",
   "contact": "Kontakt",
+
 
   "service-detail": "Detaje Shërbimi",
   "track-your-parcel": "Gjurmo Paketën Tuaj",
@@ -13,6 +114,8 @@
   "faq": "Pyetje të Shpeshta",
   "register": "Regjistrohu",
   "login": "Hyrje",
+  "get-in-touch": "Na Kontaktoni",
+  "get-a-quote": "Merrni një kuotë",
 
   "welcome-back": "Mire se vjen",
   "languages": {
@@ -53,4 +156,5 @@
     },
     "phoneNumber": "Numri i telefonit nuk eshte i sakte"
   }
+  
 }

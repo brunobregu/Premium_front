@@ -13,7 +13,7 @@ export default function Login() {
   const {
     register,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
   } = useForm();
 
   async function onSubmit(data) {
@@ -21,7 +21,7 @@ export default function Login() {
       const cookie = serialize("session", JSON.stringify(data), {
         httpOnly: false,
         maxAge: 60 * 60 * 24 * 7, // One week
-        path: "/"
+        path: "/",
       });
       document.cookie = cookie;
       router.push("/");
@@ -57,12 +57,12 @@ export default function Login() {
                           required: t("form-validation.email.required"),
                           maxLength: {
                             value: 220,
-                            message: t("form-validation.email.maxLength")
+                            message: t("form-validation.email.maxLength"),
                           },
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: t("form-validation.email.invalid")
-                          }
+                            message: t("form-validation.email.invalid"),
+                          },
                         })}
                         className="form-control"
                         type="text"
@@ -83,12 +83,12 @@ export default function Login() {
                           required: t("form-validation.password.required"),
                           maxLength: {
                             value: 220,
-                            message: t("form-validation.password.maxLength")
+                            message: t("form-validation.password.maxLength"),
                           },
                           minLength: {
                             value: 4,
-                            message: t("form-validation.password.minLength")
-                          }
+                            message: t("form-validation.password.minLength"),
+                          },
                         })}
                         className="form-control"
                         type="password"
@@ -200,8 +200,8 @@ export default function Login() {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"]))
+      ...(await serverSideTranslations(locale, ["common"])),
       // Will be passed to the page component as props
-    }
+    },
   };
 }

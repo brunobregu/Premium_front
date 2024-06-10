@@ -1,4 +1,7 @@
+import { useTranslation } from "next-i18next";
+
 export default function Howitwork1() {
+  const { t } = useTranslation("common");
   return (
     <>
       <section className="section pt-85 bg-worldmap">
@@ -10,13 +13,10 @@ export default function Howitwork1() {
               alt="transp"
             /> */}
             <h2 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-              How It Works
+              {t("how-it-works")}
             </h2>
             <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-              You choose the cities where you’d like to deliver. All deliveries
-              are within a specific service area and delivery services vary by
-              location. Whatever the mode or requirement, we will find and book
-              the ideal expedited shipping solution to ensure a timely delivery.
+              {t("how-it-works-description")}
             </p>
           </div>
           <div className="row mt-50">
@@ -37,12 +37,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-play">
                     <h4 className="color-white mb-15 wow animate__animated animate__fadeIn">
-                      We have 25 years experience in this passion
+                      {t("25-years-experience")}
                     </h4>
                     <p className="font-sm color-white wow animate__animated animate__fadeIn">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority have suffered alteration in
-                      some form, by injected humour
+                      {t("experience-description")}
                     </p>
                   </div>
                 </div>
@@ -61,10 +59,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      Customer places order
+                      {t("customer-places-order")}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      Inspection and quality check of goods
+                      {t("inspection-quality-check")}
                     </p>
                   </div>
                 </li>
@@ -79,10 +77,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      Payment successful
+                      {t("payment-successful")}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      Payoneer, Paypal, or Visa master card
+                      {t("payment-methods")}
                     </p>
                   </div>
                 </li>
@@ -97,10 +95,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      Warehouse receives order
+                      {t("warehouse-receives-order")}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      Check the accuracy of the goods.
+                      {t("check-accuracy")}
                     </p>
                   </div>
                 </li>
@@ -115,10 +113,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      Item picked, packed &amp; shipped
+                      {t("item-picked-packed-shipped")}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      Ship the goods to a local carrier
+                      {t("ship-local-carrier")}
                     </p>
                   </div>
                 </li>
@@ -133,10 +131,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      Delivered &amp; Measure success
+                      {t("delivered-measure-success")}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      Update order status on the system
+                      {t("update-order-status")}
                     </p>
                   </div>
                 </li>

@@ -1,7 +1,11 @@
 import Accordion from "@/components/elements/Accordion";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
 export default function Faq() {
+  const { t } = useTranslation("common");
   return (
     <>
       <Layout>
@@ -10,14 +14,11 @@ export default function Faq() {
             <div className="banner-trackyourparcel" />
             <div className="box-info-trackyourparcel">
               <h2 className="color-brand-2 mb-25 wow animate__animated animate__fadeIn">
-                Frequently Asked
+                {t("frequently-asked-questions")}
                 <br className="d-none d-lg-block" />
-                Questions
               </h2>
               <p className="color-grey-900 font-md wow animate__animated animate__fadeIn">
-                Everything you need to know about the product and billing. Can
-                not find the answer you are looking for? Please Contact our
-                support team.
+                {t("faq-description")}
               </p>
               {/* <div className="form-trackparcel mb-0">
                                 <form action="#">
@@ -30,7 +31,7 @@ export default function Faq() {
             </div>
           </div>
         </section>
-        {/* <section className="section mt-100">
+        <section className="section mt-100">
           <div className="container position-relative">
             <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
               Popular Topic
@@ -121,18 +122,17 @@ export default function Faq() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
         <section className="section pt-80 mb-70 bg-faqs">
           <div className="container">
             <div className="row">
               <div className="col-lg-6">
                 <div className="box-faqs-left">
                   <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
-                    FAQs
+                    {t("faqs")}
                   </h2>
                   <p className="font-md color-grey-700 mb-50 wow animate__animated animate__fadeIn">
-                    Feeling inquisitive? Have a read through some of our FAQs or
-                    contact our supporters for help
+                    {t("feeling-inquisitive")}
                   </p>
                   <div className="box-gallery-faqs">
                     <div className="image-top wow animate__animated animate__fadeIn">
@@ -163,20 +163,20 @@ export default function Faq() {
                   <Accordion />
                   <div className="line-border mt-50 mb-50" />
                   <h3 className="color-brand-2 wow animate__animated animate__fadeIn">
-                    Nead more help?
+                    {t("need-more-help")}
                   </h3>
                   <div className="mt-20">
                     <Link
                       className="btn btn-brand-1-big mr-20 wow animate__animated animate__fadeIn"
                       href="/contact"
                     >
-                      Contact Us
+                      {t("contact-us")}
                     </Link>
                     <Link
                       className="btn btn-link-medium wow animate__animated animate__fadeIn"
                       href="#"
                     >
-                      Learn More
+                      {t("learn-more")}
                       <svg
                         className="w-6 h-6 icon-16 ml-5"
                         fill="none"
@@ -205,11 +205,10 @@ export default function Faq() {
                 <div className="col-xl-8 col-lg-7">
                   <div className="box-contactform-left">
                     <h3 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn">
-                      Still have question?
+                      {t("still-have-question")}
                     </h3>
                     <p className="font-md color-grey-900 mb-50 wow animate__animated animate__fadeIn">
-                      Can’t find the answer you are looking for? Please chat to
-                      our friendly team.
+                      {t("cant-find-answer")}
                     </p>
                     <form action="#">
                       <div className="row wow animate__animated animate__fadeIn">
@@ -218,7 +217,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Your name *"
+                              placeholder={t("your-name") + " *"}
                             />
                           </div>
                         </div>
@@ -227,7 +226,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Your email *"
+                              placeholder={t("your-email")}
                             />
                           </div>
                         </div>
@@ -236,7 +235,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Your phone number"
+                              placeholder={t("your-phone-number")}
                             />
                           </div>
                         </div>
@@ -245,7 +244,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Subject"
+                              placeholder={t("subject")}
                             />
                           </div>
                         </div>
@@ -253,7 +252,7 @@ export default function Faq() {
                           <div className="form-group">
                             <textarea
                               className="form-control"
-                              placeholder="Message / Note"
+                              placeholder={t("message-note")}
                               rows={8}
                               defaultValue={""}
                             />
@@ -566,4 +565,13 @@ export default function Faq() {
       </Layout>
     </>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      // Will be passed to the page component as props
+    },
+  };
 }
