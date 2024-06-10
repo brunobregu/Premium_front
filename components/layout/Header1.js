@@ -6,6 +6,8 @@ import LanguageDropdown from "./LanguageDropdown";
 import { parse, serialize } from "cookie";
 import { useRouter } from "next/router";
 
+import { useTranslation } from "next-i18next";
+
 export default function Header({ topBarStyle, handleMobileMenuOpen }) {
   const [scroll, setScroll] = useState(0);
   const [cookie, setCookie] = useState({});
@@ -32,12 +34,12 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
     const cookie = serialize("session", "", {
       httpOnly: false,
       maxAge: 0, // One week
-      path: "/"
+      path: "/",
     });
     document.cookie = cookie;
     router.reload("/");
   }
-
+  const { t } = useTranslation("common");
   return (
     <>
       <div className={topBarStyle ? topBarStyle : ""}>
@@ -215,3 +217,12 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
     </>
   );
 }
+
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//       // Will be passed to the page component as props
+//     },
+//   };
+// }

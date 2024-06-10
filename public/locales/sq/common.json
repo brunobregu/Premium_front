@@ -5,7 +5,6 @@
   "simplifying-complex-shipping-challenges-with-innovative-solutions": "Thjeshtimi i sfidave komplekse të transportit me zgjidhje inovative",
   "premium-logistics-text": "Premium Logistics, me seli në Shqipëri, është thelbësore për funksionimin e qetë të zinxhirëve global të furnizimit. Ne ofrojmë një gamë shërbimesh si transporti, magazinimi, menaxhimi i inventarit dhe shpërndarja për bizneset në industri të ndryshme. Roli ynë është bërë gjithnjë e më i rëndësishëm vitet e fundit për shkak të rritjes së tregtisë elektronike dhe tregtisë globale.",
 
-  
   "globally-connected-large-network": "I Lidhur Globalisht me Një Rrjet të Madh",
   "premium-logistics-mission": "Në Premium Logistics, misioni ynë është të ofrojmë klientëve tanë shërbime të jashtëzakonshme të transportit që përmbushin dhe tejkalojnë pritshmëritë e tyre. Synojmë të jemi ofruesi më i besueshëm, efikas dhe me kosto efektive i transportit në industri.",
   "affordable-cost": "Kosto e Përballueshme",
@@ -17,7 +16,6 @@
   "contact-us": "Na Kontaktoni",
   "learn-more": "Mësoni Më Shumë",
 
-  
   "established-strong-relationships": "Kemi vendosur marrëdhënie të forta me partnerët tanë",
   "premium-logistics-pioneers": "Në Premium Logistics, përpiqemi të bëhemi pionierë në fushë, duke ofruar shërbime të cilësisë së parë dhe me kosto efektive, dhe zgjidhje të zgjuara për tregun. 30 vite përvojë në industrinë e transportit detar, transportit dhe logjistikës janë forca jonë, që na mbështet për të përmbushur premtimet tona ndaj klientëve.",
 
@@ -28,7 +26,7 @@
   "boost-your-sale-description": "Tendencat më të fundit të dizajnit takohen me shabllonet e punuara me dorë.",
   "introducing-new-features": "Prezantimi i Veçorive të Reja",
   "introducing-new-features-description": "Tendencat më të fundit të dizajnit takohen me shabllonet e punuara me dorë.",
-  
+
   "meet-our-team": "Takoni Ekipin Tonë",
   "premium-logistics-welcome": "Mirë se vini në Premium Logistics. Ne jemi ",
   "premium-logistics-welcome_1": "më të mirët në ofrimin e shërbimeve të transportit, duke siguruar shkëlqim dhe besueshmëri në çdo dorëzim.",
@@ -41,7 +39,7 @@
   "warehouse-distribution_1": "Shpërndarje",
   "warehouse-distribution-description": "Në Premium Logistics, ne ekselencojmë në shërbimet e magazinimit dhe shpërndarjes me mbi 12 vite përvojë, duke trajtuar më shumë se 100k ngarkesa.",
 
-   "delivering-results-industry-leaders": "Dorëzimi i Rezultateve për Udhëheqësit e Industrisë",
+  "delivering-results-industry-leaders": "Dorëzimi i Rezultateve për Udhëheqësit e Industrisë",
   "proud-workforce": "Jemi krenarë për fuqinë tonë punëtore ",
   "proud-workforce_1": "dhe kemi punuar shumë në Premium Logistics.",
   "fast-shipping-modern-technology": "Transport i shpejtë me teknologjinë më moderne",
@@ -87,9 +85,34 @@
   "delivery-types": "Cilat janë llojet e dorëzimit që përdorni?",
   "pay-for-purchases": "Si mund të paguaj për blerjet e mia?",
   "need-more-help": "Keni nevojë për më shumë ndihmë?",
+  "our-process": "Procesi Ynë",
+  "process-description": "Në Premium Logistics, ne investojmë kohë dhe ekspertizë për të kuptuar plotësisht biznesin tuaj para se të hartojmë plane për të përmirësuar zinxhirin tuaj të furnizimit. Ne marrim përgjegjësinë për performancën e të gjithë furnizuesve tanë dhe për sigurimin e disponueshmërisë së burimeve dhe pajisjeve të nevojshme për të kontrolluar rrjedhën e mallrave nën kujdesin tonë.",
+  "logistics-defined": "Logjistika e Përcaktuar",
+  "logistics-description": "Në Premium Logistics, logjistika është korniza e planifikimit e përdorur nga menaxhmenti ynë për të lehtësuar shpërndarjen e personelit, materialeve, shërbimeve, informacionit dhe rrjedhave të kapitalit.",
+
+  "why-choose-us": "Pse të na zgjidhni ne",
+  "sustainability-description": "Në Premium Logistics, qëndrueshmëria është një faktor kyç për shumë klientë kur zgjedhin një kompani transporti. Ne dallohemi duke demonstruar përkushtimin tonë ndaj praktikave të qëndrueshme, si përdorimi i mjeteve me efikasitet energjie, reduktimi i mbetjeve dhe kompensimi i emetimeve të karbonit.",
+  "reliable-timely-deliveries": "Dorëzime të Besueshme dhe në Kohë",
+  "cost-effective-shipping-options": "Opsione Transporti me Kosto Efektive",
+  "exceptional-customer-service": "Shërbim i Jashtëzakonshëm ndaj Klientit",
+  "flexibility-customization": "Fleksibilitet dhe Personalizim",
+  "advanced-tracking-systems": "Sisteme të Avancuara Gjurmimi",
+  "commitment-sustainability": "Përkushtim ndaj Qëndrueshmërisë",
+  "international-shipping-expertise": "Ekspertizë Ndërkombëtare në Transport",
+  "insurance-liability-coverage": "Sigurim dhe Mbulim të Përgjegjësisë",
+
+  "shipping-options": "Opsionet e Transportit",
+  "shipping-options-description": "Eksploroni gamën tonë të gjerë të opsioneve të transportit të përshtatura për të përmbushur nevojat tuaja logjistike.",
+  "timely-deliveries": "Dorëzime në Kohë",
+  "timely-deliveries-description": "Siguroni që dërgesat tuaja të mbërrijnë në kohë, çdo herë, me shërbimet tona të besueshme të dorëzimit.",
+  "customer-service": "Shërbimi ndaj Klientit",
+  "customer-service-description": "Përjetoni shërbim të jashtëzakonshëm ndaj klientit me ekipin tonë të përkushtuar të mbështetjes në dispozicion 24/7.",
+  "tracking-systems": "Sistemet e Gjurmimit",
+  "tracking-systems-description": "Monitoroni dërgesat tuaja në kohë reale me sistemet tona të avancuara të gjurmimit.",
 
   "still-have-question": "Ende keni pyetje?",
   "cant-find-answer": "Nuk mund të gjeni përgjigjen që kërkoni? Ju lutem bisedoni me ekipin tonë miqësor.",
+
   "your-name": "Emri juaj *",
   "your-email": "Email-i juaj *",
   "your-phone-number": "Numri juaj i telefonit",
@@ -100,11 +123,9 @@
   "branches-worldwide_1": "rajone të botës",
   "experience-handling-formalities": "Në Premium Logistics, ne kemi përvojë të gjerë në trajtimin e formaliteteve dhe dokumentacionit të nevojshëm për importet dhe eksportet tuaja. Ne punojmë me të gjitha stacionet ndërkombëtare për të garantuar që ngarkesa juaj do të arrijë në destinacionin e saj pa asnjë vonesë.",
 
-
   "services": "Shërbime",
   "pages": "Faqet",
   "contact": "Kontakt",
-
 
   "service-detail": "Detaje Shërbimi",
   "track-your-parcel": "Gjurmo Paketën Tuaj",
@@ -156,5 +177,4 @@
     },
     "phoneNumber": "Numri i telefonit nuk eshte i sakte"
   }
-  
 }

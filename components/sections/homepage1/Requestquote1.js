@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import CountUp from "@/components/elements/CounterUp";
 import Link from "next/link";
 
+import { useTranslation } from "next-i18next";
+
 export default function Requestquote1() {
   const [inViewport, setInViewport] = useState(false);
+  const { t } = useTranslation("common");
 
   const handleScroll = () => {
     const elements = document.getElementsByClassName("counterUp");

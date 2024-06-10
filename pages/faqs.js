@@ -31,7 +31,7 @@ export default function Faq() {
             </div>
           </div>
         </section>
-        <section className="section mt-100">
+        {/* <section className="section mt-100">
           <div className="container position-relative">
             <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
               Popular Topic
@@ -122,7 +122,7 @@ export default function Faq() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="section pt-80 mb-70 bg-faqs">
           <div className="container">
             <div className="row">

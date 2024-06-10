@@ -4,8 +4,12 @@ import Project1Slider from "@/components/slider/Project1Slider";
 import Link from "next/link";
 import { useState } from "react";
 import ModalVideo from "react-modal-video";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
 export default function Quote() {
   const [isOpen, setOpen] = useState(false);
+  const { t } = useTranslation("common");
   return (
     <>
       <Layout>
@@ -44,7 +48,7 @@ export default function Quote() {
             <div className="box-form-contact-leading">
               <div className="row">
                 <div className="col-lg-8">
-                  <h2 className="title-favicon color-brand-2 mb-15 wow animate__animated animate__fadeIn">
+                  <h2 className=" color-brand-2 mb-15 wow animate__animated animate__fadeIn">
                     Calculate Shipping
                   </h2>
                   <p className="font-md color-grey-700 mb-25 wow animate__animated animate__fadeIn">
@@ -380,11 +384,11 @@ export default function Quote() {
         <section className="section pt-85 bg-worldmap">
           <div className="container">
             <div className="text-start">
-              <img
+              {/* <img
                 className="mb-15 wow animate__animated animate__fadeIn"
                 src="/assets/imgs/template/icons/favicon.svg"
                 alt="transp"
-              />
+              /> */}
               <h2 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
                 How It Works
               </h2>
@@ -528,7 +532,7 @@ export default function Quote() {
         <div className="line-border" />
         <section className="section pb-5 pt-110">
           <div className="container">
-            <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
+            <h2 className=" mb-20 wow animate__animated animate__fadeIn">
               What We Have Done
             </h2>
             <div className="row align-items-end">
@@ -712,4 +716,13 @@ export default function Quote() {
       </Layout>
     </>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      // Will be passed to the page component as props
+    },
+  };
 }
