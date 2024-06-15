@@ -30,7 +30,7 @@
       "@components/*": ["./isomorphic-core/src/components/*"],
       "@hooks/*": ["./isomorphic-core/src/hooks/*"],
       "@utils/*": ["./isomorphic-core/src/utils/*"],
-      "@/*": ["./*"]
+      "@/*": ["src/*"]
     },
     "plugins": [
       {
