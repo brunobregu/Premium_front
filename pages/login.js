@@ -1,14 +1,14 @@
-import Layout from "@/components/layout/Layout";
-import Brand1Slider from "@/components/slider/Brand1Slider";
-import Link from "next/link";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
-import { useForm } from "react-hook-form";
-import { serialize } from "cookie";
-import { useRouter } from "next/router";
+import Layout from '@/components/layout/Layout';
+import Brand1Slider from '@/components/slider/Brand1Slider';
+import Link from 'next/link';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { useForm } from 'react-hook-form';
+import { serialize } from 'cookie';
+import { useRouter } from 'next/router';
 
 export default function Login() {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
   const router = useRouter();
   const {
     register,
@@ -18,13 +18,13 @@ export default function Login() {
 
   async function onSubmit(data) {
     try {
-      const cookie = serialize("session", JSON.stringify(data), {
+      const cookie = serialize('session', JSON.stringify(data), {
         httpOnly: false,
         maxAge: 60 * 60 * 24 * 7, // One week
-        path: "/",
+        path: '/',
       });
       document.cookie = cookie;
-      router.push("/");
+      router.push('/logistics');
     } catch (error) {
       console.log(error);
     }
@@ -37,8 +37,8 @@ export default function Login() {
           <div className="row align-items-center m-0">
             <div className="col-lg-6">
               <div className="box-login-left">
-                <h2 className="color-brand-2 mb-10 wow animate__animated animate__fadeIn">
-                  {t("welcome-back")}
+                <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
+                  {t('welcome-back')}
                 </h2>
                 {/* <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
                   Access to all features. No credit card required.
@@ -53,24 +53,24 @@ export default function Login() {
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <input
-                        {...register("email", {
-                          required: t("form-validation.email.required"),
+                        {...register('email', {
+                          required: t('form-validation.email.required'),
                           maxLength: {
                             value: 220,
-                            message: t("form-validation.email.maxLength"),
+                            message: t('form-validation.email.maxLength'),
                           },
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: t("form-validation.email.invalid"),
+                            message: t('form-validation.email.invalid'),
                           },
                         })}
                         className="form-control"
                         type="text"
-                        placeholder={t("email-address")}
+                        placeholder={t('email-address')}
                       />
                       {errors.email?.message && (
                         <p
-                          style={{ marginTop: 10, color: "#FF3E3E" }}
+                          style={{ marginTop: 10, color: '#FF3E3E' }}
                           role="alert"
                         >
                           {errors.email?.message}
@@ -79,24 +79,24 @@ export default function Login() {
                     </div>
                     <div className="form-group">
                       <input
-                        {...register("password", {
-                          required: t("form-validation.password.required"),
+                        {...register('password', {
+                          required: t('form-validation.password.required'),
                           maxLength: {
                             value: 220,
-                            message: t("form-validation.password.maxLength"),
+                            message: t('form-validation.password.maxLength'),
                           },
                           minLength: {
                             value: 4,
-                            message: t("form-validation.password.minLength"),
+                            message: t('form-validation.password.minLength'),
                           },
                         })}
                         className="form-control"
                         type="password"
-                        placeholder={t("enter-your-password")}
+                        placeholder={t('enter-your-password')}
                       />
                       {errors.email?.message && (
                         <p
-                          style={{ marginTop: 10, color: "#FF3E3E" }}
+                          style={{ marginTop: 10, color: '#FF3E3E' }}
                           role="alert"
                         >
                           {errors.password?.message}
@@ -116,7 +116,7 @@ export default function Login() {
                         </div> */}
                         <div className="box-forgotpass">
                           <Link className="font-xs color-brand-2" href="#">
-                            {t("forgot-your-password")}
+                            {t('forgot-your-password')}
                           </Link>
                         </div>
                       </div>
@@ -127,18 +127,18 @@ export default function Login() {
                           <input
                             className="btn btn-brand-1-big mr-20"
                             type="submit"
-                            defaultValue={t("submit")}
+                            defaultValue={t('submit')}
                           />
                         </div>
                         <div className="box-text-form-login">
                           <span className="font-xs color-grey-500">
-                            {t("dont-have-an-account")}
+                            {t('dont-have-an-account')}
                           </span>
                           <Link
                             className="font-xs color-brand-2"
                             href="/register"
                           >
-                            {t("sign-up")}
+                            {t('sign-up')}
                           </Link>
                         </div>
                       </div>
@@ -176,7 +176,7 @@ export default function Login() {
         <div className="section bg-2 pt-65 pb-35">
           <div className="container">
             <div className="row align-items-center">
-              <div className="col-lg-3 mb-30 text-center text-lg-start wow animate__animated animate__fadeIn">
+              <div className="col-lg-3 mb-30 text-lg-start wow animate__animated animate__fadeIn text-center">
                 <p className="font-2xl-bold color-brand-2">
                   We are<span className="color-brand-1"> trusted</span> by major
                   global brands
@@ -200,7 +200,7 @@ export default function Login() {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ['common'])),
       // Will be passed to the page component as props
     },
   };

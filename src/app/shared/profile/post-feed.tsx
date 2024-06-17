@@ -10,7 +10,6 @@ import {
   PiArrowsClockwiseFill,
 } from 'react-icons/pi';
 import PostCard from './post-card';
-import PostsModal from './posts-modal';
 
 export default function PostFeed() {
   const pathname = usePathname();
@@ -81,7 +80,7 @@ export default function PostFeed() {
         {currentPostID > 100 && (
           <Button
             variant="text"
-            className="absolute -left-12 top-1/2 -mt-4 hidden p-0 text-gray-50 lg:inline-block dark:text-white"
+            className="absolute -left-12 top-1/2 -mt-4 hidden p-0 text-gray-50 dark:text-white lg:inline-block"
             onClick={() => setCurrentPostID(currentPostID - 1)}
           >
             <PiCaretLeftBold className="text-3xl" />
@@ -91,15 +90,11 @@ export default function PostFeed() {
         {currentPostID < postData[postData.length - 1].id && (
           <Button
             variant="text"
-            className="absolute -right-12 top-1/2 -mt-4 hidden p-0 text-gray-50 lg:inline-block dark:text-white"
+            className="absolute -right-12 top-1/2 -mt-4 hidden p-0 text-gray-50 dark:text-white lg:inline-block"
             onClick={() => setCurrentPostID(currentPostID + 1)}
           >
             <PiCaretRightBold className="text-3xl" />
           </Button>
-        )}
-
-        {currentPost && (
-          <PostsModal data={currentPost} onClose={() => setOpen(false)} />
         )}
       </Modal>
     </>

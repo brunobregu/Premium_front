@@ -1,22 +1,22 @@
-import Link from "next/link";
-import { useState } from "react";
-import ModalVideo from "react-modal-video";
-import { Autoplay, Navigation, Pagination } from "swiper";
-import { useTranslation } from "next-i18next";
-import { Swiper, SwiperSlide } from "swiper/react";
-import TrackParcel from "@/pages/trackyourparcel";
+import Link from 'next/link';
+import { useState } from 'react';
+import ModalVideo from 'react-modal-video';
+import { Autoplay, Navigation, Pagination } from 'swiper';
+import { useTranslation } from 'next-i18next';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import TrackParcel from '../../../pages/trackyourparcel';
 
 export default function Hero1Slider() {
   const [isOpen, setOpen] = useState(false);
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundImage: "url(assets/imgs/page/homepage1/banner.png)",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundImage: 'url(assets/imgs/page/homepage1/banner.png)',
       }}
     >
       <div className="banner-1">
@@ -36,12 +36,12 @@ export default function Hero1Slider() {
                 className="color-white mb-25 wow animate__animated animate__fadeInUp"
                 data-wow-delay=".0s"
               >
-                {t("header")}
+                {t('header')}
               </h1>
               <div className="row">
                 <p
                   className="color-white font-md wow animate__animated animate__fadeIn"
-                  style={{ textAlign: "center" }}
+                  style={{ textAlign: 'center' }}
                 >
                   Track packages from China, US Post, Canada Post, Royal Mail,
                   Deutsche Post,
