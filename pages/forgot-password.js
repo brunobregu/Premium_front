@@ -16,19 +16,7 @@ export default function ForgotPassword() {
     handleSubmit,
   } = useForm();
 
-  async function onSubmit(data) {
-    try {
-      const cookie = serialize('session', JSON.stringify(data), {
-        httpOnly: false,
-        maxAge: 60 * 60 * 24 * 7, // One week
-        path: '/',
-      });
-      document.cookie = cookie;
-      router.push('/logistics');
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  async function onSubmit(data) {}
 
   return (
     <>

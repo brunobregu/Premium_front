@@ -27,17 +27,14 @@ export default function Register() {
   async function onSubmit(data) {
     try {
       setLoadingRegister(true);
-      const registerResponse = await premiumApi.post(
-        '/Authentication/register',
-        {
-          userName: data.firstName + data.lastName,
-          email: data.email,
-          password: data.password,
-          role: 'admin',
-          firstName: data.firstName,
-          lastName: data.lastName,
-        }
-      );
+      await premiumApi.post('/Authentication/register', {
+        userName: data.email,
+        email: data.email,
+        password: data.password,
+        role: 'admin',
+        firstName: data.firstName,
+        lastName: data.lastName,
+      });
 
       const loginResponse = await premiumApi.post('/Authentication/login', {
         email: data.email,

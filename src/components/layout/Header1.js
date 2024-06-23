@@ -27,16 +27,6 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
       router.push('/login');
     }
   }
-
-  function logout() {
-    const cookie = serialize('session', '', {
-      httpOnly: false,
-      maxAge: 0, // One week
-      path: '/',
-    });
-    document.cookie = cookie;
-    router.reload('/');
-  }
   const { t } = useTranslation('common');
   return (
     <>

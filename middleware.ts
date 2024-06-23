@@ -6,34 +6,10 @@ export function middleware(request: NextRequest) {
 
   if (
     currentUser &&
-    (pathname.startsWith('/login') || pathname.startsWith('/register'))
+    (pathname.startsWith('/login') ||
+      pathname.startsWith('/register') ||
+      pathname.startsWith('/forget-password'))
   ) {
     return Response.redirect(new URL('/', request.url));
   }
 }
-
-// import { pagesOptions } from '@/app/api/auth/[...nextauth]/pages-options';
-// import withAuth from 'next-auth/middleware';
-
-// export default withAuth({
-//   pages: {
-//     ...pagesOptions,
-//   },
-// });
-
-// export const config = {
-//   // restricted routes
-//   matcher: [
-//     '/',
-//     '/executive',
-//     '/financial',
-//     '/analytics',
-//     '/logistics/:path*',
-//     '/ecommerce/:path*',
-//     '/support/:path*',
-//     '/file/:path*',
-//     '/file-manager',
-//     '/invoice/:path*',
-//     '/forms/profile-settings/:path*',
-//   ],
-// };

@@ -11,6 +11,8 @@ import NextProgress from '@components/next-progress';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '@/app/globals.css';
+import { QueryClientProvider } from '@tanstack/react-query';
+import premiumQueryClient from '@/util/premiumQueryClient';
 
 export const metadata = {
   title: siteConfig.title,
@@ -34,13 +36,15 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={cn(inter.variable, lexendDeca.variable, 'font-inter')}
       >
-        <ThemeProvider>
-          <NextProgress />
-          {children}
-          <Toaster />
-          <GlobalDrawer />
-          <GlobalModal />
-        </ThemeProvider>
+        <QueryClientProvider client={premiumQueryClient}>
+          <ThemeProvider>
+            <NextProgress />
+            {children}
+            <Toaster />
+            <GlobalDrawer />
+            <GlobalModal />
+          </ThemeProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

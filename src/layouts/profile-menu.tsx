@@ -3,10 +3,10 @@
 import { Title, Text, Avatar, Button, Popover } from 'rizzui';
 import cn from '@utils/class-names';
 import { routes } from '@/config/routes';
-import { signOut } from 'next-auth/react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { serialize } from 'cookie';
 
 export default function ProfileMenu({
   buttonClassName,
@@ -74,6 +74,17 @@ const menuItems = [
 ];
 
 function DropdownMenu() {
+  const router = useRouter();
+  function handleLogout() {
+    const cookie = serialize('session', '', {
+      httpOnly: false,
+      maxAge: 0, // One week
+      path: '/',
+    });
+    document.cookie = cookie;
+    router.replace('/');
+  }
+
   return (
     <div className="w-64 text-left rtl:text-right">
       <div className="flex items-center border-b border-gray-300 px-6 pb-5 pt-6">
@@ -103,7 +114,7 @@ function DropdownMenu() {
         <Button
           className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
           variant="text"
-          onClick={() => signOut()}
+          onClick={handleLogout}
         >
           Sign Out
         </Button>
