@@ -15,6 +15,11 @@ export const menuItems: MenuItemsType[] = [
     name: 'Overview',
   },
   {
+    name: 'Logistics',
+    href: routes.logistics.dashboard,
+    icon: <PiPackageDuotone />,
+  },
+  {
     name: 'Shipment List',
     href: routes.logistics.shipmentList,
     icon: <PiPackageDuotone />,
