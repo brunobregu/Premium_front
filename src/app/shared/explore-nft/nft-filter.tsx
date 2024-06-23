@@ -20,7 +20,7 @@ export default function NFTFilter() {
 
   useEffect(() => {
     const items = [];
-    searchParams.forEach((item) => items.push(item));
+    searchParams?.forEach((item) => items.push(item));
     setHasQueryParams(Boolean(items.length));
   }, [searchParams]);
 

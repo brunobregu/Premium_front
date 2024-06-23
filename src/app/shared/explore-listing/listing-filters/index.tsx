@@ -43,7 +43,7 @@ export default function ListingFilters({ className }: { className?: string }) {
 
   useEffect(() => {
     const items = [];
-    searchParams.forEach((item) => items.push(item));
+    searchParams?.forEach((item) => items.push(item));
     setHasQueryParams(Boolean(items.length));
   }, [searchParams]);
 

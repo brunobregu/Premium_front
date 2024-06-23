@@ -21,7 +21,7 @@ export default function TableResizable() {
         },
       },
       meta: {
-        handleDeleteRow: (row) => {
+        handleDeleteRow: (row: { id: string }) => {
           setData((prev) => prev.filter((r) => r.id !== row.id));
         },
       },

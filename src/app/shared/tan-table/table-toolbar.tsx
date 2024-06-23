@@ -88,8 +88,8 @@ export default function TableToolbar<TData extends Record<string, any>>({
             variant="outline"
             className="h-[34px] gap-2 text-sm"
             onClick={() =>
-              meta?.handleMultipleDelete &&
-              meta.handleMultipleDelete(
+              (meta as any)?.handleMultipleDelete &&
+              (meta as any).handleMultipleDelete(
                 table.getSelectedRowModel().rows.map((r) => r.original.id)
               )
             }

@@ -170,7 +170,8 @@ export const defaultColumns = [
             title={`Delete the invoice`}
             description={`Are you sure you want to delete this #${row.id} invoice?`}
             onDelete={() =>
-              meta?.handleDeleteRow && meta?.handleDeleteRow(row.original)
+              (meta as any)?.handleDeleteRow &&
+              (meta as any)?.handleDeleteRow(row.original)
             }
           />
         </div>

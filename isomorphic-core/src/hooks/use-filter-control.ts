@@ -23,7 +23,7 @@ export function useFilterControls<StateType, ActionType>(
 
   const createQueryString = useCallback(
     (name: string | string[], value: string | string[]) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(searchParams?.toString());
       if (!Array.isArray(name)) {
         params.set(name, value.toString());
       } else {
@@ -39,7 +39,7 @@ export function useFilterControls<StateType, ActionType>(
       router.push(
         `${pathname}?${createQueryString(
           ['sort', 'page'],
-          [isEqual(searchParams.get('sort'), key) ? `-${key}` : key, '1']
+          [isEqual(searchParams?.get('sort'), key) ? `-${key}` : key, '1']
         )}
       `
       ),
@@ -76,7 +76,7 @@ export function useFilterControls<StateType, ActionType>(
     [pathname, router]
   );
 
-  const parsedSearchParams = Object.fromEntries(searchParams);
+  const parsedSearchParams = Object.fromEntries(searchParams!);
   const state = {
     ...initialState,
     ...Object.fromEntries(

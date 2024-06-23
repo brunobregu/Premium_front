@@ -72,7 +72,7 @@ export default function BerylliumLeftSidebarFixed() {
 
   useEffect(() => {
     const activeMenuIndex = getActiveMainMenuIndex(
-      pathname,
+      pathname as string,
       berylliumMenuItems
     );
     setMenuItems(berylliumMenuItems[activeMenuIndex]);
@@ -89,7 +89,7 @@ export default function BerylliumLeftSidebarFixed() {
   }, [width, pathname]);
 
   return (
-    <aside className="fixed start-0 top-0 z-50 hidden h-screen w-[88px] flex-col items-center gap-10 bg-gray-900 py-3.5 xl:flex dark:bg-gray-0">
+    <aside className="fixed start-0 top-0 z-50 hidden h-screen w-[88px] flex-col items-center gap-10 bg-gray-900 py-3.5 dark:bg-gray-0 xl:flex">
       <ActionIcon
         aria-label="open sidebar"
         variant="text"

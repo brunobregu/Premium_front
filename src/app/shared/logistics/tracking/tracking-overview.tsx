@@ -111,13 +111,13 @@ export function TrackingSummary() {
         as="h2"
         className="mb-3 text-2xl font-bold text-gray-700 3xl:text-3xl"
       >
-        {params.id}
+        {params?.id}
       </Title>
 
       <div className="mb-7 flex items-center gap-x-5">
         <Button
           variant="text"
-          onClick={() => handleCopyToClipboard(params.id as string)}
+          onClick={() => handleCopyToClipboard(params?.id as string)}
           className="inline-flex h-auto w-auto items-center gap-1 px-0 py-0 font-normal"
         >
           <PiCopySimple className="h-5 w-5" />

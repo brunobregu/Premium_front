@@ -19,7 +19,7 @@ export default function TableRowPinning() {
         },
       },
       meta: {
-        handleDeleteRow: (row) => {
+        handleDeleteRow: (row: { id: string }) => {
           setData((prev) => prev.filter((r) => r.id !== row.id));
         },
       },

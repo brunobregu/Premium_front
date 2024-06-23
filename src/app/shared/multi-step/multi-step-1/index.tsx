@@ -3,7 +3,6 @@
 import { useAtom } from 'jotai';
 import { atomWithReset, atomWithStorage } from 'jotai/utils';
 import cn from '@utils/class-names';
-import Footer from '@/app/multi-step/footer';
 import StepOne from '@/app/shared/multi-step/multi-step-1/step-1';
 import StepTwo from '@/app/shared/multi-step/multi-step-1/step-2';
 import StepThree from '@/app/shared/multi-step/multi-step-1/step-3';
@@ -122,7 +121,6 @@ export default function MultiStepFormOne() {
       >
         <Component />
       </div>
-      <Footer />
     </>
   );
 }

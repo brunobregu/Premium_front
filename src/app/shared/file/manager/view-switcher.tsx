@@ -10,11 +10,11 @@ export default function ViewSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const layout = searchParams.get('layout');
+  const layout = searchParams?.get('layout');
   const isGridLayout = layout?.toLowerCase() === 'grid';
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(searchParams?.toString());
       params.set(name, value);
       return params.toString();
     },
