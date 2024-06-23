@@ -6,12 +6,8 @@ const pageHeader = {
   title: 'Account Settings',
   breadcrumb: [
     {
-      href: '/',
+      href: '/logistics',
       name: 'Home',
-    },
-    {
-      href: routes.forms.profileSettings,
-      name: 'Form',
     },
     {
       name: 'Account Settings',

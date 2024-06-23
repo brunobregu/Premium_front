@@ -22,8 +22,6 @@ export default function Header() {
         >
           <Logo iconOnly={true} />
         </Link>
-
-        <SearchWidget />
       </div>
 
       <HeaderMenuRight />
