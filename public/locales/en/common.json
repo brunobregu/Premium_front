@@ -155,6 +155,8 @@
   "dont-have-an-account": "Don't have an account?",
   "sign-up": "Sign up",
   "fullName": "Full name",
+  "firstName": "Firstname",
+  "lastName": "Lastname",
 
   "create-an-account": "Create an account",
   "full-name": "Full name",
@@ -176,11 +178,17 @@
       "maxLength": "Your password is too long",
       "minLength": "Your password is too short"
     },
-    "fullName": {
-      "required": "Full name is required",
-      "maxLength": "Full name is too long",
-      "minLength": "Full name is too short"
+    "firstName": {
+      "required": "Firstname is required",
+      "maxLength": "Firstname is too long",
+      "minLength": "Firstname is too short"
+    },
+    "lastName": {
+      "required": "Lastname is required",
+      "maxLength": "Lastname is too long",
+      "minLength": "Lastname is too short"
     },
     "phoneNumber": "Invalid Phone number"
-  }
+  },
+  "forgot-password": "Reset Password"
 }

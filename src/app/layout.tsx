@@ -1,7 +1,4 @@
 import { Toaster } from 'react-hot-toast';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
-import AuthProvider from '@/app/api/auth/[...nextauth]/auth-provider';
 import GlobalDrawer from '@/app/shared/drawer-views/container';
 import GlobalModal from '@/app/shared/modal-views/container';
 import { ThemeProvider } from '@/app/shared/theme-provider';
@@ -25,7 +22,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
   return (
     <html
       lang="en"
@@ -38,15 +34,13 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={cn(inter.variable, lexendDeca.variable, 'font-inter')}
       >
-        <AuthProvider session={session}>
-          <ThemeProvider>
-            <NextProgress />
-            {children}
-            <Toaster />
-            <GlobalDrawer />
-            <GlobalModal />
-          </ThemeProvider>
-        </AuthProvider>
+        <ThemeProvider>
+          <NextProgress />
+          {children}
+          <Toaster />
+          <GlobalDrawer />
+          <GlobalModal />
+        </ThemeProvider>
       </body>
     </html>
   );

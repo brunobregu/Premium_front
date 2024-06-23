@@ -150,6 +150,8 @@
   "dont-have-an-account": "Nuk keni një llogari?",
   "sign-up": "Regjistrohu",
   "fullName": "Emri i plote",
+  "firstName": "Emri",
+  "lastName": "Mbiemri",
 
   "create-an-account": "Krijo një llogari",
   "full-name": "Emri i plotë",
@@ -170,11 +172,17 @@
       "maxLength": "Fjalekalimi eshte shume i gjate",
       "minLength": "Fjalekalimi eshte shume i shkurter"
     },
-    "fullName": {
-      "required": "Emri i plote eshte i detyruar",
-      "maxLength": "Emri i plote eshte shume i gjate",
-      "minLength": "Emri i plote eshte shume i shkurter"
+    "firstName": {
+      "required": "Emri eshte i detyruar",
+      "maxLength": "Emri eshte shume i gjate",
+      "minLength": "Emri eshte shume i shkurter"
+    },
+    "lastName": {
+      "required": "Mbiemri eshte i detyruar",
+      "maxLength": "Mbiemri eshte shume i gjate",
+      "minLength": "Mbiemri eshte shume i shkurter"
     },
     "phoneNumber": "Numri i telefonit nuk eshte i sakte"
-  }
+  },
+  "forgot-password": "Keni harruar fjalëkalimin?"
 }

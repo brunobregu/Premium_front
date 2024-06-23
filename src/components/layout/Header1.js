@@ -1,53 +1,51 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-import Menu from "./Menu";
-import LanguageDropdown from "./LanguageDropdown";
-import { parse, serialize } from "cookie";
-import { useRouter } from "next/router";
-
-import { useTranslation } from "next-i18next";
+import Menu from './Menu';
+import LanguageDropdown from './LanguageDropdown';
+import { parse, serialize } from 'cookie';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 export default function Header({ topBarStyle, handleMobileMenuOpen }) {
   const [scroll, setScroll] = useState(0);
-  const [cookie, setCookie] = useState({});
+  const router = useRouter();
   useEffect(() => {
-    document.addEventListener("scroll", () => {
+    document.addEventListener('scroll', () => {
       const scrollCheck = window.scrollY > 100;
       if (scrollCheck !== scroll) {
         setScroll(scrollCheck);
       }
     });
   });
-  useEffect(() => {
-    try {
-      const sessionCookie = parse(document ? document.cookie : "");
-      console.log(sessionCookie["session"]);
 
-      setCookie(JSON.parse(sessionCookie["session"]));
-    } catch (error) {}
-  }, []);
-
-  const router = useRouter();
+  function handleDashboardClick() {
+    const sessionCookie = parse(document.cookie);
+    if (sessionCookie['session']) {
+      router.push('/logistics');
+    } else {
+      router.push('/login');
+    }
+  }
 
   function logout() {
-    const cookie = serialize("session", "", {
+    const cookie = serialize('session', '', {
       httpOnly: false,
       maxAge: 0, // One week
-      path: "/",
+      path: '/',
     });
     document.cookie = cookie;
-    router.reload("/");
+    router.reload('/');
   }
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
   return (
     <>
-      <div className={topBarStyle ? topBarStyle : ""}>
+      <div className={topBarStyle ? topBarStyle : ''}>
         <div className="box-bar bg-grey-900 ">
-          <div className="container position-relative">
+          <div className="position-relative container">
             <div className="row align-items-center">
               <div className="col-lg-7 col-md-8 col-sm-5 col-4">
-                {" "}
+                {' '}
                 <Link className="phone-icon mr-45" href="tel:+01-246-357">
                   <svg
                     fill="none"
@@ -147,7 +145,7 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
         </div>
       </div>
       <header
-        className={scroll ? "header sticky-bar stick" : "header sticky-bar"}
+        className={scroll ? 'header sticky-bar stick' : 'header sticky-bar'}
       >
         <div className="container">
           <div className="main-header">
@@ -173,21 +171,13 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
               <div className="header-right">
                 <LanguageDropdown />
                 <div className="d-none d-sm-inline-block">
-                  {cookie["email"] ? (
-                    <button
-                      className="btn btn-default mr-10 hover-up"
-                      onClick={logout}
-                    >
-                      Logout
-                    </button>
-                  ) : (
-                    <Link
-                      className="btn btn-default mr-10 hover-up"
-                      href="/login"
-                    >
-                      Login
-                    </Link>
-                  )}
+                  <button
+                    className="btn btn-default hover-up mr-10"
+                    onClick={handleDashboardClick}
+                  >
+                    Dashboard
+                  </button>
+
                   <Link
                     className="btn btn-brand-1 d-none d-xl-inline-block hover-up"
                     href="/request-a-quote"

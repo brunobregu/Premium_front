@@ -6,29 +6,19 @@ import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
-import premiumApi from '../src/util/premiumAPI';
-import { useState } from 'react';
 
-export default function Login() {
+export default function ForgotPassword() {
   const { t } = useTranslation('common');
   const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit,
-    setError: setFormError,
   } = useForm();
-  const [loadingLogin, setLoadingLogin] = useState(false);
 
   async function onSubmit(data) {
     try {
-      setLoadingLogin(true);
-      const apiResponse = await premiumApi.post('/Authentication/login', {
-        email: data.email,
-        password: data.password,
-      });
-
-      const cookie = serialize('session', JSON.stringify(apiResponse), {
+      const cookie = serialize('session', JSON.stringify(data), {
         httpOnly: false,
         maxAge: 60 * 60 * 24 * 7, // One week
         path: '/',
@@ -36,12 +26,7 @@ export default function Login() {
       document.cookie = cookie;
       router.push('/logistics');
     } catch (error) {
-      if (error.response) {
-        setFormError('email', 'Email or password does not match');
-        setFormError('password', 'Email or password does not match');
-      }
-    } finally {
-      setLoadingLogin(false);
+      console.log(error);
     }
   }
 
@@ -53,7 +38,7 @@ export default function Login() {
             <div className="col-lg-6">
               <div className="box-login-left">
                 <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
-                  {t('welcome-back')}
+                  {t('forgot-password')}
                 </h2>
                 {/* <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
                   Access to all features. No credit card required.
@@ -93,32 +78,6 @@ export default function Login() {
                       )}
                     </div>
                     <div className="form-group">
-                      <input
-                        {...register('password', {
-                          required: t('form-validation.password.required'),
-                          maxLength: {
-                            value: 220,
-                            message: t('form-validation.password.maxLength'),
-                          },
-                          minLength: {
-                            value: 4,
-                            message: t('form-validation.password.minLength'),
-                          },
-                        })}
-                        className="form-control"
-                        type="password"
-                        placeholder={t('enter-your-password')}
-                      />
-                      {errors.email?.message && (
-                        <p
-                          style={{ marginTop: 10, color: '#FF3E3E' }}
-                          role="alert"
-                        >
-                          {errors.password?.message}
-                        </p>
-                      )}
-                    </div>
-                    <div className="form-group">
                       <div className="d-flex justify-content-between">
                         {/* <div className="box-remember">
                           <label
@@ -129,21 +88,12 @@ export default function Login() {
                             Remember me
                           </label>
                         </div> */}
-                        <div className="box-forgotpass">
-                          <Link
-                            className="font-xs color-brand-2"
-                            href="/forgot-password"
-                          >
-                            {t('forgot-your-password')}
-                          </Link>
-                        </div>
                       </div>
                     </div>
                     <div className="form-group mt-30">
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="box-button-form-login">
                           <input
-                            disabled={loadingLogin}
                             className="btn btn-brand-1-big mr-20"
                             type="submit"
                             defaultValue={t('submit')}
