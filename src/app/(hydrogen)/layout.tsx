@@ -6,6 +6,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { parse } from 'cookie';
+import { useEffect, useMemo, useState } from 'react';
+import parseJwt from '@/util/parseJwt';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -20,23 +22,42 @@ function LayoutProvider({ children }: LayoutProps) {
   const router = useRouter();
 
   const isMounted = useIsMounted();
-  const sessionCookie = parse(document.cookie);
-  const session = sessionCookie['session'];
-  const query = useQuery({
-    queryKey: ['user'],
-    queryFn: () =>
-      premiumApi.get('/Authentication/getUsersOfRole', {
-        params: { role: 'admin' },
-      }),
-    enabled: !!session && isMounted,
-  });
+  const [role, setRole] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!session) {
-    router.push('/login');
-  }
-  if (!isMounted && query.isLoading) {
+  useEffect(() => {
+    if (!isMounted) {
+      return;
+    }
+    const session = parse(document.cookie)?.['session'];
+    if (!session) {
+      setLoading(false);
+      return;
+    }
+
+    premiumApi.defaults.headers['Authorization'] = `Bearer ${session}`;
+
+    setRole(
+      parseJwt(session)?.[
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      ]
+    );
+    setLoading(false);
+  }, [isMounted]);
+
+  if (loading) {
     return null;
   }
 
-  if (query.data) return <HydrogenLayout>{children}</HydrogenLayout>;
+  if (!role) {
+    router.push('/login');
+    return null;
+  }
+
+  if (pathname === '/logistics/shipments/create' && role !== 'Admin') {
+    router.push('/login');
+    return null;
+  }
+
+  return <HydrogenLayout>{children}</HydrogenLayout>;
 }

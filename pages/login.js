@@ -28,7 +28,7 @@ export default function Login() {
         password: data.password,
       });
 
-      const cookie = serialize('session', JSON.stringify(apiResponse), {
+      const cookie = serialize('session', apiResponse.data.token, {
         httpOnly: false,
         maxAge: 60 * 60 * 24 * 7, // One week
         path: '/',

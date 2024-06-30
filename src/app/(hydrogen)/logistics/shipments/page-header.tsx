@@ -27,11 +27,6 @@ export default function ShipmentPageHeader({ className }: HeaderProps) {
   return (
     <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
       <div className="mt-4 flex flex-col items-center gap-3 @sm:flex-row @lg:mt-0">
-        <ExportButton
-          data={shipmentData}
-          fileName="shipment_data"
-          header="ID,Tracking ID,Date,Sender,Receiver,Origin,Destination,Payment Method,Status"
-        />
         <Link
           href={routes.logistics.createShipment}
           className="w-full @lg:w-auto"

@@ -21,27 +21,12 @@ import {
   shippingStatuses,
   StatusType,
 } from '@/data/shipment-data';
+import { useQuery } from '@tanstack/react-query';
+import premiumApi from '@/util/premiumAPI';
 
 const TableFooter = dynamic(() => import('@/app/shared/table-footer'), {
   ssr: false,
 });
-
-const paymentStatusOptions = Object.entries(shippingStatuses).map(
-  ([value, label]) => ({
-    label,
-    value,
-  })
-);
-
-const paymentMethodOptions = Object.entries(paymentMethods).map(
-  ([value, label]) => ({ label, value })
-);
-
-const filterState = {
-  date: [null, null],
-  status: '',
-  paymentMethod: '',
-};
 
 export default function ShipmentListTable() {
   const [pageSize, setPageSize] = useState(10);
@@ -50,16 +35,16 @@ export default function ShipmentListTable() {
   const isMediumScreen = useMedia('(max-width: 1860px)', false);
   const isLargeScreen = useMedia('(min-width: 1861px)', false);
 
+  const query = useQuery({
+    queryKey: ['shipments'],
+    queryFn: () => premiumApi.get('/OrderDetails/myOrders'),
+  });
+
   const onHeaderCellClick = (value: string) => ({
     onClick: () => {
       handleSort(value);
     },
   });
-
-  const onDeleteItem = useCallback((id: string) => {
-    handleDelete(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const onChecked = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -91,7 +76,7 @@ export default function ShipmentListTable() {
     handleRowSelect,
     setSelectedRowKeys,
     selectedRowKeys,
-  } = useTable(shipmentData, pageSize, filterState);
+  } = useTable(query.data?.data ?? [], pageSize);
 
   const columns = useMemo(
     () =>
@@ -100,18 +85,11 @@ export default function ShipmentListTable() {
         sortConfig,
         checkedItems: selectedRowKeys,
         onHeaderCellClick,
-        onDeleteItem,
         onChecked: handleRowSelect,
         handleSelectAll,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      onHeaderCellClick,
-      sortConfig.key,
-      sortConfig.direction,
-      onDeleteItem,
-      onChecked,
-    ]
+    [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]
   );
 
   const { visibleColumns, checkedColumns, setCheckedColumns } =
@@ -121,9 +99,9 @@ export default function ShipmentListTable() {
     <div>
       <ControlledTable
         variant="modern"
-        isLoading={isLoading}
+        isLoading={query.isLoading}
         showLoadingText={true}
-        data={tableData}
+        data={query.data?.data as any[]}
         scroll={{
           x: 1800,
         }}
@@ -132,7 +110,7 @@ export default function ShipmentListTable() {
         paginatorOptions={{
           pageSize,
           setPageSize,
-          total: totalItems,
+          total: query.data?.data.length ?? 0,
           current: currentPage,
           onChange: (page: number) => handlePaginate(page),
         }}
@@ -152,75 +130,6 @@ export default function ShipmentListTable() {
         className="rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
         filterElement={
           <>
-            <DateFiled
-              selected={getDateRangeStateValues(filters['date'][0])}
-              startDate={getDateRangeStateValues(filters['date'][0])}
-              endDate={getDateRangeStateValues(filters['date'][1])}
-              className="w-full"
-              dateFormat="dd MMM yyyy"
-              onChange={(date: any) => {
-                updateFilter('date', date);
-              }}
-              placeholderText="Select created date"
-              {...(isMediumScreen && {
-                inputProps: {
-                  label: 'Created Date',
-                  labelClassName: 'font-medium text-gray-700',
-                },
-              })}
-              maxDate={new Date()}
-            />
-
-            <StatusField
-              options={paymentStatusOptions}
-              value={filters['status']}
-              onChange={(value: string) => {
-                console.log('value', value);
-                updateFilter('status', value);
-              }}
-              getOptionValue={(option: { label: any }) => option.label}
-              getOptionDisplayValue={(option: { label: string }) =>
-                renderOptionDisplayValue(option.label as string)
-              }
-              displayValue={(selected: string) =>
-                renderOptionDisplayValue(selected)
-              }
-              {...(isMediumScreen && {
-                label: 'Status',
-                labelClassName: 'font-medium text-gray-700',
-              })}
-              {...(isLargeScreen && {
-                dropdownClassName: 'w-44',
-              })}
-              placement="bottom-start"
-              className={'w-auto min-w-[180px]'}
-              dropdownClassName="!z-10"
-            />
-
-            <StatusField
-              options={paymentMethodOptions}
-              value={filters['paymentMethod']}
-              onChange={(value: string) => {
-                updateFilter('paymentMethod', value);
-              }}
-              getOptionValue={(option: { label: any }) => option.label}
-              displayValue={(selected: string) =>
-                paymentMethodOptions.find((option) => option.label === selected)
-                  ?.label ?? ''
-              }
-              {...(isMediumScreen && {
-                label: 'Payment Method',
-                labelClassName: 'font-medium text-gray-700',
-              })}
-              {...(isLargeScreen && {
-                dropdownClassName: 'w-44',
-              })}
-              placement="bottom-start"
-              placeholder="Select Payment Method"
-              className={'w-auto'}
-              dropdownClassName="!z-10"
-            />
-
             {isFiltered ? (
               <Button
                 size="sm"
@@ -235,30 +144,7 @@ export default function ShipmentListTable() {
             ) : null}
           </>
         }
-        tableFooter={
-          <TableFooter
-            checkedItems={selectedRowKeys}
-            handleDelete={(ids: string[]) => {
-              setSelectedRowKeys([]);
-              handleDelete(ids);
-            }}
-          >
-            <Button size="sm" className="dark:bg-gray-300 dark:text-gray-800">
-              Download {selectedRowKeys.length}{' '}
-              {selectedRowKeys.length > 1 ? 'Shipments' : 'Shipment'}
-            </Button>
-          </TableFooter>
-        }
       />
-    </div>
-  );
-}
-
-function renderOptionDisplayValue(name: string) {
-  return (
-    <div className="flex items-center">
-      <Badge renderAsDot color={statusColors(name as StatusType)} />
-      <Text className="ms-2">{name}</Text>
     </div>
   );
 }

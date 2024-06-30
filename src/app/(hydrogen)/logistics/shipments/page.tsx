@@ -12,7 +12,6 @@ export default function LogisticsListPage() {
     <>
       <ShipmentPageHeader />
       <div className="flex flex-col gap-10">
-        <ShipmentStats />
         <ShipmentListTable />
       </div>
     </>
