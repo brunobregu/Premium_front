@@ -128,22 +128,6 @@ export default function ShipmentListTable() {
           setCheckedColumns,
         }}
         className="rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
-        filterElement={
-          <>
-            {isFiltered ? (
-              <Button
-                size="sm"
-                onClick={() => {
-                  handleReset();
-                }}
-                className="h-8 bg-gray-200/70"
-                variant="flat"
-              >
-                <PiTrashDuotone className="me-1.5 h-[17px] w-[17px]" /> Clear
-              </Button>
-            ) : null}
-          </>
-        }
       />
     </div>
   );

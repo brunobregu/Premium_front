@@ -28,9 +28,10 @@ const pageHeader = {
 export default function CreateShipmentPage() {
   return (
     <>
-      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-        <ImportButton title={'Import File'} />
-      </PageHeader>
+      <PageHeader
+        title={pageHeader.title}
+        breadcrumb={pageHeader.breadcrumb}
+      ></PageHeader>
 
       <CreateEditShipment />
     </>
