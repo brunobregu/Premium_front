@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 
 export default function Register() {
   const router = useRouter();
+  const [errorText, setErrorText]=useState('')
   const { t } = useTranslation('common');
   const {
     register,
@@ -21,25 +22,23 @@ export default function Register() {
     handleSubmit,
     control,
     setError: setFormError,
+    reset
   } = useForm();
   const [loadingRegister, setLoadingRegister] = useState(false);
 
   async function onSubmit(data) {
     try {
       setLoadingRegister(true);
-      await premiumApi.post('/Authentication/register', {
-        userName: data.email,
-        email: data.email,
-        password: data.password,
-        role: 'admin',
-        firstName: data.firstName,
-        lastName: data.lastName,
-      });
+    const { firstName, lastName, email, phoneNumber, password } = data;
 
-      const loginResponse = await premiumApi.post('/Authentication/login', {
-        email: data.email,
-        password: data.password,
-      });
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password,
+    };
+    const loginResponse = await premiumApi.post('/Authentication/register', payload);
 
       const cookie = serialize('session', JSON.stringify(loginResponse), {
         httpOnly: false,
@@ -47,11 +46,21 @@ export default function Register() {
         path: '/',
       });
       document.cookie = cookie;
-      router.push('/logistics');
+
+      if (loginResponse.status ) {
+        reset();
+        router.push('/login')
+        // Show success toast
+        toast.success('User created', {
+          position: 'top-right',
+        });
+      }
+    
     } catch (error) {
+      setErrorText(error.response?.data?.detail || 'An error occurred while submitting the form');
       console.log(error);
       if (error.config?.url === '/Authentication/register') {
-        toast.error('Something went wrong when trying to register!', {
+        toast.error(error.response?.data?.detail || 'An error occurred while submitting the form', {
           position: 'top-right',
         });
       }
@@ -237,8 +246,10 @@ export default function Register() {
                               role="alert"
                             >
                               {errors.password?.message}
+
                             </p>
                           )}
+                         {/* <span className='text-red-600'>*{errorText}</span>  */}
                         </div>
                       </div>
                       <div className="col-md-12">
