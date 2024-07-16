@@ -8,6 +8,7 @@ import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
 import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Login() {
   const { t } = useTranslation('common');
@@ -36,6 +37,12 @@ export default function Login() {
       document.cookie = cookie;
       router.push('/logistics');
     } catch (error) {
+      if (error.response && error.response.status === 400) {
+        const { detail } = error.response.data;
+        toast.error(detail || 'Please check your credentialsss', {
+          position: 'top-right',
+        });}
+
       if (error.response) {
         setFormError('email', 'Email or password does not match');
         setFormError('password', 'Email or password does not match');
@@ -211,6 +218,7 @@ export default function Login() {
             </div>
           </div>
         </div>
+        <Toaster />
       </Layout>
     </>
   );
