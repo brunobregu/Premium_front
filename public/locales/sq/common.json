@@ -182,7 +182,23 @@
       "maxLength": "Mbiemri eshte shume i gjate",
       "minLength": "Mbiemri eshte shume i shkurter"
     },
-    "phoneNumber": "Numri i telefonit nuk eshte i sakte"
+    "phoneNumber": "Numri i telefonit nuk eshte i sakte",
+    "passwords-must-match":"Fjalëkalimet duhet të jenë njëlloj",
+    "temporaryPassword":{
+      "required":"Fjalëkalim i përkohshëm është i detyruar"
+    },
+    "newPassword":{
+      "required":"Fjalëkalim i ri është i detyruar"
+    },
+    "confirmNewPassword":{
+      "required":"Konfirmimi i fjalëkalimit te ri është i detyruar"
+    }
   },
-  "forgot-password": "Keni harruar fjalëkalimin?"
+  "forgot-password": "Keni harruar fjalëkalimin?",
+  "password-reset-success": "Fjalëkalimi u ndryshua me sukses",
+  "reset-password":"Ndrysho fjalëkalimin",
+  "temporary-password":"Fjalëkalimi i përkohshëm",
+  "new-password":"Fjalëkalimi i ri",
+  "confirm-new-password": "Konfirmo fjalëkalimin e ri"
+
 }

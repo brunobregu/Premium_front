@@ -188,7 +188,24 @@
       "maxLength": "Lastname is too long",
       "minLength": "Lastname is too short"
     },
-    "phoneNumber": "Invalid Phone number"
+    "phoneNumber": "Invalid Phone number",
+    "passwords-must-match":"Passwords must match",
+    "temporaryPassword":{
+      "required":"Temporary password is required"
+    },
+    "newPassword":{
+      "required":"New password password is required"
+    },
+    "confirmNewPassword":{
+      "required":"Confirm new password password is required"
+    }
   },
-  "forgot-password": "Reset Password"
+  "forgot-password": "Reset Password",
+  "password-reset-success": "Password is reset successfuly",
+  "reset-password":"Reset password",
+  "temporary-password":"Temporary password",
+  "new-password":"New password",
+  "confirm-new-password": "Confirm new password"
+
+
 }

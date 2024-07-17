@@ -6,6 +6,8 @@ import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
+import premiumApi from '../src/util/premiumAPI';
 
 export default function ForgotPassword() {
   const { t } = useTranslation('common');
@@ -14,9 +16,31 @@ export default function ForgotPassword() {
     register,
     formState: { errors },
     handleSubmit,
+    resetField
   } = useForm();
 
-  async function onSubmit(data) {}
+  async function onSubmit(data) {
+    try {
+      const response = await premiumApi.post('/Authentication/requestResetPassword', data.email, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*'
+        }
+      });
+
+      if (response.status === 200) {
+        // Clear the email input
+        router.push('/reset-password')
+        resetField('email');
+        // Show success toast
+        toast.success(t('password-reset-link-sent'));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Show error toast
+      toast.error(error.response?.data?.detail || t('form-validation.error'));
+    }
+  }
 
   return (
     <>
@@ -38,7 +62,7 @@ export default function ForgotPassword() {
                   </span>
                 </div>
                 <div className="box-form-login wow animate__animated animate__fadeIn">
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <input
                         {...register('email', {
@@ -65,26 +89,13 @@ export default function ForgotPassword() {
                         </p>
                       )}
                     </div>
-                    <div className="form-group">
-                      <div className="d-flex justify-content-between">
-                        {/* <div className="box-remember">
-                          <label
-                            className="font-xs color-grey-900"
-                            htmlFor="rememberme"
-                          >
-                            <input id="rememberme" type="checkbox" />
-                            Remember me
-                          </label>
-                        </div> */}
-                      </div>
-                    </div>
                     <div className="form-group mt-30">
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="box-button-form-login">
                           <input
                             className="btn btn-brand-1-big mr-20"
                             type="submit"
-                            defaultValue={t('submit')}
+                            value={t('submit')}
                           />
                         </div>
                         <div className="box-text-form-login">
