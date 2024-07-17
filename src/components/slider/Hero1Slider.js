@@ -1,14 +1,44 @@
-import Link from 'next/link';
 import { useState } from 'react';
-import ModalVideo from 'react-modal-video';
-import { Autoplay, Navigation, Pagination } from 'swiper';
 import { useTranslation } from 'next-i18next';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import TrackParcel from '../../../pages/trackyourparcel';
+import toast, { Toaster } from 'react-hot-toast';
+import TransportModal from '../layout/TransportModal';
+import premiumApi from '../../util/premiumAPI';
 
 export default function Hero1Slider() {
-  const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation('common');
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [prices, setPrices] = useState(null);
+  const [zipCode, setZipCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  const destination = 'Albania';
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const fetchedPrices = await fetchPrices(zipCode, destination);
+      setPrices(fetchedPrices);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
+        position: 'top-right',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchPrices = async (zipCode, destination) => {
+    const response = await premiumApi.get(`/Transportation/price?zip=${zipCode}&terminal=${destination}`);
+    return response.data;
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setPrices(null);
+  };
 
   return (
     <div
@@ -49,67 +79,44 @@ export default function Hero1Slider() {
                   Aliexpress, UPS, Shein, FedEx, Pitney Bowes, eBay, Amazon
                 </p>
                 <div className="form-trackparcel wow animate__animated animate__fadeIn">
-                  <form action="#">
+                  <form onSubmit={handleSubmit}>
                     <div className="form-group">
                       <input
                         className="form-control"
                         type="text"
                         placeholder="Zip Code"
+                        value={zipCode}
+                        onChange={(e) => setZipCode(e.target.value)}
+                        required
                       />
                       <input
                         className="form-control"
                         type="text"
-                        placeholder="Destination"
+                        value={destination}
+                        readOnly
+                        disabled
                       />
                       <input
                         className="btn btn-brand-1 btn-track"
                         type="submit"
-                        defaultValue="Track Package"
+                        value="Track Package"
                       />
                     </div>
                   </form>
+                  <TransportModal
+                    isOpen={isModalOpen}
+                    onRequestClose={handleCloseModal}
+                    zipCode={zipCode}
+                    destination={destination}
+                    prices={prices}
+                  />
                 </div>
-                {/* <div className="col-lg-6">
-                  <p
-                          className="font-md color-white mb-20 wow animate__animated animate__fadeInUp"
-                          data-wow-delay=".0s"
-                        >
-                          Welcome to Premium Logistics, your trusted partner for
-                          reliable and efficient shipping services. With our
-                          extensive network and expertise, we provide seamless
-                          shipping solutions from anywhere in the world to
-                          Albania and beyond. Whether you're shipping packages,
-                          parcels, or freight, we ensure safe and timely
-                          delivery, every time. Experience the convenience and
-                          reliability of Premium Logistics for all your shipping
-                          needs."
-                        </p>
-                </div>
-              </div> */}
-                {/* <div className="box-button mt-30">
-                    <Link
-                      className="btn btn-brand-1-big hover-up mr-40 wow animate__animated animate__fadeInUp"
-                      href="#"
-                    >
-                      Calculate Package
-                    </Link>
-                    <a
-                      className="btn btn-play popup-youtube hover-up wow animate__animated animate__fadeInUp"
-                      onClick={() => setOpen(true)}
-                    >
-                      <img
-                        className="wow animate__animated animate__fadeInUp"
-                        src="/assets/imgs/template/icons/play.svg"
-                        alt=""
-                      />
-                      How it work ?
-                    </a>
-                  </div> */}
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }
