@@ -23,21 +23,40 @@ import {
 } from '@/data/shipment-data';
 import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
+import { ShipmentData } from '@/types/orders';
 
 const TableFooter = dynamic(() => import('@/app/shared/table-footer'), {
   ssr: false,
 });
 
+const transformData = (data: ShipmentData[]): ShipmentData[] => {
+  return data.map((item: ShipmentData) => {
+    return {
+      ...item,
+      port: item.port.charAt(0).toUpperCase() + item.port.slice(1),
+    };
+  });
+};
+
+
 export default function ShipmentListTable() {
   const [pageSize, setPageSize] = useState(10);
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const user = localStorage.getItem('userRole');
 
   const isMediumScreen = useMedia('(max-width: 1860px)', false);
   const isLargeScreen = useMedia('(min-width: 1861px)', false);
 
   const query = useQuery({
     queryKey: ['shipments'],
-    queryFn: () => premiumApi.get('/OrderDetails/myOrders'),
+    queryFn: () => {
+      if (user === 'Admin') {
+        return premiumApi.get('/OrderDetails/orders');
+      } else {
+        return premiumApi.get('/OrderDetails/myOrders');
+      }
+    },
+    select: (data) => transformData(data.data),
   });
 
   const onHeaderCellClick = (value: string) => ({
@@ -76,7 +95,7 @@ export default function ShipmentListTable() {
     handleRowSelect,
     setSelectedRowKeys,
     selectedRowKeys,
-  } = useTable(query.data?.data ?? [], pageSize);
+  } = useTable(query.data ?? [], pageSize);
 
   const columns = useMemo(
     () =>
@@ -101,7 +120,7 @@ export default function ShipmentListTable() {
         variant="modern"
         isLoading={query.isLoading}
         showLoadingText={true}
-        data={query.data?.data as any[]}
+        data={query.data as any[]}
         scroll={{
           x: 1800,
         }}
@@ -110,7 +129,7 @@ export default function ShipmentListTable() {
         paginatorOptions={{
           pageSize,
           setPageSize,
-          total: query.data?.data.length ?? 0,
+          total: query.data?.length ?? 0,
           current: currentPage,
           onChange: (page: number) => handlePaginate(page),
         }}
