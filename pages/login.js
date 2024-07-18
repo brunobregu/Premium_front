@@ -29,6 +29,11 @@ export default function Login() {
         password: data.password,
       });
 
+      const { role } = apiResponse.data;
+      if (localStorage) {
+        localStorage.setItem('userRole', role)
+      }
+
       const cookie = serialize('session', apiResponse.data.token, {
         httpOnly: false,
         maxAge: 60 * 60 * 24 * 7, // One week

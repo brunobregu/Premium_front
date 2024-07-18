@@ -1,3 +1,6 @@
+"use client"
+
+
 import Link from 'next/link';
 import { PiPlusBold } from 'react-icons/pi';
 import { routes } from '@/config/routes';
@@ -24,19 +27,21 @@ interface HeaderProps {
 }
 
 export default function ShipmentPageHeader({ className }: HeaderProps) {
+  const user = localStorage.getItem('userRole')
+
   return (
     <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-      <div className="mt-4 flex flex-col items-center gap-3 @sm:flex-row @lg:mt-0">
+      {user && user === 'Admin' && <div className="mt-4 flex flex-col items-center gap-3 @sm:flex-row @lg:mt-0">
         <Link
           href={routes.logistics.createShipment}
           className="w-full @lg:w-auto"
         >
           <Button as="span" className="w-full @lg:w-auto">
             <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
-            Create Shipment
+            Create Shipmentt
           </Button>
         </Link>
-      </div>
+      </div>}
     </PageHeader>
   );
 }
