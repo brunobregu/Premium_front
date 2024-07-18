@@ -2,41 +2,17 @@
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { Element } from 'react-scroll';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
-import FormFooter from '@components/form-footer';
-import FormSenderInfo from '@/app/shared/logistics/shipment/create-edit/form-sender-info';
-import FormPackageInfo from '@/app/shared/logistics/shipment/create-edit/form-package-info';
-import FormShippingInfo from '@/app/shared/logistics/shipment/create-edit/form-shipping-info';
-import FormRecipientInfo from '@/app/shared/logistics/shipment/create-edit/form-recipient-info';
-import FormPaymentMethodInfo from '@/app/shared/logistics/shipment/create-edit/form-payment-method-info';
-import FormNav, {
-  FormParts,
-} from '@/app/shared/logistics/shipment/create-edit/form-nav';
-import { defaultValues } from '@/app/shared/logistics/shipment/create-edit/form-utils';
-import cn from '@utils/class-names';
+import { useForm, FormProvider } from 'react-hook-form';
 import { CreateShipmentInput } from '@/validators/create-shipping.schema';
 import { useLayout } from '@/layouts/use-layout';
-import { LAYOUT_OPTIONS } from '@/config/enums';
-
-import { PiCheckCircleFill } from 'react-icons/pi';
-import { Controller, useFormContext } from 'react-hook-form';
-import {
-  Select,
-  Input,
-  RadioGroup,
-  AdvancedRadio,
-  Button,
-  SelectOption,
-} from 'rizzui';
-import NoSSR from '@components/no-ssr';
-import FormGroup from '@/app/shared/form-group';
+import { Controller } from 'react-hook-form';
+import { Select, Input, Button, SelectOption } from 'rizzui';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import CreateUserModal from '../../../../../components/layout/AddUserModal'; // Adjust the path as necessary
 
 interface IndexProps {
   id?: string;
@@ -48,53 +24,18 @@ const addOrderDetailsDtoSchema = yup.object().shape({
   vin: yup.string().required('VIN is required'),
   make: yup.string().nullable(),
   model: yup.string().nullable(),
-  year: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
-  lot: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
+  year: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+  lot: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
   dspOrderID: yup.string().nullable(),
   port: yup.string().required('Port is required'),
-  inlandCargoloop: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
-  ocCargoloop: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
-  broker: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
-  inlandDspch: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
-  ocCost: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
-  storage: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
+  inlandCargoloop: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+  ocCargoloop: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+  broker: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+  inlandDspch: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+  ocCost: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+  storage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
   paymentStatus: yup.string().required(),
-  partlyPaid: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer(),
+  partlyPaid: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer(),
   userId: yup.string().required(),
 });
 
@@ -104,13 +45,10 @@ const paymentStatusArray: SelectOption[] = [
   { label: 'Partly Paid', value: 'Partly Paid' },
 ];
 
-export default function CreateEditShipment({
-  id,
-  shipment,
-  className,
-}: IndexProps) {
+export default function CreateEditShipment({ id, shipment, className }: IndexProps) {
   const { layout } = useLayout();
   const [isLoading, setLoading] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false); // New state for modal
 
   const router = useRouter();
 
@@ -125,16 +63,11 @@ export default function CreateEditShipment({
 
   const query = useQuery({
     queryKey: ['user'],
-    queryFn: () =>
-      premiumApi.get('/Authentication/getUsersOfRole', {
-        params: { role: 'admin' },
-      }),
+    queryFn: () => premiumApi.get('/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
   });
 
   const addOrderDetailsMutation = useMutation({
-    mutationFn: (data) => {
-      return premiumApi.post('/OrderDetails/addOrderDetails', data);
-    },
+    mutationFn: (data) => premiumApi.post('/OrderDetails/add', data),
     onSuccess: (data) => {
       toast.success('Shipment Created Successfully');
       router.push('/logistics/shipments');
@@ -148,13 +81,14 @@ export default function CreateEditShipment({
     addOrderDetailsMutation.mutate(data);
   }
 
-  const userOptions =
-    query.data?.data?.map((user: any) => ({
-      label: user.firstName + ' ' + user.lastName,
-      value: user.id,
-    })) ?? [];
+  const userOptions = query.data?.data?.map((user: any) => ({
+    label: user.firstName + ' ' + user.lastName,
+    value: user.id,
+  })) ?? [];
 
-  console.log('errors', methods.formState.errors);
+  const handleModalSuccess = () => {
+    query.refetch(); // Refetch users after creating a new one
+  };
 
   return (
     <div className="@container">
@@ -291,8 +225,7 @@ export default function CreateEditShipment({
                   options={paymentStatusArray}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    paymentStatusArray?.find((c) => c.value === selected)
-                      ?.label ?? ''
+                    paymentStatusArray?.find((c) => c.value === selected)?.label ?? ''
                   }
                   error={errors?.paymentStatus?.message as string}
                 />
@@ -312,34 +245,44 @@ export default function CreateEditShipment({
               control={control}
               name="userId"
               render={({ field: { value, onChange } }) => (
-                <Select
-                  label="User"
-                  labelClassName="text-gray-900"
-                  dropdownClassName="p-2 gap-1 grid !z-10"
-                  inPortal={false}
-                  value={value || null}
-                  onChange={onChange}
-                  options={userOptions}
-                  getOptionValue={(option) => option.value}
-                  displayValue={(selected) =>
-                    userOptions?.find((c: any) => c.value === selected)
-                      ?.label ?? ''
-                  }
-                  error={errors?.paymentStatus?.message as string}
-                />
+                <div className="flex items-center gap-2">
+                  <Select
+                    label="User"
+                    labelClassName="text-gray-900"
+                    dropdownClassName="p-2 gap-1 grid !z-10"
+                    inPortal={false}
+                    value={value || null}
+                    onChange={onChange}
+                    options={userOptions}
+                    getOptionValue={(option) => option.value}
+                    displayValue={(selected) =>
+                      userOptions?.find((c: any) => c.value === selected)?.label ?? ''
+                    }
+                    error={errors?.userId?.message as string}
+                  />
+
+                </div>
               )}
             />
+            <div className="flex flex-row mt-auto items-baseline gap-2" >
+              <Button type="button" onClick={() => setModalOpen(true)}>
+                Add Client
+              </Button>
+            </div>
+
           </div>
 
-          <Button
-            type="submit"
-            isLoading={addOrderDetailsMutation.isPending}
-            className="w-full @xl:w-auto"
-          >
+          <Button type="submit" isLoading={addOrderDetailsMutation.isPending} className="w-full @xl:w-auto">
             Create Shipment
           </Button>
         </form>
       </FormProvider>
+
+      <CreateUserModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        onSuccess={handleModalSuccess}
+      />
     </div>
   );
 }
