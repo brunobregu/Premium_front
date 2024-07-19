@@ -1,18 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { CreateShipmentInput } from '@/validators/create-shipping.schema';
 import { useLayout } from '@/layouts/use-layout';
-import { Controller } from 'react-hook-form';
 import { Select, Input, Button, SelectOption } from 'rizzui';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import CreateUserModal from '../../../../../components/layout/AddUserModal'; // Adjust the path as necessary
+import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
 
 interface IndexProps {
   id?: string;
@@ -45,20 +44,31 @@ const paymentStatusArray: SelectOption[] = [
   { label: 'Partly Paid', value: 'Partly Paid' },
 ];
 
+const portOptions: SelectOption[] = [
+  { label: 'Savannah', value: 'Savannah' },
+  { label: 'Elizabeth', value: 'Elizabeth' },
+  { label: 'Houston', value: 'Houston' },
+  { label: 'LosAngeles', value: 'LosAngeles' },
+  { label: 'Indianapolis', value: 'Indianapolis' },
+];
+
 export default function CreateEditShipment({ id, shipment, className }: IndexProps) {
   const { layout } = useLayout();
   const [isLoading, setLoading] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false); // New state for modal
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const router = useRouter();
 
   const methods = useForm<any>({
     resolver: yupResolver(addOrderDetailsDtoSchema),
+    defaultValues: shipment || {} // Initialize form with shipment data if available
   });
+
   const {
     register,
     control,
     formState: { errors },
+    reset
   } = methods;
 
   const query = useQuery({
@@ -67,23 +77,35 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
   });
 
   const addOrderDetailsMutation = useMutation({
-    mutationFn: (data) => premiumApi.post('/OrderDetails/add', data),
-    onSuccess: (data) => {
-      toast.success('Shipment Created Successfully');
+    mutationFn: (data: CreateShipmentInput) => {
+      if (id) {
+        return premiumApi.put(`/OrderDetails/update?id=${id}`, data);
+      } else {
+        return premiumApi.post('/OrderDetails/add', data);
+      }
+    },
+    onSuccess: () => {
+      toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
       router.push('/logistics/shipments');
     },
     onError: () => {
-      toast.error('Error creating shipment');
+      toast.error('Error saving shipment');
     },
   });
 
-  function onSubmit(data: any) {
+  useEffect(() => {
+    if (shipment) {
+      reset(shipment); // Reset form with shipment data when it changes
+    }
+  }, [shipment, reset]);
+
+  function onSubmit(data: CreateShipmentInput) {
     addOrderDetailsMutation.mutate(data);
   }
 
   const userOptions = query.data?.data?.map((user: any) => ({
     label: user.firstName + ' ' + user.lastName,
-    value: user.id,
+    value: id ? id : user.id,
   })) ?? [];
 
   const handleModalSuccess = () => {
@@ -146,12 +168,25 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               {...register('dspOrderID')}
               error={errors.dspOrderID?.message as string}
             />
-            <Input
-              label="Port"
-              placeholder="Elizabeth NJ"
-              labelClassName="font-medium text-gray-900"
-              {...register('port')}
-              error={errors.port?.message as string}
+            <Controller
+              control={control}
+              name="port"
+              render={({ field: { value, onChange } }) => (
+                <Select
+                  label="Port"
+                  labelClassName="text-gray-900"
+                  dropdownClassName="p-2 gap-1 grid !z-10"
+                  inPortal={false}
+                  value={value || null}
+                  onChange={onChange}
+                  options={portOptions}
+                  getOptionValue={(option) => option.value}
+                  displayValue={(selected) =>
+                    portOptions.find((c) => c.value === selected)?.label ?? ''
+                  }
+                  error={errors?.port?.message as string}
+                />
+              )}
             />
             <Input
               label="Inland Cargoloop"
@@ -260,11 +295,10 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                     }
                     error={errors?.userId?.message as string}
                   />
-
                 </div>
               )}
             />
-            <div className="flex flex-row mt-auto items-baseline gap-2" >
+            <div className="flex flex-row mt-auto items-baseline gap-2">
               <Button type="button" onClick={() => setModalOpen(true)}>
                 Add Client
               </Button>
@@ -272,8 +306,8 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
           </div>
 
-          <Button type="submit" isLoading={addOrderDetailsMutation.isPending} className="w-full @xl:w-auto">
-            Create Shipment
+          <Button type="submit" isLoading={(addOrderDetailsMutation as any).isLoading} className="w-full @xl:w-auto">
+            {id ? 'Save Changes' : 'Create Shipment'}
           </Button>
         </form>
       </FormProvider>

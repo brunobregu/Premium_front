@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import cn from '@utils/class-names';
 import MetricCard from '@components/cards/metric-card';
 import WidgetCard from '@components/cards/widget-card';
@@ -14,8 +14,7 @@ import TrendingUpIcon from '@components/icons/trending-up';
 import TrendingDownIcon from '@components/icons/trending-down';
 import premiumApi from '@/util/premiumAPI';
 import { DetailsApiResponse, StatData } from '@/types/details';
-
-
+import { useQuery } from '@tanstack/react-query';
 
 const defaultStatData: StatData[] = [
   {
@@ -61,81 +60,78 @@ const viewOptions = [
   { value: 'this-week', label: 'This Week' },
 ];
 
+const fetchStatData = async (user: string) => {
+  const endpoint = user === 'Admin'
+    ? '/OrderDetails/details'
+    : '/OrderDetails/myDetails';
+
+  const response = await premiumApi.get<DetailsApiResponse>(endpoint);
+  return response.data;
+};
+
 export default function StatCards({ className }: { className?: string }) {
-  const [statData, setStatData] = useState<StatData[]>(defaultStatData);
-  const user = localStorage.getItem('userRole');
+  const user = localStorage.getItem('userRole') || 'User';
 
-  const fetchStatData = async () => {
-    try {
-      let response;
-      if (user === 'Admin') {
-        response = await premiumApi.get<DetailsApiResponse>('/OrderDetails/details');
-      } else {
-        response = await premiumApi.get<DetailsApiResponse>('/OrderDetails/myDetails');
-      }
-
-      const data = response.data;
-
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['details', user],
+    queryFn: () => fetchStatData(user),
+    select: (data) => {
       if (
-        data.numberOfOrders === null &&
-        data.sumClientTotal === null &&
-        data.sumPartlyPaid === null &&
-        data.sumToBePaid === null
+        data.numberOfOrders === undefined &&
+        data.sumClientTotal === undefined &&
+        data.sumPartlyPaid === undefined &&
+        data.sumToBePaid === undefined
       ) {
-        setStatData(defaultStatData);
-      } else {
-        setStatData([
-          {
-            id: '1',
-            title: 'Orders',
-            icon: <ExpenseIcon className="h-7 w-7" />,
-            graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-            graphColor: 'text-green',
-            metric: data.numberOfOrders,
-            increased: true,
-          },
-          {
-            id: '2',
-            title: 'Client Total',
-            icon: <RevenueUpIcon className="h-7 w-7" />,
-            graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-            graphColor: 'text-green',
-            metric: data.sumClientTotal,
-            increased: true,
-          },
-          {
-            id: '3',
-            title: 'Partly Paid',
-            icon: <SalesIcon className="h-9 w-9" />,
-            graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-            graphColor: 'text-green',
-            metric: data.sumPartlyPaid,
-            increased: true,
-          },
-          {
-            id: '4',
-            title: 'To Be Paid',
-            icon: <ContainersIcon className="h-7 w-7" />,
-            graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
-            graphColor: 'text-red',
-            metric: data.sumToBePaid,
-            decreased: true,
-          },
-        ]);
+        return defaultStatData;
       }
-    } catch (error) {
-      console.error('Error fetching stat data:', error);
-      setStatData(defaultStatData);
-    }
-  };
 
-  useEffect(() => {
-    fetchStatData();
-  }, []);
+      return [
+        {
+          id: '1',
+          title: 'Orders',
+          icon: <ExpenseIcon className="h-7 w-7" />,
+          graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+          graphColor: 'text-green',
+          metric: data.numberOfOrders,
+          increased: true,
+        },
+        {
+          id: '2',
+          title: 'Client Total',
+          icon: <RevenueUpIcon className="h-7 w-7" />,
+          graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+          graphColor: 'text-green',
+          metric: data.sumClientTotal,
+          increased: true,
+        },
+        {
+          id: '3',
+          title: 'Partly Paid',
+          icon: <SalesIcon className="h-9 w-9" />,
+          graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+          graphColor: 'text-green',
+          metric: data.sumPartlyPaid,
+          increased: true,
+        },
+        {
+          id: '4',
+          title: 'To Be Paid',
+          icon: <ContainersIcon className="h-7 w-7" />,
+          graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
+          graphColor: 'text-red',
+          metric: data.sumToBePaid,
+          decreased: true,
+        },
+      ];
+    },
+  });
 
   function handleChange(viewType: string) {
     console.log('viewType', viewType);
   }
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
 
   return (
     <WidgetCard
@@ -153,7 +149,7 @@ export default function StatCards({ className }: { className?: string }) {
     >
       <SimpleBar>
         <div className="grid grid-flow-col gap-5 pb-1">
-          {statData.map((stat) => (
+          {data?.map((stat) => (
             <MetricCard
               key={stat.id}
               title={stat.title}
@@ -164,8 +160,7 @@ export default function StatCards({ className }: { className?: string }) {
               contentClassName="ps-5"
               iconClassName={cn('@5xl:w-20 @5xl:h-20 h-16 w-16')}
               chartClassName="hidden @[200px]:flex @[200px]:items-center h-14 w-24"
-            >
-            </MetricCard>
+            />
           ))}
         </div>
       </SimpleBar>

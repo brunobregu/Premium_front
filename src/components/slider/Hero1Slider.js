@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import toast, { Toaster } from 'react-hot-toast';
-import TransportModal from '../layout/TransportModal';
+import TransportModal from '../modals/TransportModal';
 import premiumApi from '../../util/premiumAPI';
 
 export default function Hero1Slider() {

@@ -21,9 +21,11 @@ import {
   shippingStatuses,
   StatusType,
 } from '@/data/shipment-data';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { ShipmentData } from '@/types/orders';
+import toast from 'react-hot-toast';
+import ConfirmDeleteModal from '../../../../../components/modals/DeleteOrderModal';
 
 const TableFooter = dynamic(() => import('@/app/shared/table-footer'), {
   ssr: false,
@@ -40,12 +42,16 @@ const transformData = (data: ShipmentData[]): ShipmentData[] => {
 
 
 export default function ShipmentListTable() {
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState<number>(10);
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
   const user = localStorage.getItem('userRole');
+  const queryClient = useQueryClient();
 
   const isMediumScreen = useMedia('(max-width: 1860px)', false);
   const isLargeScreen = useMedia('(min-width: 1861px)', false);
+  console.log('user', user)
 
   const query = useQuery({
     queryKey: ['shipments'],
@@ -58,6 +64,27 @@ export default function ShipmentListTable() {
     },
     select: (data) => transformData(data.data),
   });
+
+  const handleDelete = useCallback(async (id: string) => {
+    try {
+      await premiumApi.delete(`/OrderDetails/delete?id=${id}`);
+      queryClient.invalidateQueries({ queryKey: ['shipments'] });
+      queryClient.invalidateQueries({ queryKey: ['details'] });
+    } catch (error) {
+      toast.error('Error, try againg');
+
+    }
+  }, [queryClient]);
+
+  const openModal = (id: string) => {
+    setCurrentDeleteId(id);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setCurrentDeleteId(null);
+    setIsOpen(false);
+  };
 
   const onHeaderCellClick = (value: string) => ({
     onClick: () => {
@@ -89,7 +116,6 @@ export default function ShipmentListTable() {
     handleSearch,
     sortConfig,
     handleSort,
-    handleDelete,
     handleReset,
     handleSelectAll,
     handleRowSelect,
@@ -106,6 +132,7 @@ export default function ShipmentListTable() {
         onHeaderCellClick,
         onChecked: handleRowSelect,
         handleSelectAll,
+        handleDelete: openModal
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]
@@ -147,6 +174,16 @@ export default function ShipmentListTable() {
           setCheckedColumns,
         }}
         className="rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
+      />
+      <ConfirmDeleteModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        onConfirm={() => {
+          if (currentDeleteId) {
+            handleDelete(currentDeleteId);
+          }
+        }}
+        itemId={currentDeleteId}
       />
     </div>
   );
