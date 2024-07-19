@@ -59,7 +59,7 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={modalStyles} ariaHideApp={false}>
-      <h2>Create New User</h2>
+      <h2 className='mb-8'>Create New User</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
