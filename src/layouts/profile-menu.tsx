@@ -6,7 +6,8 @@ import { routes } from '@/config/routes';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { serialize } from 'cookie';
+import { serialize, parse } from 'cookie';
+import parseJwt from '@/util/parseJwt';
 
 export default function ProfileMenu({
   buttonClassName,
@@ -17,8 +18,24 @@ export default function ProfileMenu({
   avatarClassName?: string;
   username?: boolean;
 }) {
+  const [user, setUser] = useState<{ name: string; email: string; username: string } | null>(null);
+
+  useEffect(() => {
+    const session = parse(document.cookie)?.['session'];
+    if (session) {
+      const parsedToken = parseJwt(session);
+      setUser({
+        name: parsedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+        email: parsedToken?.email,
+        username: parsedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'],
+      });
+    }
+  }, []);
+
+  if (!user) return null;
+
   return (
-    <ProfileMenuPopover>
+    <ProfileMenuPopover user={user}>
       <Popover.Trigger>
         <button
           className={cn(
@@ -28,25 +45,25 @@ export default function ProfileMenu({
         >
           <Avatar
             src="https://isomorphic-furyroad.s3.amazonaws.com/public/avatars/avatar-11.webp"
-            name="John Doe"
+            name={user.name}
             className={cn('!h-9 w-9 sm:!h-10 sm:!w-10', avatarClassName)}
           />
           {!!username && (
             <span className="username hidden text-gray-200 dark:text-gray-700 md:inline-flex">
-              Hi, Andry
+              Hi, {user.name}
             </span>
           )}
         </button>
       </Popover.Trigger>
 
       <Popover.Content className="z-[9999] p-0 dark:bg-gray-100 [&>svg]:dark:fill-gray-100">
-        <DropdownMenu />
+        <DropdownMenu user={user} />
       </Popover.Content>
     </ProfileMenuPopover>
   );
 }
 
-function ProfileMenuPopover({ children }: React.PropsWithChildren<{}>) {
+function ProfileMenuPopover({ children, user }: React.PropsWithChildren<{ user: { name: string; email: string; username: string } }>) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -73,7 +90,7 @@ const menuItems = [
   },
 ];
 
-function DropdownMenu() {
+function DropdownMenu({ user }: { user: { name: string; email: string; username: string } }) {
   const router = useRouter();
   function handleLogout() {
     const cookie = serialize('session', '', {
@@ -90,13 +107,13 @@ function DropdownMenu() {
       <div className="flex items-center border-b border-gray-300 px-6 pb-5 pt-6">
         <Avatar
           src="https://isomorphic-furyroad.s3.amazonaws.com/public/avatars/avatar-11.webp"
-          name="Albert Flores"
+          name={user.name}
         />
         <div className="ms-3">
           <Title as="h6" className="font-semibold">
-            Albert Flores
+            {user.name}
           </Title>
-          <Text className="text-gray-600">flores@doe.io</Text>
+          <Text className="text-gray-600">{user.email}</Text>
         </div>
       </div>
       <div className="grid px-3.5 py-3.5 font-medium text-gray-700">
