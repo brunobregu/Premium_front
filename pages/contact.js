@@ -2,9 +2,68 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { useState } from "react";
+import toast, {Toaster} from "react-hot-toast";
+import premiumApi from "../src/util/premiumAPI";
+import { useModal } from "../src/app/shared/modal-views/use-modal";
 
 export default function Contact() {
   const { t } = useTranslation("common");
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: '',
+  });
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { firstName, lastName, email, message } = formData;
+
+    if (!firstName|| !lastName||!message || !email) {
+      console.error('Name and email are required');
+      return;
+    }
+
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      ...(message && { message }), 
+    };
+
+    try {
+      const response = await premiumApi.post('/Contact/add', payload);
+      if (response.status === 201) {
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          message: '',
+        });
+
+        toast.success('Form submitted successfully',  {
+          position: 'top-right',
+        });}
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error(error.response?.data?.detail ||'Form submitted successfully',  {
+        position: 'top-right',
+      });
+    }
+  };
+
+
+
   return (
     <>
       <Layout>
@@ -825,63 +884,67 @@ export default function Contact() {
               <div className="row">
                 <div className="col-lg-5 mb-30">
                   <div className="form-newsletter wow animate__animated animate__fadeIn">
-                    <form action="#">
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <input
-                              className="form-control"
-                              type="text"
-                              placeholder={t("your-name")}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <input
-                              className="form-control"
-                              type="text"
-                              placeholder={t("your-email")}
-                            />
-                          </div>
-                        </div>
-                        {/* <div className="col-md-6">
-                          <div className="form-group">
-                            <input
-                              className="form-control"
-                              type="text"
-                              placeholder="Weight"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <input
-                              className="form-control"
-                              type="text"
-                              placeholder="Height"
-                            />
-                          </div>
-                        </div> */}
-                        <div className="col-md-12">
-                          <div className="form-group">
-                            <textarea
-                              className="form-control"
-                              placeholder={t("message-note")}
-                              rows={5}
-                              defaultValue={""}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <input
-                            className="btn btn-brand-1-big"
-                            type="submit"
-                            defaultValue="Submit Now"
-                          />
-                        </div>
-                      </div>
-                    </form>
+                  <form onSubmit={handleSubmit}>
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="text"
+              name="firstName"
+              placeholder={t("your-name")}
+              onChange={handleChange}
+              value={formData.firstName}
+              required
+            />
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="text"
+              name="lastName"
+              placeholder="Surname *"
+              onChange={handleChange}
+              value={formData.lastName}
+              required
+            />
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="email"
+              name="email"
+              placeholder={t("your-email")}
+              onChange={handleChange}
+              value={formData.email}
+              required
+            />
+          </div>
+        </div>
+        <div className="col-md-12">
+          <div className="form-group">
+            <textarea
+              className="form-control"
+              name="message"
+              placeholder={t("message-note") + " *"}
+              rows={5}
+              onChange={handleChange}
+              value={formData.message}
+              required
+            />
+          </div>
+        </div>
+        <div className="col-md-12">
+          <button className="btn btn-brand-1-big" type="submit">
+            {t("submit")}
+          </button>
+        </div>
+      </div>
+    </form>
                   </div>
                 </div>
                 <div className="col-lg-7 mb-30">
@@ -956,6 +1019,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
+        <Toaster/>
       </Layout>
     </>
   );
