@@ -38,7 +38,7 @@ export default function ShipmentPageHeader({ className }: HeaderProps) {
         >
           <Button as="span" className="w-full @lg:w-auto">
             <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
-            Create Shipmentt
+            Create Shipment
           </Button>
         </Link>
       </div>}
