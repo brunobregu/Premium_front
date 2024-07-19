@@ -40,12 +40,12 @@ export default function Register() {
     };
     const loginResponse = await premiumApi.post('/Authentication/register', payload);
 
-      const cookie = serialize('session', JSON.stringify(loginResponse), {
-        httpOnly: false,
-        maxAge: 60 * 60 * 24 * 7, // One week
-        path: '/',
-      });
-      document.cookie = cookie;
+      // const cookie = serialize('session', JSON.stringify(loginResponse), {
+      //   httpOnly: false,
+      //   maxAge: 60 * 60 * 24 * 7, // One week
+      //   path: '/',
+      // });
+      // document.cookie = cookie;
 
       if (loginResponse.status ) {
         reset();
