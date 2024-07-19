@@ -3,6 +3,10 @@ import Modal from 'react-modal';
 
 const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }) => {
     const { t } = useTranslation('common');
+    const capitalizeFirstLetter = (string) => {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+    
   return (
     <Modal
       isOpen={isOpen}
@@ -30,14 +34,14 @@ const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }
       </div>
       {prices && (
         <table style={tableStyles}>
-          <thead>
-            <tr>
-              <th style={headerStyles}></th>
-              {Object.keys(prices).map((key) => (
-                <th key={key} style={headerStyles}>{key}</th>
-              ))}
-            </tr>
-          </thead>
+       <thead>
+  <tr>
+    <th style={headerStyles}></th>
+    {Object.keys(prices).map((key) => (
+      <th key={key} style={headerStyles}>{capitalizeFirstLetter(key)}</th>
+    ))}
+  </tr>
+</thead>
           <tbody>
             <tr>
               <td style={headerStyles}>Land</td>
