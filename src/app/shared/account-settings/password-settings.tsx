@@ -12,6 +12,8 @@ import {
   passwordFormSchema,
   PasswordFormTypes,
 } from '@/validators/password-settings.schema';
+import toast from 'react-hot-toast';
+import premiumApi from '@/util/premiumAPI';
 
 export default function PasswordSettingsView({
   settings,
@@ -21,17 +23,26 @@ export default function PasswordSettingsView({
   const [isLoading, setLoading] = useState(false);
   const [reset, setReset] = useState({});
 
-  const onSubmit: SubmitHandler<PasswordFormTypes> = (data) => {
+  const onSubmit: SubmitHandler<PasswordFormTypes> = async (data) => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      console.log('Password settings data ->', data);
+    try {
+      const response = await premiumApi.post('/Authentication/changePassword', {
+        oldPassword: data.currentPassword,
+        newPassword: data.newPassword,
+        confirmPassword: data.confirmedPassword,
+      });
       setReset({
         currentPassword: '',
         newPassword: '',
         confirmedPassword: '',
       });
-    }, 600);
+
+      toast.success("Password changed successfully", { position: "top-right" })
+    } catch (error) {
+      toast.error(error.response?.data?.detail || "Incorrect password.", { position: "top-right" })
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,7 +91,7 @@ export default function PasswordSettingsView({
                         placeholder="Enter your password"
                         helperText={
                           getValues().newPassword.length < 8 &&
-                          'Your current password must be more than 8 characters'
+                          'Your new password must be more than 8 characters'
                         }
                         onChange={onChange}
                         error={errors.newPassword?.message}
