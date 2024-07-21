@@ -10,7 +10,6 @@ import EyeIcon from '@components/icons/eye';
 import DeletePopover from '@/app/shared/delete-popover';
 import TrashIcon from '@components/icons/trash';
 
-
 // Get user role from local storage
 const role = localStorage.getItem('userRole');
 
@@ -39,8 +38,9 @@ export const getColumns = ({
   onHeaderCellClick,
   handleSelectAll,
   onChecked,
-  handleDelete
-}: any) => [
+  handleDelete,
+}: any) => {
+  const columns = [
     {
       title: (
         <HeaderCell
@@ -223,26 +223,37 @@ export const getColumns = ({
       width: 150,
       render: (partlyPaid: any) => partlyPaid,
     },
-    {
-      title: <HeaderCell title="Actions" className="opacity-0" />,
-      dataIndex: 'action',
-      key: 'action',
-      width: 120,
-      render: (_: any, row: any) => (
-        role === 'Admin' && (
-          <div className="flex items-center justify-end gap-3 pe-4">
-            <Tooltip
-              size="sm"
-              content={'Edit Shipment'}
-              placement="top"
-              color="invert"
-            >
+  ];
+
+  if (role === 'Admin') {
+    columns.push({
+      title: (
+        <HeaderCell
+          title="Full Name"
+          sortable
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullName'}
+        />
+      ),
+      onHeaderCell: () => onHeaderCellClick('fullName'),
+      dataIndex: 'fullName',
+      key: 'fullName',
+      width: 150,
+      render: (fullName: any) => fullName,
+    });
+  }
+
+  columns.push({
+    title: <HeaderCell title="Actions" className="opacity-0" />,
+    dataIndex: 'action',
+    key: 'action',
+    width: 120,
+    render: (_: any, row: any) => (
+      <div className="flex items-center justify-end gap-3 pe-4">
+        {role === 'Admin' && (
+          <>
+            <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
               <Link href={routes.logistics.editShipment(row.id)}>
-                <ActionIcon
-                  size="sm"
-                  variant="outline"
-                  aria-label={'Edit Shipment'}
-                >
+                <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
                   <PencilIcon className="h-4 w-4" />
                 </ActionIcon>
               </Link>
@@ -257,8 +268,11 @@ export const getColumns = ({
                 <TrashIcon className="h-4 w-4" />
               </ActionIcon>
             </Tooltip>
-          </div>
-        )
-      ),
-    },
-  ];
+          </>
+        )}
+      </div>
+    ),
+  });
+
+  return columns;
+};
