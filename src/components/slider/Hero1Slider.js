@@ -99,7 +99,7 @@ export default function Hero1Slider() {
                       <input
                         className="btn btn-brand-1 btn-track"
                         type="submit"
-                        value="Track Package"
+                        value="Calculate shipping"
                       />
                     </div>
                   </form>

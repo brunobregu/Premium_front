@@ -38,23 +38,35 @@ export default function Register() {
       phoneNumber,
       password,
     };
-    const loginResponse = await premiumApi.post('/Authentication/register', payload);
+    const registerResponse = await premiumApi.post('/Authentication/register', payload);
 
-      // const cookie = serialize('session', JSON.stringify(loginResponse), {
-      //   httpOnly: false,
-      //   maxAge: 60 * 60 * 24 * 7, // One week
-      //   path: '/',
-      // });
-      // document.cookie = cookie;
+    if (registerResponse.status ) {
+      reset();
+      toast.success('User created', {
+        position: 'top-right',
+      });
+    }
 
-      if (loginResponse.status ) {
-        reset();
-        router.push('/login')
-        // Show success toast
-        toast.success('User created', {
-          position: 'top-right',
-        });
-      }
+    const loginResponse = await premiumApi.post('/Authentication/login', {
+      email: data.email,
+      password: data.password,
+    });
+
+    const cookie = serialize('session', loginResponse.data.token, {
+      httpOnly: false,
+      maxAge: 60 * 60 * 24 * 7, // One week
+      path: '/',
+    });
+    document.cookie = cookie;
+
+   if (loginResponse.status){
+    const { role } = loginResponse.data;
+    if (localStorage) {
+    localStorage.setItem('userRole', role)
+   }
+   router.push('/logistics/shipments');
+ }
+
     
     } catch (error) {
       setErrorText(error.response?.data?.detail || 'An error occurred while submitting the form');

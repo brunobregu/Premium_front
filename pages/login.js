@@ -40,7 +40,7 @@ export default function Login() {
         path: '/',
       });
       document.cookie = cookie;
-      router.push('/logistics');
+      router.push('/logistics/shipments');
     } catch (error) {
       if (error.response && error.response.status === 400) {
         const { detail } = error.response.data;
