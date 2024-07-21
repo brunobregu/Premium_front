@@ -51,12 +51,11 @@ export default function ShipmentListTable() {
 
   const isMediumScreen = useMedia('(max-width: 1860px)', false);
   const isLargeScreen = useMedia('(min-width: 1861px)', false);
-  console.log('user', user)
 
   const query = useQuery({
     queryKey: ['shipments'],
     queryFn: () => {
-      if (user === 'Admin') {
+      if (user === 'Admin' || user === 'Account manager') {
         return premiumApi.get('/OrderDetails/orders');
       } else {
         return premiumApi.get('/OrderDetails/myOrders');

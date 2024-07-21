@@ -31,7 +31,7 @@ export default function ShipmentPageHeader({ className }: HeaderProps) {
 
   return (
     <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-      {user && user === 'Admin' && <div className="mt-4 flex flex-col items-center gap-3 @sm:flex-row @lg:mt-0">
+      {user && (user === 'Admin' || user === 'Account manager') && <div className="mt-4 flex flex-col items-center gap-3 @sm:flex-row @lg:mt-0">
         <Link
           href={routes.logistics.createShipment}
           className="w-full @lg:w-auto"

@@ -22,7 +22,7 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
   function handleDashboardClick() {
     const sessionCookie = parse(document.cookie);
     if (sessionCookie['session']) {
-      router.push('/logistics');
+      router.push('/logistics/shipments');
     } else {
       router.push('/login');
     }

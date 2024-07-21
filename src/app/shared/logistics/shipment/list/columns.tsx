@@ -225,20 +225,20 @@ export const getColumns = ({
     },
   ];
 
-  if (role === 'Admin') {
+  if (role === 'Admin' || role === 'Account manager') {
     columns.push({
       title: (
         <HeaderCell
           title="Full Name"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullName'}
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
         />
       ),
-      onHeaderCell: () => onHeaderCellClick('fullName'),
-      dataIndex: 'fullName',
-      key: 'fullName',
+      onHeaderCell: () => onHeaderCellClick('fullname'),
+      dataIndex: 'fullname',
+      key: 'fullname',
       width: 150,
-      render: (fullName: any) => fullName,
+      render: (fullname: any) => fullname,
     });
   }
 
@@ -249,7 +249,7 @@ export const getColumns = ({
     width: 120,
     render: (_: any, row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
-        {role === 'Admin' && (
+        {(role === 'Admin' || role === 'Account manager') && (
           <>
             <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
               <Link href={routes.logistics.editShipment(row.id)}>
