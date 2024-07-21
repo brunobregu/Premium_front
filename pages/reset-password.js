@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
+import { error } from 'console';
 
 export default function ResetPassword() {
   const { t } = useTranslation('common');
@@ -38,9 +39,11 @@ export default function ResetPassword() {
         resetField('newPassword');
         resetField('confirmNewPassword');
         // Show success toast
-        toast.success(t('password-reset-success'));
+        toast.success(t('password-reset-success'), {position:"top-right"});
         // Redirect to login page or another appropriate page
         router.push('/login');
+      } else {
+        toast.error('Error, try again!', {position:"top-right"});
       }
     } catch (error) {
       console.error('Error:', error);

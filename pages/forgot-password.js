@@ -33,7 +33,9 @@ export default function ForgotPassword() {
         router.push('/reset-password')
         resetField('email');
         // Show success toast
-        toast.success(t('password-reset-link-sent'));
+        toast.success(t('password-reset-link-sent'), {position:"top-right"});
+      } else{
+        toast.error("Error, try again!", {position:"top-right"})
       }
     } catch (error) {
       console.error('Error:', error);
