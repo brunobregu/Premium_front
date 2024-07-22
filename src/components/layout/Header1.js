@@ -165,7 +165,7 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
                     className="btn btn-default hover-up mr-10"
                     onClick={handleDashboardClick}
                   >
-                    Dashboard
+                    Login
                   </button>
 
                   <Link
