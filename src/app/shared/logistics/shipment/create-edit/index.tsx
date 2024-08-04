@@ -43,6 +43,13 @@ const paymentStatusArray: SelectOption[] = [
   { label: 'Not paid', value: 'Not paid' },
   { label: 'Partly Paid', value: 'Partly Paid' },
 ];
+const carStatusArray: SelectOption[] = [
+  { label: 'Dispatch', value: 'Dispatch' },
+  { label: 'At terminal', value: 'At terminal' },
+  { label: 'Booked', value: 'Booked' },
+  { label: 'Loaded', value: 'Loaded' },
+  { label: 'Delivered', value: 'Delivered' },
+];
 
 const portOptions: SelectOption[] = [
   { label: 'Savannah', value: 'Savannah' },
@@ -121,28 +128,28 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
           <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
             <Input
               label="VIN"
-              placeholder="YV4102KK1G1057792"
+              placeholder="vin"
               labelClassName="font-medium text-gray-900"
               {...register('vin')}
               error={errors.vin?.message as string}
             />
             <Input
               label="Make"
-              placeholder="Volvo"
+              placeholder="make"
               labelClassName="font-medium text-gray-900"
               {...register('make')}
               error={errors.make?.message as string}
             />
             <Input
               label="Model"
-              placeholder="XC90"
+              placeholder="model"
               labelClassName="font-medium text-gray-900"
               {...register('model')}
               error={errors.model?.message as string}
             />
             <Input
               label="Year"
-              placeholder="2016"
+              placeholder="year"
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('year', { valueAsNumber: true })}
@@ -155,18 +162,45 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
           <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
             <Input
               label="Lot"
-              placeholder="36912564"
+              placeholder="lot"
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('lot', { valueAsNumber: true })}
               error={errors.lot?.message as string}
             />
             <Input
-              label="DSP Order ID"
-              placeholder="VHC0072"
+              label="Order ID"
+              placeholder="order id"
               labelClassName="font-medium text-gray-900"
               {...register('dspOrderID')}
               error={errors.dspOrderID?.message as string}
+            />
+            <Input
+              label="Auction"
+              placeholder="auction"
+              labelClassName="font-medium text-gray-900"
+              {...register('auction')}
+              error={errors.auction?.message as string}
+            />
+            <Controller
+              control={control}
+              name="carStatus"
+              render={({ field: { value, onChange } }) => (
+                <Select
+                  label="Car Status"
+                  labelClassName="text-gray-900"
+                  dropdownClassName="p-2 gap-1 grid !z-10"
+                  inPortal={false}
+                  value={value || null}
+                  onChange={onChange}
+                  options={carStatusArray}
+                  getOptionValue={(option) => option.value}
+                  displayValue={(selected) =>
+                    carStatusArray?.find((c) => c.value === selected)?.label ?? ''
+                  }
+                  error={errors?.carStatus?.message as string}
+                />
+              )}
             />
             <Controller
               control={control}
@@ -188,58 +222,63 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                 />
               )}
             />
-            <Input
-              label="Inland Cargoloop"
-              placeholder="380"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('inlandCargoloop', { valueAsNumber: true })}
-              error={errors.inlandCargoloop?.message as string}
-            />
           </div>
 
-          <h3>Shipment cost</h3>
+          <h3>Client Total</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
-            <Input
-              label="OC Cargoloop"
-              placeholder="850"
+          <Input
+              label="Inland Price"
+              placeholder="inland price"
               labelClassName="font-medium text-gray-900"
               type="number"
-              {...register('ocCargoloop', { valueAsNumber: true })}
-              error={errors.ocCargoloop?.message as string}
+              {...register('inlandPrice', { valueAsNumber: true })}
+              error={errors.inlandPrice?.message as string}
+            />
+            <Input
+              label="Ocean Price"
+              placeholder="ocean price"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('oceanPrice', { valueAsNumber: true })}
+              error={errors.oceanPrice?.message as string}
             />
             <Input
               label="Broker"
-              placeholder="0"
+              placeholder="broker"
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('broker', { valueAsNumber: true })}
               error={errors.broker?.message as string}
             />
             <Input
-              label="Inland Dispatch"
-              placeholder="300"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('inlandDspch', { valueAsNumber: true })}
-              error={errors.inlandDspch?.message as string}
-            />
-            <Input
-              label="OC Cost"
-              placeholder="850"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('ocCost', { valueAsNumber: true })}
-              error={errors.ocCost?.message as string}
-            />
-            <Input
               label="Storage"
-              placeholder="0"
+              placeholder="storage"
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('storage', { valueAsNumber: true })}
               error={errors.storage?.message as string}
+            />
+          </div>
+
+          <h3>Total Cost</h3>
+          <hr />
+          <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+            <Input
+              label="Inland Cost"
+              placeholder="inland cost"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('inlandCost', { valueAsNumber: true })}
+              error={errors.inlandCost?.message as string}
+            />
+            <Input
+              label="Ocean Cost"
+              placeholder="ocean cost"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('oceanCost', { valueAsNumber: true })}
+              error={errors.oceanCost?.message as string}
             />
           </div>
 

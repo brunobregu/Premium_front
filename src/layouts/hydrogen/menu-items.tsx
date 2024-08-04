@@ -15,9 +15,26 @@ export const menuItems: MenuItemsType[] = [
     name: 'Overview',
   },
   {
-    name: 'Logistics',
-    href: routes.logistics.dashboard,
+    name: 'Dashboard',
+    href: "#",
     icon: <PiPackageDuotone />,
+    dropdownItems: [
+      {
+        name: 'Users',
+        href: routes.logistics.users,
+        icon: <PiPackageDuotone />,
+      },
+      {
+        name: 'Roles',
+        href: routes.logistics.roles,
+        icon: <PiPackageDuotone />,
+      },
+      {
+        name: 'Contacts',
+        href: routes.logistics.contacts,
+        // icon: <PiPackageDuotone />,
+      }
+    ]
   },
   {
     name: 'Shipment List',
