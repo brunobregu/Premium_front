@@ -1,8 +1,8 @@
 export interface DetailsApiResponse {
     numberOfOrders: number;
-    sumClientTotal: number;
-    sumPartlyPaid: number;
-    sumToBePaid: number;
+    clientTotal: number;
+    paid: number;
+    toBePaid: number;
   }
   
  export interface StatData {

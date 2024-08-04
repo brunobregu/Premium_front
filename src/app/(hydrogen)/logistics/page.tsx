@@ -7,4 +7,5 @@ export const metadata = {
 
 export default function LogisticsPage() {
   return <LogisticsDashboard />;
+
 }

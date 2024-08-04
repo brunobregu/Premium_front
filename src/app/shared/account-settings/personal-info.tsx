@@ -54,7 +54,7 @@ export default function PersonalInfoView() {
           <>
             <FormGroup
               title="Personal Info"
-              description="Update your photo and personal details here"
+              //description="Update your photo and personal details here"
               className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
             />
 
@@ -68,12 +68,14 @@ export default function PersonalInfoView() {
                   {...register('first_name')}
                   error={errors.first_name?.message}
                   className="flex-grow"
+                  disabled
                 />
                 <Input
                   placeholder="Last Name"
                   {...register('last_name')}
                   error={errors.last_name?.message}
                   className="flex-grow"
+                  disabled
                 />
               </FormGroup>
 
@@ -91,21 +93,6 @@ export default function PersonalInfoView() {
                   {...register('email')}
                   error={errors.email?.message}
                 />
-              </FormGroup>
-
-              <FormGroup
-                title="Your Photo"
-                description="This will be displayed on your profile."
-                className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
-              >
-                <div className="flex flex-col gap-6 @container @3xl:col-span-2">
-                  <AvatarUpload
-                    name="avatar"
-                    setValue={setValue}
-                    getValues={getValues}
-                    error={errors?.avatar?.message as string}
-                  />
-                </div>
               </FormGroup>
 
               <FormGroup
@@ -189,38 +176,6 @@ export default function PersonalInfoView() {
                 />
               </FormGroup>
 
-              <FormGroup
-                title="Bio"
-                className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
-              >
-                <Controller
-                  control={control}
-                  name="bio"
-                  render={({ field: { onChange, value } }) => (
-                    <QuillEditor
-                      value={value}
-                      onChange={onChange}
-                      className="@3xl:col-span-2 [&>.ql-container_.ql-editor]:min-h-[100px]"
-                      labelClassName="font-medium text-gray-700 dark:text-gray-600 mb-1.5"
-                    />
-                  )}
-                />
-              </FormGroup>
-
-              <FormGroup
-                title="Portfolio Projects"
-                description="Share a few snippets of your work"
-                className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
-              >
-                <div className="mb-5 @3xl:col-span-2">
-                  <UploadZone
-                    name="portfolios"
-                    getValues={getValues}
-                    setValue={setValue}
-                    error={errors?.portfolios?.message as string}
-                  />
-                </div>
-              </FormGroup>
             </div>
 
             <FormFooter

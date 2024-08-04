@@ -194,51 +194,51 @@ export const getColumns = ({
     }
   ];
 
-  if (role === 'Admin' || role === 'Account manager') {
-    columns.unshift({
-      title: (
-        <HeaderCell
-          title="Full Name"
-          sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
-        />
-      ),
-      onHeaderCell: () => onHeaderCellClick('fullname'),
-      dataIndex: 'fullname',
-      key: 'fullname',
-      width: 250,
-      render: (fullname: any) => fullname,
-    });
-    columns.push(
-      {
-        title: (
-          <HeaderCell
-            title="Total Cost"
-            sortable
-            ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
-          />
-        ),
-        onHeaderCell: () => onHeaderCellClick('totalCost'),
-        dataIndex: 'totalCost',
-        key: 'totalCost',
-        width: 180,
-        render: (totalCost: any) => totalCost,
-      },
-      {
-      title: (
-        <HeaderCell
-          title="Order Id"
-          sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'dspOrderID'}
-        />
-      ),
-      onHeaderCell: () => onHeaderCellClick('dspOrderID'),
-      dataIndex: 'dspOrderID',
-      key: 'dspOrderID',
-      width: 150,
-      render: (dspOrderID: any) => dspOrderID,
-    });
-  }
+  // if (role === 'Admin' || role === 'Account manager') {
+  //   columns.unshift({
+  //     title: (
+  //       <HeaderCell
+  //         title="Full Name"
+  //         sortable
+  //         ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
+  //       />
+  //     ),
+  //     onHeaderCell: () => onHeaderCellClick('fullname'),
+  //     dataIndex: 'fullname',
+  //     key: 'fullname',
+  //     width: 250,
+  //     render: (fullname: any) => fullname,
+  //   });
+  //   columns.push(
+  //     {
+  //       title: (
+  //         <HeaderCell
+  //           title="Total Cost"
+  //           sortable
+  //           ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
+  //         />
+  //       ),
+  //       onHeaderCell: () => onHeaderCellClick('totalCost'),
+  //       dataIndex: 'totalCost',
+  //       key: 'totalCost',
+  //       width: 180,
+  //       render: (totalCost: any) => totalCost,
+  //     },
+  //     {
+  //     title: (
+  //       <HeaderCell
+  //         title="Order Id"
+  //         sortable
+  //         ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'dspOrderID'}
+  //       />
+  //     ),
+  //     onHeaderCell: () => onHeaderCellClick('dspOrderID'),
+  //     dataIndex: 'dspOrderID',
+  //     key: 'dspOrderID',
+  //     width: 150,
+  //     render: (dspOrderID: any) => dspOrderID,
+  //   });
+  // }
 
   columns.push({
     title: <HeaderCell title="Actions" className="opacity-0" />,
@@ -247,7 +247,7 @@ export const getColumns = ({
     width: 120,
     render: (_: any, row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
-        {(role === 'Admin' || role === 'Account manager') && (
+        {/* {(role === 'Admin' || role === 'Account manager') && (
           <>
             <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
               <Link href={routes.logistics.editShipment(row.id)}>
@@ -267,9 +267,9 @@ export const getColumns = ({
               </ActionIcon>
             </Tooltip>
           </>
-        )}
+        )} */}
 
-        {(role == 'Client') && (
+        {/* {(role == 'Client') && ( */}
           <>
           <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
               <Link href={routes.logistics.detailShipment(row.id)}>
@@ -279,7 +279,7 @@ export const getColumns = ({
               </Link>
             </Tooltip>
           </>
-        )}
+        {/* )} */}
       </div>
     ),
   });

@@ -37,7 +37,7 @@ const defaultStatData: StatData[] = [
   },
   {
     id: '3',
-    title: 'Partly Paid',
+    title: 'Paid',
     icon: <SalesIcon className="h-9 w-9" />,
     graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
     graphColor: 'text-green',
@@ -46,7 +46,7 @@ const defaultStatData: StatData[] = [
   },
   {
     id: '4',
-    title: 'To Be Paid',
+    title: 'Not Paid',
     icon: <ContainersIcon className="h-7 w-7" />,
     graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
     graphColor: 'text-red',
@@ -55,10 +55,10 @@ const defaultStatData: StatData[] = [
   },
 ];
 
-const viewOptions = [
-  { value: 'today', label: 'Today' },
-  { value: 'this-week', label: 'This Week' },
-];
+// const viewOptions = [
+//   { value: 'today', label: 'Today' },
+//   { value: 'this-week', label: 'This Week' },
+// ];
 
 const fetchStatData = async (user: string) => {
   const endpoint = user === 'Admin'
@@ -78,9 +78,9 @@ export default function StatCards({ className }: { className?: string }) {
     select: (data) => {
       if (
         data.numberOfOrders === undefined &&
-        data.sumClientTotal === undefined &&
-        data.sumPartlyPaid === undefined &&
-        data.sumToBePaid === undefined
+        data.clientTotal === undefined &&
+        data.paid === undefined &&
+        data.toBePaid === undefined
       ) {
         return defaultStatData;
       }
@@ -101,25 +101,25 @@ export default function StatCards({ className }: { className?: string }) {
           icon: <RevenueUpIcon className="h-7 w-7" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
-          metric: data.sumClientTotal,
+          metric: data.clientTotal,
           increased: true,
         },
         {
           id: '3',
-          title: 'Partly Paid',
+          title: 'Paid',
           icon: <SalesIcon className="h-9 w-9" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
-          metric: data.sumPartlyPaid,
+          metric: data.paid,
           increased: true,
         },
         {
           id: '4',
-          title: 'To Be Paid',
+          title: 'Not Paid',
           icon: <ContainersIcon className="h-7 w-7" />,
           graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-red',
-          metric: data.sumToBePaid,
+          metric: data.toBePaid,
           decreased: true,
         },
       ];
@@ -139,13 +139,13 @@ export default function StatCards({ className }: { className?: string }) {
       className={className}
       title="General Overview"
       headerClassName="mb-2 @2xl:mb-5"
-      action={
-        <DropdownAction
-          options={viewOptions}
-          onChange={handleChange}
-          dropdownClassName="!z-0"
-        />
-      }
+      // action={
+      //   <DropdownAction
+      //     options={viewOptions}
+      //     onChange={handleChange}
+      //     dropdownClassName="!z-0"
+      //   />
+      // }
     >
       <SimpleBar>
         <div className="grid grid-flow-col gap-5 pb-1">
