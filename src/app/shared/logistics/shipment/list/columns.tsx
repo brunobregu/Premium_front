@@ -245,12 +245,12 @@ export const getColumns = ({
     dataIndex: 'action',
     key: 'action',
     width: 120,
-    render: (_: any, row: any) => (
+    render: (row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
         {(role === 'Admin' || role === 'Account manager') && (
           <>
             <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
-              <Link href={routes.logistics.editShipment(row.id)}>
+              <Link href={routes.logistics.editShipment(row?.id)}>
                 <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
                   <PencilIcon className="h-4 w-4" />
                 </ActionIcon>
@@ -282,6 +282,7 @@ export const getColumns = ({
         )}
       </div>
     ),
+    onHeaderCell: () => ({})
   });
 
   return columns;

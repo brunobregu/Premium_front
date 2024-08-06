@@ -10,7 +10,7 @@ import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function Login() {
+export default function Login({ locale }) {
   const { t } = useTranslation('common');
   const router = useRouter();
   const {
@@ -24,7 +24,7 @@ export default function Login() {
   async function onSubmit(data) {
     try {
       setLoadingLogin(true);
-      const apiResponse = await premiumApi.post('/Authentication/login', {
+      const apiResponse = await premiumApi.post(locale + '/Authentication/login', {
         email: data.email,
         password: data.password,
       });
@@ -233,7 +233,8 @@ export async function getStaticProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      // Will be passed to the page component as props
+      locale, // Pass locale as a prop
     },
   };
 }
+

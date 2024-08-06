@@ -39,7 +39,7 @@ export default function PasswordSettingsView({
 
       toast.success("Password changed successfully", { position: "top-right" })
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Incorrect password.", { position: "top-right" })
+      toast.error("Incorrect password.", { position: "top-right" })
     } finally {
       setLoading(false);
     }

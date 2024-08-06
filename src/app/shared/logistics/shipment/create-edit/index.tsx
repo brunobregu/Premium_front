@@ -75,13 +75,28 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     register,
     control,
     formState: { errors },
-    reset
+    reset,
+    setValue
   } = methods;
 
   const query = useQuery({
     queryKey: ['user'],
     queryFn: () => premiumApi.get('/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
   });
+
+  const orderDetailsQuery = useQuery({
+    queryKey: ['orderDetails', id],
+    queryFn: () => premiumApi.get(`/OrderDetails/orderById?id=${id}`),
+    enabled: !!id,
+  });
+
+  useEffect(() => {
+    if (orderDetailsQuery.data) {
+      const orderDetails = orderDetailsQuery.data.data;
+      reset(orderDetails);
+      setValue('userId', orderDetails.userId);
+    }
+  }, [orderDetailsQuery.data, reset, setValue]);
 
   const addOrderDetailsMutation = useMutation({
     mutationFn: (data: CreateShipmentInput) => {
@@ -100,19 +115,9 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     },
   });
 
-  useEffect(() => {
-    if (shipment) {
-      reset(shipment); // Reset form with shipment data when it changes
-    }
-  }, [shipment, reset]);
-
-  function onSubmit(data: CreateShipmentInput) {
-    addOrderDetailsMutation.mutate(data);
-  }
-
   const userOptions = query.data?.data?.map((user: any) => ({
     label: user.firstName + ' ' + user.lastName,
-    value: id ? id : user.id,
+    value: user.id,
   })) ?? [];
 
   const handleModalSuccess = () => {
@@ -227,7 +232,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
           <h3>Client Total</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
-          <Input
+            <Input
               label="Inland Price"
               placeholder="inland price"
               labelClassName="font-medium text-gray-900"
@@ -251,6 +256,24 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               {...register('broker', { valueAsNumber: true })}
               error={errors.broker?.message as string}
             />
+            {/* <Input
+              label="Storage"
+              placeholder="storage"
+              label="Inland Dispatch"
+              placeholder="300"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('inlandDspch', { valueAsNumber: true })}
+              error={errors.inlandDspch?.message as string}
+            /> */}
+            {/* <Input
+              label="OC Cost"
+              placeholder="200"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('ocCost', { valueAsNumber: true })}
+              error={errors.ocCost?.message as string}
+            />
             <Input
               label="Storage"
               placeholder="storage"
@@ -258,7 +281,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               type="number"
               {...register('storage', { valueAsNumber: true })}
               error={errors.storage?.message as string}
-            />
+            /> */}
           </div>
 
           <h3>Total Cost</h3>
@@ -283,6 +306,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
           </div>
 
           <h3>Payment info</h3>
+          <h3>Payment</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
             <Controller
@@ -299,63 +323,82 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                   options={paymentStatusArray}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    paymentStatusArray?.find((c) => c.value === selected)?.label ?? ''
+                    paymentStatusArray.find((c) => c.value === selected)?.label ?? ''
                   }
                   error={errors?.paymentStatus?.message as string}
                 />
               )}
             />
-            {methods.watch('paymentStatus') === 'Partly Paid' && (
-              <Input
-                label="Partly Paid Amount"
-                placeholder="0"
-                labelClassName="font-medium text-gray-900"
-                type="number"
-                {...register('partlyPaid', { valueAsNumber: true })}
-                error={errors.partlyPaid?.message as string}
-              />
-            )}
+            <Input
+              label="Partly Paid"
+              placeholder="100"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('partlyPaid', { valueAsNumber: true })}
+              error={errors.partlyPaid?.message as string}
+            />
+          </div>
+
+          <h3>User</h3>
+          <hr />
+          <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
             <Controller
               control={control}
               name="userId"
               render={({ field: { value, onChange } }) => (
-                <div className="flex items-center gap-2">
-                  <Select
-                    label="User"
-                    labelClassName="text-gray-900"
-                    dropdownClassName="p-2 gap-1 grid !z-10"
-                    inPortal={false}
-                    value={value || null}
-                    onChange={onChange}
-                    options={userOptions}
-                    getOptionValue={(option) => option.value}
-                    displayValue={(selected) =>
-                      userOptions?.find((c: any) => c.value === selected)?.label ?? ''
-                    }
-                    error={errors?.userId?.message as string}
-                  />
-                </div>
+                <Select
+                  label="User"
+                  labelClassName="text-gray-900"
+                  dropdownClassName="p-2 gap-1 grid !z-10"
+                  inPortal={false}
+                  value={value || null}
+                  onChange={onChange}
+                  options={userOptions}
+                  getOptionValue={(option) => option.value}
+                  displayValue={(selected) =>
+                    userOptions.find((c: any) => c.value === selected)?.label ?? ''
+                  }
+                  error={errors?.userId?.message as string}
+                />
               )}
             />
-            <div className="flex flex-row mt-auto items-baseline gap-2">
-              <Button type="button" onClick={() => setModalOpen(true)}>
-                Add Client
-              </Button>
-            </div>
-
+            <Button
+              className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+              onClick={() => setModalOpen(true)}
+            >
+              Add User
+            </Button>
           </div>
 
-          <Button type="submit" isLoading={(addOrderDetailsMutation as any).isLoading} className="w-full @xl:w-auto">
-            {id ? 'Save Changes' : 'Create Shipment'}
-          </Button>
-        </form>
-      </FormProvider>
+          <div className="flex items-center justify-start gap-x-2 mt-10">
+            <Button
+              className="!px-14 !py-[.6rem] bg-gray-900 hover:bg-gray-800 text-white"
+              type="submit"
+              isLoading={isLoading}
+              disabled={isLoading}
+            >
+              Submit
+            </Button>
+          </div>
+        </form >
+      </FormProvider >
 
       <CreateUserModal
         isOpen={isModalOpen}
         onRequestClose={() => setModalOpen(false)}
         onSuccess={handleModalSuccess}
       />
-    </div>
+    </div >
   );
+
+  async function onSubmit(data: CreateShipmentInput) {
+    setLoading(true);
+    try {
+      await addOrderDetailsMutation.mutateAsync(data);
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
 }

@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
-import { error } from 'console';
 
 export default function ResetPassword() {
   const { t } = useTranslation('common');
