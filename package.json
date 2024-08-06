@@ -107,6 +107,7 @@
     "swiper": "^9.2.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.4",
+    "toposort": "^2.0.2",
     "typescript": "5.4.5",
     "uploadthing": "^6.10.1",
     "wowjs": "^1.1.3",

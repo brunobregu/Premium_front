@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
 
-export default function ForgotPassword() {
+export default function ForgotPassword({locale}) {
   const { t } = useTranslation('common');
   const router = useRouter();
   const {
@@ -21,7 +21,7 @@ export default function ForgotPassword() {
 
   async function onSubmit(data) {
     try {
-      const response = await premiumApi.post('/Authentication/requestResetPassword', data.email, {
+      const response = await premiumApi.post(locale + '/Authentication/requestResetPassword', data.email, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': '*/*'
