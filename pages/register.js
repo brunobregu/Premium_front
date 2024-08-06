@@ -7,7 +7,7 @@ import { Controller, useForm } from 'react-hook-form';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import premiumApi from '../src/util/premiumAPI';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
@@ -15,7 +15,6 @@ import { useRouter } from 'next/router';
 export default function Register() {
   const router = useRouter();
   const [errorText, setErrorText]=useState('')
-  const { t } = useTranslation('common');
   const {
     register,
     formState: { errors },
@@ -25,6 +24,12 @@ export default function Register() {
     reset
   } = useForm();
   const [loadingRegister, setLoadingRegister] = useState(false);
+  const { t, i18n } = useTranslation('common');
+  const [locale, setLocale] = useState(i18n.language);
+
+  useEffect(() => {
+    setLocale(i18n.language);
+  }, [i18n.language]);
 
   async function onSubmit(data) {
     try {
@@ -38,7 +43,7 @@ export default function Register() {
       phoneNumber,
       password,
     };
-    const registerResponse = await premiumApi.post('/Authentication/register', payload);
+    const registerResponse = await premiumApi.post(locale + '/Authentication/register', payload);
 
     if (registerResponse.status ) {
       reset();
@@ -47,7 +52,7 @@ export default function Register() {
       });
     }
 
-    const loginResponse = await premiumApi.post('/Authentication/login', {
+    const loginResponse = await premiumApi.post(locale + '/Authentication/login', {
       email: data.email,
       password: data.password,
     });

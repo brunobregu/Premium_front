@@ -1,25 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import toast, { Toaster } from 'react-hot-toast';
 import TransportModal from '../modals/TransportModal';
 import premiumApi from '../../util/premiumAPI';
 
 export default function Hero1Slider() {
-  const { t } = useTranslation('common');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [prices, setPrices] = useState(null);
   const [zipCode, setZipCode] = useState('');
   const [loading, setLoading] = useState(false);
   const destination = 'Albania';
+  const { t, i18n } = useTranslation('common');
+  const [locale, setLocale] = useState(i18n.language);
+
+  useEffect(() => {
+    setLocale(i18n.language);
+  }, [i18n.language]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const fetchedPrices = await fetchPrices(zipCode, destination);
-      setPrices(fetchedPrices);
-      setIsModalOpen(true);
+      const fetchedPrices = await fetchPrices(locale, zipCode, destination);
+      if(fetchedPrices ){
+        setPrices(fetchedPrices);
+        setIsModalOpen(true);
+      } else {
+        toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
+          position: 'top-right',
+        });
+      }
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
@@ -30,9 +42,19 @@ export default function Hero1Slider() {
     }
   };
 
-  const fetchPrices = async (zipCode, destination) => {
-    const response = await premiumApi.get(`/Transportation/price?zip=${zipCode}&terminal=${destination}`);
-    return response.data;
+  const fetchPrices = async (locale, zipCode, destination) => {
+    try {
+      const response = await premiumApi.get(`/${locale}/Transportation/price`, {
+        params: {
+          zip: zipCode,
+          terminal: destination
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('API call failed:', error);
+      throw error;
+    }
   };
 
   const handleCloseModal = () => {

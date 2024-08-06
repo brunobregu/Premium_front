@@ -77,7 +77,7 @@ export default function Login({ locale }) {
                   </span>
                 </div>
                 <div className="box-form-login wow animate__animated animate__fadeIn">
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <input
                         {...register('email', {
@@ -121,7 +121,7 @@ export default function Login({ locale }) {
                         type="password"
                         placeholder={t('enter-your-password')}
                       />
-                      {errors.email?.message && (
+                      {errors.password?.message && (
                         <p
                           style={{ marginTop: 10, color: '#FF3E3E' }}
                           role="alert"
@@ -132,15 +132,6 @@ export default function Login({ locale }) {
                     </div>
                     <div className="form-group">
                       <div className="d-flex justify-content-between">
-                        {/* <div className="box-remember">
-                          <label
-                            className="font-xs color-grey-900"
-                            htmlFor="rememberme"
-                          >
-                            <input id="rememberme" type="checkbox" />
-                            Remember me
-                          </label>
-                        </div> */}
                         <div className="box-forgotpass">
                           <Link
                             className="font-xs color-brand-2"

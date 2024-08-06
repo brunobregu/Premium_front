@@ -1,14 +1,16 @@
+"use client"
+
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, {Toaster} from "react-hot-toast";
 import premiumApi from "../src/util/premiumAPI";
 import { useModal } from "../src/app/shared/modal-views/use-modal";
 
 export default function Contact() {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,6 +18,11 @@ export default function Contact() {
     message: '',
   });
 
+  const [locale, setLocale] = useState(i18n.language);
+
+  useEffect(() => {
+    setLocale(i18n.language);
+  }, [i18n.language]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +49,7 @@ export default function Contact() {
     };
 
     try {
-      const response = await premiumApi.post('/Contact/add', payload);
+      const response = await premiumApi.post(locale + '/Contact/add', payload);
       if (response.status === 201) {
         setFormData({
           firstName: '',
@@ -56,7 +63,7 @@ export default function Contact() {
         });}
     } catch (error) {
       console.error('Error:', error);
-      toast.error(error.response?.data?.detail ||'Form submitted successfully',  {
+      toast.error(error.response?.data?.detail ||'Try again',  {
         position: 'top-right',
       });
     }
