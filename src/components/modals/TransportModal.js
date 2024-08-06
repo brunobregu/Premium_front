@@ -58,7 +58,7 @@ const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }
             <tr>
               <td style={headerStyles}>Total Cost</td>
               {Object.keys(prices).map((key) => (
-                <td key={key} style={cellStyles}>{prices[key].total + ' $'}</td>
+                <td key={key} style={ {...cellStyles,backgroundColor:"#a8e3e9"}}>{prices[key].total + ' $'}</td>
               ))}
             </tr>
           </tbody>
