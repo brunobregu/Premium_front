@@ -13,6 +13,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { MyOrders } from '@/types/my-orders';
+import { useFiltersContext } from '@/store/state';
 
 
 const transformData = (data: MyOrders[]): MyOrders[] => {
@@ -30,7 +31,7 @@ export default function MyOrdersList() {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
-
+  const { searchInput, setSearchInput } = useFiltersContext()
 
   const query = useQuery({
     queryKey: ['shipments'],
@@ -40,6 +41,21 @@ export default function MyOrdersList() {
     select: (data) => transformData(data.data),
   });
 
+  const filteredData = useMemo(() => {
+    if (!query.data) return [];
+
+    // Apply filtering logic based on the search term from context
+    return query.data.filter((item) => {
+      return (
+        item.port.toLowerCase().includes(searchInput.toLowerCase()) ||
+        item.make.toLowerCase().includes(searchInput.toLowerCase()) ||
+        item.model.toLowerCase().includes(searchInput.toLowerCase()) ||
+        (item.paymentStatus && item.paymentStatus.toLowerCase().includes(searchInput.toLowerCase()))
+      );
+    });
+  }, [query.data, searchInput]);
+
+  console.log('filteredData', filteredData)
 
   const onHeaderCellClick = (value: string) => ({
     onClick: () => {
@@ -69,7 +85,7 @@ export default function MyOrdersList() {
     handleSelectAll,
     handleRowSelect,
     selectedRowKeys,
-  } = useTable(query.data ?? [], pageSize);
+  } = useTable(filteredData, pageSize);
 
   const columns = useMemo(
     () =>
@@ -95,7 +111,7 @@ export default function MyOrdersList() {
         variant="modern"
         isLoading={query.isLoading}
         showLoadingText={true}
-        data={query.data as any[]}
+        data={filteredData}
         scroll={{
           x: 1800,
         }}
@@ -104,7 +120,7 @@ export default function MyOrdersList() {
         paginatorOptions={{
           pageSize,
           setPageSize,
-          total: query.data?.length ?? 0,
+          total: filteredData.length,
           current: currentPage,
           onChange: (page: number) => handlePaginate(page),
         }}

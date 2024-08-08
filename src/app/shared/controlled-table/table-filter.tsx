@@ -7,6 +7,7 @@ import { Button, ActionIcon, Input, Title } from 'rizzui';
 import cn from '@utils/class-names';
 import { useMedia } from '@hooks/use-media';
 import { ToggleColumns } from '@/app/shared/table';
+import { useFiltersContext } from '@/store/state';
 const Drawer = dynamic(() => import('rizzui').then((module) => module.Drawer), {
   ssr: false,
 });
@@ -95,6 +96,18 @@ export default function TableFilter({
   const isMediumScreen = useMedia('(max-width: 1860px)', false);
   const [showFilters, setShowFilters] = useState(true);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { searchInput, setSearchInput } = useFiltersContext()
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    onSearchChange(event); // Call the passed in onSearchChange handler
+    setSearchInput(newValue);
+  };
+
+  const handleClear = () => {
+    onSearchClear()
+    setSearchInput("")
+  }
 
   return (
     <div className="table-filter mb-4 flex items-center justify-between">
@@ -104,8 +117,8 @@ export default function TableFilter({
             type="search"
             placeholder="Search by anything..."
             value={searchTerm}
-            onClear={onSearchClear}
-            onChange={onSearchChange}
+            onClear={handleClear}
+            onChange={handleSearchChange}
             inputClassName="h-9"
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="h-4 w-4" />}
@@ -153,17 +166,17 @@ export default function TableFilter({
           <Button
             {...(isMediumScreen || enableDrawerFilter
               ? {
-                  onClick: () => {
-                    setOpenDrawer(() => !openDrawer);
-                  },
-                }
+                onClick: () => {
+                  setOpenDrawer(() => !openDrawer);
+                },
+              }
               : { onClick: () => setShowFilters(() => !showFilters) })}
             variant={'outline'}
             className={cn(
               'me-2.5 h-9 pe-3 ps-2.5',
               !(isMediumScreen || enableDrawerFilter) &&
-                showFilters &&
-                'border-dashed border-gray-700'
+              showFilters &&
+              'border-dashed border-gray-700'
             )}
           >
             <PiFunnel className="me-1.5 h-[18px] w-[18px]" strokeWidth={1.7} />
