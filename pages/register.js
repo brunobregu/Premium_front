@@ -74,7 +74,9 @@ export default function Register() {
 
     
     } catch (error) {
-      setErrorText(error.response?.data?.detail || 'An error occurred while submitting the form');
+      toast.error(error.response?.data?.detail || 'An error occurred while submitting the form', {
+        position: 'top-right',
+      });
       console.log(error);
       if (error.config?.url === '/Authentication/register') {
         toast.error(error.response?.data?.detail || 'An error occurred while submitting the form', {

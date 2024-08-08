@@ -35,12 +35,12 @@ export default function MyOrdersList() {
   const query = useQuery({
     queryKey: ['shipments'],
     queryFn: () => {
-        return premiumApi.get('/OrderDetails/myOrders');
+      return premiumApi.get('/en/OrderDetails/myOrders');
     },
     select: (data) => transformData(data.data),
   });
 
-  
+
   const onHeaderCellClick = (value: string) => ({
     onClick: () => {
       handleSort(value);
@@ -119,7 +119,7 @@ export default function MyOrdersList() {
           hasSearched: isFiltered,
           columns,
           checkedColumns,
-          setCheckedColumns, 
+          setCheckedColumns,
         }}
         className="rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
       />

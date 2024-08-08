@@ -55,11 +55,7 @@ export default function ShipmentListTable() {
   const query = useQuery({
     queryKey: ['shipments'],
     queryFn: () => {
-      if (user === 'Admin' || user === 'Account manager') {
-        return premiumApi.get('/OrderDetails/orders');
-      } else {
-        return premiumApi.get('/OrderDetails/myOrders');
-      }
+      return premiumApi.get('/en/OrderDetails/orders');
     },
     select: (data) => transformData(data.data),
   });
@@ -170,7 +166,7 @@ export default function ShipmentListTable() {
           hasSearched: isFiltered,
           columns,
           checkedColumns,
-          setCheckedColumns, 
+          setCheckedColumns,
         }}
         className="rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
       />

@@ -4,10 +4,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
 
-export default function ResetPassword({locale}) {
+export default function ResetPassword() {
   const { t } = useTranslation('common');
   const router = useRouter();
   const {
@@ -19,12 +19,12 @@ export default function ResetPassword({locale}) {
 
   async function onSubmit(data) {
     if (data.newPassword !== data.confirmNewPassword) {
-      toast.error(t('form-validation.passwords-must-match'));
+      toast.error(t('form-validation.passwords-must-match'), {position:"top-right"});
       return;
     }
 
     try {
-      const response = await premiumApi.post(locale + '/Authentication/resetPassword', {
+      const response = await premiumApi.post('/en/Authentication/resetPassword', {
         email: data.email,
         temporaryPassword: data.temporaryPassword,
         newPassword: data.newPassword,
@@ -45,9 +45,16 @@ export default function ResetPassword({locale}) {
         toast.error('Error, try again!', {position:"top-right"});
       }
     } catch (error) {
-      console.error('Error:', error);
-      // Show error toast
-      toast.error(error.response?.data?.detail ||'Error, try again !');
+      if (error.response && error.response.status === 400) {
+        const errorData = error.response.data;
+        // Extract the error message
+        const errorMessage = errorData.errors?.TemporaryPassword?.[0] || 'Invalid request. Please check the provided email.';
+        toast.error(error.response?.data?.detail ||errorMessage, { position: "top-right" });
+      } else {
+        // General error handling
+        console.error('Error:', error);
+        toast.error(error.response?.data?.detail || t('form-validation.error'), { position: "top-right" });
+      }
     }
   }
 
@@ -161,16 +168,9 @@ export default function ResetPassword({locale}) {
             </div>
           </div>
         </section>
+        <Toaster/>
       </Layout>
     </>
   );
 }
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-      // Will be passed to the page component as props
-    },
-  };
-}

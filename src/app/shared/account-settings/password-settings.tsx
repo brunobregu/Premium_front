@@ -14,32 +14,36 @@ import {
 } from '@/validators/password-settings.schema';
 import toast from 'react-hot-toast';
 import premiumApi from '@/util/premiumAPI';
+import { useRouter } from 'next/router';
 
 export default function PasswordSettingsView({
-  settings,
+  settings
 }: {
-  settings?: PasswordFormTypes;
+  settings?: PasswordFormTypes
 }) {
   const [isLoading, setLoading] = useState(false);
   const [reset, setReset] = useState({});
+  const router = useRouter(); // Correct usage inside a component
 
   const onSubmit: SubmitHandler<PasswordFormTypes> = async (data) => {
     setLoading(true);
     try {
-      const response = await premiumApi.post('/Authentication/changePassword', {
+      const response = await premiumApi.post('en/Authentication/changePassword', {
         oldPassword: data.currentPassword,
         newPassword: data.newPassword,
         confirmPassword: data.confirmedPassword,
       });
-      setReset({
-        currentPassword: '',
-        newPassword: '',
-        confirmedPassword: '',
-      });
+      if (response.status === 200) {
+        setReset({
+          currentPassword: '',
+          newPassword: '',
+          confirmedPassword: '',
+        });
 
-      toast.success("Password changed successfully", { position: "top-right" })
+        toast.success("Password changed successfully", { position: "top-right" })
+      }
     } catch (error) {
-      toast.error("Incorrect password.", { position: "top-right" })
+      toast.error(error.response?.data?.detail || "Incorrect password.", { position: "top-right" })
     } finally {
       setLoading(false);
     }
@@ -197,4 +201,16 @@ function LoggedDevices({ className }: { className?: string }) {
     //   </div>
     // </div>
   );
+}
+
+
+export async function getServerSideProps(context: any) {
+  const locale = context.locale || 'en'; // Default to 'en' if locale is undefined
+
+  return {
+    props: {
+      locale,
+      // other props
+    },
+  };
 }

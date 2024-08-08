@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
 
 export default function ForgotPassword({locale}) {
@@ -21,7 +21,7 @@ export default function ForgotPassword({locale}) {
 
   async function onSubmit(data) {
     try {
-      const response = await premiumApi.post(locale + '/Authentication/requestResetPassword', data.email, {
+      const response = await premiumApi.post( 'en/Authentication/requestResetPassword', data.email, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': '*/*'
@@ -38,9 +38,14 @@ export default function ForgotPassword({locale}) {
         toast.error("Error, try again!", {position:"top-right"})
       }
     } catch (error) {
-      console.error('Error:', error);
-      // Show error toast
-      toast.error(error.response?.data?.detail || t('form-validation.error'));
+      if (error.response && error.response.status === 400) {
+        toast.error("Invalid request. Please check the provided email.", { position: "top-right" });
+      } else {
+        // General error handling
+        console.error('Error:', error);
+        toast.error(error.response?.data?.detail || t('form-validation.error'), { position: "top-right" });
+      
+    }
     }
   }
 
@@ -162,6 +167,7 @@ export default function ForgotPassword({locale}) {
             </div>
           </div>
         </div>
+        <Toaster/>
       </Layout>
     </>
   );

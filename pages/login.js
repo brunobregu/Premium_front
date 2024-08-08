@@ -10,9 +10,9 @@ import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function Login({ locale }) {
+export default function Login() {
   const { t } = useTranslation('common');
-  const router = useRouter();
+  const { locale } = useRouter();
   const {
     register,
     formState: { errors },
@@ -40,7 +40,7 @@ export default function Login({ locale }) {
         path: '/',
       });
       document.cookie = cookie;
-      router.push('/logistics/shipments');
+      push(`/${locale}/logistics/shipments`);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         const { detail } = error.response.data;
