@@ -1,6 +1,5 @@
 import Layout from '@/components/layout/Layout';
 import Link from 'next/link';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';

@@ -14,10 +14,10 @@ import {
   PiTrashDuotone,
   PiMagnifyingGlassBold,
 } from 'react-icons/pi';
-import {
-  statusOptions,
-  renderOptionDisplayValue,
-} from '@/app/shared/invoice/form-utils';
+// import {
+//   statusOptions,
+//   renderOptionDisplayValue,
+// } from '@/app/shared/invoice/form-utils';
 import PriceField from '@/app/shared/controlled-table/price-field';
 import DateFiled from '@/app/shared/controlled-table/date-field';
 import StatusField from '@/app/shared/controlled-table/status-field';
@@ -58,10 +58,10 @@ export default function TableToolbar<TData extends Record<string, any>>({
         <Button
           {...(isMediumScreen
             ? {
-                onClick: () => {
-                  setOpenDrawer(() => !openDrawer);
-                },
-              }
+              onClick: () => {
+                setOpenDrawer(() => !openDrawer);
+              },
+            }
             : { onClick: () => setShowFilters(() => !showFilters) })}
           variant={'outline'}
           className={cn(
@@ -174,7 +174,7 @@ function FilterElements<T extends Record<string, any>>({
         startDate={getDateRangeStateValues(dueDate[0])}
         onChange={(date) => table.getColumn('dueDate')?.setFilterValue(date)}
       />
-      <StatusField
+      {/* <StatusField
         options={statusOptions}
         value={table.getColumn('status')?.getFilterValue() ?? []}
         onChange={(e) => table.getColumn('status')?.setFilterValue(e)}
@@ -185,7 +185,7 @@ function FilterElements<T extends Record<string, any>>({
         displayValue={(selected: string) => renderOptionDisplayValue(selected)}
         dropdownClassName="!z-20"
         className={'w-auto'}
-      />
+      /> */}
 
       {isFiltered && (
         <Button
