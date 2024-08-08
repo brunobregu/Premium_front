@@ -1,4 +1,4 @@
-"use client"
+
 
 import { useEffect, useState } from 'react';
 import ShipmentStats from '@/app/shared/logistics/shipment/shipment-stats';
@@ -8,18 +8,22 @@ import { metaObject } from '@/config/site.config';
 import StatCards from '@/app/shared/logistics/shipment/stat-cards';
 import MyOrdersList from '@/app/shared/logistics/shipment/my-list/table';
 
-// export const metadata = {
-//   ...metaObject('Shipments'),
-// };
+export const metadata = {
+  ...metaObject('Shipments'),
+};
 
 export default function LogisticsListPage() {
-  const [user, setUser] = useState<string | null>(null);
+  // const [user, setUser] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Access localStorage only on the client side
-    const storedUserRole = localStorage.getItem('userRole');
-    setUser(storedUserRole);
-  }, []);
+  const getRole = () => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('userRole');
+    }
+    return null; // Or handle this scenario as needed
+  };
+
+  // Usage in your component or logic
+  const user = getRole();
 
   return (
     <>
