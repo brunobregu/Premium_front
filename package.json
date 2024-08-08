@@ -82,7 +82,7 @@
     "react-datepicker": "^6.9.0",
     "react-dom": "18.3.1",
     "react-dropzone": "^14.2.3",
-    "react-email": "2.1.2",
+    "react-email": "^2.1.6",
     "react-hook-form": "^7.52.2",
     "react-hot-toast": "^2.4.1",
     "react-i18next": "^14.1.2",
