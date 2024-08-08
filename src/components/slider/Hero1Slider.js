@@ -20,19 +20,21 @@ export default function Hero1Slider() {
 
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
-      setLoading(true);
       const fetchedPrices = await fetchPrices(locale, zipCode, destination);
       if(fetchedPrices ){
         setPrices(fetchedPrices);
         setIsModalOpen(true);
       } else {
+        setLoading(false);
         toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
           position: 'top-right',
         });
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
       toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
         position: 'top-right',
@@ -61,6 +63,41 @@ export default function Hero1Slider() {
     setIsModalOpen(false);
     setPrices(null);
   };
+
+  // const [file, setFile] = useState(null);
+
+  // const handleFileChange = (event) => {
+  //   setFile(event.target.files[0]);
+  // };
+
+  // const handleUpload = async () => {
+  //   if (!file) {
+  //     alert('Please select a file first.');
+  //     return;
+  //   }
+
+  //   const formData = new FormData();
+  //   formData.append('File', file);
+
+  //   try {
+  //     const response = await fetch('https://localhost:7130/api/v1/en/Test/uploadDoc', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibmlubyBzYXVsaSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjI3MGViM2ItNjNmYy00MmRmLWFhYzQtYjY3NTVlODIwNGExIiwiZW1haWwiOiJzYXVsaW5pbm9AZ21haWwuY29tIiwic3ViIjoic2F1bGluaW5vQGdtYWlsLmNvbSIsImp0aSI6IjY5ODcwMWVmLWRjMTctNGQ3OS04NDVjLThlZmMxOTg3ODU3YiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzIzMDEyOTE0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MTMwIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6MzAwMCJ9.mrXcPYQ7gFrLJXIvwcIxvij2MVME9ofGqcPkcH5owYg', // Replace with your actual token
+  //       },
+  //       body: formData,
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+
+  //     const result = await response.json();
+  //     console.log('Success:', result);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
 
   return (
     <div
@@ -119,12 +156,17 @@ export default function Hero1Slider() {
                         disabled
                       />
                       <input
-                        className="btn btn-brand-1 btn-track"
+                      disabled={loading}
+                        className= {` ${loading ? "opacity-50":""} btn btn-brand-1 btn-track`}
                         type="submit"
                         value="Calculate shipping"
                       />
                     </div>
                   </form>
+                  {/* <div>
+      <input type="file" onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload</button>
+    </div> */}
                   <TransportModal
                     isOpen={isModalOpen}
                     onRequestClose={handleCloseModal}

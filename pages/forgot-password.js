@@ -8,10 +8,12 @@ import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
+import { useState } from 'react';
 
 export default function ForgotPassword({locale}) {
   const { t } = useTranslation('common');
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     formState: { errors },
@@ -20,6 +22,7 @@ export default function ForgotPassword({locale}) {
   } = useForm();
 
   async function onSubmit(data) {
+    setLoading(true)
     try {
       const response = await premiumApi.post( 'en/Authentication/requestResetPassword', data.email, {
         headers: {
@@ -35,9 +38,11 @@ export default function ForgotPassword({locale}) {
         // Show success toast
         toast.success(t('password-reset-link-sent'), {position:"top-right"});
       } else{
+        setLoading(false)
         toast.error("Error, try again!", {position:"top-right"})
       }
     } catch (error) {
+      setLoading(false)
       if (error.response && error.response.status === 400) {
         toast.error("Invalid request. Please check the provided email.", { position: "top-right" });
       } else {
@@ -100,7 +105,8 @@ export default function ForgotPassword({locale}) {
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="box-button-form-login">
                           <input
-                            className="btn btn-brand-1-big mr-20"
+                          disabled={loading}
+                            className={`${loading ? "opacity-50": ""} btn btn-brand-1-big mr-20`}
                             type="submit"
                             value={t('submit')}
                           />

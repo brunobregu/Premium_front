@@ -5,10 +5,13 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
+import { useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function ResetPassword() {
   const { t } = useTranslation('common');
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     formState: { errors },
@@ -17,6 +20,7 @@ export default function ResetPassword() {
   } = useForm();
 
   async function onSubmit(data) {
+    setLoading(true)
     if (data.newPassword !== data.confirmNewPassword) {
       toast.error(t('form-validation.passwords-must-match'), {position:"top-right"});
       return;
@@ -41,9 +45,11 @@ export default function ResetPassword() {
         // Redirect to login page or another appropriate page
         router.push('/login');
       } else {
+        setLoading(false)
         toast.error('Error, try again!', {position:"top-right"});
       }
     } catch (error) {
+      setLoading(false)
       if (error.response && error.response.status === 400) {
         const errorData = error.response.data;
         // Extract the error message
@@ -141,7 +147,8 @@ export default function ResetPassword() {
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="box-button-form-login">
                           <input
-                            className="btn btn-brand-1-big mr-20"
+                          disabled={loading}
+                            className={`${loading ? "opacity-50": ""} btn btn-brand-1-big mr-20`}
                             type="submit"
                             value={t('submit')}
                           />
@@ -171,5 +178,15 @@ export default function ResetPassword() {
       </Layout>
     </>
   );
+}
+
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      locale, // Pass locale as a prop
+    },
+  };
 }
 

@@ -23,8 +23,8 @@ export default function Login() {
   const [loadingLogin, setLoadingLogin] = useState(false);
 
   async function onSubmit(data) {
+    setLoadingLogin(true);
     try {
-      setLoadingLogin(true);
       const apiResponse = await premiumApi.post(locale + '/Authentication/login', {
         email: data.email,
         password: data.password,
@@ -43,6 +43,7 @@ export default function Login() {
       document.cookie = cookie;
       router.push(`/logistics/shipments`);
     } catch (error) {
+      setLoadingLogin(false);
       if (error.response && error.response.status === 400) {
         const { detail } = error.response.data;
         toast.error(detail || 'Please check your credentialsss', {
@@ -148,7 +149,7 @@ export default function Login() {
                         <div className="box-button-form-login">
                           <input
                             disabled={loadingLogin}
-                            className="btn btn-brand-1-big mr-20"
+                            className={`${loadingLogin? "opacity-50": ""} btn btn-brand-1-big mr-20`}
                             type="submit"
                             defaultValue={t('submit')}
                           />

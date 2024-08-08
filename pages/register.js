@@ -32,8 +32,8 @@ export default function Register() {
   }, [i18n.language]);
 
   async function onSubmit(data) {
+    setLoadingRegister(true);
     try {
-      setLoadingRegister(true);
     const { firstName, lastName, email, phoneNumber, password } = data;
 
     const payload = {
@@ -74,6 +74,7 @@ export default function Register() {
 
     
     } catch (error) {
+      setLoadingRegister(false)
       toast.error(error.response?.data?.detail || 'An error occurred while submitting the form', {
         position: 'top-right',
       });
@@ -291,7 +292,7 @@ export default function Register() {
                         <div className="box-button-form-login">
                           <input
                             disabled={loadingRegister}
-                            className="btn btn-brand-1-big mr-20"
+                            className={`${loadingRegister? "opacity-50": ""} btn btn-brand-1-big mr-20`}
                             type="submit"
                             defaultValue="Create Account"
                           />
