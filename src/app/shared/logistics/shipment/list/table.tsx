@@ -62,7 +62,7 @@ export default function ShipmentListTable() {
 
   const handleDelete = useCallback(async (id: string) => {
     try {
-      await premiumApi.delete(`/OrderDetails/delete?id=${id}`);
+      await premiumApi.delete(`/en/OrderDetails/delete?id=${id}`);
       queryClient.invalidateQueries({ queryKey: ['shipments'] });
       queryClient.invalidateQueries({ queryKey: ['details'] });
     } catch (error) {

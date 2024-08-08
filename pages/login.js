@@ -13,6 +13,7 @@ import toast, { Toaster } from 'react-hot-toast';
 export default function Login() {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
+  const router = useRouter()
   const {
     register,
     formState: { errors },
@@ -40,7 +41,7 @@ export default function Login() {
         path: '/',
       });
       document.cookie = cookie;
-      push(`/${locale}/logistics/shipments`);
+      router.push(`/logistics/shipments`);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         const { detail } = error.response.data;
