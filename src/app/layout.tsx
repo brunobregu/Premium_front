@@ -13,6 +13,7 @@ import 'swiper/css/navigation';
 import '@/app/globals.css';
 import { QueryClientProvider } from '@tanstack/react-query';
 import premiumQueryClient from '@/util/premiumQueryClient';
+import { FiltersProvider } from '@/store/state';
 
 export const metadata = {
   title: siteConfig.title,
@@ -36,15 +37,18 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={cn(inter.variable, lexendDeca.variable, 'font-inter')}
       >
-        <QueryClientProvider client={premiumQueryClient}>
-          <ThemeProvider>
-            <NextProgress />
-            {children}
-            <Toaster />
-            <GlobalDrawer />
-            <GlobalModal />
-          </ThemeProvider>
-        </QueryClientProvider>
+
+        <FiltersProvider>
+          <QueryClientProvider client={premiumQueryClient}>
+            <ThemeProvider>
+              <NextProgress />
+              {children}
+              <Toaster />
+              <GlobalDrawer />
+              <GlobalModal />
+            </ThemeProvider>
+          </QueryClientProvider>
+        </FiltersProvider>
       </body>
     </html>
   );

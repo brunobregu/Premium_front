@@ -1,36 +1,36 @@
+"use client"
 
-import ShipmentListTable from '@/app/shared/logistics/shipment/list/table';
-import ShipmentPageHeader from '@/app/(hydrogen)/logistics/shipments/page-header';
-import { metaObject } from '@/config/site.config';
-import StatCards from '@/app/shared/logistics/shipment/stat-cards';
+import { useFiltersContext } from '@/store/state'; // Check import path
+import ShipmentPageHeader from './page-header';
 import MyOrdersList from '@/app/shared/logistics/shipment/my-list/table';
-
-export const metadata = {
-  ...metaObject('Shipments'),
-};
+import React, { useEffect, useState } from "react";
+import OrderList from '@/app/shared/logistics/shipment/list/table';
+import MyDetails from '@/app/shared/logistics/shipment/my-list/stat-cards';
+import Details from '@/app/shared/logistics/shipment/list/stat-cards';
 
 export default function LogisticsListPage() {
-  // const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<string | null>(null);
 
-  const getRole = () => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('userRole');
-    }
-    return null; // Or handle this scenario as needed
-  };
-
-  // Usage in your component or logic
-  const user = getRole();
+  useEffect(() => {
+    // Access localStorage only on the client side
+    const storedUserRole = localStorage.getItem('userRole');
+    setUser(storedUserRole);
+  }, []);
 
   return (
     <>
       <ShipmentPageHeader />
       <div className="flex flex-col gap-10">
-        <StatCards />
         {user === 'Client' ? (
-          <MyOrdersList />
+          <>
+            <MyDetails />
+            <MyOrdersList />
+          </>
         ) : (
-          <ShipmentListTable />
+          <>
+            <Details />
+            <OrderList />
+          </>
         )}
       </div>
     </>

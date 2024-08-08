@@ -5,9 +5,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { appWithTranslation } from "next-i18next";
+import { FiltersProvider } from '../src/store/state';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return(
+    <FiltersProvider>
+    <Component {...pageProps} />;
+    </FiltersProvider>)
 }
 
 export default appWithTranslation(MyApp /*, nextI18NextConfig */);

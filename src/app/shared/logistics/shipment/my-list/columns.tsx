@@ -7,8 +7,6 @@ import PencilIcon from '@components/icons/pencil';
 import EyeIcon from '@components/icons/eye';
 import TrashIcon from '@components/icons/trash';
 
-// Get user role from local storage
-const role = localStorage.getItem('userRole');
 
 export const statusColors = (status: StatusType) => {
   if (shippingStatuses.Approved === status) {

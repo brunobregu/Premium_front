@@ -7,8 +7,7 @@ import PencilIcon from '@components/icons/pencil';
 import EyeIcon from '@components/icons/eye';
 import TrashIcon from '@components/icons/trash';
 
-// Get user role from local storage
-const role = localStorage.getItem('userRole');
+
 
 export const statusColors = (status: StatusType) => {
   if (shippingStatuses.Approved === status) {
@@ -194,37 +193,36 @@ export const getColumns = ({
     }
   ];
 
-  if (role === 'Admin' || role === 'Account manager') {
-    columns.unshift({
+  columns.unshift({
+    title: (
+      <HeaderCell
+        title="Full Name"
+        sortable
+        ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
+      />
+    ),
+    onHeaderCell: () => onHeaderCellClick('fullname'),
+    dataIndex: 'fullname',
+    key: 'fullname',
+    width: 250,
+    render: (fullname: any) => fullname,
+  });
+  columns.push(
+    {
       title: (
         <HeaderCell
-          title="Full Name"
+          title="Total Cost"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
         />
       ),
-      onHeaderCell: () => onHeaderCellClick('fullname'),
-      dataIndex: 'fullname',
-      key: 'fullname',
-      width: 250,
-      render: (fullname: any) => fullname,
-    });
-    columns.push(
-      {
-        title: (
-          <HeaderCell
-            title="Total Cost"
-            sortable
-            ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
-          />
-        ),
-        onHeaderCell: () => onHeaderCellClick('totalCost'),
-        dataIndex: 'totalCost',
-        key: 'totalCost',
-        width: 180,
-        render: (totalCost: any) => totalCost,
-      },
-      {
+      onHeaderCell: () => onHeaderCellClick('totalCost'),
+      dataIndex: 'totalCost',
+      key: 'totalCost',
+      width: 180,
+      render: (totalCost: any) => totalCost,
+    },
+    {
       title: (
         <HeaderCell
           title="Order Id"
@@ -238,7 +236,7 @@ export const getColumns = ({
       width: 150,
       render: (dspOrderID: any) => dspOrderID,
     });
-  }
+
 
   columns.push({
     title: <HeaderCell title="Actions" className="opacity-0" />,
@@ -247,39 +245,38 @@ export const getColumns = ({
     width: 120,
     render: (row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
-        {(role === 'Admin' || role === 'Account manager') && (
-          <>
-            <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
-              <Link href={routes.logistics.editShipment(row?.id)}>
-                <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
-                  <PencilIcon className="h-4 w-4" />
-                </ActionIcon>
-              </Link>
-            </Tooltip>
-            <Tooltip size="sm" content={'Delete Shipment'} placement="top" color="invert">
-              <ActionIcon
-                size="sm"
-                variant="outline"
-                aria-label={'Delete Shipment'}
-                onClick={() => handleDelete(row.id)}
-              >
-                <TrashIcon className="h-4 w-4" />
-              </ActionIcon>
-            </Tooltip>
-          </>
-        )}
 
-        {(role == 'Client') && (
-          <>
-          <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
+        <>
+          <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
+            <Link href={routes.logistics.editShipment(row?.id)}>
+              <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
+                <PencilIcon className="h-4 w-4" />
+              </ActionIcon>
+            </Link>
+          </Tooltip>
+          <Tooltip size="sm" content={'Delete Shipment'} placement="top" color="invert">
+            <ActionIcon
+              size="sm"
+              variant="outline"
+              aria-label={'Delete Shipment'}
+              onClick={() => handleDelete(row.id)}
+            >
+              <TrashIcon className="h-4 w-4" />
+            </ActionIcon>
+          </Tooltip>
+        </>
+
+
+        {/* <>
+            <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
               <Link href={routes.logistics.detailShipment(row.id)}>
                 <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
                   <EyeIcon className="h-4 w-4" />
                 </ActionIcon>
               </Link>
             </Tooltip>
-          </>
-        )}
+          </> */}
+
       </div>
     ),
     onHeaderCell: () => ({})

@@ -19,7 +19,7 @@ import { useQuery } from '@tanstack/react-query';
 const defaultStatData: StatData[] = [
   {
     id: '1',
-    title: 'Orders',
+    title: 'Nr. of Orders',
     icon: <ExpenseIcon className="h-7 w-7" />,
     graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
     graphColor: 'text-green',
@@ -37,7 +37,7 @@ const defaultStatData: StatData[] = [
   },
   {
     id: '3',
-    title: 'Paid',
+    title: 'To be Paid',
     icon: <SalesIcon className="h-9 w-9" />,
     graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
     graphColor: 'text-green',
@@ -46,7 +46,7 @@ const defaultStatData: StatData[] = [
   },
   {
     id: '4',
-    title: 'Not Paid',
+    title: 'Paid',
     icon: <ContainersIcon className="h-7 w-7" />,
     graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
     graphColor: 'text-red',
@@ -61,15 +61,14 @@ const defaultStatData: StatData[] = [
 // ];
 
 const fetchStatData = async (user: string) => {
-  const endpoint = user === 'Admin'
-    ? '/OrderDetails/details'
-    : '/OrderDetails/myDetails';
+  const endpoint = 'en/OrderDetails/details'
+  // : '/OrderDetails/myDetails';
 
   const response = await premiumApi.get<DetailsApiResponse>(endpoint);
   return response.data;
 };
 
-export default function StatCards({ className }: { className?: string }) {
+export default function Details({ className }: { className?: string }) {
   const user = localStorage.getItem('userRole') || 'User';
 
   const { data, error, isLoading } = useQuery({
@@ -88,7 +87,7 @@ export default function StatCards({ className }: { className?: string }) {
       return [
         {
           id: '1',
-          title: 'Orders',
+          title: 'Nr. of Orders',
           icon: <ExpenseIcon className="h-7 w-7" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
@@ -106,7 +105,7 @@ export default function StatCards({ className }: { className?: string }) {
         },
         {
           id: '3',
-          title: 'Paid',
+          title: 'To be Paid',
           icon: <SalesIcon className="h-9 w-9" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
@@ -115,7 +114,7 @@ export default function StatCards({ className }: { className?: string }) {
         },
         {
           id: '4',
-          title: 'Not Paid',
+          title: 'Paid',
           icon: <ContainersIcon className="h-7 w-7" />,
           graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-red',
@@ -130,8 +129,22 @@ export default function StatCards({ className }: { className?: string }) {
     console.log('viewType', viewType);
   }
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading data</div>;
+
+  if (isLoading || error) return <div className="grid grid-flow-col gap-5 pb-1">
+    {defaultStatData?.map((stat) => (
+      <MetricCard
+        key={stat.id}
+        title={stat.title}
+        metric={stat.metric}
+        icon={stat.icon}
+        className="min-w-[240px] border-0 p-1 @2xl:min-w-[280px] lg:p-1"
+        titleClassName="capitalize"
+        contentClassName="ps-5"
+        iconClassName={cn('@5xl:w-20 @5xl:h-20 h-16 w-16')}
+        chartClassName="hidden @[200px]:flex @[200px]:items-center h-14 w-24"
+      />
+    ))}
+  </div>;
 
   return (
     <WidgetCard
@@ -139,13 +152,13 @@ export default function StatCards({ className }: { className?: string }) {
       className={className}
       title="General Overview"
       headerClassName="mb-2 @2xl:mb-5"
-      // action={
-      //   <DropdownAction
-      //     options={viewOptions}
-      //     onChange={handleChange}
-      //     dropdownClassName="!z-0"
-      //   />
-      // }
+    // action={
+    //   <DropdownAction
+    //     options={viewOptions}
+    //     onChange={handleChange}
+    //     dropdownClassName="!z-0"
+    //   />
+    // }
     >
       <SimpleBar>
         <div className="grid grid-flow-col gap-5 pb-1">

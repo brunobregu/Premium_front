@@ -41,7 +41,7 @@ const transformData = (data: ShipmentData[]): ShipmentData[] => {
 };
 
 
-export default function ShipmentListTable() {
+export default function OrderList() {
   const [pageSize, setPageSize] = useState<number>(10);
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
