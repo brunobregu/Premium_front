@@ -47,15 +47,12 @@ export default function MyOrdersList() {
     // Apply filtering logic based on the search term from context
     return query.data.filter((item) => {
       return (
-        item.port.toLowerCase().includes(searchInput.toLowerCase()) ||
         item.make.toLowerCase().includes(searchInput.toLowerCase()) ||
         item.model.toLowerCase().includes(searchInput.toLowerCase()) ||
-        (item.paymentStatus && item.paymentStatus.toLowerCase().includes(searchInput.toLowerCase()))
+        (item.trackingNumber && item.trackingNumber.toLowerCase().includes(searchInput.toLowerCase()))
       );
     });
   }, [query.data, searchInput]);
-
-  console.log('filteredData', filteredData)
 
   const onHeaderCellClick = (value: string) => ({
     onClick: () => {
@@ -90,7 +87,7 @@ export default function MyOrdersList() {
   const columns = useMemo(
     () =>
       getColumns({
-        data: shipmentData,
+        data: filteredData,
         sortConfig,
         checkedItems: selectedRowKeys,
         onHeaderCellClick,

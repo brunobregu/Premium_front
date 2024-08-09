@@ -81,12 +81,12 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
   const query = useQuery({
     queryKey: ['user'],
-    queryFn: () => premiumApi.get('/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
+    queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
   });
 
   const orderDetailsQuery = useQuery({
     queryKey: ['orderDetails', id],
-    queryFn: () => premiumApi.get(`/OrderDetails/orderById?id=${id}`),
+    queryFn: () => premiumApi.get(`en/OrderDetails/orderById?id=${id}`),
     enabled: !!id,
   });
 
@@ -101,9 +101,9 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
   const addOrderDetailsMutation = useMutation({
     mutationFn: (data: CreateShipmentInput) => {
       if (id) {
-        return premiumApi.put(`/OrderDetails/update?id=${id}`, data);
+        return premiumApi.put(`en/OrderDetails/update?id=${id}`, data);
       } else {
-        return premiumApi.post('/OrderDetails/add', data);
+        return premiumApi.post('en/OrderDetails/add', data);
       }
     },
     onSuccess: () => {
@@ -178,7 +178,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               placeholder="order id"
               labelClassName="font-medium text-gray-900"
               {...register('dspOrderID')}
-              error={errors.dspOrderID?.message as string}
+              error={errors.orderID?.message as string}
             />
             <Input
               label="Auction"
@@ -370,16 +370,16 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             </Button>
           </div>
 
-          <div className="flex items-center justify-start gap-x-2 mt-10">
-            <Button
-              className="!px-14 !py-[.6rem] bg-gray-900 hover:bg-gray-800 text-white"
-              type="submit"
-              isLoading={isLoading}
-              disabled={isLoading}
-            >
-              Submit
-            </Button>
-          </div>
+          {/* <div className="flex items-center justify-start gap-x-2 mt-10"> */}
+          <Button
+            type="submit"
+            className="!px-14 !py-[.6rem] bg-gray-900 hover:bg-gray-800 text-white"
+            isLoading={isLoading}
+            disabled={isLoading}
+          >
+            {id ? 'Update Shipment' : 'Create Shipment'}
+          </Button>
+          {/* </div> */}
         </form >
       </FormProvider >
 

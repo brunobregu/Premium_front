@@ -7,6 +7,21 @@ import PencilIcon from '@components/icons/pencil';
 import EyeIcon from '@components/icons/eye';
 import TrashIcon from '@components/icons/trash';
 
+export interface RecordType {
+  id: string;
+  vin: string;
+  make: string;
+  model: string;
+  year: number;
+  lot: number;
+  auction: string;
+  trackingNumber: string | null;
+  carStatus: string;
+  port: string;
+  clientTotal: number;
+  paymentStatus: string;
+};
+
 
 export const statusColors = (status: StatusType) => {
   if (shippingStatuses.Approved === status) {
@@ -174,7 +189,7 @@ export const getColumns = ({
       dataIndex: 'trackingNumber',
       key: 'trackingNumber',
       width: 150,
-      render: (trackingNumber: any) => trackingNumber,
+      render: (trackingId: any) => trackingId,
     },
     {
       title: (
@@ -189,6 +204,26 @@ export const getColumns = ({
       key: 'clientTotal',
       width: 150,
       render: (clientTotal: any) => clientTotal,
+    },
+    {
+      title: <HeaderCell title="Actions" className="text-gray-900 font-medium" />,
+      dataIndex: 'action',
+      key: 'action',
+      width: 120,
+      render: (text: any, record: RecordType) => {
+        return (
+          <div className="flex items-center justify-start gap-3 pe-4">
+            <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
+              <Link href={routes.logistics.detailShipment(record.id)}>
+                <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
+                  <EyeIcon className="h-4 w-4" />
+                </ActionIcon>
+              </Link>
+            </Tooltip>
+          </div>
+        );
+      },
+      onHeaderCell: () => ({})
     }
   ];
 
@@ -239,50 +274,28 @@ export const getColumns = ({
   //   );
   // }
 
-  columns.push({
-    title: <HeaderCell title="Actions" className="opacity-0" />,
-    onHeaderCell: () => onHeaderCellClick('action'),
-    dataIndex: 'action',
-    key: 'action',
-    width: 120,
-    render: (row: any) => (
-      <div className="flex items-center justify-end gap-3 pe-4">
-        {/* {(role === 'Admin' || role === 'Account manager') && (
-          <>
-            <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
-              <Link href={routes.logistics.editShipment(row.id)}>
-                <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
-                  <PencilIcon className="h-4 w-4" />
-                </ActionIcon>
-              </Link>
-            </Tooltip>
-            <Tooltip size="sm" content={'Delete Shipment'} placement="top" color="invert">
-              <ActionIcon
-                size="sm"
-                variant="outline"
-                aria-label={'Delete Shipment'}
-                onClick={() => handleDelete(row.id)}
-              >
-                <TrashIcon className="h-4 w-4" />
-              </ActionIcon>
-            </Tooltip>
-          </>
-        )} */}
-
-        {/* {(role == 'Client') && ( */}
-        <>
-          <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
-            <Link href={routes.logistics.detailShipment(row.id)}>
-              <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
-                <EyeIcon className="h-4 w-4" />
-              </ActionIcon>
-            </Link>
-          </Tooltip>
-        </>
-        {/* )} */}
-      </div>
-    ),
-  });
+  // columns.push({
+  //   title: <HeaderCell title="Actions" className="text-gray-900 font-medium" />,
+  //   dataIndex: 'action',
+  //   key: 'action',
+  //   width: 120,
+  //   render: (text: any, record: any) => {
+  //     // Assuming you need the `id` from each `record` for actions
+  //     console.log('Row data:', record);
+  //     return (
+  //       <div className="flex items-center justify-end gap-3 pe-4">
+  //         <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
+  //           <Link href={routes.logistics.detailShipment(record.id)}>
+  //             <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
+  //               <EyeIcon className="h-4 w-4" />
+  //             </ActionIcon>
+  //           </Link>
+  //         </Tooltip>
+  //       </div>
+  //     );
+  //   },
+  //   onHeaderCell: () => ({})
+  // })
 
   return columns;
 };

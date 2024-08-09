@@ -49,7 +49,7 @@ export const routes = {
     editShipment: (id: string) => `/logistics/shipments/${id}/edit`,
     shipmentDetails: (id: string) => `/logistics/shipments/${id}`,
     tracking: (id: string) => `/logistics/tracking/${id}`,
-    detailShipment: (id: string) => `/logistics/shipments/details/${id}`,
+    detailShipment: (id: string) => `/logistics/shipments/${id}/details`,
   },
   appointment: {
     dashboard: '/appointment',

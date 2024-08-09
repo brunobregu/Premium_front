@@ -227,14 +227,14 @@ export const getColumns = ({
         <HeaderCell
           title="Order Id"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'dspOrderID'}
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'orderID'}
         />
       ),
-      onHeaderCell: () => onHeaderCellClick('dspOrderID'),
-      dataIndex: 'dspOrderID',
-      key: 'dspOrderID',
+      onHeaderCell: () => onHeaderCellClick('orderID'),
+      dataIndex: 'orderID',
+      key: 'orderID',
       width: 150,
-      render: (dspOrderID: any) => dspOrderID,
+      render: (orderID: any) => orderID,
     });
 
 
@@ -248,7 +248,7 @@ export const getColumns = ({
 
         <>
           <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
-            <Link href={routes.logistics.editShipment(row?.id)}>
+            <Link href={routes.logistics.editShipment(row?.orderID)}>
               <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
                 <PencilIcon className="h-4 w-4" />
               </ActionIcon>
@@ -259,7 +259,7 @@ export const getColumns = ({
               size="sm"
               variant="outline"
               aria-label={'Delete Shipment'}
-              onClick={() => handleDelete(row.id)}
+              onClick={() => handleDelete(row.orderID)}
             >
               <TrashIcon className="h-4 w-4" />
             </ActionIcon>

@@ -54,8 +54,6 @@ export default function Login() {
         setFormError('email', 'Email or password does not match');
         setFormError('password', 'Email or password does not match');
       }
-    } finally {
-      setLoadingLogin(false);
     }
   }
 
