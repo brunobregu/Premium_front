@@ -39,7 +39,7 @@ const pageHeader = {
       name: 'Shipments',
     },
     {
-      name: 'Edit Shipment',
+      name: 'View Details',
     },
   ],
 };

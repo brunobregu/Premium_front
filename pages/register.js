@@ -84,8 +84,6 @@ export default function Register() {
           position: 'top-right',
         });
       }
-    } finally {
-      setLoadingRegister(false);
     }
   }
 

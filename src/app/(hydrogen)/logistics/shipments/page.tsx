@@ -15,7 +15,7 @@ export default function LogisticsListPage() {
     // Access localStorage only on the client side
     const storedUserRole = localStorage.getItem('userRole');
     setUser(storedUserRole);
-  }, []);
+  }, [user]);
 
   return (
     <>
