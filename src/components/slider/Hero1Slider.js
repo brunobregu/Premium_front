@@ -13,6 +13,7 @@ export default function Hero1Slider() {
   const destination = 'Albania';
   const { t, i18n } = useTranslation('common');
   const [locale, setLocale] = useState(i18n.language);
+  const [validation, setValidation] = useState("")
 
   useEffect(() => {
     setLocale(i18n.language);
@@ -22,6 +23,15 @@ export default function Hero1Slider() {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+    if(zipCode.length===0) {
+      setValidation("* Please enter a zip code consisting only of numbers.")
+      setLoading(false)
+      return;
+    } else if (zipCode.length>0 && !/^\d+$/.test(zipCode)) {
+      setLoading(false)
+      setValidation('* Please enter a valid zip code consisting only of numbers.')
+      return;
+    }
     try {
       const fetchedPrices = await fetchPrices(locale, zipCode, destination);
       if(fetchedPrices ){
@@ -146,7 +156,6 @@ export default function Hero1Slider() {
                         placeholder="Zip Code"
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
-                        required
                       />
                       <input
                         className="form-control"
@@ -162,6 +171,7 @@ export default function Hero1Slider() {
                         value="Calculate shipping"
                       />
                     </div>
+                    <p className='text-red-600' style={{color:"red"}}> {validation}</p>
                   </form>
                   {/* <div>
       <input type="file" onChange={handleFileChange} />
