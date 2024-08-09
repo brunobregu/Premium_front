@@ -6,7 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 import { Title, Loader } from 'rizzui';
 import cn from '@utils/class-names';
 import type { TableFilterProps } from '@/app/shared/controlled-table/table-filter';
-import type { TablePaginationProps } from '@/app/shared/controlled-table/table-pagination';
 import Table, { TableProps } from '../table';
 const TableFilter = dynamic(
   () => import('@/app/shared/controlled-table/table-filter'),
@@ -22,7 +21,7 @@ type ControlledTableProps = {
   showLoadingText?: boolean;
   filterElement?: React.ReactElement;
   filterOptions?: TableFilterProps;
-  paginatorOptions?: TablePaginationProps;
+  paginatorOptions?: any;
   tableFooter?: React.ReactNode;
   className?: string;
   paginatorClassName?: string;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   getColumns,
 } from '@/app/shared/logistics/shipment/my-list/columns';
@@ -27,11 +27,13 @@ const transformData = (data: MyOrders[]): MyOrders[] => {
 
 
 export default function MyOrdersList() {
-  const [pageSize, setPageSize] = useState<number>(10);
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
-  const { searchInput, setSearchInput } = useFiltersContext()
+  const { searchInput, setSearchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
+
+
+
 
   const query = useQuery({
     queryKey: ['shipments'],
@@ -45,14 +47,39 @@ export default function MyOrdersList() {
     if (!query.data) return [];
 
     // Apply filtering logic based on the search term from context
-    return query.data.filter((item) => {
+    const result = query.data.filter((item) => {
       return (
         item.make.toLowerCase().includes(searchInput.toLowerCase()) ||
         item.model.toLowerCase().includes(searchInput.toLowerCase()) ||
         (item.trackingNumber && item.trackingNumber.toLowerCase().includes(searchInput.toLowerCase()))
       );
     });
-  }, [query.data, searchInput]);
+
+    // Set the total number of records based on the filtered data
+    setTotalRecords(result.length);
+
+    return result;
+  }, [query.data, searchInput, setTotalRecords]);
+
+  // Calculate paginated data
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return filteredData.slice(startIndex, endIndex);
+  }, [filteredData, currentPage, pageSize]);
+
+  useEffect(() => {
+    // Calculate new total pages
+    const totalPages = Math.ceil(filteredData.length / pageSize);
+
+    // If the current page is greater than the total pages, reset to the last page
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    } else if (totalPages === 0) {
+      // Handle case when there are no pages
+      setCurrentPage(1);
+    }
+  }, [pageSize, filteredData.length, currentPage, setCurrentPage]);
 
   const onHeaderCellClick = (value: string) => ({
     onClick: () => {
@@ -73,7 +100,6 @@ export default function MyOrdersList() {
 
   const {
     isFiltered,
-    currentPage,
     handlePaginate,
     searchTerm,
     handleSearch,
@@ -82,12 +108,12 @@ export default function MyOrdersList() {
     handleSelectAll,
     handleRowSelect,
     selectedRowKeys,
-  } = useTable(filteredData, pageSize);
+  } = useTable(paginatedData, pageSize);
 
   const columns = useMemo(
     () =>
       getColumns({
-        data: filteredData,
+        data: paginatedData,
         sortConfig,
         checkedItems: selectedRowKeys,
         onHeaderCellClick,
@@ -108,7 +134,7 @@ export default function MyOrdersList() {
         variant="modern"
         isLoading={query.isLoading}
         showLoadingText={true}
-        data={filteredData}
+        data={paginatedData}
         scroll={{
           x: 1800,
         }}
@@ -116,10 +142,9 @@ export default function MyOrdersList() {
         columns={visibleColumns}
         paginatorOptions={{
           pageSize,
-          setPageSize,
-          total: filteredData.length,
-          current: currentPage,
-          onChange: (page: number) => handlePaginate(page),
+          total: paginatedData.length,
+
+          // onChange: (page: number) => handlePaginate(page),
         }}
         filterOptions={{
           searchTerm,
