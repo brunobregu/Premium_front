@@ -40,6 +40,20 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
+          title="Full Name"
+          sortable
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
+        />
+      ),
+      onHeaderCell: () => onHeaderCellClick('fullname'),
+      dataIndex: 'fullname',
+      key: 'fullname',
+      width: 180,
+      render: (fullname: any) => fullname,
+    },
+    {
+      title: (
+        <HeaderCell
           title="VIN"
           sortable
           ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'vin'}
@@ -110,16 +124,16 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Port"
+          title="Order Id"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'port'}
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'orderID'}
         />
       ),
-      onHeaderCell: () => onHeaderCellClick('port'),
-      dataIndex: 'port',
-      key: 'port',
+      onHeaderCell: () => onHeaderCellClick('orderID'),
+      dataIndex: 'orderID',
+      key: 'orderID',
       width: 150,
-      render: (port: any) => port,
+      render: (orderID: any) => orderID,
     },
     {
       title: (
@@ -134,6 +148,20 @@ export const getColumns = ({
       key: 'auction',
       width: 150,
       render: (auction: any) => auction,
+    },
+    {
+      title: (
+        <HeaderCell
+          title="Tracking Number"
+          sortable
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'trackingNumber'}
+        />
+      ),
+      onHeaderCell: () => onHeaderCellClick('trackingNumber'),
+      dataIndex: 'trackingNumber',
+      key: 'trackingNumber',
+      width: 150,
+      render: (trackingNumber: any) => trackingNumber,
     },
     {
       title: (
@@ -166,16 +194,16 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Tracking Number"
+          title="Port"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'trackingNumber'}
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'port'}
         />
       ),
-      onHeaderCell: () => onHeaderCellClick('trackingNumber'),
-      dataIndex: 'trackingNumber',
-      key: 'trackingNumber',
+      onHeaderCell: () => onHeaderCellClick('port'),
+      dataIndex: 'port',
+      key: 'port',
       width: 150,
-      render: (trackingNumber: any) => trackingNumber,
+      render: (port: any) => port,
     },
     {
       title: (
@@ -190,24 +218,7 @@ export const getColumns = ({
       key: 'clientTotal',
       width: 150,
       render: (clientTotal: any) => clientTotal,
-    }
-  ];
-
-  columns.unshift({
-    title: (
-      <HeaderCell
-        title="Full Name"
-        sortable
-        ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
-      />
-    ),
-    onHeaderCell: () => onHeaderCellClick('fullname'),
-    dataIndex: 'fullname',
-    key: 'fullname',
-    width: 250,
-    render: (fullname: any) => fullname,
-  });
-  columns.push(
+    },
     {
       title: (
         <HeaderCell
@@ -219,23 +230,57 @@ export const getColumns = ({
       onHeaderCell: () => onHeaderCellClick('totalCost'),
       dataIndex: 'totalCost',
       key: 'totalCost',
-      width: 180,
+      width: 150,
       render: (totalCost: any) => totalCost,
     },
     {
       title: (
         <HeaderCell
-          title="Order Id"
+          title="Profit"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'orderID'}
+          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'profit'}
         />
       ),
-      onHeaderCell: () => onHeaderCellClick('orderID'),
-      dataIndex: 'orderID',
-      key: 'orderID',
+      onHeaderCell: () => onHeaderCellClick('profit'),
+      dataIndex: 'profit',
+      key: 'profit',
       width: 150,
-      render: (orderID: any) => orderID,
-    });
+      render: (profit: any) => profit,
+    }
+
+  ];
+
+  // columns.unshift({
+  //   title: (
+  //     <HeaderCell
+  //       title="Full Name"
+  //       sortable
+  //       ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
+  //     />
+  //   ),
+  //   onHeaderCell: () => onHeaderCellClick('fullname'),
+  //   dataIndex: 'fullname',
+  //   key: 'fullname',
+  //   width: 250,
+  //   render: (fullname: any) => fullname,
+  // });
+
+
+  // columns.push(
+  //   {
+  //     title: (
+  //       <HeaderCell
+  //         title="Total Cost"
+  //         sortable
+  //         ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
+  //       />
+  //     ),
+  //     onHeaderCell: () => onHeaderCellClick('totalCost'),
+  //     dataIndex: 'totalCost',
+  //     key: 'totalCost',
+  //     width: 180,
+  //     render: (totalCost: any) => totalCost,
+  //   });
 
 
   columns.push({
@@ -247,6 +292,13 @@ export const getColumns = ({
       <div className="flex items-center justify-end gap-3 pe-4">
 
         <>
+          <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
+            <Link href={routes.logistics.detailShipment(row?.id)}>
+              <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
+                <EyeIcon className="h-4 w-4" />
+              </ActionIcon>
+            </Link>
+          </Tooltip>
           <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
             <Link href={routes.logistics.editShipment(row?.orderID)}>
               <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
