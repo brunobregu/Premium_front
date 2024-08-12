@@ -4,7 +4,6 @@ import Project1Slider from "@/components/slider/Project1Slider";
 import Link from "next/link";
 import { useState } from "react";
 import ModalVideo from "react-modal-video";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 export default function Quote() {
@@ -718,11 +717,11 @@ export default function Quote() {
   );
 }
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-      // Will be passed to the page component as props
-    },
-  };
-}
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//       // Will be passed to the page component as props
+//     },
+//   };
+// }

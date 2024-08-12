@@ -47,6 +47,6 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts"
-  ],
+, "pages/edit.js"  ],
   "exclude": ["node_modules"]
 }

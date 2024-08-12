@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'next-i18next';
 import toast, { Toaster } from 'react-hot-toast';
 import TransportModal from '../modals/TransportModal';
 import premiumApi from '../../util/premiumAPI';
+import { useTranslation } from 'react-i18next';
+
+
 
 export default function Hero1Slider() {
-
+  const { t, i18n } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [prices, setPrices] = useState(null);
   const [zipCode, setZipCode] = useState('');
   const [loading, setLoading] = useState(false);
   const destination = 'Albania';
-  const { t, i18n } = useTranslation('common');
+
   const [locale, setLocale] = useState(i18n.language);
   const [validation, setValidation] = useState("")
 
@@ -135,7 +137,7 @@ export default function Hero1Slider() {
                 className="color-white mb-25 wow animate__animated animate__fadeInUp"
                 data-wow-delay=".0s"
               >
-                {t('header')}
+                {i18n.t('header')}
               </h1>
               <div className="row">
                 <p

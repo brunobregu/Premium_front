@@ -14,8 +14,6 @@ import Requestquote1 from "@/components/sections/homepage1/Requestquote1";
 import Services1 from "@/components/sections/homepage1/Services1";
 import Testimonial1 from "@/components/sections/homepage1/Testimonial1";
 
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
 export default function Home() {
   return (
     <>
@@ -37,13 +35,4 @@ export default function Home() {
       </Layout>
     </>
   );
-}
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-      // Will be passed to the page component as props
-    },
-  };
 }

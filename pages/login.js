@@ -1,7 +1,6 @@
 import Layout from '@/components/layout/Layout';
 import Brand1Slider from '@/components/slider/Brand1Slider';
 import Link from 'next/link';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import { serialize } from 'cookie';
@@ -10,7 +9,9 @@ import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
+
 export default function Login() {
+  
   const { t } = useTranslation('common');
   const { locale } = useRouter();
   const router = useRouter()
@@ -25,7 +26,7 @@ export default function Login() {
   async function onSubmit(data) {
     setLoadingLogin(true);
     try {
-      const apiResponse = await premiumApi.post(locale + '/Authentication/login', {
+      const apiResponse = await premiumApi.post( '/en/Authentication/login', {
         email: data.email,
         password: data.password,
       });
@@ -219,13 +220,3 @@ export default function Login() {
     </>
   );
 }
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-      locale, // Pass locale as a prop
-    },
-  };
-}
-

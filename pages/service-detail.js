@@ -2,7 +2,6 @@ import Layout from "@/components/layout/Layout";
 import Pricing2 from "@/components/sections/homepage2/Pricing2";
 import ServiceSlider from "@/components/slider/ServiceSlider";
 import Link from "next/link";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 export default function ServiceDetail() {
   const { t } = useTranslation("common");
@@ -491,11 +490,11 @@ export default function ServiceDetail() {
   );
 }
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-      // Will be passed to the page component as props
-    },
-  };
-}
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//       // Will be passed to the page component as props
+//     },
+//   };
+// }

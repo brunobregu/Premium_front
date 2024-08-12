@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function ResetPassword() {
   const { t } = useTranslation('common');
@@ -181,12 +180,12 @@ export default function ResetPassword() {
 }
 
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-      locale, // Pass locale as a prop
-    },
-  };
-}
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ['common'])),
+//       locale, // Pass locale as a prop
+//     },
+//   };
+// }
 

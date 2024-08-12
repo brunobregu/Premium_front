@@ -2,11 +2,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Popover } from "react-tiny-popover";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function LanguageDropdown() {
   const router = useRouter();
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation();
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
@@ -35,7 +35,7 @@ export default function LanguageDropdown() {
                 alt="transp"
                 style={{ marginRight: 10 }}
               />
-              {t("languages.en")}
+              {i18n.t("languages.en")}
             </li>
             <li className="font-md" onClick={() => handleLocaleClick("sq")}>
               <img
@@ -43,7 +43,7 @@ export default function LanguageDropdown() {
                 alt="transp"
                 style={{ marginRight: 10 }}
               />
-              {t("languages.sq")}
+       {i18n.t("languages.sq")}
             </li>
           </ul>
         </div>

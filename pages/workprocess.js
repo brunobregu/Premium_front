@@ -2,7 +2,6 @@ import Layout from "@/components/layout/Layout";
 import Pricing2 from "@/components/sections/homepage2/Pricing2";
 import Project1Slider from "@/components/slider/Project1Slider";
 import Link from "next/link";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 export default function WorkProcess() {
@@ -835,11 +834,11 @@ export default function WorkProcess() {
   );
 }
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-      // Will be passed to the page component as props
-    },
-  };
-}
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//       // Will be passed to the page component as props
+//     },
+//   };
+// }

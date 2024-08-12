@@ -1,5 +1,5 @@
 import "../public/assets/css/style.css";
-
+import '../i18'; // Import the i18n configuration
 import "swiper/css";
 // import "swiper/css/navigation";
 import "swiper/css/pagination";
