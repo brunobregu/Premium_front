@@ -43,7 +43,7 @@ const pageHeader = {
 
 export default function EditShipmentsPage({
     params,
-}) {
+}: any) {
     const [shipmentData, setShipmentData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
