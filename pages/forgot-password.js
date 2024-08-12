@@ -47,7 +47,7 @@ export default function ForgotPassword({locale}) {
       } else {
         // General error handling
         console.error('Error:', error);
-        toast.error(error.response?.data?.detail || t('form-validation.error'), { position: "top-right" });
+        toast.error(error.response?.data?.detail || i18n.t('form-validation.error'), { position: "top-right" });
       
     }
     }
@@ -77,14 +77,14 @@ export default function ForgotPassword({locale}) {
                     <div className="form-group">
                       <input
                         {...register('email', {
-                          required: t('form-validation.email.required'),
+                          required: i18n.t('form-validation.email.required'),
                           maxLength: {
                             value: 220,
-                            message: t('form-validation.email.maxLength'),
+                            message: i18n.t('form-validation.email.maxLength'),
                           },
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: t('form-validation.email.invalid'),
+                            message: i18n.t('form-validation.email.invalid'),
                           },
                         })}
                         className="form-control"

@@ -57,7 +57,7 @@ export default function ResetPassword() {
       } else {
         // General error handling
         console.error('Error:', error);
-        toast.error(error.response?.data?.detail || t('form-validation.error'), { position: "top-right" });
+        toast.error(error.response?.data?.detail || i18n.t('form-validation.error'), { position: "top-right" });
       }
     }
   }
@@ -77,14 +77,14 @@ export default function ResetPassword() {
                     <div className="form-group">
                       <input
                         {...register('email', {
-                          required: t('form-validation.email.required'),
+                          required: i18n.t('form-validation.email.required'),
                           maxLength: {
                             value: 220,
-                            message: t('form-validation.email.maxLength'),
+                            message: i18n.t('form-validation.email.maxLength'),
                           },
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: t('form-validation.email.invalid'),
+                            message: i18n.t('form-validation.email.invalid'),
                           },
                         })}
                         className="form-control"
@@ -100,7 +100,7 @@ export default function ResetPassword() {
                     <div className="form-group">
                       <input
                         {...register('temporaryPassword', {
-                          required: t('form-validation.temporaryPassword.required'),
+                          required: i18n.t('form-validation.temporaryPassword.required'),
                         })}
                         className="form-control"
                         type="text"
@@ -115,7 +115,7 @@ export default function ResetPassword() {
                     <div className="form-group">
                       <input
                         {...register('newPassword', {
-                          required: t('form-validation.newPassword.required'),
+                          required: i18n.t('form-validation.newPassword.required'),
                         })}
                         className="form-control"
                         type="password"
@@ -130,7 +130,7 @@ export default function ResetPassword() {
                     <div className="form-group">
                       <input
                         {...register('confirmNewPassword', {
-                          required: t('form-validation.confirmNewPassword.required'),
+                          required: i18n.t('form-validation.confirmNewPassword.required'),
                         })}
                         className="form-control"
                         type="password"
