@@ -2,14 +2,14 @@
 
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from "react";
 import toast, {Toaster} from "react-hot-toast";
 import premiumApi from "../src/util/premiumAPI";
 import { useModal } from "../src/app/shared/modal-views/use-modal";
 
 export default function Contact() {
-  const { t, i18n } = useTranslation("common");
+  const {  i18n } = useTranslation();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -93,10 +93,10 @@ export default function Contact() {
                 <div className="col-xl-8 col-lg-7">
                   <div className="box-contactform-left">
                     <h3 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn">
-                      {t("still-have-question")}
+                      {i18n.t("still-have-question")}
                     </h3>
                     <p className="font-md color-grey-900 mb-50 wow animate__animated animate__fadeIn">
-                      {t("cant-find-answer")}
+                      {i18n.t("cant-find-answer")}
                     </p>
                     <form action="#">
                       <div className="row wow animate__animated animate__fadeIn">
@@ -105,7 +105,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("your-name")}
+                              placeholder={i18n.t("your-name")}
                             />
                           </div>
                         </div>
@@ -114,7 +114,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("your-email")}
+                              placeholder={i18n.t("your-email")}
                             />
                           </div>
                         </div>
@@ -123,7 +123,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("your-phone-number")}
+                              placeholder={i18n.t("your-phone-number")}
                             />
                           </div>
                         </div>
@@ -132,7 +132,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("subject")}
+                              placeholder={i18n.t("subject")}
                             />
                           </div>
                         </div>
@@ -140,7 +140,7 @@ export default function Contact() {
                           <div className="form-group">
                             <textarea
                               className="form-control"
-                              placeholder={t("message-note")}
+                              placeholder={i18n.t("message-note")}
                               rows={8}
                               defaultValue={""}
                             />
@@ -221,14 +221,14 @@ export default function Contact() {
         <section className="section mt-100">
           <div className="container">
             <h2 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-              {t("branches-worldwide")}
+              {i18n.t("branches-worldwide")}
               <br className="d-none d-lg-block" />
-              {t("branches-worldwide_1")}
+              {i18n.t("branches-worldwide_1")}
             </h2>
             <div className="row align-items-center">
               <div className="col-lg-6 col-md-6 mb-30">
                 <p className="font-md color-gray-700 wow animate__animated animate__fadeIn">
-                  {t("experience-handling-formalities")}
+                  {i18n.t("experience-handling-formalities")}
                 </p>
               </div>
               <div className="col-lg-6 col-md-6 mb-30 text-md-end text-start">
@@ -250,7 +250,7 @@ export default function Contact() {
                       d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
                     />
                   </svg>
-                  {t("get-a-quote")}
+                  {i18n.t("get-a-quote")}
                 </Link>
               </div>
             </div>
@@ -383,14 +383,14 @@ export default function Contact() {
         <section className="section pt-110 pb-100">
           <div className="container">
             <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
-              {t("meet-our-team")}
+              {i18n.t("meet-our-team")}
             </h2>
             <div className="row align-items-center">
               <div className="col-md-6 mb-30">
                 <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                  {t("premium-logistics-welcome")}
+                  {i18n.t("premium-logistics-welcome")}
                   <br className="d-none d-lg-block" />
-                  {t("premium-logistics-welcome_1")}
+                  {i18n.t("premium-logistics-welcome_1")}
                 </p>
               </div>
               <div className="col-md-6 mb-30 text-md-end text-start">
@@ -412,7 +412,7 @@ export default function Contact() {
                       d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
                     />
                   </svg>
-                  {t("get-a-quote")}
+                  {i18n.t("get-a-quote")}
                 </Link>
               </div>
             </div>
@@ -885,7 +885,7 @@ export default function Contact() {
           <div className="container">
             <div className="box-newsletter">
               <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-                {t("get-in-touch")}
+                {i18n.t("get-in-touch")}
               </h3>
               <div className="row">
                 <div className="col-lg-5 mb-30">
@@ -898,7 +898,7 @@ export default function Contact() {
               className="form-control"
               type="text"
               name="firstName"
-              placeholder={t("your-name")}
+              placeholder={i18n.t("your-name")}
               onChange={handleChange}
               value={formData.firstName}
               required
@@ -924,7 +924,7 @@ export default function Contact() {
               className="form-control"
               type="email"
               name="email"
-              placeholder={t("your-email")}
+              placeholder={i18n.t("your-email")}
               onChange={handleChange}
               value={formData.email}
               required
@@ -936,7 +936,7 @@ export default function Contact() {
             <textarea
               className="form-control"
               name="message"
-              placeholder={t("message-note") + " *"}
+              placeholder={i18n.t("message-note") + " *"}
               rows={5}
               onChange={handleChange}
               value={formData.message}
@@ -946,7 +946,7 @@ export default function Contact() {
         </div>
         <div className="col-md-12">
           <button className="btn btn-brand-1-big" type="submit">
-            {t("submit")}
+            {i18n.t("submit")}
           </button>
         </div>
       </div>

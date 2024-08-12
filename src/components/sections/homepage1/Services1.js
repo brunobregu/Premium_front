@@ -1,19 +1,19 @@
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function Services1() {
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   return (
     <>
       <section className="section mt-100">
         <div className="container">
           <h2 className="mb-20 wow animate__animated animate__fadeIn">
-            {t("what-we-offer")}
+            {i18n.t("what-we-offer")}
           </h2>
           <div className="row align-items-end">
             <div className="col-lg-8 col-md-8 mb-30">
               <p className="font-md color-gray-700 wow animate__animated animate__fadeIn">
-                {t("welcome-to-our-transportation-services-agency")}
+                {i18n.t("welcome-to-our-transportation-services-agency")}
               </p>
             </div>
             {/* <div className="col-lg-4 col-md-4 mb-30 text-md-end text-start">
@@ -53,10 +53,10 @@ export default function Services1() {
 
                   <div className="card-info">
                     <h5 className="color-brand-2 mb-15">
-                      {t("sea-forwarding")}
+                      {i18n.t("sea-forwarding")}
                     </h5>
                     <p className="font-sm color-grey-900 mb-35">
-                      {t("sea-forwarding-description")}
+                      {i18n.t("sea-forwarding-description")}
                     </p>
                     <div className="box-button-offer mb-30">
                       {/* <a className="btn btn-link font-sm color-brand-2">
@@ -107,10 +107,10 @@ export default function Services1() {
                   </div>
                   <div className="card-info">
                     <h5 className="color-brand-2 mb-15">
-                      {t("land-transportation")}
+                      {i18n.t("land-transportation")}
                     </h5>
                     <p className="font-sm color-grey-900 mb-35">
-                      {t("land-transportation-description")}
+                      {i18n.t("land-transportation-description")}
                     </p>
                     <div className="box-button-offer mb-30">
                       {/* <a className="btn btn-link font-sm color-brand-2">
@@ -146,11 +146,11 @@ export default function Services1() {
                   </div>
                   <div className="card-info">
                     <h5 className="color-brand-2 mb-15">
-                      {t("warehouse-distribution")} &amp;{" "}
-                      {t("warehouse-distribution_1")}
+                      {i18n.t("warehouse-distribution")} &amp;{" "}
+                      {i18n.t("warehouse-distribution_1")}
                     </h5>
                     <p className="font-sm color-grey-900 mb-35">
-                      {t("warehouse-distribution-description")}
+                      {i18n.t("warehouse-distribution-description")}
                     </p>
                     <div className="box-button-offer mb-30">
                       {/* <a className="btn btn-link font-sm color-brand-2">

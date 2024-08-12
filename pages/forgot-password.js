@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Layout';
 import Brand1Slider from '@/components/slider/Brand1Slider';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 
 export default function ForgotPassword({locale}) {
-  const { t } = useTranslation('common');
+   const {  i18n } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const {
@@ -61,7 +61,7 @@ export default function ForgotPassword({locale}) {
             <div className="col-lg-6">
               <div className="box-login-left">
                 <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
-                  {t('forgot-password')}
+                  {i18n.t('forgot-password')}
                 </h2>
                 {/* <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
                   Access to all features. No credit card required.
@@ -89,7 +89,7 @@ export default function ForgotPassword({locale}) {
                         })}
                         className="form-control"
                         type="text"
-                        placeholder={t('email-address')}
+                        placeholder={i18n.t('email-address')}
                       />
                       {errors.email?.message && (
                         <p
@@ -107,18 +107,18 @@ export default function ForgotPassword({locale}) {
                           disabled={loading}
                             className={`${loading ? "opacity-50": ""} btn btn-brand-1-big mr-20`}
                             type="submit"
-                            value={t('submit')}
+                            value={i18n.t('submit')}
                           />
                         </div>
                         <div className="box-text-form-login">
                           <span className="font-xs color-grey-500">
-                            {t('dont-have-an-account')}
+                            {i18n.t('dont-have-an-account')}
                           </span>
                           <Link
                             className="font-xs color-brand-2"
                             href="/register"
                           >
-                            {t('sign-up')}
+                            {i18n.t('sign-up')}
                           </Link>
                         </div>
                       </div>

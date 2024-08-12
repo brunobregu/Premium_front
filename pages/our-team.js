@@ -2,10 +2,10 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { useState } from "react";
 import ModalVideo from "react-modal-video";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function OurTeam() {
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   return (
     <>
@@ -15,20 +15,20 @@ export default function OurTeam() {
             <div className="row align-items-center">
               <div className="col-lg-6 mb-30">
                 <span className="btn btn-tag wow animate__animated animate__fadeIn">
-                  {t("meet-our-team")}
+                  {i18n.t("meet-our-team")}
                 </span>
                 <h3 className="color-grey-900 mb-25 mt-15 wow animate__animated animate__fadeIn">
-                  {t("ntroduce-dedicated-individuals")}
+                  {i18n.t("ntroduce-dedicated-individuals")}
                 </h3>
                 <p className="font-md color-grey-900 wow animate__animated animate__fadeIn">
-                  {t("strive-to-serve")}
+                  {i18n.t("strive-to-serve")}
                 </p>
                 <div className="mt-70 wow animate__animated animate__fadeIn">
                   <Link className="btn btn-brand-2 mr-20" href="/contact">
-                    {t("contact-us")}
+                    {i18n.t("contact-us")}
                   </Link>
                   <Link className="btn btn-link-medium" href="#">
-                    {t("learn-more")}
+                    {i18n.t("learn-more")}
                     <svg
                       className="w-6 h-6 icon-16 ml-5"
                       fill="none"
@@ -55,17 +55,17 @@ export default function OurTeam() {
                   />
                   <div className="box-info-testimonial-4">
                     <h3 className="color-brand-2 mb-10 wow animate__animated animate__fadeIn">
-                      {t("satisfied")}
+                      {i18n.t("satisfied")}
                     </h3>
                     <p className="font-sm color-grey-900 wow animate__animated animate__fadeIn">
-                      {t("strive-to-serve")}
+                      {i18n.t("strive-to-serve")}
                     </p>
                     <div className="box-button mt-30">
                       <Link
                         className="btn btn-link font-sm color-brand-2 wow animate__animated animate__fadeIn"
                         href="#"
                       >
-                        {t("view-details")}
+                        {i18n.t("view-details")}
                         <span>
                           <svg
                             className="w-6 h-6 icon-16"

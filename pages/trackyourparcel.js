@@ -4,11 +4,11 @@ import Brand1Slider from "@/components/slider/Brand1Slider";
 import Link from "next/link";
 import { useState } from "react";
 import ModalVideo from "react-modal-video";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function TrackParcel() {
   const [isOpen, setOpen] = useState(false);
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   return (
     <>
       <Layout>

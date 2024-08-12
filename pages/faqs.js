@@ -1,10 +1,10 @@
 import Accordion from "@/components/elements/Accordion";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function Faq() {
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   return (
     <>
       <Layout>
@@ -13,11 +13,11 @@ export default function Faq() {
             <div className="banner-trackyourparcel" />
             <div className="box-info-trackyourparcel">
               <h2 className="color-brand-2 mb-25 wow animate__animated animate__fadeIn">
-                {t("frequently-asked-questions")}
+                {i18n.t("frequently-asked-questions")}
                 <br className="d-none d-lg-block" />
               </h2>
               <p className="color-grey-900 font-md wow animate__animated animate__fadeIn">
-                {t("faq-description")}
+                {i18n.t("faq-description")}
               </p>
               {/* <div className="form-trackparcel mb-0">
                                 <form action="#">
@@ -128,10 +128,10 @@ export default function Faq() {
               <div className="col-lg-6">
                 <div className="box-faqs-left">
                   <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
-                    {t("faqs")}
+                    {i18n.t("faqs")}
                   </h2>
                   <p className="font-md color-grey-700 mb-50 wow animate__animated animate__fadeIn">
-                    {t("feeling-inquisitive")}
+                    {i18n.t("feeling-inquisitive")}
                   </p>
                   <div className="box-gallery-faqs">
                     <div className="image-top wow animate__animated animate__fadeIn">
@@ -162,20 +162,20 @@ export default function Faq() {
                   <Accordion />
                   <div className="line-border mt-50 mb-50" />
                   <h3 className="color-brand-2 wow animate__animated animate__fadeIn">
-                    {t("need-more-help")}
+                    {i18n.t("need-more-help")}
                   </h3>
                   <div className="mt-20">
                     <Link
                       className="btn btn-brand-1-big mr-20 wow animate__animated animate__fadeIn"
                       href="/contact"
                     >
-                      {t("contact-us")}
+                      {i18n.t("contact-us")}
                     </Link>
                     <Link
                       className="btn btn-link-medium wow animate__animated animate__fadeIn"
                       href="#"
                     >
-                      {t("learn-more")}
+                      {i18n.t("learn-more")}
                       <svg
                         className="w-6 h-6 icon-16 ml-5"
                         fill="none"
@@ -204,10 +204,10 @@ export default function Faq() {
                 <div className="col-xl-8 col-lg-7">
                   <div className="box-contactform-left">
                     <h3 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn">
-                      {t("still-have-question")}
+                      {i18n.t("still-have-question")}
                     </h3>
                     <p className="font-md color-grey-900 mb-50 wow animate__animated animate__fadeIn">
-                      {t("cant-find-answer")}
+                      {i18n.t("cant-find-answer")}
                     </p>
                     <form action="#">
                       <div className="row wow animate__animated animate__fadeIn">
@@ -216,7 +216,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("your-name") + " *"}
+                              placeholder={i18n.t("your-name") + " *"}
                             />
                           </div>
                         </div>
@@ -225,7 +225,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("your-email")}
+                              placeholder={i18n.t("your-email")}
                             />
                           </div>
                         </div>
@@ -234,7 +234,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("your-phone-number")}
+                              placeholder={i18n.t("your-phone-number")}
                             />
                           </div>
                         </div>
@@ -243,7 +243,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("subject")}
+                              placeholder={i18n.t("subject")}
                             />
                           </div>
                         </div>
@@ -251,7 +251,7 @@ export default function Faq() {
                           <div className="form-group">
                             <textarea
                               className="form-control"
-                              placeholder={t("message-note")}
+                              placeholder={i18n.t("message-note")}
                               rows={8}
                               defaultValue={""}
                             />

@@ -2,9 +2,9 @@ import Layout from "@/components/layout/Layout";
 import Pricing2 from "@/components/sections/homepage2/Pricing2";
 import ServiceSlider from "@/components/slider/ServiceSlider";
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 export default function ServiceDetail() {
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   return (
     <>
       <Layout>
@@ -12,10 +12,10 @@ export default function ServiceDetail() {
           <div className="container">
             <div className="box-pageheader-1 box-pageheader-services text-center">
               <span className="btn btn-tag wow animate__animated animate__fadeIn">
-                {t("our-services")}
+                {i18n.t("our-services")}
               </span>
               <h2 className="color-brand-2 mt-15 mb-10 wow animate__animated animate__fadeIn">
-                {t("sea-forwarding")}
+                {i18n.t("sea-forwarding")}
               </h2>
               <p className="font-md color-grey-900 wow animate__animated animate__fadeIn">
                 Transp’s roots are in Sea Freight! Whether it’s full containers,

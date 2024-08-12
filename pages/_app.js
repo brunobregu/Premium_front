@@ -6,8 +6,18 @@ import "swiper/css/pagination";
 
 import { appWithTranslation } from "next-i18next";
 import { FiltersProvider } from '../src/store/state';
+import { useRouter } from 'next/router';
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  console.log('router', router)
+  
+  useEffect(() => {
+    if (router.locale) {
+      i18n.changeLanguage(router.locale);
+    }
+  }, [router.locale]);
   return(
     <FiltersProvider>
     <Component {...pageProps} />;

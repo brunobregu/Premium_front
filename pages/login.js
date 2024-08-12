@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Layout';
 import Brand1Slider from '@/components/slider/Brand1Slider';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
@@ -12,7 +12,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function Login() {
   
-  const { t } = useTranslation('common');
+   const {  i18n } = useTranslation();
   const { locale } = useRouter();
   const router = useRouter()
   const {
@@ -66,7 +66,7 @@ export default function Login() {
             <div className="col-lg-6">
               <div className="box-login-left">
                 <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
-                  {t('welcome-back')}
+                  {i18n.t('welcome-back')}
                 </h2>
                 {/* <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
                   Access to all features. No credit card required.
@@ -82,19 +82,19 @@ export default function Login() {
                     <div className="form-group">
                       <input
                         {...register('email', {
-                          required: t('form-validation.email.required'),
+                          required: i18n.t('form-validation.email.required'),
                           maxLength: {
                             value: 220,
-                            message: t('form-validation.email.maxLength'),
+                            message: i18n.t('form-validation.email.maxLength'),
                           },
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: t('form-validation.email.invalid'),
+                            message: i18n.t('form-validation.email.invalid'),
                           },
                         })}
                         className="form-control"
                         type="text"
-                        placeholder={t('email-address')}
+                        placeholder={i18n.t('email-address')}
                       />
                       {errors.email?.message && (
                         <p
@@ -108,19 +108,19 @@ export default function Login() {
                     <div className="form-group">
                       <input
                         {...register('password', {
-                          required: t('form-validation.password.required'),
+                          required: i18n.t('form-validation.password.required'),
                           maxLength: {
                             value: 220,
-                            message: t('form-validation.password.maxLength'),
+                            message: i18n.t('form-validation.password.maxLength'),
                           },
                           minLength: {
                             value: 4,
-                            message: t('form-validation.password.minLength'),
+                            message: i18n.t('form-validation.password.minLength'),
                           },
                         })}
                         className="form-control"
                         type="password"
-                        placeholder={t('enter-your-password')}
+                        placeholder={i18n.t('enter-your-password')}
                       />
                       {errors.password?.message && (
                         <p
@@ -138,7 +138,7 @@ export default function Login() {
                             className="font-xs color-brand-2"
                             href="/forgot-password"
                           >
-                            {t('forgot-your-password')}
+                            {i18n.t('forgot-your-password')}
                           </Link>
                         </div>
                       </div>
@@ -150,18 +150,18 @@ export default function Login() {
                             disabled={loadingLogin}
                             className={`${loadingLogin? "opacity-50": ""} btn btn-brand-1-big mr-20`}
                             type="submit"
-                            defaultValue={t('submit')}
+                            defaultValue={i18n.t('submit')}
                           />
                         </div>
                         <div className="box-text-form-login">
                           <span className="font-xs color-grey-500">
-                            {t('dont-have-an-account')}
+                            {i18n.t('dont-have-an-account')}
                           </span>
                           <Link
                             className="font-xs color-brand-2"
                             href="/register"
                           >
-                            {t('sign-up')}
+                            {i18n.t('sign-up')}
                           </Link>
                         </div>
                       </div>

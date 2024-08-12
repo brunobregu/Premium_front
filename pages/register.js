@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Layout';
 import Brand1Slider from '@/components/slider/Brand1Slider';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -128,7 +128,7 @@ export default function Register() {
                             })}
                             className="form-control"
                             type="text"
-                            placeholder={t('firstName')}
+                            placeholder={i18n.t('firstName')}
                           />
 
                           {errors.firstName?.message && (
@@ -161,7 +161,7 @@ export default function Register() {
                             })}
                             className="form-control"
                             type="text"
-                            placeholder={t('lastName')}
+                            placeholder={i18n.t('lastName')}
                           />
 
                           {errors.lastName?.message && (
@@ -201,7 +201,7 @@ export default function Register() {
                               style={{ marginTop: 10, color: '#FF3E3E' }}
                               role="alert"
                             >
-                              {t('form-validation.phoneNumber')}
+                              {i18n.t('form-validation.phoneNumber')}
                             </p>
                           )}
                         </div>
@@ -223,7 +223,7 @@ export default function Register() {
                             })}
                             className="form-control"
                             type="text"
-                            placeholder={t('email-address') + '*'}
+                            placeholder={i18n.t('email-address') + '*'}
                           />
                           {errors.email?.message && (
                             <p
@@ -255,7 +255,7 @@ export default function Register() {
                             })}
                             className="form-control"
                             type="password"
-                            placeholder={t('enter-your-password') + '*'}
+                            placeholder={i18n.t('enter-your-password') + '*'}
                           />
                           {errors.email?.message && (
                             <p

@@ -5,11 +5,11 @@ import Testimonial2Slider from "@/components/slider/Testimonial2Slider";
 import Link from "next/link";
 import { useState } from "react";
 import ModalVideo from "react-modal-video";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function About() {
   const [isOpen, setOpen] = useState(false);
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
 
   return (
     <>
@@ -18,10 +18,10 @@ export default function About() {
           <div className="container">
             <div className="box-pageheader-1 text-center">
               <h2 className="color-brand-1 mt-15 mb-10 wow animate__animated animate__fadeIn">
-                {t("about-us")}
+                {i18n.t("about-us")}
               </h2>
               <p className="font-md color-white wow animate__animated animate__fadeIn">
-                {t("about-us-desc")}
+                {i18n.t("about-us-desc")}
               </p>
               {/* <p className="font-md color-white wow animate__animated animate__fadeIn">
                 Premium Logistics is a leading shipping company based in
@@ -44,12 +44,12 @@ export default function About() {
             <div className="row align-items-center">
               <div className="col-lg-6 mb-30">
                 <h2 className="color-brand-2 mb-25 wow animate__animated animate__fadeIn">
-                  {t(
+                  {i18n.t(
                     "simplifying-complex-shipping-challenges-with-innovative-solutions"
                   )}
                 </h2>
                 <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                  {t("premium-logistics-text")}
+                  {i18n.t("premium-logistics-text")}
                 </p>
                 <div className="box-button mt-40">
                   <Link
@@ -116,27 +116,27 @@ export default function About() {
               <div className="col-lg-6">
                 <div className="box-info-aabout-2">
                   <h2 className="color-brand-2 mt-15 mb-25 wow animate__animated animate__fadeIn">
-                    {t("globally-connected-large-network")}
+                    {i18n.t("globally-connected-large-network")}
                   </h2>
                   <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                    {t("premium-logistics-mission")}
+                    {i18n.t("premium-logistics-mission")}
                   </p>
                   <div className="box-button mt-40">
                     <div className="row">
                       <div className="col-lg-6 mb-30">
                         <h6 className="chart-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                          {t("affordable-cost")}
+                          {i18n.t("affordable-cost")}
                         </h6>
                         <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                          {t("affordable-cost-description")}
+                          {i18n.t("affordable-cost-description")}
                         </p>
                       </div>
                       <div className="col-lg-6 mb-30">
                         <h6 className="feature-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                          {t("short-time-delivery")}
+                          {i18n.t("short-time-delivery")}
                         </h6>
                         <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                          {t("short-time-delivery-description")}
+                          {i18n.t("short-time-delivery-description")}
                         </p>
                       </div>
                     </div>
@@ -148,23 +148,23 @@ export default function About() {
               <div className="col-lg-6">
                 <div className="box-info-aabout-2">
                   <h2 className="color-brand-2 mt-15 mb-25 wow animate__animated animate__fadeIn">
-                    {t("globally-connected-large-network")}
+                    {i18n.t("globally-connected-large-network")}
                   </h2>
                   <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                    {t("premium-logistics-founding")}
+                    {i18n.t("premium-logistics-founding")}
                   </p>
                   <div className="box-button mt-40">
                     <Link
                       className="btn btn-brand-2 mr-20 wow animate__animated animate__fadeIn"
                       href="/contact"
                     >
-                      {t("contact-us")}
+                      {i18n.t("contact-us")}
                     </Link>
                     <Link
                       className="btn btn-link-medium wow animate__animated animate__fadeIn"
                       href="#"
                     >
-                      {t("learn-more")}
+                      {i18n.t("learn-more")}
                       <svg
                         className="w-6 h-6 icon-16 ml-5"
                         fill="none"
@@ -205,10 +205,10 @@ export default function About() {
                     Our Partners
                   </span> */}
                   <h2 className="color-brand-2 mt-15 mb-25 wow animate__animated animate__fadeIn">
-                    {t("established-strong-relationships")}
+                    {i18n.t("established-strong-relationships")}
                   </h2>
                   <p className="font-md color-grey-900 mb-20 wow animate__animated animate__fadeIn">
-                    {t("premium-logistics-pioneers")}
+                    {i18n.t("premium-logistics-pioneers")}
                   </p>
                   {/* <div className="box-button d-flex mt-40">
                     <Link
@@ -243,28 +243,28 @@ export default function About() {
                   Get in touch
                 </span> */}
                 <h3 className="color-grey-900 mb-20 mt-15 wow animate__animated animate__fadeIn">
-                  {t("proud-deliver-excellence")}
+                  {i18n.t("proud-deliver-excellence")}
                   <br className="d-none d-lg-block" />
-                  {t("proud-deliver-excellence_1")}
+                  {i18n.t("proud-deliver-excellence_1")}
                 </h3>
                 <p className="font-md color-grey-900 mb-40 wow animate__animated animate__fadeIn">
-                  {t("premium-logistics-commitment")}
+                  {i18n.t("premium-logistics-commitment")}
                 </p>
                 <div className="row">
                   <div className="col-lg-6 mb-30">
                     <h6 className="chart-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                      {t("boost-your-sale")}
+                      {i18n.t("boost-your-sale")}
                     </h6>
                     <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                      {t("boost-your-sale-description")}
+                      {i18n.t("boost-your-sale-description")}
                     </p>
                   </div>
                   <div className="col-lg-6 mb-30">
                     <h6 className="feature-title font-md-bold color-grey-900 wow animate__animated animate__fadeIn">
-                      {t("introducing-new-features")}
+                      {i18n.t("introducing-new-features")}
                     </h6>
                     <p className="font-xs color-grey-900 wow animate__animated animate__fadeIn">
-                      {t("introducing-new-features-description")}
+                      {i18n.t("introducing-new-features-description")}
                     </p>
                   </div>
                 </div>
@@ -273,13 +273,13 @@ export default function About() {
                     className="btn btn-brand-2 mr-20 wow animate__animated animate__fadeIn"
                     href="/contact"
                   >
-                    {t("contact-us")}
+                    {i18n.t("contact-us")}
                   </Link>
                   <Link
                     className="btn btn-link-medium wow animate__animated animate__fadeIn"
                     href="#"
                   >
-                    {t("learn-more")}
+                    {i18n.t("learn-more")}
                     <svg
                       className="w-6 h-6 icon-16 ml-5"
                       fill="none"
@@ -306,12 +306,12 @@ export default function About() {
             <div className="row align-items-center">
               <div className="col-lg-12">
                 <h2 className=" mb-20 wow animate__animated animate__fadeIn">
-                  {t("meet-our-team")}
+                  {i18n.t("meet-our-team")}
                 </h2>
                 <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                  {t("premium-logistics-welcome")}
+                  {i18n.t("premium-logistics-welcome")}
                   <br className="d-none d-lg-block" />
-                  {t("premium-logistics-welcome_1")}
+                  {i18n.t("premium-logistics-welcome_1")}
                 </p>
               </div>
             </div>
@@ -960,7 +960,7 @@ export default function About() {
           <div className="container">
             <div className="box-newsletter">
               <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-                {t("get-in-touch")}
+                {i18n.t("get-in-touch")}
               </h3>
               <div className="row">
                 <div className="col-lg-5 mb-30">
@@ -972,7 +972,7 @@ export default function About() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("full-name") + " *"}
+                              placeholder={i18n.t("full-name") + " *"}
                             />
                           </div>
                         </div>
@@ -981,7 +981,7 @@ export default function About() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={t("email-address") + " *"}
+                              placeholder={i18n.t("email-address") + " *"}
                             />
                           </div>
                         </div>
@@ -1017,7 +1017,7 @@ export default function About() {
                           <input
                             className="btn btn-brand-1-big"
                             type="submit"
-                            defaultValue={t("submit")}
+                            defaultValue={i18n.t("submit")}
                           />
                         </div>
                       </div>

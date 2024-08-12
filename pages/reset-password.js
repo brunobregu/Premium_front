@@ -1,6 +1,6 @@
 import Layout from '@/components/layout/Layout';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
@@ -8,7 +8,7 @@ import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 
 export default function ResetPassword() {
-  const { t } = useTranslation('common');
+   const {  i18n } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const {
@@ -70,7 +70,7 @@ export default function ResetPassword() {
             <div className="col-lg-6">
               <div className="box-login-left">
                 <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
-                  {t('reset-password')}
+                  {i18n.t('reset-password')}
                 </h2>
                 <div className="box-form-login wow animate__animated animate__fadeIn">
                   <form onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +89,7 @@ export default function ResetPassword() {
                         })}
                         className="form-control"
                         type="text"
-                        placeholder={t('email-address')}
+                        placeholder={i18n.t('email-address')}
                       />
                       {errors.email?.message && (
                         <p style={{ marginTop: 10, color: '#FF3E3E' }} role="alert">
@@ -104,7 +104,7 @@ export default function ResetPassword() {
                         })}
                         className="form-control"
                         type="text"
-                        placeholder={t('temporary-password')}
+                        placeholder={i18n.t('temporary-password')}
                       />
                       {errors.temporaryPassword?.message && (
                         <p style={{ marginTop: 10, color: '#FF3E3E' }} role="alert">
@@ -119,7 +119,7 @@ export default function ResetPassword() {
                         })}
                         className="form-control"
                         type="password"
-                        placeholder={t('new-password')}
+                        placeholder={i18n.t('new-password')}
                       />
                       {errors.newPassword?.message && (
                         <p style={{ marginTop: 10, color: '#FF3E3E' }} role="alert">
@@ -134,7 +134,7 @@ export default function ResetPassword() {
                         })}
                         className="form-control"
                         type="password"
-                        placeholder={t('confirm-new-password')}
+                        placeholder={i18n.t('confirm-new-password')}
                       />
                       {errors.confirmNewPassword?.message && (
                         <p style={{ marginTop: 10, color: '#FF3E3E' }} role="alert">
@@ -149,15 +149,15 @@ export default function ResetPassword() {
                           disabled={loading}
                             className={`${loading ? "opacity-50": ""} btn btn-brand-1-big mr-20`}
                             type="submit"
-                            value={t('submit')}
+                            value={i18n.t('submit')}
                           />
                         </div>
                         <div className="box-text-form-login">
                           <span className="font-xs color-grey-500">
-                            {t('already-have-an-account')}
+                            {i18n.t('already-have-an-account')}
                           </span>
                           <Link className="font-xs color-brand-2" href="/login">
-                            {t('sign-in')}
+                            {i18n.t('sign-in')}
                           </Link>
                         </div>
                       </div>

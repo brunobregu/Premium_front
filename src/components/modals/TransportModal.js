@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 
 const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }) => {
-    const { t } = useTranslation('common');
+     const {  i18n } = useTranslation();
     const capitalizeFirstLetter = (string) => {
       return string.charAt(0).toUpperCase() + string.slice(1);
     };
@@ -13,7 +13,7 @@ const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }
       style={customStyles}
       onRequestClose={onRequestClose}
     >
-      <h4>{t('car-shipping-calculator')}</h4>
+      <h4>{i18n.t('car-shipping-calculator')}</h4>
       <div className="form-group" style={{ display: 'flex', justifyContent: 'space-between' }}>
         <input
           className="form-control"

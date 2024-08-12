@@ -1,20 +1,20 @@
 import Project1Slider from "@/components/slider/Project1Slider";
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function Projects1() {
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   return (
     <>
       <section className="section bg-what-done pb-95 pt-110">
         <div className="container">
           <h2 className="mb-20 wow animate__animated animate__fadeIn">
-            {t("what-we-have-done")}
+            {i18n.t("what-we-have-done")}
           </h2>
           <div className="row align-items-end">
             <div className="col-lg-8 col-md-8 mb-30">
               <p className="font-md color-gray-700 wow animate__animated animate__fadeIn">
-                {t("check-out-projects")}
+                {i18n.t("check-out-projects")}
               </p>
             </div>
             <div className="col-lg-4 col-md-4 mb-30 text-md-end text-start">
@@ -37,7 +37,7 @@ export default function Projects1() {
                     d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
                   ></path>
                 </svg>
-                {t("view-all-projects")}
+                {i18n.t("view-all-projects")}
               </Link>
             </div>
           </div>

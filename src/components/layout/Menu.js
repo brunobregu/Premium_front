@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function Menu() {
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   const router = useRouter();
 
   return (
@@ -12,7 +12,7 @@ export default function Menu() {
       <ul className="main-menu">
         <li>
           <Link className="active" href="/">
-            {t("home")}
+            {i18n.t("home")}
           </Link>
           {/* <ul className="sub-menu">
             <li>
@@ -30,10 +30,10 @@ export default function Menu() {
           </ul> */}
         </li>
         <li>
-          <Link href="/about"> {t("about-us")}</Link>
+          <Link href="/about"> {i18n.t("about-us")}</Link>
         </li>
         <li className="has-children">
-          <Link href="#">{t("services")}</Link>
+          <Link href="#">{i18n.t("services")}</Link>
           <div className="sub-menu five-col">
             <div className="menu-col">
               <h6 className="color-brand-2 mb-15">Sea Forwarding</h6>
@@ -155,31 +155,31 @@ export default function Menu() {
           </div>
         </li>
         <li className="has-children">
-          <Link href="#">{t("pages")}</Link>
+          <Link href="#">{i18n.t("pages")}</Link>
           <ul className="sub-menu">
             <li>
-              <Link href="/service-detail">{t("service-detail")}</Link>
+              <Link href="/service-detail">{i18n.t("service-detail")}</Link>
             </li>
             {/* <li>
-              <Link href="/trackyourparcel">{t("track-your-parcel")}</Link>
+              <Link href="/trackyourparcel">{i18n.t("track-your-parcel")}</Link>
             </li> */}
             <li>
-              <Link href="/workprocess">{t("work-process")}</Link>
+              <Link href="/workprocess">{i18n.t("work-process")}</Link>
             </li>
             <li>
-              <Link href="/request-a-quote">{t("request-a-quote")}</Link>
+              <Link href="/request-a-quote">{i18n.t("request-a-quote")}</Link>
             </li>
             <li>
-              <Link href="/our-team">{t("our-team")}</Link>
+              <Link href="/our-team">{i18n.t("our-team")}</Link>
             </li>
             <li>
-              <Link href="/faqs">{t("faq")}</Link>
+              <Link href="/faqs">{i18n.t("faq")}</Link>
             </li>
             <li>
-              <Link href="/register">{t("register")}</Link>
+              <Link href="/register">{i18n.t("register")}</Link>
             </li>
             <li>
-              <Link href="/login">{t("login")}</Link>
+              <Link href="/login">{i18n.t("login")}</Link>
             </li>
             {/* <li>
               <Link href="/comingsoon">Coming soon</Link>
@@ -201,7 +201,7 @@ export default function Menu() {
           </ul>
         </li> */}
         <li>
-          <Link href="/contact">{t("contact")}</Link>
+          <Link href="/contact">{i18n.t("contact")}</Link>
         </li>
       </ul>
     </>

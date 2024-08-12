@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function Accordion() {
-  const { t } = useTranslation("common");
+  const {  i18n } = useTranslation();
   const [isActive, setIsActive] = useState({
     status: false,
     key: 1,
@@ -32,7 +32,7 @@ export default function Accordion() {
                   : "accordion-button text-heading-5 collapsed"
               }
             >
-              {t("return-item")}
+              {i18n.t("return-item")}
             </button>
           </h5>
           <div
@@ -61,7 +61,7 @@ export default function Accordion() {
                   : "accordion-button text-heading-5 collapsed"
               }
             >
-              {t("cancel-change-order")}
+              {i18n.t("cancel-change-order")}
             </button>
           </h5>
           <div
@@ -90,7 +90,7 @@ export default function Accordion() {
                   : "accordion-button text-heading-5 collapsed"
               }
             >
-              {t("promotional-discount-code")}
+              {i18n.t("promotional-discount-code")}
             </button>
           </h5>
           <div
@@ -118,7 +118,7 @@ export default function Accordion() {
                   : "accordion-button text-heading-5 collapsed"
               }
             >
-              {t("delivery-types")}
+              {i18n.t("delivery-types")}
             </button>
           </h5>
           <div
@@ -149,7 +149,7 @@ export default function Accordion() {
                   : "accordion-button text-heading-5 collapsed"
               }
             >
-              {t("pay-for-purchases")}
+              {i18n.t("pay-for-purchases")}
             </button>
           </h5>
           <div
