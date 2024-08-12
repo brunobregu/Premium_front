@@ -12,6 +12,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
+import { shipmentData as fakeShipmentData } from '@/app/shared/logistics/shipment/create-edit/form-utils';
 
 interface IndexProps {
     id?: string;
@@ -58,12 +59,31 @@ const portOptions: SelectOption[] = [
     { label: 'Houston', value: 'Houston' },
     { label: 'LosAngeles', value: 'LosAngeles' },
     { label: 'Indianapolis', value: 'Indianapolis' },
+    { label: 'prov', value: 'prov' },
 ];
 
-export default function ViewShipment({ id, shipment, className, isViewOnly }: IndexProps) {
+export default function ViewShipment({ id, className, isViewOnly }: IndexProps) {
     const { layout } = useLayout();
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
+
+    const [shipment, setShipment] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchShipmentData = async () => {
+            try {
+                const response = await premiumApi.get(`en/OrderDetails/myOrderDetailsById?id=${id}`);
+                setShipment(response.data);
+            } catch (error) {
+                console.error('Error fetching shipment data:', error);
+                setShipment(fakeShipmentData); // Use fake data in case of error
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchShipmentData();
+    }, [id]);
 
     const router = useRouter();
 
@@ -80,14 +100,14 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         setValue
     } = methods;
 
-    const query = useQuery({
-        queryKey: ['user'],
-        queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
-    });
+    // const query = useQuery({
+    //     queryKey: ['user'],
+    //     queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
+    // });
 
     const orderDetailsQuery = useQuery({
         queryKey: ['orderDetails', id],
-        queryFn: () => premiumApi.get(`en/OrderDetails/orderById?id=${id}`),
+        queryFn: () => premiumApi.get(`en/OrderDetails/myOrderDetailsById?id=${id}`),
         enabled: !!id,
     });
 
@@ -117,14 +137,14 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         },
     });
 
-    const userOptions = query.data?.data?.map((user: any) => ({
-        label: user.firstName + ' ' + user.lastName,
-        value: user.id,
-    })) ?? [];
+    // const userOptions = query.data?.data?.map((user: any) => ({
+    //     label: user.firstName + ' ' + user.lastName,
+    //     value: user.id,
+    // })) ?? [];
 
-    const handleModalSuccess = () => {
-        query.refetch(); // Refetch users after creating a new one
-    };
+    // const handleModalSuccess = () => {
+    //     query.refetch(); // Refetch users after creating a new one
+    // };
 
     return (
         <div className="@container">
