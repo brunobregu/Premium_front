@@ -112,16 +112,16 @@ export default function Register() {
                         <div className="form-group">
                           <input
                             {...register('firstName', {
-                              required: t('form-validation.firstName.required'),
+                              required: i18n.t('form-validation.firstName.required'),
                               maxLength: {
                                 value: 220,
-                                message: t(
+                                message: i18n.t(
                                   'form-validation.firstName.maxLength'
                                 ),
                               },
                               minLength: {
                                 value: 4,
-                                message: t(
+                                message: i18n.t(
                                   'form-validation.firstName.minLength'
                                 ),
                               },
@@ -145,16 +145,16 @@ export default function Register() {
                         <div className="form-group">
                           <input
                             {...register('lastName', {
-                              required: t('form-validation.lastName.required'),
+                              required: i18n.t('form-validation.lastName.required'),
                               maxLength: {
                                 value: 220,
-                                message: t(
+                                message: i18n.t(
                                   'form-validation.lastName.maxLength'
                                 ),
                               },
                               minLength: {
                                 value: 4,
-                                message: t(
+                                message: i18n.t(
                                   'form-validation.lastName.minLength'
                                 ),
                               },
@@ -210,15 +210,15 @@ export default function Register() {
                         <div className="form-group">
                           <input
                             {...register('email', {
-                              required: t('form-validation.email.required'),
+                              required: i18n.t('form-validation.email.required'),
                               maxLength: {
                                 value: 220,
-                                message: t('form-validation.email.maxLength'),
+                                message: i18n.t('form-validation.email.maxLength'),
                               },
                               pattern: {
                                 value:
                                   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: t('form-validation.email.invalid'),
+                                message: i18n.t('form-validation.email.invalid'),
                               },
                             })}
                             className="form-control"
@@ -239,16 +239,16 @@ export default function Register() {
                         <div className="form-group">
                           <input
                             {...register('password', {
-                              required: t('form-validation.password.required'),
+                              required: i18n.t('form-validation.password.required'),
                               maxLength: {
                                 value: 220,
-                                message: t(
+                                message: i18n.t(
                                   'form-validation.password.maxLength'
                                 ),
                               },
                               minLength: {
                                 value: 4,
-                                message: t(
+                                message: i18n.t(
                                   'form-validation.password.minLength'
                                 ),
                               },
