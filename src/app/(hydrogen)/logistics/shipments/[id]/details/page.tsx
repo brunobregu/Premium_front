@@ -1,5 +1,7 @@
 import PageHeader from '@/app/shared/page-header';
 import ViewShipment from '@/app/shared/logistics/shipment/details';
+import premiumApi from '@/util/premiumAPI';
+import axios from 'axios';
 
 const pageHeader = {
     title: 'Edit Shipment',
@@ -28,5 +30,9 @@ export default function EditShipmentsPage({ params }: { params: { id: string } }
     );
 }
 export function generateStaticParams() {
-    return [{ id: '1' }, { id: '2' }, { id: '27' }]
+    const ids = Array.from({ length: 100 }, (_, index) => ({
+        id: (index + 1).toString(),
+    }));
+
+    return ids;
 }
