@@ -50,6 +50,7 @@ export const routes = {
     shipmentDetails: (id: string) => `/logistics/shipments/${id}`,
     tracking: (id: string) => `/logistics/tracking/${id}`,
     detailShipment: (id: string) => `/logistics/shipments/${id}/details`,
+    detailShipmentAdmin: (id: string) => `/logistics/shipments/${id}/admin-details`,
   },
   appointment: {
     dashboard: '/appointment',

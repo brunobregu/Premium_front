@@ -275,7 +275,7 @@ export const getColumns = ({
       render: (text: any, record: RecordType) => (
         <div className="flex items-center justify-end gap-3 pe-4">
           <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
-            <Link href={routes.logistics.detailShipment(record?.id)}>
+            <Link href={routes.logistics.detailShipmentAdmin(record?.id)}>
               <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
                 <EyeIcon className="h-4 w-4" />
               </ActionIcon>
