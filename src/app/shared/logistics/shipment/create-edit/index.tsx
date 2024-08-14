@@ -60,10 +60,10 @@ const portOptions: SelectOption[] = [
 ];
 
 export default function CreateEditShipment({ id, shipment, className }: IndexProps) {
+  console.log('id', id)
   const { layout } = useLayout();
   const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-
   const router = useRouter();
 
   const methods = useForm<any>({
@@ -306,7 +306,6 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
           </div>
 
           <h3>Payment info</h3>
-          <h3>Payment</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
             <Controller

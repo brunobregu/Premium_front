@@ -2,7 +2,7 @@ import { routes } from '@/config/routes';
 import PageHeader from '@/app/shared/page-header';
 import { metaObject } from '@/config/site.config';
 import ImportButton from '@/app/shared/import-button';
-import CreateEditShipment from '@/app/shared/logistics/shipment/create-edit/create';
+import CreateEditShipment from '@/app/shared/logistics/shipment/create-edit';
 
 export const metadata = {
   ...metaObject('Create Shipment'),
@@ -16,12 +16,13 @@ const pageHeader = {
       name: 'Shipments list',
     },
     {
-      name: 'Create Shipment',
+      name: 'Edit Shipment',
     },
   ],
 };
 
-export default function CreateShipmentPage() {
+export default function CreateShipmentPage({ params }: { params: { id: string } }) {
+
   return (
     <>
       <PageHeader
@@ -29,7 +30,7 @@ export default function CreateShipmentPage() {
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
 
-      <CreateEditShipment />
+      <CreateEditShipment id={params.id} />
     </>
   );
 }

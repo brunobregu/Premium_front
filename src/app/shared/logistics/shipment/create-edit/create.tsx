@@ -12,28 +12,52 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
-import { shipmentData as fakeShipmentData } from '@/app/shared/logistics/shipment/create-edit/form-utils';
 
 interface IndexProps {
     id?: string;
     className?: string;
     shipment?: CreateShipmentInput;
-    isViewOnly?: boolean; // New prop to determine if the form should be view-only
 }
 
 const addOrderDetailsDtoSchema = yup.object().shape({
     vin: yup.string().required('VIN is required'),
-    make: yup.string().nullable(),
-    model: yup.string().nullable(),
-    year: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+    make: yup.string().required('Make is required'),
+    model: yup.string().required('Model is required'),
+    year: yup
+        .number()
+        .transform((value) => (Number.isNaN(value) ? null : value))
+        .integer()
+        .min(1990, 'Year must be at least 1990')
+        .required('Year is required'),
     lot: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
-    dspOrderID: yup.string().nullable(),
+    orderID: yup.string().required('Oder ID is required'),
     port: yup.string().required('Port is required'),
-    inlandCargoloop: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
-    ocCargoloop: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+    auction: yup.string().required('Auction is required'),
+    inlandPrice: yup
+        .number()
+        .transform((value) => (Number.isNaN(value) ? null : value))
+        .integer()
+        .min(1, 'Inland price must be at least 1')
+        .required('Inland price is required'),
+    oceanPrice: yup
+        .number()
+        .transform((value) => (Number.isNaN(value) ? null : value))
+        .integer()
+        .min(1, 'Ocean price must be at least 1')
+        .required('Ocean price is required'),
     broker: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
-    inlandDspch: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
-    ocCost: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+    inlandCost: yup
+        .number()
+        .transform((value) => (Number.isNaN(value) ? null : value))
+        .integer()
+        .min(1, 'Inland Cost must be at least 1')
+        .required('Inland Cost is required'),
+    oceanCost: yup
+        .number()
+        .transform((value) => (Number.isNaN(value) ? null : value))
+        .integer()
+        .min(1, 'Ocean Cost must be at least 1')
+        .required('Ocean Cost is required'),
     storage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
     paymentStatus: yup.string().required(),
     partlyPaid: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer(),
@@ -59,16 +83,13 @@ const portOptions: SelectOption[] = [
     { label: 'Houston', value: 'Houston' },
     { label: 'LosAngeles', value: 'LosAngeles' },
     { label: 'Indianapolis', value: 'Indianapolis' },
-    { label: 'prov', value: 'prov' },
 ];
 
-export default function ViewShipment({ id, shipment, className, isViewOnly }: IndexProps) {
+export default function CreateEditShipment({ id, shipment, className }: IndexProps) {
+    console.log('id', id)
     const { layout } = useLayout();
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-
-
-
     const router = useRouter();
 
     const methods = useForm<any>({
@@ -84,14 +105,14 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         setValue
     } = methods;
 
-    // const query = useQuery({
-    //     queryKey: ['user'],
-    //     queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
-    // });
+    const query = useQuery({
+        queryKey: ['user'],
+        queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
+    });
 
     const orderDetailsQuery = useQuery({
         queryKey: ['orderDetails', id],
-        queryFn: () => premiumApi.get(`en/OrderDetails/adminOrderDetailsById?id=${id}`),
+        queryFn: () => premiumApi.get(`en/OrderDetails/orderById?id=${id}`),
         enabled: !!id,
     });
 
@@ -100,7 +121,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
             const orderDetails = orderDetailsQuery.data.data;
             reset(orderDetails);
             setValue('userId', orderDetails.userId);
-            console.log('orderDetails', orderDetails)
         }
     }, [orderDetailsQuery.data, reset, setValue]);
 
@@ -121,14 +141,14 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         },
     });
 
-    // const userOptions = query.data?.data?.map((user: any) => ({
-    //     label: user.firstName + ' ' + user.lastName,
-    //     value: user.id,
-    // })) ?? [];
+    const userOptions = query.data?.data?.map((user: any) => ({
+        label: user.firstName + ' ' + user.lastName,
+        value: user.id,
+    })) ?? [];
 
-    // const handleModalSuccess = () => {
-    //     query.refetch(); // Refetch users after creating a new one
-    // };
+    const handleModalSuccess = () => {
+        query.refetch(); // Refetch users after creating a new one
+    };
 
     return (
         <div className="@container">
@@ -143,7 +163,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             labelClassName="font-medium text-gray-900"
                             {...register('vin')}
                             error={errors.vin?.message as string}
-                            disabled={true}
                         />
                         <Input
                             label="Make"
@@ -151,7 +170,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             labelClassName="font-medium text-gray-900"
                             {...register('make')}
                             error={errors.make?.message as string}
-                            disabled={true}
                         />
                         <Input
                             label="Model"
@@ -159,7 +177,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             labelClassName="font-medium text-gray-900"
                             {...register('model')}
                             error={errors.model?.message as string}
-                            disabled={true}
                         />
                         <Input
                             label="Year"
@@ -168,7 +185,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             type="number"
                             {...register('year', { valueAsNumber: true })}
                             error={errors.year?.message as string}
-                            disabled={true}
                         />
                     </div>
 
@@ -182,15 +198,13 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             type="number"
                             {...register('lot', { valueAsNumber: true })}
                             error={errors.lot?.message as string}
-                            disabled={true}
                         />
                         <Input
                             label="Order ID"
                             placeholder="order id"
                             labelClassName="font-medium text-gray-900"
-                            {...register("orderID")}
+                            {...register('dspOrderID')}
                             error={errors.orderID?.message as string}
-                            disabled={true}
                         />
                         <Input
                             label="Auction"
@@ -198,26 +212,24 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             labelClassName="font-medium text-gray-900"
                             {...register('auction')}
                             error={errors.auction?.message as string}
-                            disabled={true}
                         />
                         <Controller
                             control={control}
-                            name="carStatus"
+                            name="provider"
                             render={({ field: { value, onChange } }) => (
                                 <Select
-                                    label="Car Status"
+                                    label="Provider"
                                     labelClassName="text-gray-900"
                                     dropdownClassName="p-2 gap-1 grid !z-10"
                                     inPortal={false}
                                     value={value || null}
-                                    onChange={isViewOnly ? undefined : onChange}
+                                    onChange={onChange}
                                     options={carStatusArray}
                                     getOptionValue={(option) => option.value}
                                     displayValue={(selected) =>
                                         carStatusArray?.find((c) => c.value === selected)?.label ?? ''
                                     }
                                     error={errors?.carStatus?.message as string}
-                                    disabled={true}
                                 />
                             )}
                         />
@@ -231,96 +243,117 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                                     dropdownClassName="p-2 gap-1 grid !z-10"
                                     inPortal={false}
                                     value={value || null}
-                                    onChange={isViewOnly ? undefined : onChange}
+                                    onChange={onChange}
                                     options={portOptions}
                                     getOptionValue={(option) => option.value}
                                     displayValue={(selected) =>
                                         portOptions.find((c) => c.value === selected)?.label ?? ''
                                     }
                                     error={errors?.port?.message as string}
-                                    disabled={true}
                                 />
                             )}
                         />
-                        <Input
-                            label="Tracking Number"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        />
-                        {/*   <Input
-                            label="Tracking url"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        />
-
-                        <Input
-                            label="Images"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        />
-                        <Input
-                            label="Documents"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        /> */}
                     </div>
 
                     <h3>Client Total</h3>
                     <hr />
                     <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
                         <Input
-                            label="Client Total"
-                            placeholder="clientTotal"
+                            label="Inland Price"
+                            placeholder="inland price"
                             labelClassName="font-medium text-gray-900"
                             type="number"
-                            {...register('clientTotal', { valueAsNumber: true })}
-                            error={errors.clientTotal?.message as string}
-                            disabled={true}
+                            {...register('inlandPrice', { valueAsNumber: true })}
+                            error={errors.inlandPrice?.message as string}
                         />
                         <Input
-                            label="Total Cost"
-                            placeholder="totalCost"
+                            label="Ocean Price"
+                            placeholder="ocean price"
                             labelClassName="font-medium text-gray-900"
                             type="number"
-                            {...register('totalCost', { valueAsNumber: true })}
-                            error={errors.totalCost?.message as string}
-                            disabled={true}
+                            {...register('oceanPrice', { valueAsNumber: true })}
+                            error={errors.oceanPrice?.message as string}
                         />
                         <Input
-                            label="Profit"
-                            placeholder="profit"
+                            label="Broker"
+                            placeholder="broker"
                             labelClassName="font-medium text-gray-900"
                             type="number"
-                            {...register('profit', { valueAsNumber: true })}
-                            error={errors.profit?.message as string}
-                            disabled={true}
+                            {...register('broker', { valueAsNumber: true })}
+                            error={errors.broker?.message as string}
                         />
-                        {/* <Input
+                        <Input
                             label="Storage"
-                            placeholder="storage"
+                            placeholder="client storage"
                             labelClassName="font-medium text-gray-900"
                             type="number"
                             {...register('clientStorage', { valueAsNumber: true })}
                             error={errors.clientStorage?.message as string}
-                            disabled={true}
-                        /> */}
+                        />
+                        {/* <Input
+              label="OC Cost"
+              placeholder="200"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('ocCost', { valueAsNumber: true })}
+              error={errors.ocCost?.message as string}
+            />
+            <Input
+              label="Storage"
+              placeholder="storage"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('storage', { valueAsNumber: true })}
+              error={errors.storage?.message as string}
+            /> */}
                     </div>
 
-                    <h3 className='w-full'>Payment info</h3>
+                    <h3>Total Cost</h3>
                     <hr />
-                    <div className="mb-4 mt-4  grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                        <Input
+                            label="Inland Cost"
+                            placeholder="inland cost"
+                            labelClassName="font-medium text-gray-900"
+                            type="number"
+                            {...register('inlandCost', { valueAsNumber: true })}
+                            error={errors.inlandCost?.message as string}
+                        />
+                        <Input
+                            label="Ocean Cost"
+                            placeholder="ocean cost"
+                            labelClassName="font-medium text-gray-900"
+                            type="number"
+                            {...register('oceanCost', { valueAsNumber: true })}
+                            error={errors.oceanCost?.message as string}
+                        />
+                        <Input
+                            label="Client Storage"
+                            placeholder="client storage"
+                            labelClassName="font-medium text-gray-900"
+                            type="number"
+                            {...register('clientStorage', { valueAsNumber: true })}
+                            error={errors.clientStorage?.message as string}
+                        />
+
+                        <Input
+                            label="Storage Cost"
+                            placeholder="storage cost"
+                            labelClassName="font-medium text-gray-900"
+                            type="number"
+                            {...register('storageCost', { valueAsNumber: true })}
+                            error={errors.storageCost?.message as string}
+                        />
+
+
+
+
+
+                    </div>
+
+                    <h3>Payment info</h3>
+                    <hr />
+                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
                         <Controller
                             control={control}
                             name="paymentStatus"
@@ -331,49 +364,79 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                                     dropdownClassName="p-2 gap-1 grid !z-10"
                                     inPortal={false}
                                     value={value || null}
-                                    onChange={isViewOnly ? undefined : onChange}
+                                    onChange={onChange}
                                     options={paymentStatusArray}
                                     getOptionValue={(option) => option.value}
                                     displayValue={(selected) =>
                                         paymentStatusArray.find((c) => c.value === selected)?.label ?? ''
                                     }
                                     error={errors?.paymentStatus?.message as string}
-                                    disabled={true}
                                 />
                             )}
                         />
-                        {/* <Input
+                        <Input
                             label="Partly Paid"
                             placeholder="100"
                             labelClassName="font-medium text-gray-900"
                             type="number"
                             {...register('partlyPaid', { valueAsNumber: true })}
                             error={errors.partlyPaid?.message as string}
-                            disabled={true}
-                        /> */}
-
+                        />
                     </div>
 
-                    <h3 className='w-full mt-4'>User</h3>
+                    <h3>User</h3>
                     <hr />
                     <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
-                        <Input
-                            label="Client"
-                            placeholder="fullname"
-                            labelClassName="font-medium text-gray-900"
-                            type="number"
-                            {...register('fullname' || null, { valueAsNumber: true })}
-                            error={errors.fullname?.message as string}
-                            disabled={true}
-                        /> </div>
+                        <Controller
+                            control={control}
+                            name="userId"
+                            render={({ field: { value, onChange } }) => (
+                                <Select
+                                    label="User"
+                                    labelClassName="text-gray-900"
+                                    dropdownClassName="p-2 gap-1 grid !z-10"
+                                    inPortal={false}
+                                    value={value || null}
+                                    onChange={onChange}
+                                    options={userOptions}
+                                    getOptionValue={(option) => option.value}
+                                    displayValue={(selected) =>
+                                        userOptions.find((c: any) => c.value === selected)?.label ?? ''
+                                    }
+                                    error={errors?.userId?.message as string}
+                                />
+                            )}
+                        />
+                        <Button
+                            className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+                            onClick={() => setModalOpen(true)}
+                        >
+                            Add User
+                        </Button>
+                    </div>
+
+                    {/* <div className="flex items-center justify-start gap-x-2 mt-10"> */}
+                    <Button
+                        type="submit"
+                        className="!px-14 !py-[.6rem] bg-gray-900 hover:bg-gray-800 text-white"
+                        isLoading={isLoading}
+                        disabled={isLoading}
+                    >
+                        {id ? 'Update Shipment' : 'Create Shipment'}
+                    </Button>
+                    {/* </div> */}
                 </form >
             </FormProvider >
+
+            <CreateUserModal
+                isOpen={isModalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                onSuccess={handleModalSuccess}
+            />
         </div >
     );
 
     async function onSubmit(data: CreateShipmentInput) {
-        if (isViewOnly) return; // Prevent submission if view-only
-
         setLoading(true);
         try {
             await addOrderDetailsMutation.mutateAsync(data);
