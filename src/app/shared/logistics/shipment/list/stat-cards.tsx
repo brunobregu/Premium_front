@@ -15,6 +15,7 @@ import TrendingDownIcon from '@components/icons/trending-down';
 import premiumApi from '@/util/premiumAPI';
 import { DetailsApiResponse, StatData } from '@/types/details';
 import { useQuery } from '@tanstack/react-query';
+import { useFiltersContext } from '@/store/state';
 
 const defaultStatData: StatData[] = [
   {
@@ -60,20 +61,21 @@ const defaultStatData: StatData[] = [
 //   { value: 'this-week', label: 'This Week' },
 // ];
 
-const fetchStatData = async (user: string) => {
-  const endpoint = 'en/OrderDetails/details'
-  // : '/OrderDetails/myDetails';
+const fetchStatData = async (userId: string) => {
+  const endpoint = userId
+    ? `/en/OrderDetails/detailsByClient?userId=${userId}`
+    : '/en/OrderDetails/details';
 
   const response = await premiumApi.get<DetailsApiResponse>(endpoint);
   return response.data;
 };
-
 export default function Details({ className }: { className?: string }) {
+  const { userId } = useFiltersContext();
   const user = localStorage.getItem('userRole') || 'User';
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ['details', user],
-    queryFn: () => fetchStatData(user),
+    queryKey: ['details', userId],
+    queryFn: () => fetchStatData(userId),
     select: (data) => {
       if (
         data.numberOfOrders === undefined &&

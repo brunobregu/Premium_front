@@ -5,10 +5,14 @@ import dynamic from 'next/dynamic';
 import isEmpty from 'lodash/isEmpty';
 import { Title, Loader } from 'rizzui';
 import cn from '@utils/class-names';
-import type { TableFilterProps } from '@/app/shared/controlled-table/table-filter';
+import type { TableFilterProps } from '@/app/shared/logistics/shipment/list/table-filter';
 import Table, { TableProps } from '../table';
 const TableFilter = dynamic(
-  () => import('@/app/shared/controlled-table/table-filter'),
+  () => import('@/app/shared/logistics/shipment/list/table-filter'),
+  { ssr: false }
+);
+const TableNameFilter = dynamic(
+  () => import('@/app/shared/logistics/shipment/list/table-filter'),
   { ssr: false }
 );
 const TablePagination = dynamic(
@@ -50,11 +54,13 @@ export default function ControlledTable({
       </div>
     );
   }
-
+  const user = localStorage.getItem('userRole')
   return (
     <>
-      {!isEmpty(filterOptions) && (
+      {user === 'Client' ? !isEmpty(filterOptions) && (
         <TableFilter {...filterOptions}>{filterElement}</TableFilter>
+      ) : !isEmpty(filterOptions) && (
+        <TableNameFilter {...filterOptions}>{filterElement}</TableNameFilter>
       )}
 
       <div className="relative">

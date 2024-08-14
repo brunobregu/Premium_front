@@ -13,7 +13,9 @@ interface FiltersContextProps {
   currentPage: number,
   setCurrentPage: (value: number) => void,
   totalRecord: number,
-  setTotalRecords: (value: number) => void
+  setTotalRecords: (value: number) => void,
+  userId: string,
+  setUserId: (string: any) => void
 }
 
 const FiltersContext = createContext<FiltersContextProps | undefined>(undefined);
@@ -28,7 +30,9 @@ export const FiltersProvider: React.FC<FiltersProviderProps> = ({ children }) =>
   const [user, setUser] = useState<string>('')
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalRecord, setTotalRecords] = useState<number>(0);
+  const [totalRecord, setTotalRecords] = useState<any>();
+  const [userId, setUserId] = useState<string>('');
+
 
 
   const contextValue: FiltersContextProps = {
@@ -41,7 +45,9 @@ export const FiltersProvider: React.FC<FiltersProviderProps> = ({ children }) =>
     currentPage,
     setCurrentPage,
     totalRecord,
-    setTotalRecords
+    setTotalRecords,
+    userId,
+    setUserId
   };
 
   return <FiltersContext.Provider value={contextValue}>{children}</FiltersContext.Provider>;

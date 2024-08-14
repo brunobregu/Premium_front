@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { PiTrashDuotone } from 'react-icons/pi';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Text, Badge } from 'rizzui';
 import {
   getColumns,
@@ -23,9 +23,10 @@ import {
 } from '@/data/shipment-data';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
-import { ShipmentData } from '@/types/orders';
+import { ShipmentData, ShipmentDataAdmin } from '@/types/orders';
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '../../../../../components/modals/DeleteOrderModal';
+import { useFiltersContext } from '@/store/state';
 
 const TableFooter = dynamic(() => import('@/app/shared/table-footer'), {
   ssr: false,
@@ -42,23 +43,54 @@ const transformData = (data: ShipmentData[]): ShipmentData[] => {
 
 
 export default function OrderList() {
-  const [pageSize, setPageSize] = useState<number>(10);
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
   const user = localStorage.getItem('userRole');
   const queryClient = useQueryClient();
-
   const isMediumScreen = useMedia('(max-width: 1860px)', false);
   const isLargeScreen = useMedia('(min-width: 1861px)', false);
+  const { userId, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext();
+
 
   const query = useQuery({
-    queryKey: ['shipments'],
+    queryKey: ['shipments', userId],
     queryFn: () => {
-      return premiumApi.get('/en/OrderDetails/orders');
+
+      return premiumApi.get(userId.length > 0 ? `en/OrderDetails/ordersByClient?userId=${userId}` : '/en/OrderDetails/orders');
     },
     select: (data) => transformData(data.data),
   });
+
+  const filteredData = useMemo(() => {
+    if (!query.data) return [];
+
+    // Set the total number of records based on the filtered data
+    setTotalRecords(query.data.length);
+
+    return query.data;
+  }, [query.data]);
+
+  // Calculate paginated data
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return filteredData.slice(startIndex, endIndex);
+  }, [filteredData, currentPage, pageSize]);
+
+  useEffect(() => {
+    // Calculate new total pages
+    const totalPages = Math.ceil(filteredData.length / pageSize);
+
+    // If the current page is greater than the total pages, reset to the last page
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    } else if (totalPages === 0 || currentPage === 0) {
+      // Handle case when there are no pages
+      setCurrentPage(1);
+    }
+  }, [pageSize, filteredData.length, setCurrentPage]);
+
 
   const handleDelete = useCallback(async (id: string) => {
     try {
@@ -102,7 +134,6 @@ export default function OrderList() {
     isLoading,
     isFiltered,
     tableData,
-    currentPage,
     totalItems,
     handlePaginate,
     filters,
@@ -116,18 +147,19 @@ export default function OrderList() {
     handleRowSelect,
     setSelectedRowKeys,
     selectedRowKeys,
-  } = useTable(query.data ?? [], pageSize);
+  } = useTable(paginatedData, pageSize);
 
   const columns = useMemo(
     () =>
       getColumns({
-        data: shipmentData,
+        data: paginatedData,
         sortConfig,
         checkedItems: selectedRowKeys,
         onHeaderCellClick,
         onChecked: handleRowSelect,
         handleSelectAll,
-        handleDelete: openModal
+        handleDelete: openModal,
+        userId: userId
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]
@@ -142,7 +174,7 @@ export default function OrderList() {
         variant="modern"
         isLoading={query.isLoading}
         showLoadingText={true}
-        data={query.data as any[]}
+        data={paginatedData}
         scroll={{
           x: 1800,
         }}
@@ -150,8 +182,7 @@ export default function OrderList() {
         columns={visibleColumns}
         paginatorOptions={{
           pageSize,
-          setPageSize,
-          total: query.data?.length ?? 0,
+          total: paginatedData.length,
           current: currentPage,
           onChange: (page: number) => handlePaginate(page),
         }}
@@ -160,7 +191,7 @@ export default function OrderList() {
           onSearchClear: () => {
             handleSearch('');
           },
-          onSearchChange: (event) => {
+          onSearchChange: (event: any) => {
             handleSearch(event.target.value);
           },
           hasSearched: isFiltered,

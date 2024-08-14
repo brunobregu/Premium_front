@@ -30,7 +30,7 @@ export default function MyOrdersList() {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
-  const { searchInput, setSearchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
+  const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
 
 
 
@@ -151,7 +151,7 @@ export default function MyOrdersList() {
           onSearchClear: () => {
             handleSearch('');
           },
-          onSearchChange: (event) => {
+          onSearchChange: (event: any) => {
             handleSearch(event.target.value);
           },
           hasSearched: isFiltered,

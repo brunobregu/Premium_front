@@ -7,23 +7,36 @@ import PencilIcon from '@components/icons/pencil';
 import EyeIcon from '@components/icons/eye';
 import TrashIcon from '@components/icons/trash';
 
-
+export interface RecordType {
+  id: string;
+  vin: string;
+  make: string;
+  model: string;
+  year: number;
+  lot: number;
+  auction: string;
+  trackingNumber: string | null;
+  carStatus: string;
+  port: string;
+  clientTotal: number;
+  paymentStatus: string;
+  fullname: string;
+}
 
 export const statusColors = (status: StatusType) => {
-  if (shippingStatuses.Approved === status) {
-    return 'primary';
-  }
-  if (shippingStatuses.InTransit === status) {
-    return 'secondary';
-  }
-  if (shippingStatuses.OutForDelivery === status) {
-    return 'info';
-  }
-  if (shippingStatuses.Delivered === status) {
-    return 'success';
-  }
-  if (shippingStatuses.DeliveryFailed === status) {
-    return 'danger';
+  switch (status) {
+    case shippingStatuses.Approved:
+      return 'primary';
+    case shippingStatuses.InTransit:
+      return 'secondary';
+    case shippingStatuses.OutForDelivery:
+      return 'info';
+    case shippingStatuses.Delivered:
+      return 'success';
+    case shippingStatuses.DeliveryFailed:
+      return 'danger';
+    default:
+      return '';
   }
 };
 
@@ -35,22 +48,29 @@ export const getColumns = ({
   handleSelectAll,
   onChecked,
   handleDelete,
+  userId
 }: any) => {
+
   const columns = [
-    {
-      title: (
-        <HeaderCell
-          title="Full Name"
-          sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
-        />
-      ),
-      onHeaderCell: () => onHeaderCellClick('fullname'),
-      dataIndex: 'fullname',
-      key: 'fullname',
-      width: 180,
-      render: (fullname: any) => fullname,
-    },
+    ...(userId.length > 0
+      ? []
+      : [
+        {
+          title: (
+            <HeaderCell
+              title="Full Name"
+              sortable
+              ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
+            />
+          ),
+          onHeaderCell: () => onHeaderCellClick('fullname'),
+          dataIndex: 'fullname',
+          key: 'fullname',
+          width: 180,
+          render: (fullname: string) => fullname,
+        }
+      ]
+    ),
     {
       title: (
         <HeaderCell
@@ -63,7 +83,7 @@ export const getColumns = ({
       dataIndex: 'vin',
       key: 'vin',
       width: 180,
-      render: (vin: any) => vin,
+      render: (vin: string) => vin,
     },
     {
       title: (
@@ -77,7 +97,7 @@ export const getColumns = ({
       dataIndex: 'make',
       key: 'make',
       width: 180,
-      render: (make: any) => make,
+      render: (make: string) => make,
     },
     {
       title: (
@@ -91,7 +111,7 @@ export const getColumns = ({
       dataIndex: 'model',
       key: 'model',
       width: 180,
-      render: (model: any) => model,
+      render: (model: string) => model,
     },
     {
       title: (
@@ -105,7 +125,7 @@ export const getColumns = ({
       dataIndex: 'year',
       key: 'year',
       width: 100,
-      render: (year: any) => year,
+      render: (year: number) => year,
     },
     {
       title: (
@@ -119,7 +139,7 @@ export const getColumns = ({
       dataIndex: 'lot',
       key: 'lot',
       width: 150,
-      render: (lot: any) => lot,
+      render: (lot: number) => lot,
     },
     {
       title: (
@@ -133,7 +153,7 @@ export const getColumns = ({
       dataIndex: 'orderID',
       key: 'orderID',
       width: 150,
-      render: (orderID: any) => orderID,
+      render: (orderID: string) => orderID,
     },
     {
       title: (
@@ -147,7 +167,7 @@ export const getColumns = ({
       dataIndex: 'auction',
       key: 'auction',
       width: 150,
-      render: (auction: any) => auction,
+      render: (auction: string) => auction,
     },
     {
       title: (
@@ -161,7 +181,7 @@ export const getColumns = ({
       dataIndex: 'trackingNumber',
       key: 'trackingNumber',
       width: 150,
-      render: (trackingNumber: any) => trackingNumber,
+      render: (trackingNumber: string | null) => trackingNumber || 'N/A',
     },
     {
       title: (
@@ -175,7 +195,7 @@ export const getColumns = ({
       dataIndex: 'paymentStatus',
       key: 'paymentStatus',
       width: 150,
-      render: (paymentStatus: any) => paymentStatus,
+      render: (paymentStatus: string) => paymentStatus,
     },
     {
       title: (
@@ -189,7 +209,7 @@ export const getColumns = ({
       dataIndex: 'carStatus',
       key: 'carStatus',
       width: 150,
-      render: (carStatus: any) => carStatus,
+      render: (carStatus: string) => carStatus,
     },
     {
       title: (
@@ -203,7 +223,7 @@ export const getColumns = ({
       dataIndex: 'port',
       key: 'port',
       width: 150,
-      render: (port: any) => port,
+      render: (port: string) => port,
     },
     {
       title: (
@@ -217,7 +237,7 @@ export const getColumns = ({
       dataIndex: 'clientTotal',
       key: 'clientTotal',
       width: 150,
-      render: (clientTotal: any) => clientTotal,
+      render: (clientTotal: number) => clientTotal,
     },
     {
       title: (
@@ -231,7 +251,7 @@ export const getColumns = ({
       dataIndex: 'totalCost',
       key: 'totalCost',
       width: 150,
-      render: (totalCost: any) => totalCost,
+      render: (totalCost: number) => totalCost,
     },
     {
       title: (
@@ -245,62 +265,24 @@ export const getColumns = ({
       dataIndex: 'profit',
       key: 'profit',
       width: 150,
-      render: (profit: any) => profit,
-    }
-
-  ];
-
-  // columns.unshift({
-  //   title: (
-  //     <HeaderCell
-  //       title="Full Name"
-  //       sortable
-  //       ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
-  //     />
-  //   ),
-  //   onHeaderCell: () => onHeaderCellClick('fullname'),
-  //   dataIndex: 'fullname',
-  //   key: 'fullname',
-  //   width: 250,
-  //   render: (fullname: any) => fullname,
-  // });
-
-
-  // columns.push(
-  //   {
-  //     title: (
-  //       <HeaderCell
-  //         title="Total Cost"
-  //         sortable
-  //         ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
-  //       />
-  //     ),
-  //     onHeaderCell: () => onHeaderCellClick('totalCost'),
-  //     dataIndex: 'totalCost',
-  //     key: 'totalCost',
-  //     width: 180,
-  //     render: (totalCost: any) => totalCost,
-  //   });
-
-
-  columns.push({
-    title: <HeaderCell title="Actions" className="opacity-0" />,
-    dataIndex: 'action',
-    key: 'action',
-    width: 120,
-    render: (row: any) => (
-      <div className="flex items-center justify-end gap-3 pe-4">
-
-        <>
+      render: (profit: number) => profit,
+    },
+    {
+      title: <HeaderCell title="Actions" className="opacity-0" />,
+      dataIndex: 'action',
+      key: 'action',
+      width: 120,
+      render: (text: any, record: RecordType) => (
+        <div className="flex items-center justify-end gap-3 pe-4">
           <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
-            <Link href={routes.logistics.detailShipment(row?.id)}>
+            <Link href={routes.logistics.detailShipment(record?.id)}>
               <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
                 <EyeIcon className="h-4 w-4" />
               </ActionIcon>
             </Link>
           </Tooltip>
           <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
-            <Link href={routes.logistics.editShipment(row?.orderID)}>
+            <Link href={routes.logistics.editShipment(record?.id)}>
               <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
                 <PencilIcon className="h-4 w-4" />
               </ActionIcon>
@@ -311,28 +293,16 @@ export const getColumns = ({
               size="sm"
               variant="outline"
               aria-label={'Delete Shipment'}
-              onClick={() => handleDelete(row.orderID)}
+              onClick={() => handleDelete(record.id)}
             >
               <TrashIcon className="h-4 w-4" />
             </ActionIcon>
           </Tooltip>
-        </>
-
-
-        {/* <>
-            <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
-              <Link href={routes.logistics.detailShipment(row.id)}>
-                <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
-                  <EyeIcon className="h-4 w-4" />
-                </ActionIcon>
-              </Link>
-            </Tooltip>
-          </> */}
-
-      </div>
-    ),
-    onHeaderCell: () => ({})
-  });
+        </div>
+      ),
+      onHeaderCell: () => ({}),
+    },
+  ];
 
   return columns;
 };
