@@ -59,7 +59,7 @@ export default function MyOrdersList() {
     setTotalRecords(result.length);
 
     return result;
-  }, [query.data, searchInput, setTotalRecords]);
+  }, [query.data, searchInput]);
 
   // Calculate paginated data
   const paginatedData = useMemo(() => {
@@ -75,11 +75,11 @@ export default function MyOrdersList() {
     // If the current page is greater than the total pages, reset to the last page
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
-    } else if (totalPages === 0) {
+    } else if (totalPages === 0 || currentPage === 0) {
       // Handle case when there are no pages
       setCurrentPage(1);
     }
-  }, [pageSize, filteredData.length, currentPage, setCurrentPage]);
+  }, [pageSize, filteredData.length, setCurrentPage]);
 
   const onHeaderCellClick = (value: string) => ({
     onClick: () => {

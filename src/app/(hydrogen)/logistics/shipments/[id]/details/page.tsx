@@ -8,15 +8,12 @@ import { useEffect, useState } from 'react';
 import { shipmentData as fakeShipmentData } from '@/app/shared/logistics/shipment/create-edit/form-utils';
 
 const pageHeader = {
-    title: 'Edit Shipment',
+    title: 'View Shipment',
     breadcrumb: [
+
         {
-            href: '/dashboard', // Adjust based on your routes
-            name: 'Dashboard',
-        },
-        {
-            href: '/shipments', // Adjust based on your routes
-            name: 'Shipments',
+            href: '/logistics/shipments', // Adjust based on your routes
+            name: 'Shipments List',
         },
         {
             name: 'View Details',
