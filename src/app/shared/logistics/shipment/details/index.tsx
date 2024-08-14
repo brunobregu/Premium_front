@@ -62,28 +62,12 @@ const portOptions: SelectOption[] = [
     { label: 'prov', value: 'prov' },
 ];
 
-export default function ViewShipment({ id, className, isViewOnly }: IndexProps) {
+export default function ViewShipment({ id, shipment, className, isViewOnly }: IndexProps) {
     const { layout } = useLayout();
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
 
-    const [shipment, setShipment] = useState<any>(null);
 
-    useEffect(() => {
-        const fetchShipmentData = async () => {
-            try {
-                const response = await premiumApi.get(`en/OrderDetails/myOrderDetailsById?id=${id}`);
-                setShipment(response.data);
-            } catch (error) {
-                console.error('Error fetching shipment data:', error);
-                setShipment(fakeShipmentData); // Use fake data in case of error
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchShipmentData();
-    }, [id]);
 
     const router = useRouter();
 
