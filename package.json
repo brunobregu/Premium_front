@@ -5,8 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-       "postbuild": "node move-build.js",
-    "build:move": "npm run build && npm run postbuild",
     "start": "next start",
     "lint": "next lint",
     "sass": "sass --watch public/assets/scss/style.scss:public/assets/css/style.css",
@@ -48,7 +46,7 @@
     "@tanstack/react-table": "^8.17.3",
     "@uploadthing/react": "^6.5.1",
     "ahooks": "^3.8.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "clsx": "^2.1.1",
     "cookie": "^0.6.0",
     "date-arithmetic": "^4.1.0",
