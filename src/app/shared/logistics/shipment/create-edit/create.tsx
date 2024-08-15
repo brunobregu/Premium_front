@@ -30,9 +30,10 @@ const addOrderDetailsDtoSchema = yup.object().shape({
         .min(1990, 'Year must be at least 1990')
         .required('Year is required'),
     lot: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
-    orderID: yup.string().required('Oder ID is required'),
+    orderID: yup.string().required('Order ID is required'),
     port: yup.string().required('Port is required'),
-    auction: yup.string().required('Auction is required'),
+    auction: yup.string().min(1, 'Auction is required'),
+    provider: yup.string().min(1, 'Provider is required'),
     inlandPrice: yup
         .number()
         .transform((value) => (Number.isNaN(value) ? null : value))
@@ -59,37 +60,21 @@ const addOrderDetailsDtoSchema = yup.object().shape({
         .min(1, 'Ocean Cost must be at least 1')
         .required('Ocean Cost is required'),
     storage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
-    paymentStatus: yup.string().required(),
+    paymentStatus: yup.string().required('Payment status is required'),
     partlyPaid: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer(),
     userId: yup.string().required(),
 });
 
 const paymentStatusArray: SelectOption[] = [
     { label: 'Paid', value: 'Paid' },
-    { label: 'Not paid', value: 'Not paid' },
+    { label: 'Not Paid', value: 'Not Paid' },
     { label: 'Partly Paid', value: 'Partly Paid' },
-];
-const carStatusArray: SelectOption[] = [
-    { label: 'Dispatch', value: 'Dispatch' },
-    { label: 'At terminal', value: 'At terminal' },
-    { label: 'Booked', value: 'Booked' },
-    { label: 'Loaded', value: 'Loaded' },
-    { label: 'Delivered', value: 'Delivered' },
-];
-
-const portOptions: SelectOption[] = [
-    { label: 'Savannah', value: 'Savannah' },
-    { label: 'Elizabeth', value: 'Elizabeth' },
-    { label: 'Houston', value: 'Houston' },
-    { label: 'LosAngeles', value: 'LosAngeles' },
-    { label: 'Indianapolis', value: 'Indianapolis' },
 ];
 
 export default function CreateEditShipment({ id, shipment, className }: IndexProps) {
-    console.log('id', id)
     const { layout } = useLayout();
-    const [isLoading, setLoading] = useState(false);
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [isLoading, setLoading] = useState<boolean>(false);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
     const router = useRouter();
 
     const methods = useForm<any>({
@@ -116,6 +101,21 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
         enabled: !!id,
     });
 
+    const auctionQuery = useQuery({
+        queryKey: ['auctions'],
+        queryFn: () => premiumApi.get('en/Auction/auctions'),
+    });
+
+    const portQuery = useQuery({
+        queryKey: ['ports'],
+        queryFn: () => premiumApi.get('en/Port/ports'),
+    });
+
+    const providerQuery = useQuery({
+        queryKey: ['providers'],
+        queryFn: () => premiumApi.get('en/Provider/providers'),
+    });
+
     useEffect(() => {
         if (orderDetailsQuery.data) {
             const orderDetails = orderDetailsQuery.data.data;
@@ -136,14 +136,29 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
             router.push('/logistics/shipments');
         },
-        onError: () => {
-            toast.error('Error saving shipment');
+        onError: (error) => {
+            toast.error('Error saving order', { position: "top-right" });
         },
     });
 
     const userOptions = query.data?.data?.map((user: any) => ({
         label: user.firstName + ' ' + user.lastName,
         value: user.id,
+    })) ?? [];
+
+    const auctionOptions = auctionQuery.data?.data?.map((item: any) => ({
+        label: item.name, // Adjust based on actual API response
+        value: item.id,
+    })) ?? [];
+
+    const portOptions = portQuery.data?.data?.map((item: any) => ({
+        label: item.name, // Adjust based on actual API response
+        value: item.id,
+    })) ?? [];
+
+    const providerOptions = providerQuery.data?.data?.map((item: any) => ({
+        label: item.name, // Adjust based on actual API response
+        value: item.name,
     })) ?? [];
 
     const handleModalSuccess = () => {
@@ -203,36 +218,34 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             label="Order ID"
                             placeholder="order id"
                             labelClassName="font-medium text-gray-900"
-                            {...register('dspOrderID')}
+                            {...register('orderID')}
                             error={errors.orderID?.message as string}
-                        />
-                        <Input
-                            label="Auction"
-                            placeholder="auction"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('auction')}
-                            error={errors.auction?.message as string}
                         />
                         <Controller
                             control={control}
-                            name="provider"
+                            name="auction"
                             render={({ field: { value, onChange } }) => (
                                 <Select
-                                    label="Provider"
+                                    label="Auction"
                                     labelClassName="text-gray-900"
                                     dropdownClassName="p-2 gap-1 grid !z-10"
                                     inPortal={false}
                                     value={value || null}
                                     onChange={onChange}
-                                    options={carStatusArray}
+                                    options={
+                                        auctionOptions.length > 0
+                                            ? auctionOptions
+                                            : [{ label: 'No data available', value: 'auction' }]
+                                    }
                                     getOptionValue={(option) => option.value}
                                     displayValue={(selected) =>
-                                        carStatusArray?.find((c) => c.value === selected)?.label ?? ''
+                                        auctionOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
                                     }
-                                    error={errors?.carStatus?.message as string}
+                                    error={errors?.auction?.message as string}
                                 />
                             )}
                         />
+
                         <Controller
                             control={control}
                             name="port"
@@ -244,12 +257,41 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                                     inPortal={false}
                                     value={value || null}
                                     onChange={onChange}
-                                    options={portOptions}
+                                    options={
+                                        portOptions.length > 0
+                                            ? portOptions
+                                            : [{ label: 'No data available', value: 'port' }]
+                                    }
                                     getOptionValue={(option) => option.value}
                                     displayValue={(selected) =>
-                                        portOptions.find((c) => c.value === selected)?.label ?? ''
+                                        portOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
                                     }
                                     error={errors?.port?.message as string}
+                                />
+                            )}
+                        />
+
+                        <Controller
+                            control={control}
+                            name="provider"
+                            render={({ field: { value, onChange } }) => (
+                                <Select
+                                    label="Provider"
+                                    labelClassName="text-gray-900"
+                                    dropdownClassName="p-2 gap-1 grid !z-10"
+                                    inPortal={false}
+                                    value={value || null}
+                                    onChange={onChange}
+                                    options={
+                                        providerOptions.length > 0
+                                            ? providerOptions
+                                            : [{ label: 'No data available', value: '' }]
+                                    }
+                                    getOptionValue={(option) => option.value}
+                                    displayValue={(selected) =>
+                                        providerOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
+                                    }
+                                    error={errors?.provider?.message as string}
                                 />
                             )}
                         />
@@ -287,25 +329,9 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             placeholder="client storage"
                             labelClassName="font-medium text-gray-900"
                             type="number"
-                            {...register('clientStorage', { valueAsNumber: true })}
-                            error={errors.clientStorage?.message as string}
+                            {...register('storage', { valueAsNumber: true })}
+                            error={errors.storage?.message as string}
                         />
-                        {/* <Input
-              label="OC Cost"
-              placeholder="200"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('ocCost', { valueAsNumber: true })}
-              error={errors.ocCost?.message as string}
-            />
-            <Input
-              label="Storage"
-              placeholder="storage"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('storage', { valueAsNumber: true })}
-              error={errors.storage?.message as string}
-            /> */}
                     </div>
 
                     <h3>Total Cost</h3>
@@ -335,7 +361,6 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             {...register('clientStorage', { valueAsNumber: true })}
                             error={errors.clientStorage?.message as string}
                         />
-
                         <Input
                             label="Storage Cost"
                             placeholder="storage cost"
@@ -344,11 +369,6 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             {...register('storageCost', { valueAsNumber: true })}
                             error={errors.storageCost?.message as string}
                         />
-
-
-
-
-
                     </div>
 
                     <h3>Payment info</h3>
@@ -398,10 +418,14 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                                     inPortal={false}
                                     value={value || null}
                                     onChange={onChange}
-                                    options={userOptions}
+                                    options={
+                                        userOptions.length > 0
+                                            ? userOptions
+                                            : [{ label: 'No data available', value: '' }]
+                                    }
                                     getOptionValue={(option) => option.value}
                                     displayValue={(selected) =>
-                                        userOptions.find((c: any) => c.value === selected)?.label ?? ''
+                                        userOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
                                     }
                                     error={errors?.userId?.message as string}
                                 />
@@ -415,25 +439,23 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                         </Button>
                     </div>
 
-                    {/* <div className="flex items-center justify-start gap-x-2 mt-10"> */}
                     <Button
                         type="submit"
                         className="!px-14 !py-[.6rem] bg-gray-900 hover:bg-gray-800 text-white"
                         isLoading={isLoading}
                         disabled={isLoading}
                     >
-                        {id ? 'Update Shipment' : 'Create Shipment'}
+                        Create Shipment
                     </Button>
-                    {/* </div> */}
-                </form >
-            </FormProvider >
+                </form>
+            </FormProvider>
 
             <CreateUserModal
                 isOpen={isModalOpen}
                 onRequestClose={() => setModalOpen(false)}
                 onSuccess={handleModalSuccess}
             />
-        </div >
+        </div>
     );
 
     async function onSubmit(data: CreateShipmentInput) {
