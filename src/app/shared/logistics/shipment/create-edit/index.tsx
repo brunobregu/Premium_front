@@ -372,8 +372,9 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             <Button
               className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={() => setCarModalOpen(true)}
+              disabled={orderDetailsQuery.data?.data.carStatus === 'Delivered'}
             >
-              Update car status
+              Update car status  {orderDetailsQuery.data?.data.carStatus ? orderDetailsQuery.data?.data.carStatus : 'Booked'}
             </Button>
           </div>
 
@@ -409,7 +410,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     try {
       await addOrderDetailsMutation.mutateAsync(data);
     } catch (error) {
-      console.error('Error submitting the form:', error);
+      console.error('Error submitting the form');
     } finally {
       setLoading(false);
     }

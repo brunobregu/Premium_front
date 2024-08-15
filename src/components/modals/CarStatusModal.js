@@ -22,12 +22,13 @@ const UpdateCarStatusModal = ({ onClose, isOpen, carStatus, id }) => {
     const [photos, setPhotos] = useState([]);
     const [documents, setDocuments] = useState([]);
     const [trackingNumber, setTrackingNumber] = useState('');
-    const [currentStatus, setCurrentStatus] = useState('Dispatch');
-console.log('currentStatus', currentStatus)
-const handleFileUpload = (e, setFileState, existingFiles) => {
-    const files = Array.from(e.target.files);
-    setFileState([...existingFiles, ...files]);
-};
+    const [currentStatus, setCurrentStatus] = useState('Booked');
+
+    const handleFileUpload = (e, setFileState) => {
+        const files = Array.from(e.target.files);
+        setFileState(prevFiles => [...prevFiles, ...files]);
+    };
+
     const onSubmit = (data) => {
         const formData = new FormData();
 
@@ -50,10 +51,10 @@ const handleFileUpload = (e, setFileState, existingFiles) => {
                 return;
             }
 
-            formData.append('CarStatus', 'At terminal');
             photos.forEach((photo, index) => {
-                formData.append(`Photos[${index}]`, photo);
+                formData.append('Photos', photo);
             });
+
         } else if (currentStatus === 'Booked') {
             formData.append('CarStatus', 'Loaded');
             formData.append('TrackingNumber', trackingNumber);
@@ -70,11 +71,18 @@ const handleFileUpload = (e, setFileState, existingFiles) => {
             }
 
             documents.forEach((doc, index) => {
-                formData.append(`Documents[${index}]`, doc);
+                formData.append('Documents', doc);
             });
+        }else if (currentStatus === 'At terminal' || currentStatus === 'Loaded') {
+            // Skip adding body data if currentStatus is 'At terminal' or 'Loaded'
+            formData.append('CarStatus', currentStatus); // Preserve current status if needed
         }
 
-        premiumApi.put(`en/OrderDetails/updateCarStatus?id=${id}`, formData)
+        premiumApi.put(`en/OrderDetails/updateCarStatus?id=${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        })
             .then(response => {
                 console.log('response', response);
                 setCurrentStatus(response.data);  // Assuming response data contains the updated status
@@ -84,76 +92,85 @@ const handleFileUpload = (e, setFileState, existingFiles) => {
                 console.error(error);
             });
     };
+
     const handleRemovePhoto = (index) => {
         setPhotos(prevPhotos => prevPhotos.filter((_, i) => i !== index));
     };
-    
+
     return (
         <Modal onClose={onClose} isOpen={isOpen} style={modalStyles}>
             <form onSubmit={handleSubmit(onSubmit)}>
-            {currentStatus === 'Dispatch' && (
+                {currentStatus === 'Dispatch' && (
                     <>
-                    <div className='flex flex-col mb-4'>
-                    <label>Upload Photos (1-10, Max total size: 5MB):</label>
-                        <input
-                            type="file"
-                            accept=".jpg,.jpeg,.png"
-                            multiple
-                            onChange={(e) => handleFileUpload(e, setPhotos, photos)}
-                            disabled={photos.length>10}
-                        />
-                    </div>
-                      
-                    <div className='grid grid-cols-10 gap-2'>
-    {photos.map((photo, index) => (
-        <div key={index} className='relative'>
-            <a href={URL.createObjectURL(photo)} target="_blank" rel="noopener noreferrer">
-                <img
-                    src={URL.createObjectURL(photo)}
-                    alt={`Photo ${index + 1}`}
-                    style={{ 
-                        width: '50px', 
-                        height: '50px', 
-                        objectFit: 'cover', 
-                        borderRadius: '4px' 
-                    }}
-                />
-            </a>
-            <button 
-                type="button" 
-                onClick={() => handleRemovePhoto(index)}
-                style={{ 
-                    position: 'absolute', 
-                    top: '-5px', 
-                    right: '-5px', 
-                    backgroundColor: 'red', 
-                    color: 'white', 
-                    border: 'none', 
-                    borderRadius: '50%', 
-                    width: '18px',
-                    height: '18px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    lineHeight: '18px',
-                    textAlign: 'center'
-                }}
-            >
-                ×
-            </button>
-        </div>
-    ))}
-</div>
-
+                        <div className='flex flex-col mb-4'>
+                            <label>Upload Photos (1-10, Max total size: 5MB):</label>
+                            <input
+                                type="file"
+                                accept=".jpg,.jpeg,.png"
+                                multiple
+                                onChange={(e) => handleFileUpload(e, setPhotos)}
+                                disabled={photos.length >= 10}
+                            />
+                        </div>
+                        <div className='grid grid-cols-10 gap-2'>
+                            {photos.map((photo, index) => (
+                                <div key={index} className='relative'>
+                                    <a href={URL.createObjectURL(photo)} target="_blank" rel="noopener noreferrer">
+                                        <img
+                                            src={URL.createObjectURL(photo)}
+                                            alt={`Photo ${index + 1}`}
+                                            style={{ 
+                                                width: '50px', 
+                                                height: '50px', 
+                                                objectFit: 'cover', 
+                                                borderRadius: '4px' 
+                                            }}
+                                        />
+                                    </a>
+                                    <button 
+                                        type="button" 
+                                        onClick={() => handleRemovePhoto(index)}
+                                        style={{ 
+                                            position: 'absolute', 
+                                            top: '-5px', 
+                                            right: '-5px', 
+                                            backgroundColor: 'red', 
+                                            color: 'white', 
+                                            border: 'none', 
+                                            borderRadius: '50%', 
+                                            width: '18px',
+                                            height: '18px',
+                                            cursor: 'pointer',
+                                            fontSize: '12px',
+                                            lineHeight: '18px',
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     </>
                 )}
+
+                {
+                    currentStatus === 'At terminal' && <p className='font-bold'>Car at terminal, book it</p>
+                }
+                 {
+                    currentStatus === 'Loaded' && <p className='font-bold'>Car loaded</p>
+                }
                 {currentStatus === 'Booked' && (
                     <>
-                        <label>Tracking Number:</label>
+                    <div className='flex flex-col mb-4'>
+                    <label>Tracking Number:</label>
                         <input
                             type="text"
                             value={trackingNumber}
                             onChange={(e) => setTrackingNumber(e.target.value)}
                         />
+                    </div>
+                     
                         <label>Upload Documents (2, Max total size: 5MB):</label>
                         <input
                             type="file"
@@ -163,11 +180,10 @@ const handleFileUpload = (e, setFileState, existingFiles) => {
                         />
                     </>
                 )}
-<div className='flex flex-col justify-start mt-8 bottom-0'>
- <Button type="submit">Update Status</Button>
-                <Button type="button" className='mt-8' onClick={onClose}>Close Modal</Button>
-</div>
-               
+                <div className='flex flex-col justify-start mt-8 bottom-0'>
+                    <Button type="submit">Update Status</Button>
+                    <Button type="button" className='mt-8' onClick={onClose}>Close Modal</Button>
+                </div>
             </form>
         </Modal>
     );
