@@ -11,7 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
+import CreateUserModal from '../../../../../components/modals/AddUserModal';
+import UpdateCarStatusModal from '../../../../../components/modals/CarStatusModal'; // Adjust the path as necessary
 
 interface IndexProps {
   id?: string;
@@ -60,10 +61,10 @@ const portOptions: SelectOption[] = [
 ];
 
 export default function CreateEditShipment({ id, shipment, className }: IndexProps) {
-  console.log('id', id)
   const { layout } = useLayout();
   const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isCarModalOpen, setCarModalOpen] = useState(false);
   const router = useRouter();
 
   const methods = useForm<any>({
@@ -124,6 +125,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     query.refetch(); // Refetch users after creating a new one
   };
 
+  console.log('orderDetailsQuery.data', orderDetailsQuery.data?.data)
   return (
     <div className="@container">
       <FormProvider {...methods}>
@@ -367,6 +369,12 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             >
               Add User
             </Button>
+            <Button
+              className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+              onClick={() => setCarModalOpen(true)}
+            >
+              Update car status
+            </Button>
           </div>
 
           {/* <div className="flex items-center justify-start gap-x-2 mt-10"> */}
@@ -386,6 +394,12 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
         isOpen={isModalOpen}
         onRequestClose={() => setModalOpen(false)}
         onSuccess={handleModalSuccess}
+      />
+      <UpdateCarStatusModal
+        isOpen={isCarModalOpen}
+        onClose={() => setCarModalOpen(false)}
+        carStatus={orderDetailsQuery.data?.data.carStatus}
+        id={id}
       />
     </div >
   );
