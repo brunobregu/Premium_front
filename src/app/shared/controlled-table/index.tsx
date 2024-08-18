@@ -8,7 +8,7 @@ import cn from '@utils/class-names';
 import type { TableFilterProps } from '@/app/shared/logistics/shipment/list/table-filter';
 import Table, { TableProps } from '../table';
 const TableFilter = dynamic(
-  () => import('@/app/shared/logistics/shipment/list/table-filter'),
+  () => import('@/app/shared/logistics/shipment/my-list/table-filter'),
   { ssr: false }
 );
 const TableNameFilter = dynamic(
@@ -57,11 +57,11 @@ export default function ControlledTable({
   const user = localStorage.getItem('userRole')
   return (
     <>
-      {user === 'Client' ? !isEmpty(filterOptions) && (
+      {user === 'Client' ? (!isEmpty(filterOptions) && (
         <TableFilter {...filterOptions}>{filterElement}</TableFilter>
-      ) : !isEmpty(filterOptions) && (
+      )) : (!isEmpty(filterOptions) && (
         <TableNameFilter {...filterOptions}>{filterElement}</TableNameFilter>
-      )}
+      ))}
 
       <div className="relative">
         <Table

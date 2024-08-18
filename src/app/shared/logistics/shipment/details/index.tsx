@@ -94,13 +94,13 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         queryFn: () => premiumApi.get(`en/OrderDetails/myOrderDetailsById?id=${id}`),
         enabled: !!id,
     });
+    console.log('orderDetailsQuery', orderDetailsQuery)
 
     useEffect(() => {
         if (orderDetailsQuery.data) {
             const orderDetails = orderDetailsQuery.data.data;
             reset(orderDetails);
             setValue('userId', orderDetails.userId);
-            console.log('orderDetails', orderDetails)
         }
     }, [orderDetailsQuery.data, reset, setValue]);
 
@@ -250,31 +250,47 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             error={errors.auction?.message as string}
                             disabled={true}
                         />
-                        <Input
-                            label="Tracking url"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        />
+                        <Button
+                            className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+                            onClick={() => {
+                                window.open('https://msc.com', '_blank');
+                            }}
+                        >
+                            Tracking URL
+                        </Button>
 
-                        <Input
+                        {/* <Input
                             label="Images"
                             placeholder="trackingNumber"
                             labelClassName="font-medium text-gray-900"
                             {...register('trackingNumber')}
                             error={errors.auction?.message as string}
                             disabled={true}
-                        />
-                        <Input
+                        /> */}
+                        <Button
+                            className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+                            onClick={() => {
+                                window.open('https://msc.com', '_blank');
+                            }}
+                        >
+                            View Images
+                        </Button>
+                        {/* <Input
                             label="Documents"
                             placeholder="trackingNumber"
                             labelClassName="font-medium text-gray-900"
                             {...register('trackingNumber')}
                             error={errors.auction?.message as string}
                             disabled={true}
-                        />
+                        /> */}
+                        <Button
+                            className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+                            onClick={() => {
+                                window.open('https://msc.com', '_blank');
+                            }}
+                        >
+                            View Documents
+                        </Button>
                     </div>
 
                     <h3>Client Total</h3>
