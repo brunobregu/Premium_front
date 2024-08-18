@@ -66,6 +66,8 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
   const [isModalOpen, setModalOpen] = useState(false);
   const [isCarModalOpen, setCarModalOpen] = useState(false);
   const router = useRouter();
+  const [currentStatus, setCurrentStatus] = useState('');
+
 
   const methods = useForm<any>({
     resolver: yupResolver(addOrderDetailsDtoSchema),
@@ -86,7 +88,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
   });
 
   const orderDetailsQuery = useQuery({
-    queryKey: ['orderDetails', id],
+    queryKey: ['orderDetails', id, currentStatus],
     queryFn: () => premiumApi.get(`en/OrderDetails/orderById?id=${id}`),
     enabled: !!id,
   });
@@ -94,6 +96,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
   useEffect(() => {
     if (orderDetailsQuery.data) {
       const orderDetails = orderDetailsQuery.data.data;
+      setCurrentStatus(orderDetailsQuery.data?.data.carStatus)
       reset(orderDetails);
       setValue('userId', orderDetails.userId);
     }
@@ -108,7 +111,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
       }
     },
     onSuccess: () => {
-      toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
+      toast.success('Shipment Updated Successfully', { position: "top-right" });
       router.push('/logistics/shipments');
     },
     onError: () => {
@@ -125,7 +128,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     query.refetch(); // Refetch users after creating a new one
   };
 
-  console.log('orderDetailsQuery.data', orderDetailsQuery.data?.data)
+  console.log('orderDetailsQuery.data', orderDetailsQuery.data?.data.carStatus)
   return (
     <div className="@container">
       <FormProvider {...methods}>
@@ -189,26 +192,13 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               {...register('auction')}
               error={errors.auction?.message as string}
             />
-            <Controller
-              control={control}
-              name="carStatus"
-              render={({ field: { value, onChange } }) => (
-                <Select
-                  label="Car Status"
-                  labelClassName="text-gray-900"
-                  dropdownClassName="p-2 gap-1 grid !z-10"
-                  inPortal={false}
-                  value={value || null}
-                  onChange={onChange}
-                  options={carStatusArray}
-                  getOptionValue={(option) => option.value}
-                  displayValue={(selected) =>
-                    carStatusArray?.find((c) => c.value === selected)?.label ?? ''
-                  }
-                  error={errors?.carStatus?.message as string}
-                />
-              )}
-            />
+            <Button
+              className="w-100 bg-gray-900 hover:bg-gray-800 text-white mt-auto"
+              onClick={() => setCarModalOpen(true)}
+              disabled={orderDetailsQuery.data?.data.carStatus === 'Delivered'}
+            >
+              Update car status ({orderDetailsQuery.data?.data.carStatus ? orderDetailsQuery.data?.data.carStatus : 'Dispatch'})
+            </Button>
             <Controller
               control={control}
               name="port"
@@ -369,13 +359,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             >
               Add User
             </Button>
-            <Button
-              className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
-              onClick={() => setCarModalOpen(true)}
-              disabled={orderDetailsQuery.data?.data.carStatus === 'Delivered'}
-            >
-              Update car status  {orderDetailsQuery.data?.data.carStatus ? orderDetailsQuery.data?.data.carStatus : 'Booked'}
-            </Button>
+
           </div>
 
           {/* <div className="flex items-center justify-start gap-x-2 mt-10"> */}
@@ -385,7 +369,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             isLoading={isLoading}
             disabled={isLoading}
           >
-            {id ? 'Update Shipment' : 'Create Shipment'}
+            Update Shipment
           </Button>
           {/* </div> */}
         </form >
@@ -401,6 +385,8 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
         onClose={() => setCarModalOpen(false)}
         carStatus={orderDetailsQuery.data?.data.carStatus}
         id={id}
+        currentStatus={currentStatus}
+        setCurrentStatus={setCurrentStatus}
       />
     </div >
   );

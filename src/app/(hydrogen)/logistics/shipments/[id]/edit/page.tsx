@@ -5,11 +5,11 @@ import ImportButton from '@/app/shared/import-button';
 import CreateEditShipment from '@/app/shared/logistics/shipment/create-edit';
 
 export const metadata = {
-  ...metaObject('Create Shipment'),
+  ...metaObject('Update Shipment'),
 };
 
 const pageHeader = {
-  title: 'Create Shipment',
+  title: 'Update Shipment',
   breadcrumb: [
     {
       href: routes.logistics.shipmentList,
