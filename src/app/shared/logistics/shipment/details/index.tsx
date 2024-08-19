@@ -66,10 +66,12 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
     const { layout } = useLayout();
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-
-
-
     const router = useRouter();
+
+    const handleImageClick = () => {
+        const url = `/logistics/shipments/${id}/uploaded-images`;
+        window.open(url, '_blank');
+    };
 
     const methods = useForm<any>({
         resolver: yupResolver(addOrderDetailsDtoSchema),
@@ -269,9 +271,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                         /> */}
                         <Button
                             className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
-                            onClick={() => {
-                                window.open('https://msc.com', '_blank');
-                            }}
+                            onClick={handleImageClick}
                         >
                             View Images
                         </Button>

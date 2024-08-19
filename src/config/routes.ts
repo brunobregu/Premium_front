@@ -51,6 +51,7 @@ export const routes = {
     tracking: (id: string) => `/logistics/tracking/${id}`,
     detailShipment: (id: string) => `/logistics/shipments/${id}/details`,
     detailShipmentAdmin: (id: string) => `/logistics/shipments/${id}/admin-details`,
+    viewImages: (id: string) => `/logistics/shipments/${id}/uploaded-images`
   },
   appointment: {
     dashboard: '/appointment',
