@@ -72,7 +72,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         try {
             const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
             const images = response.data;
-            console.log('images', response)
             if (images.length > 0) {
                 const url = `/logistics/shipments/${id}/uploaded-images`;
                 window.open(url, '_blank');
@@ -108,7 +107,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         queryFn: () => premiumApi.get(`en/OrderDetails/myOrderDetailsById?id=${id}`),
         enabled: !!id,
     });
-    console.log('orderDetailsQuery', orderDetailsQuery)
 
     useEffect(() => {
         if (orderDetailsQuery.data) {

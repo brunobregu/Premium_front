@@ -11,7 +11,6 @@ import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  console.log('router', router)
   
   useEffect(() => {
     if (router.locale) {

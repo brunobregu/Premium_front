@@ -47,7 +47,6 @@ export default function Hero1Slider() {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
       toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
         position: 'top-right',
       });
@@ -105,7 +104,6 @@ export default function Hero1Slider() {
   //     }
 
   //     const result = await response.json();
-  //     console.log('Success:', result);
   //   } catch (error) {
   //     console.error('Error:', error);
   //   }

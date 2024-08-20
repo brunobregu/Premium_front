@@ -128,7 +128,6 @@ export default function Details({ className }: { className?: string }) {
   });
 
   function handleChange(viewType: string) {
-    console.log('viewType', viewType);
   }
 
 

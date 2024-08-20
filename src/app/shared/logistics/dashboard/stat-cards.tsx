@@ -16,7 +16,6 @@ import TrendingDownIcon from '@components/icons/trending-down';
 
 export default function StatCards({ className }: { className?: string }) {
   function handleChange(viewType: string) {
-    console.log('viewType', viewType);
   }
 
   return (

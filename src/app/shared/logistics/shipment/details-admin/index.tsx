@@ -100,7 +100,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
             const orderDetails = orderDetailsQuery.data.data;
             reset(orderDetails);
             setValue('userId', orderDetails.userId);
-            console.log('orderDetails', orderDetails)
         }
     }, [orderDetailsQuery.data, reset, setValue]);
 

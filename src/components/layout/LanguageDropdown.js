@@ -23,8 +23,6 @@ export default function LanguageDropdown() {
     setIsPopoverOpen(false);
   }
 
-
-  console.log('lang', lang)
   return (
     <Popover
       isOpen={isPopoverOpen}

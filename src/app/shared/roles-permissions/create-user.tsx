@@ -28,7 +28,6 @@ export default function CreateUser() {
     };
     setLoading(true);
     setTimeout(() => {
-      console.log('formattedData', formattedData);
       setLoading(false);
       setReset({
         fullName: '',

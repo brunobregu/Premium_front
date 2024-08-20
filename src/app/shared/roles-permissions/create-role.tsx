@@ -21,13 +21,11 @@ export default function CreateRole() {
   const [isCopied, setIsCopied] = useState(false);
   const [state, copyToClipboard] = useCopyToClipboard();
 
-  console.log('state', state);
 
   const onSubmit: SubmitHandler<CreateRoleInput> = (data) => {
     // set timeout ony required to display loading state of the create category button
     setLoading(true);
     setTimeout(() => {
-      console.log('data', data);
       setLoading(false);
       setReset({
         roleName: '',
@@ -55,9 +53,8 @@ export default function CreateRole() {
     >
       {({ register, control, watch, formState: { errors } }) => {
         const getColor = watch('roleColor');
-        const colorCode = `rgba(${getColor?.r ?? 0}, ${getColor?.g ?? 0}, ${
-          getColor?.b ?? 0
-        }, ${getColor?.a ?? 0})`;
+        const colorCode = `rgba(${getColor?.r ?? 0}, ${getColor?.g ?? 0}, ${getColor?.b ?? 0
+          }, ${getColor?.a ?? 0})`;
         return (
           <>
             <div className="flex items-center justify-between">

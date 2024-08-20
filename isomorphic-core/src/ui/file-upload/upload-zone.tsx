@@ -43,7 +43,6 @@ export default function UploadZone({
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
-      console.log('acceptedFiles', acceptedFiles);
       setFiles([
         ...acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -126,7 +125,7 @@ export default function UploadZone({
         className={cn(
           'rounded-md border-[1.8px]',
           !isEmpty(files) &&
-            'flex flex-wrap items-center justify-between @xl:flex-nowrap @xl:pr-6'
+          'flex flex-wrap items-center justify-between @xl:flex-nowrap @xl:pr-6'
         )}
       >
         <div
