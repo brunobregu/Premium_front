@@ -67,7 +67,35 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
 
+    const handleImageClick = async () => {
+        try {
+            const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
+            const images = response.data;
+            if (images.length > 0) {
+                const url = `/logistics/shipments/${id}/uploaded-images`;
+                window.open(url, '_blank');
+            } else {
+                toast.error('No image uploaded', { position: "top-right" });
+            }
+        } catch (error) {
+            toast.error('No image uploaded', { position: "top-right" });
+        }
+    };
 
+    const handleDocumentClick = async () => {
+        try {
+            const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
+            const images = response.data;
+            if (images.length > 0) {
+                const url = `/logistics/shipments/${id}/uploaded-documents`;
+                window.open(url, '_blank');
+            } else {
+                toast.error('No documents uploaded', { position: "top-right" });
+            }
+        } catch (error) {
+            toast.error('No documents uploaded', { position: "top-right" });
+        }
+    };
 
     const router = useRouter();
 
@@ -274,6 +302,26 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             error={errors.auction?.message as string}
                             disabled={true}
                         /> */}
+                        <Button
+                            className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+                            onClick={handleImageClick}
+                        >
+                            View Images
+                        </Button>
+                        {/* <Input
+                            label="Documents"
+                            placeholder="trackingNumber"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('trackingNumber')}
+                            error={errors.auction?.message as string}
+                            disabled={true}
+                        /> */}
+                        <Button
+                            className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+                            onClick={handleDocumentClick}
+                        >
+                            View Documents
+                        </Button>
                     </div>
 
                     <h3>Client Total</h3>

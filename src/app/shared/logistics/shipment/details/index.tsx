@@ -79,8 +79,22 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                 toast.error('No image uploaded', { position: "top-right" });
             }
         } catch (error) {
-            console.error('Error fetching images:', error);
             toast.error('No image uploaded', { position: "top-right" });
+        }
+    };
+
+    const handleDocumentClick = async () => {
+        try {
+            const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
+            const images = response.data;
+            if (images.length > 0) {
+                const url = `/logistics/shipments/${id}/uploaded-documents`;
+                window.open(url, '_blank');
+            } else {
+                toast.error('No documents uploaded', { position: "top-right" });
+            }
+        } catch (error) {
+            toast.error('No documents uploaded', { position: "top-right" });
         }
     };
 
@@ -295,9 +309,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                         /> */}
                         <Button
                             className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
-                            onClick={() => {
-                                window.open('https://msc.com', '_blank');
-                            }}
+                            onClick={handleDocumentClick}
                         >
                             View Documents
                         </Button>

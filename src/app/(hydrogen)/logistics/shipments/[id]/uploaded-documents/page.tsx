@@ -1,0 +1,65 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import premiumApi from '@/util/premiumAPI';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper';
+
+interface Document {
+  base64: string;
+}
+
+const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
+  const [documents, setDocuments] = useState<Document[]>([]);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
+        setDocuments(response.data);
+      } catch (error) {
+        console.error('Error fetching documents:', error);
+      }
+    };
+
+    fetchDocuments();
+  }, [id]);
+
+  return (
+    <>
+      <h1>Document Slider for id: {id}</h1>
+      <div style={{ width: 'auto', display: 'flex', flexDirection: 'row' }}>
+        <Swiper
+          pagination={{ clickable: true }}
+          navigation={true}
+          modules={[Pagination, Navigation]}
+          style={{ width: '100%', height: '100%' }}
+        >
+          {documents.map((document, index) => (
+            <SwiperSlide
+              key={index}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              {/* Render PDFs using iframe or embed */}
+              <embed
+                src={`data:application/pdf;base64,${document.base64}`}
+                type="application/pdf"
+                width="600px"
+                height="800px"
+                style={{ border: '1px solid #ddd' }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </>
+  );
+};
+
+export default DocumentSliderPage;
