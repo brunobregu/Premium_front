@@ -475,7 +475,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={() => setModalOpen(true)}
             >
-              Add User
+              Add Client
             </Button>
 
           </div>

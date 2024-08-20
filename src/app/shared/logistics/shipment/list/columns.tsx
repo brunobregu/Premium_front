@@ -66,7 +66,7 @@ export const getColumns = ({
           onHeaderCell: () => onHeaderCellClick('fullname'),
           dataIndex: 'fullname',
           key: 'fullname',
-          width: 180,
+          width: 300,
           render: (fullname: string) => fullname,
         }
       ]

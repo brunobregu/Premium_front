@@ -16,6 +16,9 @@ const modalStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    width: '500px',
+    height: '500px', 
+    padding: '20px', 
   },
 };
 
@@ -59,7 +62,7 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={modalStyles} ariaHideApp={false}>
-      <h2 className='mb-8'>Create New User</h2>
+      <h2 className='mb-8'>Create New Client</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
@@ -95,9 +98,9 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
             error={errors.password?.message}
           />
         </div>
-        <div className='flex justify-between'>
-        <Button type="submit" isLoading={createUserMutation.isLoading}>Save</Button>
-        <Button type="button" onClick={handleClose}>Cancel</Button>
+        <div className='flex justify-between w-full gap-4'>
+        <Button type="submit" className='flex-1' isLoading={createUserMutation.isLoading}>Save</Button>
+        <Button type="button" className=' flex-1' onClick={handleClose}>Cancel</Button>
         </div>
 
       </form>
