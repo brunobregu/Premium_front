@@ -21,7 +21,8 @@ import {
 import PriceField from '@/app/shared/controlled-table/price-field';
 import DateFiled from '@/app/shared/controlled-table/date-field';
 import StatusField from '@/app/shared/controlled-table/status-field';
-import { FilterDrawerView } from '@/app/shared/controlled-table/table-filter';
+import { FilterDrawerView } from '../logistics/shipment/my-list/table-filter';
+
 
 interface TableToolbarProps<T extends Record<string, any>> {
   table: ReactTableType<T>;
