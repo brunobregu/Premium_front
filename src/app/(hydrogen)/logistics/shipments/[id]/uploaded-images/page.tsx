@@ -31,7 +31,7 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <h1>Image Slider</h1>
+      <h1>Images uploaded for id: {id}</h1>
       <div style={{ width: 'auto', display: 'flex', flexDirection: 'row' }}>
         <Swiper
           pagination={{ clickable: true }}

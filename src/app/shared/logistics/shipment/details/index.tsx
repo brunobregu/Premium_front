@@ -68,9 +68,21 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
     const [isModalOpen, setModalOpen] = useState(false);
     const router = useRouter();
 
-    const handleImageClick = () => {
-        const url = `/logistics/shipments/${id}/uploaded-images`;
-        window.open(url, '_blank');
+    const handleImageClick = async () => {
+        try {
+            const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
+            const images = response.data;
+            console.log('images', response)
+            if (images.length > 0) {
+                const url = `/logistics/shipments/${id}/uploaded-images`;
+                window.open(url, '_blank');
+            } else {
+                toast.error('No image uploaded', { position: "top-right" });
+            }
+        } catch (error) {
+            console.error('Error fetching images:', error);
+            toast.error('No image uploaded', { position: "top-right" });
+        }
     };
 
     const methods = useForm<any>({
