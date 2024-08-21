@@ -64,12 +64,14 @@ export default function OrderList() {
 
   const filteredData = useMemo(() => {
     if (!query.data) return [];
-
-    // Set the total number of records based on the filtered data
-    setTotalRecords(query.data.length);
-
     return query.data;
   }, [query.data]);
+
+  useEffect(() => {
+    if (filteredData) {
+      setTotalRecords(filteredData.length);
+    }
+  }, [filteredData, setTotalRecords]);
 
   // Calculate paginated data
   const paginatedData = useMemo(() => {
