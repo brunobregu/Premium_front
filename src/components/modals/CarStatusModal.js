@@ -78,6 +78,13 @@ const UpdateCarStatusModal = ({ onClose, isOpen, carStatus, id , setCurrentStatu
                 return;
             }
 
+            const areDocumentsPdf = documents.every((doc) => doc.name.toLowerCase().endsWith(".pdf"));
+
+            if (!areDocumentsPdf) {
+             toast.error("All documents must be in PDF format.", { position: "top-right" });
+            return;
+            }
+
             const totalSize = documents.reduce((acc, file) => acc + file.size, 0);
             if (totalSize > 5 * 1024 * 1024) {
                 // alert("Total size of documents must not exceed 5MB.");
@@ -195,13 +202,14 @@ const UpdateCarStatusModal = ({ onClose, isOpen, carStatus, id , setCurrentStatu
                             onChange={(e) => handleFileUpload(e, setDocuments)}
                         />
 
-<div className='grid grid-cols-10 gap-2 mt-3'>
+<div className='grid grid-cols-4 gap-4 mt-2'>
                             {documents.map((doc, index) => (
                                 <div key={index} className='relative'>
                                     <a href={URL.createObjectURL(doc)} target="_blank" rel="noopener noreferrer">
                                         <img
                                             // src='/pdf-icon.png' // Replace with an actual icon if you have one
-                                            src={URL.createObjectURL(doc)}
+                                            // src={URL.createObjectURL(doc)}
+                                            src="https://icons.veryicon.com/png/o/file-type/file-type-1/pdf-icon.png"
                                             alt={`Document ${index + 1}`}
                                             style={{ 
                                                 width: '50px', 
@@ -210,6 +218,7 @@ const UpdateCarStatusModal = ({ onClose, isOpen, carStatus, id , setCurrentStatu
                                                 borderRadius: '4px' 
                                             }}
                                         />
+                                         <span>{`${doc.name.substring(0, 14)}...`}</span>
                                     </a>
                                     <button 
                                         type="button" 
@@ -217,7 +226,7 @@ const UpdateCarStatusModal = ({ onClose, isOpen, carStatus, id , setCurrentStatu
                                         style={{ 
                                             position: 'absolute', 
                                             top: '-5px', 
-                                            right: '-5px', 
+                                            right: '45px', 
                                             backgroundColor: 'red', 
                                             color: 'white', 
                                             border: 'none', 
