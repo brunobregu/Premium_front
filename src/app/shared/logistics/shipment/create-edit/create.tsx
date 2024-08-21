@@ -46,7 +46,7 @@ const addOrderDetailsDtoSchema = yup.object().shape({
         .integer()
         .min(1, 'Ocean price must be at least 1')
         .required('Ocean price is required'),
-    broker: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+    // broker: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
     inlandCost: yup
         .number()
         .transform((value) => (Number.isNaN(value) ? null : value))
@@ -59,7 +59,7 @@ const addOrderDetailsDtoSchema = yup.object().shape({
         .integer()
         .min(1, 'Ocean Cost must be at least 1')
         .required('Ocean Cost is required'),
-    clientStorage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required('Client storage is required'),
+    // clientStorage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required('Client storage is required'),
     paymentStatus: yup.string().required('Payment status is required'),
     partlyPaid: yup.number().transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value)).integer().min(1, 'Partly paid is required'),
     userId: yup.string().required(),
