@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
+import { useForm, FormProvider, Controller, useWatch } from 'react-hook-form';
 import { CreateShipmentInput } from '@/validators/create-shipping.schema';
 import { useLayout } from '@/layouts/use-layout';
 import { Select, Input, Button, SelectOption } from 'rizzui';
@@ -59,9 +59,9 @@ const addOrderDetailsDtoSchema = yup.object().shape({
         .integer()
         .min(1, 'Ocean Cost must be at least 1')
         .required('Ocean Cost is required'),
-    storage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
+    clientStorage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required('Client storage is required'),
     paymentStatus: yup.string().required('Payment status is required'),
-    partlyPaid: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer(),
+    partlyPaid: yup.number().transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value)).integer().min(1, 'Partly paid is required'),
     userId: yup.string().required(),
 });
 
@@ -164,6 +164,11 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     const handleModalSuccess = () => {
         query.refetch(); // Refetch users after creating a new one
     };
+
+    const paymentStatus = useWatch({
+        control,
+        name: 'paymentStatus', // Watch the 'paymentStatus' field
+    });
 
     return (
         <div className="@container">
@@ -325,12 +330,12 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             error={errors.broker?.message as string}
                         />
                         <Input
-                            label="Storage"
+                            label="Client Storage"
                             placeholder="client storage"
                             labelClassName="font-medium text-gray-900"
                             type="number"
-                            {...register('storage', { valueAsNumber: true })}
-                            error={errors.storage?.message as string}
+                            {...register('clientStorage', { valueAsNumber: true })}
+                            error={errors.clientStorage?.message as string}
                         />
                     </div>
 
@@ -352,14 +357,6 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             type="number"
                             {...register('oceanCost', { valueAsNumber: true })}
                             error={errors.oceanCost?.message as string}
-                        />
-                        <Input
-                            label="Client Storage"
-                            placeholder="client storage"
-                            labelClassName="font-medium text-gray-900"
-                            type="number"
-                            {...register('clientStorage', { valueAsNumber: true })}
-                            error={errors.clientStorage?.message as string}
                         />
                         <Input
                             label="Storage Cost"
@@ -395,12 +392,13 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             )}
                         />
                         <Input
+                            defaultValue={0}
                             label="Partly Paid"
                             placeholder="100"
                             labelClassName="font-medium text-gray-900"
                             type="number"
                             {...register('partlyPaid', { valueAsNumber: true })}
-                            error={errors.partlyPaid?.message as string}
+                            error={paymentStatus && paymentStatus === 'Partly Paid' && errors.partlyPaid?.message as string}
                         />
                     </div>
 
