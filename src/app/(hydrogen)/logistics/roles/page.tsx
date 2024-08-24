@@ -1,23 +1,11 @@
 "use client"
 
-import { useFiltersContext } from '@/store/state'; // Check import path
-import MyOrdersList from '@/app/shared/logistics/shipment/my-list/table';
-import React, { useEffect, useState } from "react";
-import OrderList from '@/app/shared/logistics/shipment/list/table';
-import MyDetails from '@/app/shared/logistics/shipment/my-list/stat-cards';
-import Details from '@/app/shared/logistics/shipment/list/stat-cards';
+import React, { useState } from "react";
 import RolesPageHeader from './page-header';
 import RolesTable from '@/app/shared/logistics/dashboard/roles/roles-table';
 
 export default function RolesPage() {
-    const [user, setUser] = useState<string | null>(null);
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
-
-    useEffect(() => {
-        // Access localStorage only on the client side
-        const storedUserRole = localStorage.getItem('userRole');
-        setUser(storedUserRole);
-    }, [user]);
 
     return (
         <>

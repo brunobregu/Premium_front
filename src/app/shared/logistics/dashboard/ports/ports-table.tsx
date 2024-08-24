@@ -3,30 +3,26 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     getColumns,
-} from '@/app/shared/logistics/dashboard/providers/columns';
-import ControlledTable from '@/app/shared/logistics/dashboard/providers/index';
+} from '@/app/shared/logistics/dashboard/ports/columns';
+import ControlledTable from '@/app/shared/logistics/dashboard/ports/index';
 import { useTable } from '@hooks/use-table';
 import { useColumn } from '@hooks/use-column';
-import {
-    shipmentData,
-} from '@/data/shipment-data';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
-import { MyOrders } from '@/types/my-orders';
 import { useFiltersContext } from '@/store/state';
-import AddProviderModal from '../../../../../components/modals/AddProviderModal'
+import AddPortModal from '../../../../../components/modals/AddPortModal'
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
 
-interface ProvidersTableProps {
+interface PortsTableProps {
     isModalOpen: boolean,
     setModalOpen: (value: boolean) => void;
 }
 
-export default function ProvidersTable({ isModalOpen, setModalOpen }: ProvidersTableProps) {
+export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProps) {
     const [checkedItems, setCheckedItems] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [currentDeleteProvider, setCurrentDeleteProvider] = useState<string | null>(null);
+    const [currentDeletePorts, setCurrentDeletePorts] = useState<string | null>(null);
     const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
     const queryClient = useQueryClient();
 
@@ -34,9 +30,9 @@ export default function ProvidersTable({ isModalOpen, setModalOpen }: ProvidersT
 
 
     const query = useQuery({
-        queryKey: ['roles'],
+        queryKey: ['ports'],
         queryFn: () => {
-            return premiumApi.get('en/Provider/providers');
+            return premiumApi.get('en/Port/ports');
         },
         select: (response) => response.data
 
@@ -88,8 +84,8 @@ export default function ProvidersTable({ isModalOpen, setModalOpen }: ProvidersT
 
     const handleDelete = useCallback(async (id: string) => {
         try {
-            await premiumApi.delete(`en/Provider/delete?id=${id}`);
-            queryClient.invalidateQueries({ queryKey: ['roles'] });
+            await premiumApi.delete(`en/Port/delete?id=${id}`);
+            queryClient.invalidateQueries({ queryKey: ['ports'] });
         } catch (error) {
             toast.error('Error, try againg', { position: "top-right" });
 
@@ -97,12 +93,12 @@ export default function ProvidersTable({ isModalOpen, setModalOpen }: ProvidersT
     }, [queryClient]);
 
     const openModal = (id: string) => {
-        setCurrentDeleteProvider(id);
+        setCurrentDeletePorts(id);
         setIsOpen(true);
     };
 
     const closeModal = () => {
-        setCurrentDeleteProvider(null);
+        setCurrentDeletePorts(null);
         setIsOpen(false);
     };
 
@@ -186,7 +182,7 @@ export default function ProvidersTable({ isModalOpen, setModalOpen }: ProvidersT
                 }}
                 className=" mt-8 rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
             />
-            <AddProviderModal
+            <AddPortModal
                 isOpen={isModalOpen}
                 onRequestClose={() => setModalOpen(false)}
                 onSuccess={handleModalSuccess}
@@ -196,11 +192,11 @@ export default function ProvidersTable({ isModalOpen, setModalOpen }: ProvidersT
                 isOpen={isOpen}
                 onClose={closeModal}
                 onConfirm={() => {
-                    if (currentDeleteProvider) {
-                        handleDelete(currentDeleteProvider);
+                    if (currentDeletePorts) {
+                        handleDelete(currentDeletePorts);
                     }
                 }}
-                itemId={currentDeleteProvider}
+                itemId={currentDeletePorts}
             />
         </div>
     );

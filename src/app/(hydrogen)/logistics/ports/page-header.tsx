@@ -6,22 +6,22 @@ import { Button } from 'rizzui';
 import PageHeader from '@/app/shared/page-header';
 
 const pageHeader = {
-    title: 'Roles',
+    title: 'Ports',
     breadcrumb: [
         {
             name: 'Dashborad',
         },
         {
-            name: 'Roles',
+            name: 'Ports',
         },
     ],
 };
 
-interface RoleHeaderProps {
+interface PortsHeaderProps {
     setModalOpen: (value: boolean) => void;
 }
 
-export default function RolesPageHeader({ setModalOpen }: RoleHeaderProps) {
+export default function PortsPageHeader({ setModalOpen }: PortsHeaderProps) {
 
 
     return (
@@ -29,7 +29,7 @@ export default function RolesPageHeader({ setModalOpen }: RoleHeaderProps) {
 
             <Button as="span" className="cursor-pointer w-full @lg:w-auto" onClick={() => setModalOpen(true)}>
                 <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
-                Create Role
+                Create Port
             </Button>
         </PageHeader>
     );
