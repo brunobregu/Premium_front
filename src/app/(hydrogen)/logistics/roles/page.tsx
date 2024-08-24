@@ -11,6 +11,7 @@ import RolesTable from '@/app/shared/logistics/dashboard/roles/roles-table';
 
 export default function RolesPage() {
     const [user, setUser] = useState<string | null>(null);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         // Access localStorage only on the client side
@@ -20,9 +21,9 @@ export default function RolesPage() {
 
     return (
         <>
-            <RolesPageHeader />
+            <RolesPageHeader setModalOpen={setModalOpen} />
             <div className="flex flex-col gap-10">
-                <RolesTable />
+                <RolesTable setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
             </div>
         </>
     );

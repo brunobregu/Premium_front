@@ -39,7 +39,7 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
       return premiumApi.post('/Authentication/addUser', data);
     },
     onSuccess: (data) => {
-      toast.success('User Created Successfully');
+      toast.success('User Created Successfully',{position:"top-right"});
       onRequestClose();
       onSuccess();
       reset();

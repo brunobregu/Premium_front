@@ -10,18 +10,7 @@ import UserPlusIcon from '@components/icons/user-plus';
 import { PiPlusBold } from 'react-icons/pi';
 
 export interface RecordType {
-    id: string;
-    vin: string;
-    make: string;
-    model: string;
-    year: number;
-    lot: number;
-    auction: string;
-    trackingNumber: string | null;
-    carStatus: string;
-    port: string;
-    clientTotal: number;
-    paymentStatus: string;
+    name: string
 };
 
 
@@ -53,21 +42,6 @@ export const getColumns = ({
     handleDelete,
 }: any) => {
     const columns = [
-        // {
-        //     title: (
-        //         <HeaderCell
-        //             title="ID"
-        //             sortable
-        //             ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'id'}
-        //         />
-        //     ),
-        //     onHeaderCell: () => onHeaderCellClick('id'),
-        //     dataIndex: 'id',
-        //     key: 'id',
-        //     width: 180,
-        //     render: (id: any) => id,
-        // },
-
         {
             title: (
                 <HeaderCell
@@ -96,7 +70,7 @@ export const getColumns = ({
                                 size="sm"
                                 variant="outline"
                                 aria-label={'Delete Shipment'}
-                                onClick={() => handleDelete(record.id)}
+                                onClick={() => handleDelete(record.name)}
                             >
                                 <TrashIcon className="h-4 w-4" />
                             </ActionIcon>
@@ -107,76 +81,6 @@ export const getColumns = ({
             onHeaderCell: () => ({})
         }
     ];
-
-    // if (role === 'Admin' || role === 'Account manager') {
-    //   columns.unshift({
-    //     title: (
-    //       <HeaderCell
-    //         title="Full Name"
-    //         sortable
-    //         ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
-    //       />
-    //     ),
-    //     onHeaderCell: () => onHeaderCellClick('fullname'),
-    //     dataIndex: 'fullname',
-    //     key: 'fullname',
-    //     width: 250,
-    //     render: (fullname: any) => fullname,
-    //   });
-    //   columns.push(
-    //     {
-    //       title: (
-    //         <HeaderCell
-    //           title="Total Cost"
-    //           sortable
-    //           ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
-    //         />
-    //       ),
-    //       onHeaderCell: () => onHeaderCellClick('totalCost'),
-    //       dataIndex: 'totalCost',
-    //       key: 'totalCost',
-    //       width: 180,
-    //       render: (totalCost: any) => totalCost,
-    //     },
-    //     {
-    //       title: (
-    //         <HeaderCell
-    //           title="Order Id"
-    //           sortable
-    //           ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'dspOrderID'}
-    //         />
-    //       ),
-    //       onHeaderCell: () => onHeaderCellClick('dspOrderID'),
-    //       dataIndex: 'dspOrderID',
-    //       key: 'dspOrderID',
-    //       width: 150,
-    //       render: (dspOrderID: any) => dspOrderID,
-    //     }
-    //   );
-    // }
-
-    // columns.push({
-    //   title: <HeaderCell title="Actions" className="text-gray-900 font-medium" />,
-    //   dataIndex: 'action',
-    //   key: 'action',
-    //   width: 120,
-    //   render: (text: any, record: any) => {
-    //     // Assuming you need the `id` from each `record` for actions
-    //     console.log('Row data:', record);
-    //     return (
-    //       <div className="flex items-center justify-end gap-3 pe-4">
-    //         <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
-    //           <Link href={routes.logistics.detailShipment(record.id)}>
-    //             <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
-    //               <EyeIcon className="h-4 w-4" />
-    //             </ActionIcon>
-    //           </Link>
-    //         </Tooltip>
-    //       </div>
-    //     );
-    //   },
-    //   onHeaderCell: () => ({})
-    // })
 
     return columns;
 };

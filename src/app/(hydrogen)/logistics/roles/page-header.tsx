@@ -21,24 +21,20 @@ const pageHeader = {
     ],
 };
 
-interface HeaderProps {
-    className?: string;
+interface RoleHeaderProps {
+    setModalOpen: (value: boolean) => void;
 }
 
-export default function RolesPageHeader({ className }: HeaderProps) {
-    const user = localStorage.getItem('userRole')
+export default function RolesPageHeader({ setModalOpen }: RoleHeaderProps) {
+
 
     return (
         <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-            <Link
-                href={routes.logistics.createShipment}
-                className="w-full @lg:w-auto"
-            >
-                <Button as="span" className="w-full @lg:w-auto">
-                    <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
-                    Create Role
-                </Button>
-            </Link>
+
+            <Button as="span" className="cursor-pointer w-full @lg:w-auto" onClick={() => setModalOpen(true)}>
+                <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
+                Create Role
+            </Button>
         </PageHeader>
     );
 }

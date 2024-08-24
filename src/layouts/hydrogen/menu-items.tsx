@@ -24,11 +24,18 @@ export const menuItems: MenuItemsType[] = [
         href: routes.logistics.users,
         icon: <PiPackageDuotone />,
       },
-      {
-        name: 'Roles',
-        href: routes.logistics.roles,
-        icon: <PiPackageDuotone />,
-      },
+      ...(localStorage.getItem('userRole') === 'Admin'
+        ? [{
+          name: 'Roles',
+          href: routes.logistics.roles,
+          icon: <PiPackageDuotone />,
+        }]
+        : []),
+      // {
+      //   name: 'Roles',
+      //   href: routes.logistics.roles,
+      //   icon: <PiPackageDuotone />,
+      // },
       {
         name: 'Contacts',
         href: routes.logistics.contacts,

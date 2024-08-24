@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     getColumns,
 } from '@/app/shared/logistics/dashboard/roles/columns';
@@ -10,19 +10,25 @@ import { useColumn } from '@hooks/use-column';
 import {
     shipmentData,
 } from '@/data/shipment-data';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { MyOrders } from '@/types/my-orders';
 import { useFiltersContext } from '@/store/state';
+import AddRoleModal from '../../../../../components/modals/AddRoleModal'
+import toast from 'react-hot-toast';
+import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
 
+interface RolesTableProps {
+    isModalOpen: boolean,
+    setModalOpen: (value: boolean) => void;
+}
 
-
-
-export default function RolesTable() {
+export default function RolesTable({ isModalOpen, setModalOpen }: RolesTableProps) {
     const [checkedItems, setCheckedItems] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
+    const [currentDeleteRole, setCurrentDeleteRole] = useState<string | null>(null);
     const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
+    const queryClient = useQueryClient();
 
 
 
@@ -30,7 +36,7 @@ export default function RolesTable() {
     const query = useQuery({
         queryKey: ['roles'],
         queryFn: () => {
-            return premiumApi.post('/en/Authentication/getRoles');
+            return premiumApi.get('/en/Authentication/getRoles');
         },
         select: (response) => response.data
 
@@ -59,6 +65,8 @@ export default function RolesTable() {
         return filteredData.slice(startIndex, endIndex);
     }, [filteredData, currentPage, pageSize]);
 
+
+
     useEffect(() => {
         // Calculate new total pages
         const totalPages = Math.ceil(filteredData.length / pageSize);
@@ -77,6 +85,26 @@ export default function RolesTable() {
             handleSort(value);
         },
     });
+
+    const handleDelete = useCallback(async (role: string) => {
+        try {
+            await premiumApi.delete(`en/User/deleteRole?role=${role}`);
+            queryClient.invalidateQueries({ queryKey: ['roles'] });
+        } catch (error) {
+            toast.error('Error, try againg', { position: "top-right" });
+
+        }
+    }, [queryClient]);
+
+    const openModal = (role: string) => {
+        setCurrentDeleteRole(role);
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setCurrentDeleteRole(null);
+        setIsOpen(false);
+    };
 
     const onChecked = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -110,7 +138,7 @@ export default function RolesTable() {
                 onHeaderCellClick,
                 onChecked: handleRowSelect,
                 handleSelectAll,
-                // handleDelete: openModal
+                handleDelete: openModal
             }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]
@@ -118,6 +146,14 @@ export default function RolesTable() {
 
     const { visibleColumns, checkedColumns, setCheckedColumns } =
         useColumn(columns);
+
+
+    const handleModalSuccess = () => {
+        query.refetch(); // Refetch users after creating a new one
+    };
+
+
+
 
     return (
         <div>
@@ -149,6 +185,22 @@ export default function RolesTable() {
                     setCheckedColumns,
                 }}
                 className=" mt-8 rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
+            />
+            <AddRoleModal
+                isOpen={isModalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                onSuccess={handleModalSuccess}
+            />
+
+            <ConfirmDeleteModal
+                isOpen={isOpen}
+                onClose={closeModal}
+                onConfirm={() => {
+                    if (currentDeleteRole) {
+                        handleDelete(currentDeleteRole);
+                    }
+                }}
+                itemId={currentDeleteRole}
             />
         </div>
     );
