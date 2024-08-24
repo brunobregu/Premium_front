@@ -24,16 +24,41 @@ export const menuItems: MenuItemsType[] = [
         href: routes.logistics.users,
         icon: <PiPackageDuotone />,
       },
-      {
-        name: 'Roles',
-        href: routes.logistics.roles,
-        icon: <PiPackageDuotone />,
-      },
-      {
-        name: 'Contacts',
-        href: routes.logistics.contacts,
-        // icon: <PiPackageDuotone />,
-      }
+      ...(localStorage.getItem('userRole') === 'Admin'
+        ? [{
+          name: 'Roles',
+          href: routes.logistics.roles,
+          icon: <PiPackageDuotone />,
+        }]
+        : []),
+      ...(localStorage.getItem('userRole') === 'Admin' || localStorage.getItem('userRole') === 'Account manager'
+        ? [{
+          name: 'Ports',
+          href: routes.logistics.ports,
+          icon: <PiPackageDuotone />,
+        }]
+        : []),
+      ...(localStorage.getItem('userRole') === 'Admin' || localStorage.getItem('userRole') === 'Account manager'
+        ? [{
+          name: 'Providers',
+          href: routes.logistics.providers,
+          icon: <PiPackageDuotone />,
+        }]
+        : []),
+      ...(localStorage.getItem('userRole') === 'Admin' || localStorage.getItem('userRole') === 'Account manager'
+        ? [{
+          name: 'Auctions',
+          href: routes.logistics.auctions,
+          icon: <PiPackageDuotone />,
+        }]
+        : []),
+      ...(localStorage.getItem('userRole') === 'Admin' || localStorage.getItem('userRole') === 'Account manager'
+        ? [{
+          name: 'Contacts',
+          href: routes.logistics.contacts,
+          icon: <PiPackageDuotone />,
+        }]
+        : []),
     ]
   },
   {
