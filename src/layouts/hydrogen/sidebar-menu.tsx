@@ -4,11 +4,12 @@ import { usePathname } from 'next/navigation';
 import { Title, Collapse } from 'rizzui';
 import cn from '@utils/class-names';
 import { PiCaretDownBold } from 'react-icons/pi';
-import { menuItems } from '@/layouts/hydrogen/menu-items';
+import useMenuItems from '@/layouts/hydrogen/menu-items';
 import StatusBadge from '@components/get-status-badge';
 
 export function SidebarMenu() {
   const pathname = usePathname();
+  const menuItems = useMenuItems();
 
   return (
     <div className="mt-4 pb-3 3xl:mt-6">
