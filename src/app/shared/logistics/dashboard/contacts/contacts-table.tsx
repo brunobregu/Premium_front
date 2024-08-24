@@ -28,19 +28,14 @@ export default function ContactsTable() {
 
     const filteredData = useMemo(() => {
         if (!query.data) return [];
+        return query.data;
+    }, [query.data]);
 
-        // Apply filtering logic based on the search term from context
-        const result = query.data.filter((item: any) => {
-            return (
-                item.firstName.toLowerCase().includes(searchInput.toLowerCase())
-            );
-        });
-
-        // Set the total number of records based on the filtered data
-        setTotalRecords(result.length);
-
-        return result;
-    }, [query.data, searchInput]);
+    useEffect(() => {
+        if (filteredData) {
+            setTotalRecords(filteredData.length);
+        }
+    }, [filteredData, setTotalRecords]);
 
     // Calculate paginated data
     const paginatedData = useMemo(() => {
