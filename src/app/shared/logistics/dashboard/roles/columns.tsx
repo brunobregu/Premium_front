@@ -65,11 +65,11 @@ export const getColumns = ({
                 return (
                     <div className="flex items-center justify-start gap-3 pe-4">
 
-                        <Tooltip size="sm" content={'Delete Shipment'} placement="top" color="invert">
+                        <Tooltip size="sm" content={'Delete Role'} placement="top" color="invert">
                             <ActionIcon
                                 size="sm"
                                 variant="outline"
-                                aria-label={'Delete Shipment'}
+                                aria-label={'Delete Role'}
                                 onClick={() => handleDelete(record.name)}
                             >
                                 <TrashIcon className="h-4 w-4" />

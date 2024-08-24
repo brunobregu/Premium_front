@@ -1,17 +1,12 @@
 import { HeaderCell } from '@/app/shared/table';
 import { Tooltip, ActionIcon } from 'rizzui';
 import { shippingStatuses, StatusType } from '@/data/shipment-data';
-import Link from 'next/link';
-import { routes } from '@/config/routes';
-import PencilIcon from '@components/icons/pencil';
-import EyeIcon from '@components/icons/eye';
 import TrashIcon from '@components/icons/trash';
-import UserPlusIcon from '@components/icons/user-plus';
-import { PiPlusBold } from 'react-icons/pi';
+
 
 export interface RecordType {
-    name: string;
-    id: string
+    name: string,
+    id: number
 };
 
 
@@ -66,11 +61,11 @@ export const getColumns = ({
                 return (
                     <div className="flex items-center justify-start gap-3 pe-4">
 
-                        <Tooltip size="sm" content={'Delete Port'} placement="top" color="invert">
+                        <Tooltip size="sm" content={'Delete Auction'} placement="top" color="invert">
                             <ActionIcon
                                 size="sm"
                                 variant="outline"
-                                aria-label={'Delete Port'}
+                                aria-label={'Delete Auction'}
                                 onClick={() => handleDelete(record.id)}
                             >
                                 <TrashIcon className="h-4 w-4" />

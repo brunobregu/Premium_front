@@ -3,26 +3,26 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     getColumns,
-} from '@/app/shared/logistics/dashboard/ports/columns';
-import ControlledTable from '@/app/shared/logistics/dashboard/ports/index';
+} from '@/app/shared/logistics/dashboard/auctions/columns';
+import ControlledTable from '@/app/shared/logistics/dashboard/auctions/index';
 import { useTable } from '@hooks/use-table';
 import { useColumn } from '@hooks/use-column';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { useFiltersContext } from '@/store/state';
-import AddPortModal from '../../../../../components/modals/AddPortModal'
+import AddAuctionModal from '../../../../../components/modals/AddAuctionModal'
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
 
-interface PortsTableProps {
+interface AuctionsTableProps {
     isModalOpen: boolean,
     setModalOpen: (value: boolean) => void;
 }
 
-export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProps) {
+export default function AuctionsTable({ isModalOpen, setModalOpen }: AuctionsTableProps) {
     const [checkedItems, setCheckedItems] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [currentDeletePorts, setCurrentDeletePorts] = useState<string | null>(null);
+    const [currentDeleteAuction, setCurrentDeleteAuction] = useState<string | null>(null);
     const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
     const queryClient = useQueryClient();
 
@@ -30,9 +30,9 @@ export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProp
 
 
     const query = useQuery({
-        queryKey: ['ports'],
+        queryKey: ['auction'],
         queryFn: () => {
-            return premiumApi.get('en/Port/ports');
+            return premiumApi.get('en/Auction/auctions');
         },
         select: (response) => response.data
 
@@ -84,9 +84,9 @@ export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProp
 
     const handleDelete = useCallback(async (id: string) => {
         try {
-            await premiumApi.delete(`en/Port/delete?id=${id}`);
-            queryClient.invalidateQueries({ queryKey: ['ports'] });
-            toast.success('Port deleted', { position: "top-right" });
+            await premiumApi.delete(`en/Auction/delete?id=${id}`);
+            toast.success('Auction deleted', { position: "top-right" });
+            queryClient.invalidateQueries({ queryKey: ['auction'] });
         } catch (error) {
             toast.error('Error, try againg', { position: "top-right" });
 
@@ -94,12 +94,12 @@ export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProp
     }, [queryClient]);
 
     const openModal = (id: string) => {
-        setCurrentDeletePorts(id);
+        setCurrentDeleteAuction(id);
         setIsOpen(true);
     };
 
     const closeModal = () => {
-        setCurrentDeletePorts(null);
+        setCurrentDeleteAuction(null);
         setIsOpen(false);
     };
 
@@ -183,7 +183,7 @@ export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProp
                 }}
                 className=" mt-8 rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
             />
-            <AddPortModal
+            <AddAuctionModal
                 isOpen={isModalOpen}
                 onRequestClose={() => setModalOpen(false)}
                 onSuccess={handleModalSuccess}
@@ -193,11 +193,11 @@ export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProp
                 isOpen={isOpen}
                 onClose={closeModal}
                 onConfirm={() => {
-                    if (currentDeletePorts) {
-                        handleDelete(currentDeletePorts);
+                    if (currentDeleteAuction) {
+                        handleDelete(currentDeleteAuction);
                     }
                 }}
-                itemId={currentDeletePorts}
+                itemId={currentDeleteAuction}
             />
         </div>
     );
