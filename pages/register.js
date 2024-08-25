@@ -256,7 +256,7 @@ export default function Register() {
                             type="password"
                             placeholder={i18n.t('enter-your-password') + '*'}
                           />
-                          {errors.email?.message && (
+                          {errors.password?.message && (
                             <p
                               style={{ marginTop: 10, color: '#FF3E3E' }}
                               role="alert"
