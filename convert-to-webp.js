@@ -1,6 +1,7 @@
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
+const { default: toast } = require('react-hot-toast');
 
 // Define the input and output directories
 const inputDir = './input';
@@ -16,18 +17,12 @@ function convertToWebP(inputFilePath, outputFilePath) {
   sharp(inputFilePath)
     .webp()
     .toFile(outputFilePath, (err, info) => {
-      if (err) {
-        console.error(`Error converting ${inputFilePath} to WebP: ${err}`);
-      } else {
-        console.log(`Converted ${inputFilePath} to WebP at ${outputFilePath}`);
-      }
     });
 }
 
 // Read the files in the input directory
 fs.readdir(inputDir, (err, files) => {
   if (err) {
-    console.error(`Error reading input directory: ${err}`);
     return;
   }
 

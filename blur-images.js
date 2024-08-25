@@ -16,20 +16,12 @@ function applyBlur(inputFilePath, outputFilePath, blurAmount) {
   sharp(inputFilePath)
     .blur(blurAmount)
     .toFile(outputFilePath, (err, info) => {
-      if (err) {
-        console.error(`Error applying blur to ${inputFilePath}: ${err}`);
-      } else {
-        console.log(
-          `Applied blur to ${inputFilePath} and saved at ${outputFilePath}`
-        );
-      }
     });
 }
 
 // Read the files in the input directory
 fs.readdir(inputDir, (err, files) => {
   if (err) {
-    console.error(`Error reading input directory: ${err}`);
     return;
   }
 

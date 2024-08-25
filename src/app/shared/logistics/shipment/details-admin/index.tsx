@@ -425,7 +425,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         try {
             await addOrderDetailsMutation.mutateAsync(data);
         } catch (error) {
-            console.error('Error submitting the form:', error);
         } finally {
             setLoading(false);
         }

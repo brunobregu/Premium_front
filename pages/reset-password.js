@@ -56,7 +56,6 @@ export default function ResetPassword() {
         toast.error(error.response?.data?.detail ||errorMessage, { position: "top-right" });
       } else {
         // General error handling
-        console.error('Error:', error);
         toast.error(error.response?.data?.detail || i18n.t('form-validation.error'), { position: "top-right" });
       }
     }

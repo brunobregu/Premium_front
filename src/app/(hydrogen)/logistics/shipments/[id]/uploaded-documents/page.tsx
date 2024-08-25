@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import premiumApi from '@/util/premiumAPI';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
+import toast from 'react-hot-toast';
 
 interface Document {
   base64: string;
@@ -19,7 +20,7 @@ const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
         const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
         setDocuments(response.data);
       } catch (error) {
-        console.error('Error fetching documents:', error);
+        toast.error('Error fetching documents:');
       }
     };
 

@@ -65,7 +65,6 @@ export default function Hero1Slider() {
       });
       return response.data;
     } catch (error) {
-      console.error('API call failed:', error);
       throw error;
     }
   };
@@ -105,7 +104,6 @@ export default function Hero1Slider() {
 
   //     const result = await response.json();
   //   } catch (error) {
-  //     console.error('Error:', error);
   //   }
   // };
 

@@ -22,7 +22,6 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
         const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
         setImages(response.data); // Assuming response.data is an array of Image objects
       } catch (error) {
-        console.error('Error fetching images:', error);
       }
     };
 

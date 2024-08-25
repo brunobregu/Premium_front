@@ -36,7 +36,6 @@ export default function Contact() {
     const { firstName, lastName, email, message } = formData;
 
     if (!firstName|| !lastName||!message || !email) {
-      console.error('Name and email are required');
       return;
     }
 
@@ -61,7 +60,6 @@ export default function Contact() {
           position: 'top-right',
         });}
     } catch (error) {
-      console.error('Error:', error);
       toast.error(error.response?.data?.detail ||'Try again',  {
         position: 'top-right',
       });

@@ -111,7 +111,6 @@ const UpdateCarStatusModal = ({ onClose, isOpen, carStatus, id , setCurrentStatu
                 onClose(); // Close modal after success
             })
             .catch(error => {
-                console.error(error);
             }).finally(() => setLoading(false));
     };
 

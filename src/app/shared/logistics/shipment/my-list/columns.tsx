@@ -281,7 +281,6 @@ export const getColumns = ({
   //   width: 120,
   //   render: (text: any, record: any) => {
   //     // Assuming you need the `id` from each `record` for actions
-  //     console.log('Row data:', record);
   //     return (
   //       <div className="flex items-center justify-end gap-3 pe-4">
   //         <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Popover } from "react-tiny-popover";
@@ -14,7 +13,6 @@ export default function LanguageDropdown() {
   const { locale: currentLocale, pathname, asPath, query } = router;
 
   function handleLocaleClick(nextLocale) {
-    console.log('nextLocale', nextLocale)
       i18n.changeLanguage(nextLocale);
     setLang(nextLocale)
     router.push({ pathname, query }, asPath, {

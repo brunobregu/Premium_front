@@ -17,7 +17,6 @@ type SubscriptionFormTypes = z.infer<typeof subscriptionFormSchema>;
 
 export default function SubscriptionForm() {
   const onSubmit: SubmitHandler<SubscriptionFormTypes> = (data) => {
-    console.log('subscription-form ->', data);
   };
 
   return (

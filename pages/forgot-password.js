@@ -46,7 +46,6 @@ export default function ForgotPassword({locale}) {
         toast.error("Invalid request. Please check the provided email.", { position: "top-right" });
       } else {
         // General error handling
-        console.error('Error:', error);
         toast.error(error.response?.data?.detail || i18n.t('form-validation.error'), { position: "top-right" });
       
     }

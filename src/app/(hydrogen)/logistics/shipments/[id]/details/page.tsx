@@ -32,7 +32,6 @@ export default function EditShipmentsPage({ params }: { params: { id: string } }
                 const response = await premiumApi.get(`en/OrderDetails/myOrderDetailsById?id=${id}`);
                 setShipment(response.data);
             } catch (error) {
-                console.error('Error fetching shipment data:', error);
                 setShipment(fakeShipmentData); // Use fake data in case of error
             }
         };

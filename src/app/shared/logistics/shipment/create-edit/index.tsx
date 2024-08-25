@@ -512,7 +512,6 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     try {
       await addOrderDetailsMutation.mutateAsync(data);
     } catch (error) {
-      console.error('Error submitting the form');
     } finally {
       setLoading(false);
     }

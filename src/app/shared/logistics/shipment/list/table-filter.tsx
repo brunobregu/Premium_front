@@ -65,7 +65,6 @@ export default function TableFilter({
         }));
         setFullnameOptions(data);
       } catch (error) {
-        console.error('Error fetching fullnames:', error);
       }
     };
 
