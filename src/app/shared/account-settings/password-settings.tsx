@@ -14,7 +14,7 @@ import {
 } from '@/validators/password-settings.schema';
 import toast from 'react-hot-toast';
 import premiumApi from '@/util/premiumAPI';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function PasswordSettingsView({
   settings
