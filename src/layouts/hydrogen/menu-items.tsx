@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from 'react';
 import { routes } from '@/config/routes';
@@ -22,53 +22,55 @@ const useMenuItems = () => {
       {
         name: 'Overview',
       },
-      {
-        name: 'Dashboard',
-        href: "#",
-        icon: <PiPackageDuotone />,
-        dropdownItems: [
-          {
-            name: 'Users',
-            href: routes.logistics.users,
-            icon: <PiPackageDuotone />,
-          },
-          ...(userRole === 'Admin'
-            ? [{
-              name: 'Roles',
-              href: routes.logistics.roles,
+      ...(userRole === 'Admin' || userRole === 'Account manager'
+        ? [{
+          name: 'Dashboard',
+          href: "#",
+          icon: <PiPackageDuotone />,
+          dropdownItems: [
+            {
+              name: 'Users',
+              href: routes.logistics.users,
               icon: <PiPackageDuotone />,
-            }]
-            : []),
-          ...(userRole === 'Admin' || userRole === 'Account manager'
-            ? [{
-              name: 'Ports',
-              href: routes.logistics.ports,
-              icon: <PiPackageDuotone />,
-            }]
-            : []),
-          ...(userRole === 'Admin' || userRole === 'Account manager'
-            ? [{
-              name: 'Providers',
-              href: routes.logistics.providers,
-              icon: <PiPackageDuotone />,
-            }]
-            : []),
-          ...(userRole === 'Admin' || userRole === 'Account manager'
-            ? [{
-              name: 'Auctions',
-              href: routes.logistics.auctions,
-              icon: <PiPackageDuotone />,
-            }]
-            : []),
-          ...(userRole === 'Admin' || userRole === 'Account manager'
-            ? [{
-              name: 'Contacts',
-              href: routes.logistics.contacts,
-              icon: <PiPackageDuotone />,
-            }]
-            : []),
-        ]
-      },
+            },
+            ...(userRole === 'Admin'
+              ? [{
+                name: 'Roles',
+                href: routes.logistics.roles,
+                icon: <PiPackageDuotone />,
+              }]
+              : []),
+            ...(userRole === 'Admin' || userRole === 'Account manager'
+              ? [{
+                name: 'Ports',
+                href: routes.logistics.ports,
+                icon: <PiPackageDuotone />,
+              }]
+              : []),
+            ...(userRole === 'Admin' || userRole === 'Account manager'
+              ? [{
+                name: 'Providers',
+                href: routes.logistics.providers,
+                icon: <PiPackageDuotone />,
+              }]
+              : []),
+            ...(userRole === 'Admin' || userRole === 'Account manager'
+              ? [{
+                name: 'Auctions',
+                href: routes.logistics.auctions,
+                icon: <PiPackageDuotone />,
+              }]
+              : []),
+            ...(userRole === 'Admin' || userRole === 'Account manager'
+              ? [{
+                name: 'Contacts',
+                href: routes.logistics.contacts,
+                icon: <PiPackageDuotone />,
+              }]
+              : []),
+          ]
+        }]
+        : []),
       {
         name: 'Shipment List',
         href: routes.logistics.shipmentList,
