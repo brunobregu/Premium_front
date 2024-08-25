@@ -111,7 +111,7 @@ export default function Details({ className }: { className?: string }) {
           icon: <SalesIcon className="h-9 w-9" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
-          metric: data.paid,
+          metric: data.toBePaid,
           increased: true,
         },
         {
@@ -120,7 +120,7 @@ export default function Details({ className }: { className?: string }) {
           icon: <ContainersIcon className="h-7 w-7" />,
           graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-red',
-          metric: data.toBePaid,
+          metric: data.paid,
           decreased: true,
         },
       ];
