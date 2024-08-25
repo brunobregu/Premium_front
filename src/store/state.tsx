@@ -16,6 +16,8 @@ interface FiltersContextProps {
   setTotalRecords: (value: number) => void,
   userId: string,
   setUserId: (string: any) => void
+  lang: string;
+  setLang: (value: string) => void;
 }
 
 const FiltersContext = createContext<FiltersContextProps | undefined>(undefined);
@@ -32,6 +34,7 @@ export const FiltersProvider: React.FC<FiltersProviderProps> = ({ children }) =>
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalRecord, setTotalRecords] = useState<any>();
   const [userId, setUserId] = useState<string>('');
+  const [lang, setLang] = useState('en')
 
 
 
@@ -47,7 +50,9 @@ export const FiltersProvider: React.FC<FiltersProviderProps> = ({ children }) =>
     totalRecord,
     setTotalRecords,
     userId,
-    setUserId
+    setUserId,
+    lang,
+    setLang
   };
 
   return <FiltersContext.Provider value={contextValue}>{children}</FiltersContext.Provider>;

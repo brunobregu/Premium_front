@@ -42,6 +42,8 @@ export const routes = {
     shipmentList: '/logistics/shipments',
     myOrders: '/logistics/my-orders',
     users: '/logistics/users',
+    activeUsers: '/logistics/users/active-users',
+    nonActiveUsers: '/logistics/users/non-active-users',
     roles: '/logistics/roles',
     contacts: '/logistics/contacts',
     ports: '/logistics/ports',

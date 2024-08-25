@@ -2,13 +2,15 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Popover } from "react-tiny-popover";
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '../../store/state';
+
 
 export default function LanguageDropdown() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-
+const {lang, setLang} =useFiltersContext();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const[lang, setLang] = useState('en')
+  
 
   const { locale: currentLocale, pathname, asPath, query } = router;
 
