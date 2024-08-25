@@ -30,25 +30,30 @@ const createUserSchema = yup.object().shape({
 });
 
 export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
+  const [loading, setLoading]= useState(false)
   const { register, handleSubmit, formState: { errors }, control, reset } = useForm({
     resolver: yupResolver(createUserSchema),
   });
 
   const createUserMutation = useMutation({
+    
     mutationFn: (data) => {
-      return premiumApi.post('/Authentication/addUser', data);
+      setLoading(true)
+      return premiumApi.post('en/Authentication/addUser', data);
     },
     onSuccess: (data) => {
       toast.success('User Created Successfully',{position:"top-right"});
       onRequestClose();
       onSuccess();
       reset();
+      setLoading(false)
     },
     onError: (error) => {
-
+      setLoading(false)
       const errorMessage = error.response?.data?.detail || 'Error creating user';
-      toast.error(errorMessage);
+      toast.error(errorMessage, {position:"top-right"});
     },
+    
   });
 
   const onSubmit = (data) => {
@@ -99,7 +104,7 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
           />
         </div>
         <div className='flex justify-between w-full gap-4'>
-        <Button type="submit" className='flex-1' isLoading={createUserMutation.isLoading}>Save</Button>
+        <Button type="submit" style={{opacity:loading===true ? 0.5 : 1 }} className={`${loading===true? "opacity-50": " "} flex-1`} isLoading={createUserMutation.isLoading} disabled={setLoading===true}>Save</Button>
         <Button type="button" className=' flex-1' onClick={handleClose}>Cancel</Button>
         </div>
 
