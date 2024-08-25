@@ -164,17 +164,17 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
   })) ?? [];
 
   const auctionOptions = auctionQuery.data?.data?.map((item: any) => ({
-    label: item.name, // Adjust based on actual API response
+    label: item.name,
     value: item.id,
   })) ?? [];
 
   const portOptions = portQuery.data?.data?.map((item: any) => ({
-    label: item.name, // Adjust based on actual API response
+    label: item.name,
     value: item.id,
   })) ?? [];
 
   const providerOptions = providerQuery.data?.data?.map((item: any) => ({
-    label: item.name, // Adjust based on actual API response
+    label: item.name,
     value: item.name,
   })) ?? [];
 
@@ -238,7 +238,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               label="Order ID"
               placeholder="order id"
               labelClassName="font-medium text-gray-900"
-              {...register('dspOrderID')}
+              {...register('orderID')}
               error={errors.orderID?.message as string}
             />
             <Controller
@@ -255,7 +255,8 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                   options={auctionOptions.length > 0 ? auctionOptions : [{ label: 'No data available', value: '' }]}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    auctionOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
+                    auctionOptions.find((c: any) => c.value.toString() === selected)?.label ?? 'No data available'
+
                   }
                   error={errors?.port?.message as string}
                 />
@@ -272,10 +273,10 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                   inPortal={false}
                   value={value || null}
                   onChange={onChange}
-                  options={portOptions.length > 0 ? portOptions : [{ label: 'No data available', value: '' }]}
+                  options={portOptions}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    portOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
+                    portOptions.find((c: any) => c.value.toString() === selected)?.label ?? 'No data available'
                   }
                   error={errors?.port?.message as string}
                 />
@@ -292,14 +293,10 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                   inPortal={false}
                   value={value || null}
                   onChange={onChange}
-                  options={
-                    providerOptions.length > 0
-                      ? providerOptions
-                      : [{ label: 'No data available', value: '' }]
-                  }
+                  options={providerOptions}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    providerOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
+                    providerOptions.find((c: any) => c.value.toString() === selected)?.label ?? 'No data available'
                   }
                   error={errors?.provider?.message as string}
                 />
@@ -333,6 +330,14 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               type="number"
               {...register('broker', { valueAsNumber: true })}
               error={errors.broker?.message as string}
+            />
+            <Input
+              label="Client Storage"
+              placeholder="client storage"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('clientStorage', { valueAsNumber: true })}
+              error={errors.clientStorage?.message as string}
             />
             {/* <Input
               label="Storage"
@@ -382,14 +387,6 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               error={errors.oceanCost?.message as string}
             />
             <Input
-              label="Client Storage"
-              placeholder="client storage"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('clientStorage', { valueAsNumber: true })}
-              error={errors.clientStorage?.message as string}
-            />
-            <Input
               label="Storage Cost"
               placeholder="storage cost"
               labelClassName="font-medium text-gray-900"
@@ -434,15 +431,15 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
           <h3>Car status</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+          <div className="mb-4 mt-4 flex flex-row justify-start items-center gap-4">
 
-
+            <p className='text-xl' > Car status: <span className='font-bold '>{orderDetailsQuery.data?.data.carStatus ? orderDetailsQuery.data?.data.carStatus : 'Dispatch'} </span>  </p>
             <Button
               className="w-100 bg-gray-900 hover:bg-gray-800 text-white mt-auto"
               onClick={() => setCarModalOpen(true)}
               disabled={orderDetailsQuery.data?.data.carStatus === 'Delivered'}
             >
-              Update car status ({orderDetailsQuery.data?.data.carStatus ? orderDetailsQuery.data?.data.carStatus : 'Dispatch'})
+              Update car status
             </Button>
 
           </div>
@@ -465,7 +462,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                   options={userOptions}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    userOptions.find((c: any) => c.value === selected)?.label ?? ''
+                    userOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
                   }
                   error={errors?.userId?.message as string}
                 />
