@@ -3,9 +3,9 @@ import Modal from 'react-modal';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Input, Button } from 'rizzui';
+import { Input, Button, Select } from 'rizzui';
 import premiumApi from '@/util/premiumAPI';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 const modalStyles = {
@@ -17,7 +17,7 @@ const modalStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: '500px',
-    height: '500px', 
+    height: '600px', 
     padding: '20px', 
   },
 };
@@ -27,6 +27,7 @@ const createUserSchema = yup.object().shape({
   lastName: yup.string().required('Last name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
   password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
+  roleName: yup.string().required('Role is required'),
 });
 
 export default function AddActiveUserModal({ isOpen, onRequestClose, onSuccess }) {
@@ -56,8 +57,18 @@ export default function AddActiveUserModal({ isOpen, onRequestClose, onSuccess }
     
   });
 
+  const roleQuery = useQuery({
+    queryKey: ['role'],
+    queryFn: () => premiumApi.get('en/Authentication/getRoles'),
+});
+
+const roleOptions = roleQuery.data?.data?.map((item) => ({
+  label: item.name, // Adjust based on actual API response
+  value: item.name,
+})) ?? [];
+
   const onSubmit = (data) => {
-    createUserMutation.mutate({ ...data, roleName: 'Client' });
+    createUserMutation.mutate(data);
   };
 
   const handleClose = () => {
@@ -103,7 +114,34 @@ export default function AddActiveUserModal({ isOpen, onRequestClose, onSuccess }
             error={errors.password?.message}
           />
         </div>
-        
+        <div className="mb-4">
+        <Controller
+                            control={control}
+                            name="roleName"
+                            render={({ field: { value, onChange } }) => (
+                                <Select
+                                    label="Role"
+                                    labelClassName="text-gray-900"
+                                    dropdownClassName="p-2 gap-1 grid !z-10"
+                                    inPortal={false}
+                                    value={value || null}
+                                    onChange={onChange}
+                                    options={
+                                        roleOptions.length > 0
+                                            ? roleOptions
+                                            : [{ label: 'No data available', value: '' }]
+                                    }
+                                    getOptionValue={(option) => option.value}
+                                    displayValue={(selected) =>
+                                      roleOptions.find((c) => c.value === selected)?.label ?? 'No data available'
+                                    }
+                                    error={errors?.roleName?.message}
+                                />
+                            )}
+                        />
+        </div>
+      
+
         <div className='flex justify-between w-full gap-4'>
         <Button type="submit" style={{opacity:loading===true ? 0.5 : 1 }} className={`${loading===true? "opacity-50": " "} flex-1`} isLoading={createUserMutation.isLoading} disabled={setLoading===true}>Save</Button>
         <Button type="button" className=' flex-1' onClick={handleClose}>Cancel</Button>
