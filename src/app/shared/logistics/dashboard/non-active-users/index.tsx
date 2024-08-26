@@ -5,6 +5,21 @@ import { Title, Loader } from 'rizzui';
 import cn from '@utils/class-names';
 import type { TableFilterProps } from '@/app/shared/logistics/shipment/list/table-filter';
 import Table, { TableProps } from '../../../table';
+import dynamic from 'next/dynamic';
+import { isEmpty } from 'lodash';
+const TableFilter = dynamic(
+    () => import('@/app/shared/logistics/shipment/my-list/table-filter'),
+    { ssr: false }
+);
+const TableNameFilter = dynamic(
+    () => import('@/app/shared/logistics/shipment/list/table-filter'),
+    { ssr: false }
+);
+const TablePagination = dynamic(
+    () => import('@/app/shared/controlled-table/table-pagination'),
+    { ssr: false }
+);
+
 
 type ControlledTableProps = {
     isLoading?: boolean;
@@ -43,6 +58,12 @@ export default function ControlledTable({
     return (
         <>
             <div className="relative">
+
+                {!isEmpty(filterOptions) &&
+                    <TableFilter {...filterOptions}>{filterElement}</TableFilter>}
+
+
+
                 <Table
 
                     rowKey={(record: any) => record.id}
@@ -50,6 +71,12 @@ export default function ControlledTable({
                     {...tableProps}
                 />
                 {tableFooter ? tableFooter : null}
+                {!isEmpty(paginatorOptions) && (
+                    <TablePagination
+                        paginatorClassName={paginatorClassName}
+                        {...paginatorOptions}
+                    />
+                )}
             </div>
         </>
     );

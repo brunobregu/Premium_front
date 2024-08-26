@@ -24,7 +24,7 @@ interface ActiveUsersTableProps {
 export default function ActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUsersTableProps) {
     const [checkedItems, setCheckedItems] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [currentDeleteAuction, setCurrentDeleteAuction] = useState<string | null>(null);
+    const [currentDeleteActiveUser, setCurrentDeleteActiveUser] = useState<string | null>(null);
     const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
     const queryClient = useQueryClient();
 
@@ -42,8 +42,23 @@ export default function ActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUs
 
     const filteredData = useMemo(() => {
         if (!query.data) return [];
-        return query.data;
-    }, [query.data]);
+
+        // Apply filtering logic based on the search term from context
+        const result = query.data.filter((item: any) => {
+            return (
+                item.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+                item.lastName.toLowerCase().includes(searchInput.toLowerCase()) ||
+                (item.username && item.username.toLowerCase().includes(searchInput.toLowerCase())) ||
+                (item.role[0] && item.role[0].toLowerCase().includes(searchInput.toLowerCase()))
+            );
+        });
+
+        // Set the total number of records based on the filtered data
+        setTotalRecords(result.length);
+
+        return result;
+    }, [query.data, searchInput]);
+
 
     useEffect(() => {
         if (filteredData) {
@@ -91,12 +106,12 @@ export default function ActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUs
     }, [queryClient]);
 
     const openModal = (id: string) => {
-        setCurrentDeleteAuction(id);
+        setCurrentDeleteActiveUser(id);
         setIsOpen(true);
     };
 
     const closeModal = () => {
-        setCurrentDeleteAuction(null);
+        setCurrentDeleteActiveUser(null);
         setIsOpen(false);
     };
 
@@ -190,11 +205,11 @@ export default function ActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUs
                 isOpen={isOpen}
                 onClose={closeModal}
                 onConfirm={() => {
-                    if (currentDeleteAuction) {
-                        handleDelete(currentDeleteAuction);
+                    if (currentDeleteActiveUser) {
+                        handleDelete(currentDeleteActiveUser);
                     }
                 }}
-                itemId={currentDeleteAuction}
+                itemId={currentDeleteActiveUser}
             />
         </div>
     );

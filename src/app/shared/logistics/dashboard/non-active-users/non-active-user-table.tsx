@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     getColumns,
-} from '@/app/shared/logistics/dashboard/auctions/columns';
-import ControlledTable from '@/app/shared/logistics/dashboard/auctions/index';
+} from '@/app/shared/logistics/dashboard/non-active-users/columns';
+import ControlledTable from '@/app/shared/logistics/dashboard/non-active-users/index';
 import { useTable } from '@hooks/use-table';
 import { useColumn } from '@hooks/use-column';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -13,16 +13,18 @@ import { useFiltersContext } from '@/store/state';
 import AddAuctionModal from '../../../../../components/modals/AddAuctionModal'
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
+import ActivateUserModal from '@/components/modals/ActivateUsersModal';
+import AddActiveUserModal from '@/components/modals/AddActiveUserModal';
 
-interface AuctionsTableProps {
+interface ActiveUsersTableProps {
     isModalOpen: boolean,
     setModalOpen: (value: boolean) => void;
 }
 
-export default function AuctionsTable({ isModalOpen, setModalOpen }: AuctionsTableProps) {
+export default function NonActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUsersTableProps) {
     const [checkedItems, setCheckedItems] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [currentDeleteAuction, setCurrentDeleteAuction] = useState<string | null>(null);
+    const [activateUser, setActivateUser] = useState<string | null>(null);
     const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
     const queryClient = useQueryClient();
 
@@ -30,18 +32,39 @@ export default function AuctionsTable({ isModalOpen, setModalOpen }: AuctionsTab
 
 
     const query = useQuery({
-        queryKey: ['auction'],
+        queryKey: ['non-active-users'],
         queryFn: () => {
-            return premiumApi.get('en/Auction/auctions');
+            return premiumApi.get('/en/User/nonActiveUsers');
         },
         select: (response) => response.data
 
     });
 
+
     const filteredData = useMemo(() => {
         if (!query.data) return [];
-        return query.data;
-    }, [query.data]);
+
+        // Apply filtering logic based on the search term from context
+        const result = query.data.filter((item: any) => {
+            return (
+                item.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+                item.lastName.toLowerCase().includes(searchInput.toLowerCase())
+            );
+        });
+
+        // Set the total number of records based on the filtered data
+        return result;
+    }, [query.data, searchInput]);
+
+
+    useEffect(() => {
+        if (filteredData) {
+            setTotalRecords(filteredData.length);
+        }
+    }, [filteredData, setTotalRecords]);
+
+
+
 
     useEffect(() => {
         if (filteredData) {
@@ -77,24 +100,24 @@ export default function AuctionsTable({ isModalOpen, setModalOpen }: AuctionsTab
         },
     });
 
-    const handleDelete = useCallback(async (id: string) => {
+    const handleActivateUser = useCallback(async (id: string, role: string) => {
         try {
-            await premiumApi.delete(`en/Auction/delete?id=${id}`);
-            toast.success('Auction deleted', { position: "top-right" });
-            queryClient.invalidateQueries({ queryKey: ['auction'] });
+            await premiumApi.post(`/en/User/activateUser?userId=${id}&role=${role}`);
+            toast.success('User activated successfully', { position: 'top-right' });
+            queryClient.invalidateQueries({ queryKey: ['non-active-users'] });
         } catch (error) {
-            toast.error('Error, try againg', { position: "top-right" });
-
+            toast.error('Error activating user, try again', { position: 'top-right' });
         }
     }, [queryClient]);
 
+
     const openModal = (id: string) => {
-        setCurrentDeleteAuction(id);
+        setActivateUser(id);
         setIsOpen(true);
     };
 
     const closeModal = () => {
-        setCurrentDeleteAuction(null);
+        setActivateUser(null);
         setIsOpen(false);
     };
 
@@ -130,7 +153,7 @@ export default function AuctionsTable({ isModalOpen, setModalOpen }: AuctionsTab
                 onHeaderCellClick,
                 onChecked: handleRowSelect,
                 handleSelectAll,
-                handleDelete: openModal
+                handleActivateUser: openModal
             }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]
@@ -178,22 +201,23 @@ export default function AuctionsTable({ isModalOpen, setModalOpen }: AuctionsTab
                 }}
                 className=" mt-8 rounded-md border border-muted text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
             />
-            <AddAuctionModal
+            <AddActiveUserModal
                 isOpen={isModalOpen}
                 onRequestClose={() => setModalOpen(false)}
                 onSuccess={handleModalSuccess}
             />
 
-            <ConfirmDeleteModal
+            <ActivateUserModal
                 isOpen={isOpen}
                 onClose={closeModal}
-                onConfirm={() => {
-                    if (currentDeleteAuction) {
-                        handleDelete(currentDeleteAuction);
+                onConfirm={(selectedRole: any) => {
+                    if (activateUser && selectedRole) {
+                        handleActivateUser(activateUser, selectedRole); // Pass both userId and role
                     }
                 }}
-                itemId={currentDeleteAuction}
+                userId={activateUser}
             />
+
         </div>
     );
 }

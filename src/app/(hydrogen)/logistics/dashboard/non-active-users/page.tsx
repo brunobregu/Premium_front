@@ -1,17 +1,17 @@
 "use client"
 
 import React, { useState } from "react";
-import AuctionsPageHeader from './page-header';
-import AuctionsTable from "@/app/shared/logistics/dashboard/auctions/auctions-table";
+import NonActiveUsersPageHeader from './page-header';
+import NonActiveUsersTable from "@/app/shared/logistics/dashboard/non-active-users/non-active-user-table";
 
 export default function AuctionsPage() {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
     return (
         <>
-            <AuctionsPageHeader setModalOpen={setModalOpen} />
+            <NonActiveUsersPageHeader setModalOpen={setModalOpen} />
             <div className="flex flex-col gap-10">
-                <AuctionsTable setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
+                <NonActiveUsersTable setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
             </div>
         </>
     );
