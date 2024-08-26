@@ -84,20 +84,20 @@ export const getColumns = ({
             width: 80,
             render: (userName: any) => userName,
         },
-        {
-            title: (
-                <HeaderCell
-                    title="Role"
-                    sortable
-                    ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'role'}
-                />
-            ),
-            onHeaderCell: () => onHeaderCellClick('role'),
-            dataIndex: 'role',
-            key: 'role',
-            width: 80,
-            render: (roles: string[]) => roles?.length ? roles.join(', ') : 'No role',
-        },
+        // {
+        //     title: (
+        //         <HeaderCell
+        //             title="Role"
+        //             sortable
+        //             ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'role'}
+        //         />
+        //     ),
+        //     onHeaderCell: () => onHeaderCellClick('role'),
+        //     dataIndex: 'role',
+        //     key: 'role',
+        //     width: 80,
+        //     render: (roles: string[]) => roles?.length ? roles.join(', ') : 'No role',
+        // },
         {
             title: <HeaderCell title="Actions" className="text-gray-900 font-medium" />,
             dataIndex: 'action',
