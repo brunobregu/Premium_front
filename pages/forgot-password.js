@@ -35,7 +35,7 @@ export default function ForgotPassword({locale}) {
         router.push('/reset-password')
         resetField('email');
         // Show success toast
-        toast.success(t('password-reset-link-sent'), {position:"top-right"});
+        toast.success(i18n.t('password-reset-link-sent'), {position:"top-right"});
       } else{
         setLoading(false)
         toast.error("Error, try again!", {position:"top-right"})

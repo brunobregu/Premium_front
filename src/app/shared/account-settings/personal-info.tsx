@@ -16,6 +16,9 @@ import {
 import UploadZone from '@ui/file-upload/upload-zone';
 import { countries, roles, timezones } from '@/data/forms/my-details';
 import AvatarUpload from '@ui/file-upload/avatar-upload';
+import { useEffect, useState } from 'react';
+import premiumApi from '@/util/premiumAPI';
+import { useTranslation } from 'react-i18next';
 
 const Select = dynamic(() => import('rizzui').then((mod) => mod.Select), {
   ssr: false,
@@ -31,9 +34,45 @@ const QuillEditor = dynamic(() => import('@ui/quill-editor'), {
 });
 
 export default function PersonalInfoView() {
+  const { i18n } = useTranslation();
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await premiumApi.get('en/User/personalData');
+
+        if (response.status === 200) {
+          // Clear the email input
+          setData(response.data)
+          // Show success toast
+          toast.success(i18n.t('password-reset-link-sent'), { position: "top-right" });
+        } else {
+
+          toast.error("Error, try again!", { position: "top-right" })
+        }
+      } catch (error) {
+
+
+      }
+    }
+    getData();
+  }, [])
+
+  console.log('data', data)
   const onSubmit: SubmitHandler<PersonalInfoFormTypes> = (data) => {
     toast.success(<Text as="b">Successfully added!</Text>);
   };
+
+
+
+  const createdOnDate = new Date(data.createdOn);
+  const day = createdOnDate.getDate().toString().padStart(2, '0');
+  const month = (createdOnDate.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+  const year = createdOnDate.getFullYear();
+  // Convert to a readable format: day/month/year
+  const formattedDate = `${day}/${month}/${year} ${createdOnDate.toLocaleTimeString()}`;
+
 
   return (
     <Form<PersonalInfoFormTypes>
@@ -61,14 +100,14 @@ export default function PersonalInfoView() {
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
                 <Input
-                  placeholder="First Name"
+                  placeholder={data?.firstName || 'Not avaible'}
                   {...register('first_name')}
                   error={errors.first_name?.message}
                   className="flex-grow"
                   disabled
                 />
                 <Input
-                  placeholder="Last Name"
+                  placeholder={data?.lastName || 'Not avaible'}
                   {...register('last_name')}
                   error={errors.last_name?.message}
                   className="flex-grow"
@@ -86,66 +125,40 @@ export default function PersonalInfoView() {
                     <PiEnvelopeSimple className="h-6 w-6 text-gray-500" />
                   }
                   type="email"
-                  placeholder="georgia.young@example.com"
+                  placeholder={data?.email || 'Not avaible'}
                   {...register('email')}
                   error={errors.email?.message}
+                  disabled
                 />
               </FormGroup>
 
               <FormGroup
-                title="Role"
+                title="Phone"
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
-                <Controller
-                  control={control}
-                  name="role"
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      dropdownClassName="!z-10"
-                      inPortal={false}
-                      placeholder="Select Role"
-                      options={roles}
-                      onChange={onChange}
-                      value={value}
-                      className="col-span-full"
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        roles?.find((r) => r.value === selected)?.label ?? ''
-                      }
-                      error={errors?.role?.message as string}
-                    />
-                  )}
+                <Input
+                  placeholder={data?.phoneNumber || 'No number avaible'}
+                  {...register('last_name')}
+                  error={errors.last_name?.message}
+                  className="flex-grow"
+                  disabled
                 />
               </FormGroup>
 
               <FormGroup
-                title="Country"
+                title="Creation Time"
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
-                <Controller
-                  control={control}
-                  name="country"
-                  render={({ field: { onChange, value } }) => (
-                    <Select
-                      dropdownClassName="!z-10"
-                      inPortal={false}
-                      placeholder="Select Country"
-                      options={countries}
-                      onChange={onChange}
-                      value={value}
-                      className="col-span-full"
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        countries?.find((con) => con.value === selected)
-                          ?.label ?? ''
-                      }
-                      error={errors?.country?.message as string}
-                    />
-                  )}
+                <Input
+                  placeholder={formattedDate || 'Not avaible'}
+                  {...register('last_name')}
+                  error={errors.last_name?.message}
+                  className="flex-grow"
+                  disabled
                 />
               </FormGroup>
 
-              <FormGroup
+              {/* <FormGroup
                 title="Timezone"
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
@@ -171,15 +184,15 @@ export default function PersonalInfoView() {
                     />
                   )}
                 />
-              </FormGroup>
+              </FormGroup> */}
 
             </div>
 
-            <FormFooter
+            {/* <FormFooter
               // isLoading={isLoading}
-              altBtnText="Cancel"
-              submitBtnText="Save"
-            />
+              altBtnText="Back"
+              // submitBtnText="Save"
+            /> */}
           </>
         );
       }}

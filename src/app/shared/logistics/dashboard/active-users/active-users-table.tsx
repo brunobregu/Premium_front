@@ -53,9 +53,6 @@ export default function ActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUs
             );
         });
 
-        // Set the total number of records based on the filtered data
-        setTotalRecords(result.length);
-
         return result;
     }, [query.data, searchInput]);
 
