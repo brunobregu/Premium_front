@@ -14,24 +14,6 @@ export interface RecordType {
 };
 
 
-export const statusColors = (status: StatusType) => {
-    if (shippingStatuses.Approved === status) {
-        return 'primary';
-    }
-    if (shippingStatuses.InTransit === status) {
-        return 'secondary';
-    }
-    if (shippingStatuses.OutForDelivery === status) {
-        return 'info';
-    }
-    if (shippingStatuses.Delivered === status) {
-        return 'success';
-    }
-    if (shippingStatuses.DeliveryFailed === status) {
-        return 'danger';
-    }
-};
-
 export const getColumns = ({
     data,
     sortConfig,
@@ -84,20 +66,7 @@ export const getColumns = ({
             width: 80,
             render: (userName: any) => userName,
         },
-        // {
-        //     title: (
-        //         <HeaderCell
-        //             title="Role"
-        //             sortable
-        //             ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'role'}
-        //         />
-        //     ),
-        //     onHeaderCell: () => onHeaderCellClick('role'),
-        //     dataIndex: 'role',
-        //     key: 'role',
-        //     width: 80,
-        //     render: (roles: string[]) => roles?.length ? roles.join(', ') : 'No role',
-        // },
+
         {
             title: <HeaderCell title="Actions" className="text-gray-900 font-medium" />,
             dataIndex: 'action',

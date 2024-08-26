@@ -339,32 +339,6 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
               {...register('clientStorage', { valueAsNumber: true })}
               error={errors.clientStorage?.message as string}
             />
-            {/* <Input
-              label="Storage"
-              placeholder="storage"
-              label="Inland Dispatch"
-              placeholder="300"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('inlandDspch', { valueAsNumber: true })}
-              error={errors.inlandDspch?.message as string}
-            /> */}
-            {/* <Input
-              label="OC Cost"
-              placeholder="200"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('ocCost', { valueAsNumber: true })}
-              error={errors.ocCost?.message as string}
-            />
-            <Input
-              label="Storage"
-              placeholder="storage"
-              labelClassName="font-medium text-gray-900"
-              type="number"
-              {...register('storage', { valueAsNumber: true })}
-              error={errors.storage?.message as string}
-            /> */}
           </div>
 
           <h3>Total Cost</h3>

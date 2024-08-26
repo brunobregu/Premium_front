@@ -14,24 +14,6 @@ export interface RecordType {
 };
 
 
-export const statusColors = (status: StatusType) => {
-    if (shippingStatuses.Approved === status) {
-        return 'primary';
-    }
-    if (shippingStatuses.InTransit === status) {
-        return 'secondary';
-    }
-    if (shippingStatuses.OutForDelivery === status) {
-        return 'info';
-    }
-    if (shippingStatuses.Delivered === status) {
-        return 'success';
-    }
-    if (shippingStatuses.DeliveryFailed === status) {
-        return 'danger';
-    }
-};
-
 export const getColumns = ({
     data,
     sortConfig,

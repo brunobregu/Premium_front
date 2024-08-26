@@ -1,6 +1,5 @@
 import { HeaderCell } from '@/app/shared/table';
 import { Tooltip, ActionIcon } from 'rizzui';
-import { shippingStatuses, StatusType } from '@/data/shipment-data';
 import TrashIcon from '@components/icons/trash';
 
 
@@ -9,24 +8,6 @@ export interface RecordType {
     id: number
 };
 
-
-export const statusColors = (status: StatusType) => {
-    if (shippingStatuses.Approved === status) {
-        return 'primary';
-    }
-    if (shippingStatuses.InTransit === status) {
-        return 'secondary';
-    }
-    if (shippingStatuses.OutForDelivery === status) {
-        return 'info';
-    }
-    if (shippingStatuses.Delivered === status) {
-        return 'success';
-    }
-    if (shippingStatuses.DeliveryFailed === status) {
-        return 'danger';
-    }
-};
 
 export const getColumns = ({
     data,

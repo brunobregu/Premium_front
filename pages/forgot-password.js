@@ -8,11 +8,13 @@ import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
+import { useFiltersContext } from '../src/store/state';
 
 export default function ForgotPassword({locale}) {
    const {  i18n } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const{setEmail}= useFiltersContext();
   const {
     register,
     formState: { errors },
@@ -21,9 +23,10 @@ export default function ForgotPassword({locale}) {
   } = useForm();
 
   async function onSubmit(data) {
+    setEmail(data.email)
     setLoading(true)
     try {
-      const response = await premiumApi.post( 'en/Authentication/requestResetPassword', data.email, {
+      const response = await premiumApi.post( 'en/Authentication/requestResetPassword', {email: data.email}, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': '*/*'
@@ -35,7 +38,7 @@ export default function ForgotPassword({locale}) {
         router.push('/reset-password')
         resetField('email');
         // Show success toast
-        toast.success(i18n.t('password-reset-link-sent'), {position:"top-right"});
+        toast.success('We send you a temporary password', {position:"top-right"});
       } else{
         setLoading(false)
         toast.error("Error, try again!", {position:"top-right"})

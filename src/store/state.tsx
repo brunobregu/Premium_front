@@ -18,6 +18,8 @@ interface FiltersContextProps {
   setUserId: (string: any) => void
   lang: string;
   setLang: (value: string) => void;
+  email: string;
+  setEmail: (value: string) => void
 }
 
 const FiltersContext = createContext<FiltersContextProps | undefined>(undefined);
@@ -35,7 +37,7 @@ export const FiltersProvider: React.FC<FiltersProviderProps> = ({ children }) =>
   const [totalRecord, setTotalRecords] = useState<any>();
   const [userId, setUserId] = useState<string>('');
   const [lang, setLang] = useState('en')
-
+  const [email, setEmail] = useState<string>('');
 
 
   const contextValue: FiltersContextProps = {
@@ -52,7 +54,9 @@ export const FiltersProvider: React.FC<FiltersProviderProps> = ({ children }) =>
     userId,
     setUserId,
     lang,
-    setLang
+    setLang,
+    email,
+    setEmail
   };
 
   return <FiltersContext.Provider value={contextValue}>{children}</FiltersContext.Provider>;

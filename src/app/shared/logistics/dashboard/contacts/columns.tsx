@@ -16,25 +16,6 @@ export interface RecordType {
     message: string,
 };
 
-
-export const statusColors = (status: StatusType) => {
-    if (shippingStatuses.Approved === status) {
-        return 'primary';
-    }
-    if (shippingStatuses.InTransit === status) {
-        return 'secondary';
-    }
-    if (shippingStatuses.OutForDelivery === status) {
-        return 'info';
-    }
-    if (shippingStatuses.Delivered === status) {
-        return 'success';
-    }
-    if (shippingStatuses.DeliveryFailed === status) {
-        return 'danger';
-    }
-};
-
 export const getColumns = ({
     data,
     sortConfig,
@@ -101,30 +82,6 @@ export const getColumns = ({
             width: 80,
             render: (message: any) => message,
         },
-        // {
-        //     title: <HeaderCell title="Actions" className="text-gray-900 font-medium" />,
-        //     dataIndex: 'action',
-        //     key: 'action',
-        //     width: 70,
-        //     render: (text: any, record: RecordType) => {
-        //         return (
-        //             <div className="flex items-center justify-start gap-3 pe-4">
-
-        //                 <Tooltip size="sm" content={'Delete Shipment'} placement="top" color="invert">
-        //                     <ActionIcon
-        //                         size="sm"
-        //                         variant="outline"
-        //                         aria-label={'Delete Shipment'}
-        //                         onClick={() => handleDelete(record.name)}
-        //                     >
-        //                         <TrashIcon className="h-4 w-4" />
-        //                     </ActionIcon>
-        //                 </Tooltip>
-        //             </div>
-        //         );
-        //     },
-        //     onHeaderCell: () => ({})
-        // }
     ];
 
     return columns;

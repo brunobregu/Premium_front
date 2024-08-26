@@ -10,10 +10,8 @@ import { useColumn } from '@hooks/use-column';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { useFiltersContext } from '@/store/state';
-import AddAuctionModal from '../../../../../components/modals/AddAuctionModal'
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
-import CreateUserModal from '@/components/modals/AddActiveUserModal';
 import AddActiveUserModal from '@/components/modals/AddActiveUserModal';
 
 interface ActiveUsersTableProps {
@@ -27,8 +25,6 @@ export default function ActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUs
     const [currentDeleteActiveUser, setCurrentDeleteActiveUser] = useState<string | null>(null);
     const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
     const queryClient = useQueryClient();
-
-
 
 
     const query = useQuery({

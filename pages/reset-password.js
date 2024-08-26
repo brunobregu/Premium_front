@@ -6,11 +6,13 @@ import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
+import { useFiltersContext } from '../src/store/state';
 
 export default function ResetPassword() {
    const {  i18n } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const{email}= useFiltersContext();
   const {
     register,
     formState: { errors },
@@ -27,7 +29,7 @@ export default function ResetPassword() {
 
     try {
       const response = await premiumApi.post('/en/Authentication/resetPassword', {
-        email: data.email,
+        email: email,
         temporaryPassword: data.temporaryPassword,
         newPassword: data.newPassword,
         confirmNewPassword: data.confirmNewPassword
@@ -40,7 +42,7 @@ export default function ResetPassword() {
         resetField('newPassword');
         resetField('confirmNewPassword');
         // Show success toast
-        toast.success(t('password-reset-success'), {position:"top-right"});
+        toast.success(i18n.t('password-reset-success'), {position:"top-right"});
         // Redirect to login page or another appropriate page
         router.push('/login');
       } else {
@@ -75,20 +77,11 @@ export default function ResetPassword() {
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <input
-                        {...register('email', {
-                          required: i18n.t('form-validation.email.required'),
-                          maxLength: {
-                            value: 220,
-                            message: i18n.t('form-validation.email.maxLength'),
-                          },
-                          pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: i18n.t('form-validation.email.invalid'),
-                          },
-                        })}
                         className="form-control"
                         type="text"
                         placeholder={i18n.t('email-address')}
+                        defaultValue={email}
+                        disabled
                       />
                       {errors.email?.message && (
                         <p style={{ marginTop: 10, color: '#FF3E3E' }} role="alert">
