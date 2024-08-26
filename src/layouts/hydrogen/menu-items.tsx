@@ -22,7 +22,7 @@ const useMenuItems = () => {
       {
         name: 'Overview',
       },
-      ...(userRole === 'Admin' || userRole === 'Account manager'
+      ...(userRole === 'Admin' || userRole === 'Account Manager'
         ? [{
           name: 'Dashboard',
           href: "#",
@@ -49,28 +49,28 @@ const useMenuItems = () => {
                 icon: <PiPackageDuotone />,
               }]
               : []),
-            ...(userRole === 'Admin' || userRole === 'Account manager'
+            ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
                 name: 'Ports',
                 href: routes.logistics.ports,
                 icon: <PiPackageDuotone />,
               }]
               : []),
-            ...(userRole === 'Admin' || userRole === 'Account manager'
+            ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
                 name: 'Providers',
                 href: routes.logistics.providers,
                 icon: <PiPackageDuotone />,
               }]
               : []),
-            ...(userRole === 'Admin' || userRole === 'Account manager'
+            ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
                 name: 'Auctions',
                 href: routes.logistics.auctions,
                 icon: <PiPackageDuotone />,
               }]
               : []),
-            ...(userRole === 'Admin' || userRole === 'Account manager'
+            ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
                 name: 'Contacts',
                 href: routes.logistics.contacts,
