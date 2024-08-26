@@ -28,11 +28,20 @@ const useMenuItems = () => {
           href: "#",
           icon: <PiPackageDuotone />,
           dropdownItems: [
-            {
-              name: 'Users',
-              href: routes.logistics.users,
-              icon: <PiPackageDuotone />,
-            },
+            ...(userRole === 'Admin'
+              ? [{
+                name: 'Active Users',
+                href: routes.logistics.activeUsers,
+                icon: <PiPackageDuotone />,
+              }]
+              : []),
+            ...(userRole === 'Admin'
+              ? [{
+                name: 'Non-Active Users',
+                href: routes.logistics.nonActiveUsers,
+                icon: <PiPackageDuotone />,
+              }]
+              : []),
             ...(userRole === 'Admin'
               ? [{
                 name: 'Roles',
