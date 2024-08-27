@@ -5,7 +5,6 @@ import premiumApi from '../../util/premiumAPI';
 import { useTranslation } from 'react-i18next';
 
 
-
 export default function Hero1Slider() {
   const { t, i18n } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,7 +12,6 @@ export default function Hero1Slider() {
   const [zipCode, setZipCode] = useState('');
   const [loading, setLoading] = useState(false);
   const destination = 'Albania';
-
   const [locale, setLocale] = useState(i18n.language);
   const [validation, setValidation] = useState("")
 
@@ -26,12 +24,12 @@ export default function Hero1Slider() {
     setLoading(true);
     e.preventDefault();
     if(zipCode.length===0) {
-      setValidation("* Please enter a zip code consisting only of numbers.")
+      setValidation(i18n.t("zip-code-required"))
       setLoading(false)
       return;
     } else if (zipCode.length>0 && !/^\d+$/.test(zipCode)) {
       setLoading(false)
-      setValidation('* Please enter a valid zip code consisting only of numbers.')
+      setValidation(i18n.t("zip-code-number"))
       return;
     }
     try {
@@ -39,17 +37,20 @@ export default function Hero1Slider() {
       if(fetchedPrices ){
         setPrices(fetchedPrices);
         setIsModalOpen(true);
+        setValidation('')
       } else {
         setLoading(false);
         toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
           position: 'top-right',
         });
+        setValidation(error.response?.data?.detail || 'An error occurred while fetching prices')
       }
     } catch (error) {
       setLoading(false);
       toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
         position: 'top-right',
       });
+      setValidation(error.response?.data?.detail || 'An error occurred while fetching prices')
     } finally {
       setLoading(false);
     }
@@ -72,40 +73,16 @@ export default function Hero1Slider() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setPrices(null);
+    setValidation('')
+    
   };
 
-  // const [file, setFile] = useState(null);
 
-  // const handleFileChange = (event) => {
-  //   setFile(event.target.files[0]);
-  // };
+  const handleZipCodeChange = (e) => {
+    setZipCode(e.target.value);
+setValidation('')
+  };
 
-  // const handleUpload = async () => {
-  //   if (!file) {
-  //     alert('Please select a file first.');
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-  //   formData.append('File', file);
-
-  //   try {
-  //     const response = await fetch('https://localhost:7130/api/v1/en/Test/uploadDoc', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibmlubyBzYXVsaSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZjI3MGViM2ItNjNmYy00MmRmLWFhYzQtYjY3NTVlODIwNGExIiwiZW1haWwiOiJzYXVsaW5pbm9AZ21haWwuY29tIiwic3ViIjoic2F1bGluaW5vQGdtYWlsLmNvbSIsImp0aSI6IjY5ODcwMWVmLWRjMTctNGQ3OS04NDVjLThlZmMxOTg3ODU3YiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzIzMDEyOTE0LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MTMwIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6MzAwMCJ9.mrXcPYQ7gFrLJXIvwcIxvij2MVME9ofGqcPkcH5owYg', // Replace with your actual token
-  //       },
-  //       body: formData,
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-
-  //     const result = await response.json();
-  //   } catch (error) {
-  //   }
-  // };
 
   return (
     <div
@@ -153,7 +130,7 @@ export default function Hero1Slider() {
                         type="text"
                         placeholder="Zip Code"
                         value={zipCode}
-                        onChange={(e) => setZipCode(e.target.value)}
+                        onChange={handleZipCodeChange}
                       />
                       <input
                         className="form-control"
@@ -171,10 +148,6 @@ export default function Hero1Slider() {
                     </div>
                     <p className='text-red-600' style={{color:"red"}}> {validation}</p>
                   </form>
-                  {/* <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
-    </div> */}
                   <TransportModal
                     isOpen={isModalOpen}
                     onRequestClose={handleCloseModal}
