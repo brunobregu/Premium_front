@@ -15,6 +15,7 @@ import {
 import toast from 'react-hot-toast';
 import premiumApi from '@/util/premiumAPI';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 export default function PasswordSettingsView({
   settings
@@ -24,6 +25,7 @@ export default function PasswordSettingsView({
   const [isLoading, setLoading] = useState(false);
   const [reset, setReset] = useState({});
   const router = useRouter(); // Correct usage inside a component
+  const { i18n } = useTranslation();
 
   const onSubmit: SubmitHandler<PasswordFormTypes> = async (data) => {
     setLoading(true);
@@ -42,11 +44,11 @@ export default function PasswordSettingsView({
 
         toast.success("Password changed successfully", { position: "top-right" })
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message || "Incorrect password.", { position: "top-right" });
+    } catch (error: any) {
+      if (error) {
+        toast.error(error.response?.data?.detail || i18n.t('form-validation.error'), { position: "top-right" });
       } else {
-        toast.error("An unexpected error occurred.", { position: "top-right" });
+        toast.error(error.response?.data?.detail || i18n.t('form-validation.error'), { position: "top-right" });
       }
     } finally {
       setLoading(false);

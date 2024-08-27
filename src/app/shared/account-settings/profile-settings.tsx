@@ -23,6 +23,9 @@ import UploadZone from '@ui/file-upload/upload-zone';
 import { useLayout } from '@/layouts/use-layout';
 import { useBerylliumSidebars } from '@/layouts/beryllium/beryllium-utils';
 import { LAYOUT_OPTIONS } from '@/config/enums';
+import { useEffect, useState } from 'react';
+import { serialize, parse } from 'cookie';
+import parseJwt from '@/util/parseJwt';
 const QuillEditor = dynamic(() => import('@ui/quill-editor'), {
   ssr: false,
 });
@@ -31,6 +34,7 @@ export default function ProfileSettingsView() {
   const onSubmit: SubmitHandler<ProfileFormTypes> = (data) => {
     toast.success(<Text as="b">Profile successfully updated!</Text>);
   };
+
 
   return (
     <>
@@ -212,6 +216,21 @@ export function ProfileHeader({
   const { layout } = useLayout();
   const { expandedLeft } = useBerylliumSidebars();
 
+  const [user, setUser] = useState<{ name: string; email: string; username: string } | null>(null);
+
+  useEffect(() => {
+    const session = parse(document.cookie)?.['session'];
+    if (session) {
+      const parsedToken = parseJwt(session);
+      setUser({
+        name: parsedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+        email: parsedToken?.email,
+        username: parsedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'],
+      });
+    }
+  }, []);
+
+
   return (
     <div
       className={cn(
@@ -224,8 +243,7 @@ export function ProfileHeader({
       <div className="relative z-10 mx-auto flex w-full max-w-screen-2xl flex-wrap items-end justify-start gap-6 border-b border-dashed border-muted pb-10">
         <div className="relative -top-1/3 aspect-square w-[110px] overflow-hidden rounded-full border-[6px] border-white bg-gray-100 shadow-profilePic @2xl:w-[130px] @5xl:-top-2/3 @5xl:w-[150px] dark:border-gray-50 3xl:w-[200px]">
           <Image
-            src="https://isomorphic-furyroad.s3.amazonaws.com/public/profile-image.webp"
-            alt="profile-pic"
+            src="https://www.christmasconnections.co.uk/wp-content/uploads/sites/2/2016/09/facebook-default-no-profile-pic.jpg" alt="profile-pic"
             fill
             sizes="(max-width: 768px) 100vw"
             className="aspect-auto"
@@ -236,11 +254,11 @@ export function ProfileHeader({
             as="h2"
             className="mb-2 inline-flex items-center gap-3 text-xl font-bold text-gray-900"
           >
-            {title}
+            {user?.name}
             <PiSealCheckFill className="h-5 w-5 text-primary md:h-6 md:w-6" />
           </Title>
-          {description ? (
-            <Text className="text-sm text-gray-500">{description}</Text>
+          {user?.email ? (
+            <Text className="text-sm text-gray-500">{user.email}</Text>
           ) : null}
         </div>
         {children}

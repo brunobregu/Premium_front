@@ -3,6 +3,7 @@ const { i18n } = require('./next-i18next.config');
 
 const nextConfig = {
   images: {
+    domains: ['www.google.com', 'stock.adobe.com', 'www.christmasconnections.co.uk'], 
     remotePatterns: [
       {
         protocol: 'https',
@@ -47,6 +48,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'isomorphic-furyroad.vercel.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'google.com',
       },
     ],
   },
