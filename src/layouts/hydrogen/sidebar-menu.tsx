@@ -1,15 +1,39 @@
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Title, Collapse } from 'rizzui';
 import cn from '@utils/class-names';
 import { PiCaretDownBold } from 'react-icons/pi';
 import useMenuItems from '@/layouts/hydrogen/menu-items';
 import StatusBadge from '@components/get-status-badge';
+import { routes } from '@/config/routes';
 
 export function SidebarMenu() {
   const pathname = usePathname();
   const menuItems = useMenuItems();
+  const [isUsersOpen, setIsUsersOpen] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [activeIsClicked, setActiveIsClicked] = useState<boolean>(false);
+  const user = localStorage.getItem('userRole')
+
+
+  const handleUsersToggle = () => {
+    setIsUsersOpen((prev) => !prev);
+  };
+
+  const handleActive = () => {
+    setActiveIsClicked((prev) => !prev)
+    setIsClicked(false)
+  }
+
+  const handleNonActive = () => {
+    setIsClicked((prev) => !prev)
+    setActiveIsClicked(false)
+  }
+  const disableClick = () => {
+    setIsClicked(false)
+    setActiveIsClicked(false)
+  }
 
   return (
     <div className="mt-4 pb-3 3xl:mt-6">
@@ -63,12 +87,87 @@ export function SidebarMenu() {
                       </div>
                     )}
                   >
+                    {user === 'Admin' && <span onClick={handleUsersToggle}>
+                      <Link
+                        href="#"
+                        className={cn(
+                          'mx-3.5 mb-0.5 flex items-center justify-between rounded-md px-3.5 py-2 font-medium capitalize last-of-type:mb-1 lg:last-of-type:mb-2 2xl:mx-5',
+                          'text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900'
+                        )}
+                      >
+                        <div className="flex items-center truncate">
+                          <span
+                            className={cn(
+                              'me-[18px] ms-1 inline-flex h-1 w-1 rounded-full bg-current transition-all duration-200',
+                              'opacity-40'
+                            )}
+                          />{' '}
+
+                          Users
+                        </div>
+                        {/* {dropdownItem?.badge?.length ? (
+                            <StatusBadge status={dropdownItem?.badge} />
+                          ) : null} */}
+                      </Link>
+                    </span>}
+                    {isUsersOpen && user === 'Admin' && (
+                      <div className="ml-6">
+                        <Link
+                          onClick={handleActive}
+                          href={routes.logistics.activeUsers}
+                          className={cn(
+                            'mx-3.5 mb-0.5 flex items-center justify-between rounded-md px-3.5 py-2 font-medium capitalize last-of-type:mb-1 lg:last-of-type:mb-2 2xl:mx-5',
+                            activeIsClicked
+                              ? 'text-primary'
+                              : 'text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900'
+                          )}
+                        >
+                          <div className="flex items-center truncate">
+                            <span
+                              className={cn(
+                                'me-[18px] ms-1 inline-flex h-1 w-1 rounded-full bg-current transition-all duration-200',
+                                activeIsClicked
+                                  ? 'bg-primary ring-[1px] ring-primary'
+                                  : 'opacity-40'
+                              )}
+                            />
+                            Active Users
+                          </div>
+                        </Link>
+
+                        <Link
+                          onClick={handleNonActive}
+                          href={routes.logistics.nonActiveUsers}
+                          className={cn(
+                            'mx-3.5 mb-0.5 flex items-center justify-between rounded-md px-3.5 py-2 font-medium capitalize last-of-type:mb-1 lg:last-of-type:mb-2 2xl:mx-5',
+                            isClicked
+                              ? 'text-primary'
+                              : 'text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900'
+                          )}
+                        >
+                          <div className="flex items-center truncate">
+                            <span
+                              className={cn(
+                                'me-[18px] ms-1 inline-flex h-1 w-1 rounded-full bg-current transition-all duration-200',
+                                isClicked
+                                  ? 'bg-primary ring-[1px] ring-primary'
+                                  : 'opacity-40'
+                              )}
+                            />
+                            Non Active Users
+                          </div>
+                        </Link>
+                      </div>
+                    )}
+
+
                     {item?.dropdownItems?.map((dropdownItem, index) => {
                       const isChildActive =
                         pathname === (dropdownItem?.href as string);
 
                       return (
                         <Link
+                          onClick={disableClick}
                           href={dropdownItem?.href}
                           key={dropdownItem?.name + index}
                           className={cn(
