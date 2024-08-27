@@ -59,14 +59,13 @@ export default function PersonalInfoView() {
     getData();
   }, [])
 
-  console.log('data', data)
   const onSubmit: SubmitHandler<PersonalInfoFormTypes> = (data) => {
     toast.success(<Text as="b">Successfully added!</Text>);
   };
 
 
 
-  const createdOnDate = new Date(data.createdOn);
+  const createdOnDate = new Date(data?.createdOn);
   const day = createdOnDate.getDate().toString().padStart(2, '0');
   const month = (createdOnDate.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
   const year = createdOnDate.getFullYear();

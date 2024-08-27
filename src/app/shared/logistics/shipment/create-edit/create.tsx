@@ -290,7 +290,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                                     options={
                                         providerOptions.length > 0
                                             ? providerOptions
-                                            : [{ label: 'No data available', value: '' }]
+                                            : [{ label: 'No data available', value: 'provider' }]
                                     }
                                     getOptionValue={(option) => option.value}
                                     displayValue={(selected) =>

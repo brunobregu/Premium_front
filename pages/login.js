@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 export default function Login() {
@@ -22,6 +23,7 @@ export default function Login() {
     setError: setFormError,
   } = useForm();
   const [loadingLogin, setLoadingLogin] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   async function onSubmit(data) {
     setLoadingLogin(true);
@@ -105,32 +107,45 @@ export default function Login() {
                         </p>
                       )}
                     </div>
-                    <div className="form-group">
-                      <input
-                        {...register('password', {
-                          required: i18n.t('form-validation.password.required'),
-                          maxLength: {
-                            value: 220,
-                            message: i18n.t('form-validation.password.maxLength'),
-                          },
-                          minLength: {
-                            value: 4,
-                            message: i18n.t('form-validation.password.minLength'),
-                          },
-                        })}
-                        className="form-control"
-                        type="password"
-                        placeholder={i18n.t('enter-your-password')}
-                      />
-                      {errors.password?.message && (
-                        <p
-                          style={{ marginTop: 10, color: '#FF3E3E' }}
-                          role="alert"
-                        >
-                          {errors.password?.message}
-                        </p>
-                      )}
-                    </div>
+                    <div className="form-group" style={{ position: 'relative', minHeight: '65px' }}>
+  <input
+    {...register('password', {
+      required: i18n.t('form-validation.password.required'),
+      maxLength: {
+        value: 220,
+        message: i18n.t('form-validation.password.maxLength'),
+      },
+      minLength: {
+        value: 4,
+        message: i18n.t('form-validation.password.minLength'),
+      },
+    })}
+    className="form-control"
+    type={passwordVisible ? 'text' : 'password'}
+    placeholder={i18n.t('enter-your-password')}
+    style={{ paddingRight: '40px' }} // Add padding to avoid text overlap with the icon
+  />
+  <span
+    className="password-toggle-icon"
+    style={{
+      position: 'absolute',
+      right: '10px',
+      top: '40%',
+      transform: 'translateY(-50%)',
+      cursor: 'pointer',
+    }}
+    onClick={() => setPasswordVisible(!passwordVisible)}
+  >
+    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+  </span>
+
+  {errors.password?.message && (
+    <p style={{ color: '#FF3E3E', position: 'absolute', bottom: '-20px' }} role="alert">
+      {errors.password?.message}
+    </p>
+  )}
+</div>
+
                     <div className="form-group">
                       <div className="d-flex justify-content-between">
                         <div className="box-forgotpass">

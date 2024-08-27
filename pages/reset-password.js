@@ -7,12 +7,15 @@ import toast, { Toaster } from 'react-hot-toast';
 import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 import { useFiltersContext } from '../src/store/state';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function ResetPassword() {
    const {  i18n } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const{email}= useFiltersContext();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisibleVerify, setPasswordVisibleVerify] = useState(false);
   const {
     register,
     formState: { errors },
@@ -23,7 +26,8 @@ export default function ResetPassword() {
   async function onSubmit(data) {
     setLoading(true)
     if (data.newPassword !== data.confirmNewPassword) {
-      toast.error(t('form-validation.passwords-must-match'), {position:"top-right"});
+      toast.error(i18n.t('form-validation.passwords-must-match'), {position:"top-right"});
+      setLoading(false)
       return;
     }
 
@@ -104,30 +108,56 @@ export default function ResetPassword() {
                         </p>
                       )}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group" style={{ position: 'relative', minHeight: '65px' }}>
                       <input
                         {...register('newPassword', {
                           required: i18n.t('form-validation.newPassword.required'),
                         })}
                         className="form-control"
-                        type="password"
+                        type={passwordVisible ? 'text' : 'password'}
                         placeholder={i18n.t('new-password')}
                       />
+                        <span
+    className="password-toggle-icon"
+    style={{
+      position: 'absolute',
+      right: '10px',
+      top: '40%',
+      transform: 'translateY(-50%)',
+      cursor: 'pointer',
+    }}
+    onClick={() => setPasswordVisible(!passwordVisible)}
+  >
+    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+  </span>
                       {errors.newPassword?.message && (
                         <p style={{ marginTop: 10, color: '#FF3E3E' }} role="alert">
                           {errors.newPassword?.message}
                         </p>
                       )}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group" style={{ position: 'relative', minHeight: '65px' }}>
                       <input
                         {...register('confirmNewPassword', {
                           required: i18n.t('form-validation.confirmNewPassword.required'),
                         })}
                         className="form-control"
-                        type="password"
+                        type={passwordVisibleVerify ? 'text' : 'password'}
                         placeholder={i18n.t('confirm-new-password')}
                       />
+                        <span
+    className="password-toggle-icon"
+    style={{
+      position: 'absolute',
+      right: '10px',
+      top: '40%',
+      transform: 'translateY(-50%)',
+      cursor: 'pointer',
+    }}
+    onClick={() => setPasswordVisibleVerify(!passwordVisibleVerify)}
+  >
+    {passwordVisibleVerify ? <FaEyeSlash /> : <FaEye />}
+  </span>
                       {errors.confirmNewPassword?.message && (
                         <p style={{ marginTop: 10, color: '#FF3E3E' }} role="alert">
                           {errors.confirmNewPassword?.message}

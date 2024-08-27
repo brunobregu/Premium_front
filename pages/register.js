@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 export default function Register() {
   const router = useRouter();
@@ -25,6 +27,7 @@ export default function Register() {
   const [loadingRegister, setLoadingRegister] = useState(false);
   const { t, i18n } = useTranslation('common');
   const [locale, setLocale] = useState(i18n.language);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
     setLocale(i18n.language);
@@ -235,38 +238,45 @@ export default function Register() {
                         </div>
                       </div>
                       <div className="col-md-12">
-                        <div className="form-group">
-                          <input
-                            {...register('password', {
-                              required: i18n.t('form-validation.password.required'),
-                              maxLength: {
-                                value: 220,
-                                message: i18n.t(
-                                  'form-validation.password.maxLength'
-                                ),
-                              },
-                              minLength: {
-                                value: 4,
-                                message: i18n.t(
-                                  'form-validation.password.minLength'
-                                ),
-                              },
-                            })}
-                            className="form-control"
-                            type="password"
-                            placeholder={i18n.t('enter-your-password') + '*'}
-                          />
-                          {errors.password?.message && (
-                            <p
-                              style={{ marginTop: 10, color: '#FF3E3E' }}
-                              role="alert"
-                            >
-                              {errors.password?.message}
+                      <div className="form-group" style={{ position: 'relative', minHeight: '75px' }}>
+  <input
+    {...register('password', {
+      required: i18n.t('form-validation.password.required'),
+      maxLength: {
+        value: 220,
+        message: i18n.t('form-validation.password.maxLength'),
+      },
+      minLength: {
+        value: 4,
+        message: i18n.t('form-validation.password.minLength'),
+      },
+    })}
+    className="form-control"
+    type={passwordVisible ? 'text' : 'password'}
+    placeholder={i18n.t('enter-your-password')}
+    style={{ paddingRight: '40px' }} // Add padding to avoid text overlap with the icon
+  />
+  <span
+    className="password-toggle-icon"
+    style={{
+      position: 'absolute',
+      right: '10px',
+      top: '40%',
+      transform: 'translateY(-50%)',
+      cursor: 'pointer',
+    }}
+    onClick={() => setPasswordVisible(!passwordVisible)}
+  >
+    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+  </span>
 
-                            </p>
-                          )}
-                         {/* <span className='text-red-600'>*{errorText}</span>  */}
-                        </div>
+  {errors.password?.message && (
+    <p style={{ color: '#FF3E3E', position: 'absolute', bottom: '-20px' }} role="alert">
+      {errors.password?.message}
+    </p>
+  )}
+</div>
+
                       </div>
                       <div className="col-md-12">
                         <div className="form-group">
