@@ -40,10 +40,7 @@ export default function Hero1Slider() {
         setValidation('')
       } else {
         setLoading(false);
-        toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
-          position: 'top-right',
-        });
-        setValidation(error.response?.data?.detail || 'An error occurred while fetching prices')
+        setValidation(i18n.t("zip-exist"))
       }
     } catch (error) {
       setLoading(false);
@@ -124,7 +121,7 @@ setValidation('')
                 </p>
                 <div className="form-trackparcel wow animate__animated animate__fadeIn">
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group flex md:flex-row space-y-4 md:space-y-0 md:space-x-4" >
                       <input
                         className="form-control"
                         type="text"
@@ -165,3 +162,4 @@ setValidation('')
     </div>
   );
 }
+

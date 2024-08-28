@@ -102,13 +102,25 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
     document.cookie = cookie;
     router.replace('/');
   }
+
   const { i18n } = useTranslation();
+  const [locale, setLocale] = useState(i18n.language);
+
   const currentLang = localStorage.getItem('language');
   function handleLocaleClick(nextLocale: string) {
-    i18n.changeLanguage(nextLocale);
+    // i18n.changeLanguage(nextLocale);
     localStorage.setItem('language', nextLocale);
+    setLocale(nextLocale)
 
   }
+
+
+
+  useEffect(() => {
+    setLocale(i18n.language);
+  }, [i18n.language]);
+
+
 
   return (
     <div className="w-64 text-left rtl:text-right">
@@ -135,8 +147,8 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
           </Link>
         ))}
       </div>
-      {/* <div className="border-t border-gray-300 px-6 pb-6 pt-5">
-        {currentLang === 'sq' ? <Button
+      <div className="border-t border-gray-300 px-6 pb-6 pt-5">
+        {locale === 'sq' ? <Button
           className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
           variant="text"
           onClick={() => { handleLocaleClick('en') }}
@@ -149,7 +161,7 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
         >
           Change to albanian
         </Button>}
-      </div> */}
+      </div>
       <div className="border-t border-gray-300 px-6 pb-6 pt-5">
         <Button
           className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"

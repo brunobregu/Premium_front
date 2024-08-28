@@ -86,7 +86,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: '90%', // Adjust width to fit different screen sizes
-    maxWidth: '600px', // Maximum width for larger screens
+    maxWidth: '800px', // Maximum width for larger screens
     padding: '20px',
     zIndex: 1000,
   },
