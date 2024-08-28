@@ -14,6 +14,7 @@ const Drawer = dynamic(() => import('rizzui').then((module) => module.Drawer), {
 import { FilterDrawerView } from '../my-list/table-filter';
 import premiumApi from '@/util/premiumAPI';
 import { Controller } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 export type TableFilterProps = {
   searchTerm: string;
@@ -64,7 +65,8 @@ export default function TableFilter({
           id: item.userId,
         }));
         setFullnameOptions(data);
-      } catch (error) {
+      } catch (error: any) {
+        toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
       }
     };
 

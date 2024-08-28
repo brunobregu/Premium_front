@@ -51,9 +51,8 @@ export default function PersonalInfoView() {
 
           toast.error("Error, try again!", { position: "top-right" })
         }
-      } catch (error) {
-
-
+      } catch (error: any) {
+        toast.error(error.response?.data?.detail || 'Error displaying data', { position: "top-right" });
       }
     }
     getData();

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import premiumApi from '@/util/premiumAPI';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
+import toast from 'react-hot-toast';
 
 // Define the type for the image object
 interface Image {
@@ -21,7 +22,9 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
       try {
         const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
         setImages(response.data); // Assuming response.data is an array of Image objects
-      } catch (error) {
+      } catch (error: any) {
+        toast.error(error.response?.data?.detail || 'Error fetching images', { position: "top-right" });
+
       }
     };
 

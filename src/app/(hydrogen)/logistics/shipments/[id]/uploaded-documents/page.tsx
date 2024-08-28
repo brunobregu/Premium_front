@@ -19,8 +19,8 @@ const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
       try {
         const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
         setDocuments(response.data);
-      } catch (error) {
-        toast.error('Error fetching documents:');
+      } catch (error: any) {
+        toast.error(error.response?.data?.detail || 'Error fetching documents', { position: "top-right" });
       }
     };
 

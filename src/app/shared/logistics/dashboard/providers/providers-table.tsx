@@ -86,9 +86,8 @@ export default function ProvidersTable({ isModalOpen, setModalOpen }: ProvidersT
             await premiumApi.delete(`en/Provider/delete?id=${id}`);
             queryClient.invalidateQueries({ queryKey: ['roles'] });
             toast.success('Provider deleted', { position: "top-right" });
-        } catch (error) {
-            toast.error('Error, try againg', { position: "top-right" });
-
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
         }
     }, [queryClient]);
 

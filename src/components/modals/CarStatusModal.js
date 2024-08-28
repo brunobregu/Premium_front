@@ -111,6 +111,7 @@ const UpdateCarStatusModal = ({ onClose, isOpen, carStatus, id , setCurrentStatu
                 onClose(); // Close modal after success
             })
             .catch(error => {
+                toast.error(error.response?.data?.detail || 'Error updating, try againg', { position: "top-right" });
             }).finally(() => setLoading(false));
     };
 

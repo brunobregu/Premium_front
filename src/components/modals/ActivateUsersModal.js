@@ -17,7 +17,7 @@ const ActivateUserModal = ({
     queryFn: () => premiumApi.get('en/Authentication/getRoles'),
     select: (response) => response.data,
     onError: (error) => {
-      toast.error('Error fetching roles', { position: "top-right" });
+      toast.error(error.response?.data?.detail || 'Error fetching roles, try againg', { position: "top-right" });
     },
   });
 

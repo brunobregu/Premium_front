@@ -82,9 +82,8 @@ export default function PortsTable({ isModalOpen, setModalOpen }: PortsTableProp
             await premiumApi.delete(`en/Port/delete?id=${id}`);
             queryClient.invalidateQueries({ queryKey: ['ports'] });
             toast.success('Port deleted', { position: "top-right" });
-        } catch (error) {
-            toast.error('Error, try againg', { position: "top-right" });
-
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
         }
     }, [queryClient]);
 

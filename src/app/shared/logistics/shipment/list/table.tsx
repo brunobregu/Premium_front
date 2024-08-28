@@ -99,9 +99,8 @@ export default function OrderList() {
       await premiumApi.delete(`/en/OrderDetails/delete?id=${id}`);
       queryClient.invalidateQueries({ queryKey: ['shipments'] });
       queryClient.invalidateQueries({ queryKey: ['details'] });
-    } catch (error) {
-      toast.error('Error, try againg');
-
+    } catch (error: any) {
+      toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
     }
   }, [queryClient]);
 

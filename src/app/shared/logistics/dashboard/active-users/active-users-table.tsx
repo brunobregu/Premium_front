@@ -92,9 +92,8 @@ export default function ActiveUsersTable({ isModalOpen, setModalOpen }: ActiveUs
             await premiumApi.delete(`en/User/deleteUser?userId=${id}`);
             toast.success('Active user deleted', { position: "top-right" });
             queryClient.invalidateQueries({ queryKey: ['active-users'] });
-        } catch (error) {
-            toast.error('Error, try againg', { position: "top-right" });
-
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
         }
     }, [queryClient]);
 

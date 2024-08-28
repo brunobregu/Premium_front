@@ -66,7 +66,7 @@ export default function Hero1Slider() {
       });
       return response.data;
     } catch (error) {
-      throw error;
+      toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
     }
   };
 

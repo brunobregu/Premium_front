@@ -136,8 +136,8 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
             router.push('/logistics/shipments');
         },
-        onError: (error) => {
-            toast.error('Error saving order', { position: "top-right" });
+        onError: (error: any) => {
+            toast.error(error.response?.data?.detail || 'Error saving order, try againg', { position: "top-right" });
         },
     });
 

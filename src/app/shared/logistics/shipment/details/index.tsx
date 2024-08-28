@@ -142,8 +142,8 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
             toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
             router.push('/logistics/shipments');
         },
-        onError: () => {
-            toast.error('Error saving shipment');
+        onError: (error: any) => {
+            toast.error(error.response?.data?.detail || 'Error saving shipment, try againg', { position: "top-right" });
         },
     });
 

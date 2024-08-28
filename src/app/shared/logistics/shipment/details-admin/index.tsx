@@ -77,8 +77,8 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
             } else {
                 toast.error('No image uploaded', { position: "top-right" });
             }
-        } catch (error) {
-            toast.error('No image uploaded', { position: "top-right" });
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
         }
     };
 
@@ -92,8 +92,8 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
             } else {
                 toast.error('No documents uploaded', { position: "top-right" });
             }
-        } catch (error) {
-            toast.error('No documents uploaded', { position: "top-right" });
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
         }
     };
 
@@ -143,8 +143,8 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
             toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
             router.push('/logistics/shipments');
         },
-        onError: () => {
-            toast.error('Error saving shipment');
+        onError: (error: any) => {
+            toast.error(error.response?.data?.detail || 'Error saving shipment, try againg', { position: "top-right" });
         },
     });
 

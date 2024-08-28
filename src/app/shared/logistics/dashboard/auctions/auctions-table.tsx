@@ -82,8 +82,8 @@ export default function AuctionsTable({ isModalOpen, setModalOpen }: AuctionsTab
             await premiumApi.delete(`en/Auction/delete?id=${id}`);
             toast.success('Auction deleted', { position: "top-right" });
             queryClient.invalidateQueries({ queryKey: ['auction'] });
-        } catch (error) {
-            toast.error('Error, try againg', { position: "top-right" });
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
 
         }
     }, [queryClient]);

@@ -105,8 +105,8 @@ export default function NonActiveUsersTable({ isModalOpen, setModalOpen }: Activ
             await premiumApi.post(`/en/User/activateUser?userId=${id}&role=${role}`);
             toast.success('User activated successfully', { position: 'top-right' });
             queryClient.invalidateQueries({ queryKey: ['non-active-users'] });
-        } catch (error) {
-            toast.error('Error activating user, try again', { position: 'top-right' });
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, activating user, try again', { position: "top-right" });
         }
     }, [queryClient]);
 

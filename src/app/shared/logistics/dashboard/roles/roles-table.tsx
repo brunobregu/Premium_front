@@ -82,8 +82,8 @@ export default function RolesTable({ isModalOpen, setModalOpen }: RolesTableProp
             await premiumApi.delete(`en/User/deleteRole?role=${role}`);
             queryClient.invalidateQueries({ queryKey: ['roles'] });
             toast.success('Role deleted', { position: "top-right" });
-        } catch (error) {
-            toast.error('Error, try againg', { position: "top-right" });
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
 
         }
     }, [queryClient]);
