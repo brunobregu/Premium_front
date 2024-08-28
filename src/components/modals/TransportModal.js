@@ -78,22 +78,24 @@ const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }
 
 
 const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      width: '50%',
-      padding: '20px',
-      zIndex: 1000,
-    },
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      zIndex: 1000,
-    },
-  };
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    width: '90%', // Adjust width to fit different screen sizes
+    maxWidth: '600px', // Maximum width for larger screens
+    padding: '20px',
+    zIndex: 1000,
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
+};
+
   
   const tableStyles = {
     width: '100%',
