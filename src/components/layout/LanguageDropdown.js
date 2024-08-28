@@ -17,6 +17,7 @@ const {lang, setLang} =useFiltersContext();
   function handleLocaleClick(nextLocale) {
       i18n.changeLanguage(nextLocale);
     setLang(nextLocale)
+     localStorage.setItem('language', nextLocale);
     router.push({ pathname, query }, asPath, {
       locale: nextLocale
     });

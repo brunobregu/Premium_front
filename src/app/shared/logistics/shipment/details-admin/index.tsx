@@ -13,6 +13,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
 import { shipmentData as fakeShipmentData } from '@/app/shared/logistics/shipment/create-edit/form-utils';
+import { useTranslation } from 'react-i18next';
 
 interface IndexProps {
     id?: string;
@@ -45,6 +46,13 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
     const { layout } = useLayout();
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
+    const { i18n } = useTranslation();
+    const [storedLang, setStoredLang] = useState('en'); // Initialize with default 'en'
+
+    useEffect(() => {
+        const langFromStorage = localStorage.getItem('language') || 'en';
+        setStoredLang(langFromStorage); // Set the language in state // Update i18n language
+    }, []);
 
     const handleImageClick = async () => {
         try {
@@ -94,8 +102,8 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
 
     const orderDetailsQuery = useQuery({
-        queryKey: ['orderDetails', id],
-        queryFn: () => premiumApi.get(`en/OrderDetails/adminOrderDetailsById?id=${id}`),
+        queryKey: ['orderDetails', id, storedLang],
+        queryFn: () => premiumApi.get(`${storedLang}/OrderDetails/adminOrderDetailsById?id=${id}`),
         enabled: !!id,
     });
 

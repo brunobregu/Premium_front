@@ -8,6 +8,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { serialize, parse } from 'cookie';
 import parseJwt from '@/util/parseJwt';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileMenu({
   buttonClassName,
@@ -101,6 +102,13 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
     document.cookie = cookie;
     router.replace('/');
   }
+  const { i18n } = useTranslation();
+  const currentLang = localStorage.getItem('language');
+  function handleLocaleClick(nextLocale: string) {
+    i18n.changeLanguage(nextLocale);
+    localStorage.setItem('language', nextLocale);
+
+  }
 
   return (
     <div className="w-64 text-left rtl:text-right">
@@ -127,6 +135,21 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
           </Link>
         ))}
       </div>
+      {/* <div className="border-t border-gray-300 px-6 pb-6 pt-5">
+        {currentLang === 'sq' ? <Button
+          className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
+          variant="text"
+          onClick={() => { handleLocaleClick('en') }}
+        >
+          Kthe ne anglisht
+        </Button> : <Button
+          className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
+          variant="text"
+          onClick={() => { handleLocaleClick('sq') }}
+        >
+          Change to albanian
+        </Button>}
+      </div> */}
       <div className="border-t border-gray-300 px-6 pb-6 pt-5">
         <Button
           className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
