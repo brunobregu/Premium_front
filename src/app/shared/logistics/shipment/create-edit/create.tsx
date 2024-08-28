@@ -61,7 +61,7 @@ const addOrderDetailsDtoSchema = yup.object().shape({
         .required('Ocean Cost is required'),
     // clientStorage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required('Client storage is required'),
     paymentStatus: yup.string().required('Payment status is required'),
-    // partlyPaid: yup.number().transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value)).integer().required(),
+    partlyPaid: yup.number().transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value)).integer().required(),
     userId: yup.string().required(),
 });
 
@@ -401,7 +401,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             placeholder="100"
                             labelClassName="font-medium text-gray-900"
                             type="number"
-                            {...(paymentStatus === 'Partly Paid' ? register('partlyPaid', { valueAsNumber: true }) : {})}
+                            {...register('partlyPaid', { valueAsNumber: true })}
                             error={paymentStatus && paymentStatus === 'Partly Paid' && errors.partlyPaid?.message as string}
                         />
                     </div>
