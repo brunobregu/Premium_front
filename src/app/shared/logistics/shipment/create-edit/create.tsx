@@ -61,7 +61,7 @@ const addOrderDetailsDtoSchema = yup.object().shape({
         .required('Ocean Cost is required'),
     // clientStorage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required('Client storage is required'),
     paymentStatus: yup.string().required('Payment status is required'),
-    partlyPaid: yup.number().transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value)).integer().min(1, 'Partly paid is required'),
+    // partlyPaid: yup.number().transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value)).integer().required(),
     userId: yup.string().required(),
 });
 
@@ -125,6 +125,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     }, [orderDetailsQuery.data, reset, setValue]);
 
     const addOrderDetailsMutation = useMutation({
+
         mutationFn: (data: CreateShipmentInput) => {
             if (id) {
                 return premiumApi.put(`en/OrderDetails/update?id=${id}`, data);
@@ -133,7 +134,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
             }
         },
         onSuccess: () => {
-            toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
+            toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully', { position: "top-right" });
             router.push('/logistics/shipments');
         },
         onError: (error: any) => {
@@ -242,9 +243,9 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                                             ? auctionOptions
                                             : [{ label: 'No data available', value: 'auction' }]
                                     }
-                                    getOptionValue={(option) => option.value}
+                                    getOptionValue={(option) => option.label}
                                     displayValue={(selected) =>
-                                        auctionOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
+                                        auctionOptions.find((c: any) => c.label === selected)?.label ?? 'No data available'
                                     }
                                     error={errors?.auction?.message as string}
                                 />
@@ -267,9 +268,9 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                                             ? portOptions
                                             : [{ label: 'No data available', value: 'port' }]
                                     }
-                                    getOptionValue={(option) => option.value}
+                                    getOptionValue={(option) => option.label}
                                     displayValue={(selected) =>
-                                        portOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
+                                        portOptions.find((c: any) => c.label === selected)?.label ?? 'No data available'
                                     }
                                     error={errors?.port?.message as string}
                                 />
@@ -326,6 +327,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             placeholder="broker"
                             labelClassName="font-medium text-gray-900"
                             type="number"
+                            defaultValue={0}
                             {...register('broker', { valueAsNumber: true })}
                             error={errors.broker?.message as string}
                         />
@@ -334,6 +336,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             placeholder="client storage"
                             labelClassName="font-medium text-gray-900"
                             type="number"
+                            defaultValue={0}
                             {...register('clientStorage', { valueAsNumber: true })}
                             error={errors.clientStorage?.message as string}
                         />
@@ -363,6 +366,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             placeholder="storage cost"
                             labelClassName="font-medium text-gray-900"
                             type="number"
+                            defaultValue={0}
                             {...register('storageCost', { valueAsNumber: true })}
                             error={errors.storageCost?.message as string}
                         />
@@ -397,7 +401,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                             placeholder="100"
                             labelClassName="font-medium text-gray-900"
                             type="number"
-                            {...register('partlyPaid', { valueAsNumber: true })}
+                            {...(paymentStatus === 'Partly Paid' ? register('partlyPaid', { valueAsNumber: true }) : {})}
                             error={paymentStatus && paymentStatus === 'Partly Paid' && errors.partlyPaid?.message as string}
                         />
                     </div>
@@ -456,10 +460,16 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
         </div>
     );
 
-    async function onSubmit(data: CreateShipmentInput) {
+    async function onSubmit(data: any) {
         setLoading(true);
         try {
-            await addOrderDetailsMutation.mutateAsync(data);
+            const formData = {
+                ...data,
+                storageCost: data.storageCost ?? 0,
+                broker: data.broker ?? 0,
+                clientStorage: data.clientStorage ?? 0
+            };
+            await addOrderDetailsMutation.mutateAsync(formData);
         } catch (error) {
         } finally {
             setLoading(false);
