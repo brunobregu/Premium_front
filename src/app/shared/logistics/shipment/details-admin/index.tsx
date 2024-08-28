@@ -40,27 +40,6 @@ const addOrderDetailsDtoSchema = yup.object().shape({
     userId: yup.string().required(),
 });
 
-const paymentStatusArray: SelectOption[] = [
-    { label: 'Paid', value: 'Paid' },
-    { label: 'Not paid', value: 'Not paid' },
-    { label: 'Partly Paid', value: 'Partly Paid' },
-];
-const carStatusArray: SelectOption[] = [
-    { label: 'Dispatch', value: 'Dispatch' },
-    { label: 'At terminal', value: 'At terminal' },
-    { label: 'Booked', value: 'Booked' },
-    { label: 'Loaded', value: 'Loaded' },
-    { label: 'Delivered', value: 'Delivered' },
-];
-
-const portOptions: SelectOption[] = [
-    { label: 'Savannah', value: 'Savannah' },
-    { label: 'Elizabeth', value: 'Elizabeth' },
-    { label: 'Houston', value: 'Houston' },
-    { label: 'LosAngeles', value: 'LosAngeles' },
-    { label: 'Indianapolis', value: 'Indianapolis' },
-    { label: 'prov', value: 'prov' },
-];
 
 export default function ViewShipment({ id, shipment, className, isViewOnly }: IndexProps) {
     const { layout } = useLayout();
@@ -112,10 +91,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         setValue
     } = methods;
 
-    // const query = useQuery({
-    //     queryKey: ['user'],
-    //     queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
-    // });
+
 
     const orderDetailsQuery = useQuery({
         queryKey: ['orderDetails', id],
@@ -148,19 +124,62 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         },
     });
 
-    // const userOptions = query.data?.data?.map((user: any) => ({
-    //     label: user.firstName + ' ' + user.lastName,
-    //     value: user.id,
-    // })) ?? [];
 
-    // const handleModalSuccess = () => {
-    //     query.refetch(); // Refetch users after creating a new one
-    // };
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    };
+
+    const createdOn = orderDetailsQuery.data?.data.createdOn;
+    const updatedOn = orderDetailsQuery.data?.data.updatedBy;
+    const formattedCreatedOn = createdOn ? formatDate(createdOn) : '';
+    const formattedUpdatedOn = updatedOn ? formatDate(updatedOn) : '';
 
     return (
         <div className="@container">
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
+                    <h3>Order Details</h3>
+                    <hr />
+                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                        <Input
+                            label="Created By"
+                            placeholder="Not avaible"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('createdBy')}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Created On"
+                            placeholder="Not avaible"
+                            labelClassName="font-medium text-gray-900"
+                            value={formattedCreatedOn}
+                            disabled={true} />
+                        <Input
+                            label="Updated By"
+                            placeholder="Not avaible"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('updatedBy', { valueAsNumber: true })}
+                            error={errors.year?.message as string}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Updated On"
+                            placeholder="Not avaible"
+                            labelClassName="font-medium text-gray-900"
+                            value={formattedUpdatedOn}
+                            disabled={true}
+                        />
+
+                    </div>
+
                     <h3>Vehicle</h3>
                     <hr />
                     <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
@@ -192,7 +211,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             label="Year"
                             placeholder="year"
                             labelClassName="font-medium text-gray-900"
-                            type="number"
                             {...register('year', { valueAsNumber: true })}
                             error={errors.year?.message as string}
                             disabled={true}
@@ -206,7 +224,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             label="Lot"
                             placeholder="lot"
                             labelClassName="font-medium text-gray-900"
-                            type="number"
                             {...register('lot', { valueAsNumber: true })}
                             error={errors.lot?.message as string}
                             disabled={true}
@@ -227,101 +244,51 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             error={errors.auction?.message as string}
                             disabled={true}
                         />
-                        <Controller
-                            control={control}
-                            name="carStatus"
-                            render={({ field: { value, onChange } }) => (
-                                <Select
-                                    label="Car Status"
-                                    labelClassName="text-gray-900"
-                                    dropdownClassName="p-2 gap-1 grid !z-10"
-                                    inPortal={false}
-                                    value={value || null}
-                                    onChange={isViewOnly ? undefined : onChange}
-                                    options={carStatusArray}
-                                    getOptionValue={(option) => option.value}
-                                    displayValue={(selected) =>
-                                        carStatusArray?.find((c) => c.value === selected)?.label ?? ''
-                                    }
-                                    error={errors?.carStatus?.message as string}
-                                    disabled={true}
-                                />
-                            )}
+
+                        <Input
+                            label="Port"
+                            placeholder="port"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('port')}
+                            error={errors.auction?.message as string}
+                            disabled={true}
                         />
-                        <Controller
-                            control={control}
-                            name="port"
-                            render={({ field: { value, onChange } }) => (
-                                <Select
-                                    label="Port"
-                                    labelClassName="text-gray-900"
-                                    dropdownClassName="p-2 gap-1 grid !z-10"
-                                    inPortal={false}
-                                    value={value || null}
-                                    onChange={isViewOnly ? undefined : onChange}
-                                    options={portOptions}
-                                    getOptionValue={(option) => option.value}
-                                    displayValue={(selected) =>
-                                        portOptions.find((c) => c.value === selected)?.label ?? ''
-                                    }
-                                    error={errors?.port?.message as string}
-                                    disabled={true}
-                                />
-                            )}
+                        <Input
+                            label="Provider"
+                            placeholder="provider"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('provider')}
+                            error={errors.auction?.message as string}
+                            disabled={true}
                         />
                         <Input
                             label="Tracking Number"
-                            placeholder="trackingNumber"
+                            placeholder="Not avaible"
                             labelClassName="font-medium text-gray-900"
                             {...register('trackingNumber')}
                             error={errors.auction?.message as string}
                             disabled={true}
                         />
-                        {/*   <Input
-                            label="Tracking url"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        />
-
-                        <Input
-                            label="Images"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        />
-                        <Input
-                            label="Documents"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        /> */}
                         <Button
                             className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
                             onClick={handleImageClick}
                         >
                             View Images
                         </Button>
-                        {/* <Input
-                            label="Documents"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        /> */}
                         <Button
                             className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
                             onClick={handleDocumentClick}
                         >
                             View Documents
                         </Button>
+                        <Input
+                            label="Car Status"
+                            placeholder="carStatus"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('carStatus')}
+                            error={errors.carStatus?.message as string}
+                            disabled={true}
+                        />
                     </div>
 
                     <h3>Client Total</h3>
@@ -329,75 +296,119 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                     <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
                         <Input
                             label="Client Total"
-                            placeholder="clientTotal"
+                            placeholder="Not avaible"
                             labelClassName="font-medium text-gray-900"
-                            type="number"
                             {...register('clientTotal', { valueAsNumber: true })}
                             error={errors.clientTotal?.message as string}
                             disabled={true}
                         />
                         <Input
-                            label="Total Cost"
-                            placeholder="totalCost"
+                            label="Inland Price"
+                            placeholder="inland price"
                             labelClassName="font-medium text-gray-900"
-                            type="number"
+                            {...register('inlandPrice', { valueAsNumber: true })}
+                            error={errors.inlandPrice?.message as string}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Ocean Price"
+                            placeholder="ocean price"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('oceanPrice', { valueAsNumber: true })}
+                            error={errors.oceanPrice?.message as string}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Broker"
+                            placeholder="broker"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('broker', { valueAsNumber: true })}
+                            error={errors.broker?.message as string}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Client Storage"
+                            placeholder="client storage"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('clientStorage', { valueAsNumber: true })}
+                            error={errors.clientStorage?.message as string}
+                            disabled={true}
+                        />
+                    </div>
+
+                    <h3>Total Cost</h3>
+                    <hr />
+                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                        <Input
+                            label="Total Cost"
+                            placeholder="Total cost"
+                            labelClassName="font-medium text-gray-900"
                             {...register('totalCost', { valueAsNumber: true })}
                             error={errors.totalCost?.message as string}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Inland Cost"
+                            placeholder="inland cost"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('inlandCost', { valueAsNumber: true })}
+                            error={errors.inlandCost?.message as string}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Ocean Cost"
+                            placeholder="ocean cost"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('oceanCost', { valueAsNumber: true })}
+                            error={errors.oceanCost?.message as string}
+                            disabled={true}
+                        />
+                        <Input
+                            label="Storage Cost"
+                            placeholder="storage cost"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('storageCost', { valueAsNumber: true })}
+                            error={errors.storageCost?.message as string}
                             disabled={true}
                         />
                         <Input
                             label="Profit"
                             placeholder="profit"
                             labelClassName="font-medium text-gray-900"
-                            type="number"
-                            {...register('profit', { valueAsNumber: true })}
+                            {...register('profit' || null, { valueAsNumber: true })}
                             error={errors.profit?.message as string}
                             disabled={true}
                         />
-                        {/* <Input
-                            label="Storage"
-                            placeholder="storage"
-                            labelClassName="font-medium text-gray-900"
-                            type="number"
-                            {...register('clientStorage', { valueAsNumber: true })}
-                            error={errors.clientStorage?.message as string}
-                            disabled={true}
-                        /> */}
                     </div>
+
 
                     <h3 className='w-full'>Payment info</h3>
                     <hr />
                     <div className="mb-4 mt-4  grid grid-cols-4 gap-4">
-                        <Controller
-                            control={control}
-                            name="paymentStatus"
-                            render={({ field: { value, onChange } }) => (
-                                <Select
-                                    label="Payment Status"
-                                    labelClassName="text-gray-900"
-                                    dropdownClassName="p-2 gap-1 grid !z-10"
-                                    inPortal={false}
-                                    value={value || null}
-                                    onChange={isViewOnly ? undefined : onChange}
-                                    options={paymentStatusArray}
-                                    getOptionValue={(option) => option.value}
-                                    displayValue={(selected) =>
-                                        paymentStatusArray.find((c) => c.value === selected)?.label ?? ''
-                                    }
-                                    error={errors?.paymentStatus?.message as string}
-                                    disabled={true}
-                                />
-                            )}
+                        <Input
+                            label="Payment Status"
+                            placeholder="100"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('paymentStatus', { valueAsNumber: true })}
+                            error={errors.partlyPaid?.message as string}
+                            disabled={true}
                         />
-                        {/* <Input
+                        <Input
                             label="Partly Paid"
                             placeholder="100"
                             labelClassName="font-medium text-gray-900"
-                            type="number"
                             {...register('partlyPaid', { valueAsNumber: true })}
                             error={errors.partlyPaid?.message as string}
                             disabled={true}
-                        /> */}
+                        />
+                        <Input
+                            label="To Be Paid"
+                            placeholder="100"
+                            labelClassName="font-medium text-gray-900"
+                            {...register('toBePaid', { valueAsNumber: true })}
+                            error={errors.partlyPaid?.message as string}
+                            disabled={true}
+                        />
 
                     </div>
 
@@ -406,13 +417,13 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                     <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
                         <Input
                             label="Client"
-                            placeholder="fullname"
+                            placeholder="fullName"
                             labelClassName="font-medium text-gray-900"
-                            type="number"
-                            {...register('fullname' || null, { valueAsNumber: true })}
-                            error={errors.fullname?.message as string}
+                            {...register('fullName', { valueAsNumber: true })}
+                            error={errors.fullName?.message as string}
                             disabled={true}
-                        /> </div>
+                        />
+                    </div>
                 </form >
             </FormProvider >
         </div >
