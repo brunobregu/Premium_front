@@ -148,17 +148,17 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
     })) ?? [];
 
     const auctionOptions = auctionQuery.data?.data?.map((item: any) => ({
-        label: item.name, // Adjust based on actual API response
+        label: item.name,
         value: item.id,
     })) ?? [];
 
     const portOptions = portQuery.data?.data?.map((item: any) => ({
-        label: item.name, // Adjust based on actual API response
+        label: item.name,
         value: item.id,
     })) ?? [];
 
     const providerOptions = providerQuery.data?.data?.map((item: any) => ({
-        label: item.name, // Adjust based on actual API response
+        label: item.name,
         value: item.name,
     })) ?? [];
 
@@ -168,7 +168,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
     const paymentStatus = useWatch({
         control,
-        name: 'paymentStatus', // Watch the 'paymentStatus' field
+        name: 'paymentStatus',
     });
 
     return (
@@ -177,7 +177,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <h3>Vehicle</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
                         <Input
                             label="VIN"
                             placeholder="vin"
@@ -211,7 +211,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
                     <h3>Shipment details</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
                         <Input
                             label="Lot"
                             placeholder="lot"
@@ -305,7 +305,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
                     <h3>Client Total</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
                         <Input
                             label="Inland Price"
                             placeholder="inland price"
@@ -344,7 +344,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
                     <h3>Total Cost</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
                         <Input
                             label="Inland Cost"
                             placeholder="inland cost"
@@ -374,7 +374,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
                     <h3>Payment info</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
                         <Controller
                             control={control}
                             name="paymentStatus"
@@ -408,7 +408,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
                     <h3>User</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
                         <Controller
                             control={control}
                             name="userId"
@@ -443,7 +443,7 @@ export default function CreateEditShipment({ id, shipment, className }: IndexPro
 
                     <Button
                         type="submit"
-                        className="!px-14 !py-[.6rem] bg-gray-900 hover:bg-gray-800 text-white"
+                        className="!px-14 !py-[.6rem] flex-1 mx-auto md:mx-0 flex sm:justify-center md:justify-start bg-gray-900 hover:bg-gray-800 text-white"
                         isLoading={isLoading}
                         disabled={isLoading}
                     >

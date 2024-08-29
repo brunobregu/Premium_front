@@ -11,8 +11,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
-import { shipmentData as fakeShipmentData } from '@/app/shared/logistics/shipment/create-edit/form-utils';
 
 interface IndexProps {
     id?: string;
@@ -111,10 +109,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         setValue
     } = methods;
 
-    // const query = useQuery({
-    //     queryKey: ['user'],
-    //     queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
-    // });
 
     const orderDetailsQuery = useQuery({
         queryKey: ['orderDetails', id],
@@ -147,14 +141,8 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
         },
     });
 
-    // const userOptions = query.data?.data?.map((user: any) => ({
-    //     label: user.firstName + ' ' + user.lastName,
-    //     value: user.id,
-    // })) ?? [];
+    const link = orderDetailsQuery.data?.data.provider;
 
-    // const handleModalSuccess = () => {
-    //     query.refetch(); // Refetch users after creating a new one
-    // };
 
     return (
         <div className="@container">
@@ -162,7 +150,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <h3>Vehicle</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="VIN"
                             placeholder="vin"
@@ -200,7 +188,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3>Shipment details</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Lot"
                             placeholder="lot"
@@ -210,14 +198,6 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                             error={errors.lot?.message as string}
                             disabled={true}
                         />
-                        {/* <Input
-                            label="Order ID"
-                            placeholder="order id"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('dspOrderID')}
-                            error={errors.orderID?.message as string}
-                            disabled={true}
-                        /> */}
                         <Input
                             label="Auction"
                             placeholder="auction"
@@ -279,34 +259,18 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                         <Button
                             className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
                             onClick={() => {
-                                window.open('https://msc.com', '_blank');
+                                window.open(link, '_blank');
                             }}
                         >
                             Tracking URL
                         </Button>
 
-                        {/* <Input
-                            label="Images"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        /> */}
                         <Button
                             className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
                             onClick={handleImageClick}
                         >
                             View Images
                         </Button>
-                        {/* <Input
-                            label="Documents"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        /> */}
                         <Button
                             className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
                             onClick={handleDocumentClick}
@@ -317,7 +281,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3>Client Total</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Inland Price"
                             placeholder="inland price"
@@ -358,7 +322,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3 className='w-full'>Payment info</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Controller
                             control={control}
                             name="paymentStatus"

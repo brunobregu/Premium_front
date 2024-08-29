@@ -121,7 +121,7 @@ setValidation('')
                 </p>
                 <div className="form-trackparcel wow animate__animated animate__fadeIn">
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group flex md:flex-row space-y-4 md:space-y-0 md:space-x-4" >
+                  <div className='responsive-div'>
                       <input
                         className="form-control"
                         type="text"

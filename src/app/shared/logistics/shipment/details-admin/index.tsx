@@ -102,7 +102,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
 
     const orderDetailsQuery = useQuery({
-        queryKey: ['orderDetails', id, storedLang],
+        queryKey: ['orderDetails'],
         queryFn: () => premiumApi.get(`${storedLang}/OrderDetails/adminOrderDetailsById?id=${id}`),
         enabled: !!id,
     });
@@ -146,7 +146,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
     };
 
     const createdOn = orderDetailsQuery.data?.data.createdOn;
-    const updatedOn = orderDetailsQuery.data?.data.updatedBy;
+    const updatedOn = orderDetailsQuery.data?.data.updatedOn;
     const formattedCreatedOn = createdOn ? formatDate(createdOn) : '';
     const formattedUpdatedOn = updatedOn ? formatDate(updatedOn) : '';
 
@@ -156,7 +156,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <h3>Order Details</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Created By"
                             placeholder="Not avaible"
@@ -190,7 +190,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3>Vehicle</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="VIN"
                             placeholder="vin"
@@ -227,7 +227,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3>Shipment details</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Lot"
                             placeholder="lot"
@@ -301,7 +301,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3>Client Total</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Client Total"
                             placeholder="Not avaible"
@@ -346,7 +346,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3>Total Cost</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Total Cost"
                             placeholder="Total cost"
@@ -392,7 +392,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3 className='w-full'>Payment info</h3>
                     <hr />
-                    <div className="mb-4 mt-4  grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Payment Status"
                             placeholder="100"
@@ -422,7 +422,7 @@ export default function ViewShipment({ id, shipment, className, isViewOnly }: In
 
                     <h3 className='w-full mt-4'>User</h3>
                     <hr />
-                    <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+                    <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Input
                             label="Client"
                             placeholder="fullName"

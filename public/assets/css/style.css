@@ -8599,3 +8599,17 @@ html {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* styles.scss */
+.responsive-div {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 600px) {
+  .responsive-div {
+    flex-direction: column;
+
+  }
+ 
+}
