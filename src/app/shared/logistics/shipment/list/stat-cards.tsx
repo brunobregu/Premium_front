@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import cn from '@utils/class-names';
 import MetricCard from '@components/cards/metric-card';
 import WidgetCard from '@components/cards/widget-card';
@@ -9,7 +8,6 @@ import RevenueUpIcon from '@components/icons/revenue-up';
 import SalesIcon from '@components/icons/sales';
 import ContainersIcon from '@components/icons/containers';
 import SimpleBar from '@ui/simplebar';
-import DropdownAction from '@components/charts/dropdown-action';
 import TrendingUpIcon from '@components/icons/trending-up';
 import TrendingDownIcon from '@components/icons/trending-down';
 import premiumApi from '@/util/premiumAPI';
@@ -55,11 +53,6 @@ const defaultStatData: StatData[] = [
     decreased: true,
   },
 ];
-
-// const viewOptions = [
-//   { value: 'today', label: 'Today' },
-//   { value: 'this-week', label: 'This Week' },
-// ];
 
 const fetchStatData = async (userId: string) => {
   const endpoint = userId
@@ -127,25 +120,24 @@ export default function Details({ className }: { className?: string }) {
     },
   });
 
-  function handleChange(viewType: string) {
-  }
-
-
-  if (isLoading || error) return <div className="grid grid-flow-col gap-5 pb-1">
-    {defaultStatData?.map((stat) => (
-      <MetricCard
-        key={stat.id}
-        title={stat.title}
-        metric={stat.metric}
-        icon={stat.icon}
-        className="min-w-[240px] border-0 p-1 @2xl:min-w-[280px] lg:p-1"
-        titleClassName="capitalize"
-        contentClassName="ps-5"
-        iconClassName={cn('@5xl:w-20 @5xl:h-20 h-16 w-16')}
-        chartClassName="hidden @[200px]:flex @[200px]:items-center h-14 w-24"
-      />
-    ))}
-  </div>;
+  if (isLoading || error)
+    return (
+      <div className="grid grid-flow-col gap-5 pb-1">
+        {defaultStatData?.map((stat) => (
+          <MetricCard
+            key={stat.id}
+            title={stat.title}
+            metric={stat.metric}
+            icon={stat.icon}
+            className="min-w-[240px] border-0 p-1 @2xl:min-w-[280px] lg:p-1"
+            titleClassName="capitalize"
+            contentClassName="ps-5"
+            iconClassName={cn('@5xl:w-20 @5xl:h-20 h-16 w-16')}
+            chartClassName="hidden @[200px]:flex @[200px]:items-center h-14 w-24"
+          />
+        ))}
+      </div>
+    );
 
   return (
     <WidgetCard
@@ -153,13 +145,6 @@ export default function Details({ className }: { className?: string }) {
       className={className}
       title="General Overview"
       headerClassName="mb-2 @2xl:mb-5"
-    // action={
-    //   <DropdownAction
-    //     options={viewOptions}
-    //     onChange={handleChange}
-    //     dropdownClassName="!z-0"
-    //   />
-    // }
     >
       <SimpleBar>
         <div className="grid grid-flow-col gap-5 pb-1">

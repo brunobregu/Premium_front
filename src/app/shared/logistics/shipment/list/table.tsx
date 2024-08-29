@@ -1,36 +1,18 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { PiTrashDuotone } from 'react-icons/pi';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Text, Badge } from 'rizzui';
-import {
-  getColumns,
-  statusColors,
-} from '@/app/shared/logistics/shipment/list/columns';
+import { getColumns } from '@/app/shared/logistics/shipment/list/columns';
 import ControlledTable from '@/app/shared/controlled-table/index';
-import DateFiled from '@/app/shared/controlled-table/date-field';
 import { useMedia } from '@hooks/use-media';
 import { useTable } from '@hooks/use-table';
-import { getDateRangeStateValues } from '@utils/get-formatted-date';
-import StatusField from '@/app/shared/controlled-table/status-field';
 import { useColumn } from '@hooks/use-column';
-import {
-  shipmentData,
-  paymentMethods,
-  shippingStatuses,
-  StatusType,
-} from '@/data/shipment-data';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
-import { ShipmentData, ShipmentDataAdmin } from '@/types/orders';
+import { ShipmentData } from '@/types/orders';
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '../../../../../components/modals/DeleteOrderModal';
 import { useFiltersContext } from '@/store/state';
-
-const TableFooter = dynamic(() => import('@/app/shared/table-footer'), {
-  ssr: false,
-});
 
 const transformData = (data: ShipmentData[]): ShipmentData[] => {
   return data.map((item: ShipmentData) => {
@@ -41,23 +23,22 @@ const transformData = (data: ShipmentData[]): ShipmentData[] => {
   });
 };
 
-
 export default function OrderList() {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
-  const user = localStorage.getItem('userRole');
   const queryClient = useQueryClient();
-  const isMediumScreen = useMedia('(max-width: 1860px)', false);
-  const isLargeScreen = useMedia('(min-width: 1861px)', false);
-  const { userId, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext();
-
+  const { userId, setCurrentPage, currentPage, pageSize, setTotalRecords } =
+    useFiltersContext();
 
   const query = useQuery({
     queryKey: ['shipments', userId],
     queryFn: () => {
-
-      return premiumApi.get(userId.length > 0 ? `en/OrderDetails/ordersByClient?userId=${userId}` : '/en/OrderDetails/orders');
+      return premiumApi.get(
+        userId.length > 0
+          ? `en/OrderDetails/ordersByClient?userId=${userId}`
+          : '/en/OrderDetails/orders'
+      );
     },
     select: (data) => transformData(data.data),
   });
@@ -93,16 +74,20 @@ export default function OrderList() {
     }
   }, [pageSize, filteredData.length, setCurrentPage]);
 
-
-  const handleDelete = useCallback(async (id: string) => {
-    try {
-      await premiumApi.delete(`/en/OrderDetails/delete?id=${id}`);
-      queryClient.invalidateQueries({ queryKey: ['shipments'] });
-      queryClient.invalidateQueries({ queryKey: ['details'] });
-    } catch (error: any) {
-      toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
-    }
-  }, [queryClient]);
+  const handleDelete = useCallback(
+    async (id: string) => {
+      try {
+        await premiumApi.delete(`/en/OrderDetails/delete?id=${id}`);
+        queryClient.invalidateQueries({ queryKey: ['shipments'] });
+        queryClient.invalidateQueries({ queryKey: ['details'] });
+      } catch (error: any) {
+        toast.error(error.response?.data?.detail || 'Error, try againg', {
+          position: 'top-right',
+        });
+      }
+    },
+    [queryClient]
+  );
 
   const openModal = (id: string) => {
     setCurrentDeleteId(id);
@@ -132,21 +117,14 @@ export default function OrderList() {
   };
 
   const {
-    isLoading,
     isFiltered,
-    tableData,
-    totalItems,
     handlePaginate,
-    filters,
-    updateFilter,
     searchTerm,
     handleSearch,
     sortConfig,
     handleSort,
-    handleReset,
     handleSelectAll,
     handleRowSelect,
-    setSelectedRowKeys,
     selectedRowKeys,
   } = useTable(paginatedData, pageSize);
 
@@ -160,7 +138,7 @@ export default function OrderList() {
         onChecked: handleRowSelect,
         handleSelectAll,
         handleDelete: openModal,
-        userId: userId
+        userId: userId,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]

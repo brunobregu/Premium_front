@@ -1,20 +1,14 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import {
-  getColumns,
-} from '@/app/shared/logistics/shipment/my-list/columns';
+import { getColumns } from '@/app/shared/logistics/shipment/my-list/columns';
 import ControlledTable from '@/app/shared/controlled-table/index';
 import { useTable } from '@hooks/use-table';
 import { useColumn } from '@hooks/use-column';
-import {
-  shipmentData,
-} from '@/data/shipment-data';
 import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { MyOrders } from '@/types/my-orders';
 import { useFiltersContext } from '@/store/state';
-
 
 const transformData = (data: MyOrders[]): MyOrders[] => {
   return data.map((item: MyOrders) => {
@@ -25,15 +19,17 @@ const transformData = (data: MyOrders[]): MyOrders[] => {
   });
 };
 
-
 export default function MyOrdersList() {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
-  const { searchInput, setCurrentPage, currentPage, pageSize, setTotalRecords } = useFiltersContext()
-
-
-
+  const {
+    searchInput,
+    setCurrentPage,
+    currentPage,
+    pageSize,
+    setTotalRecords,
+  } = useFiltersContext();
 
   const query = useQuery({
     queryKey: ['shipments'],
@@ -51,7 +47,8 @@ export default function MyOrdersList() {
       return (
         item.make.toLowerCase().includes(searchInput.toLowerCase()) ||
         item.model.toLowerCase().includes(searchInput.toLowerCase()) ||
-        (item.trackingNumber && item.trackingNumber.toLowerCase().includes(searchInput.toLowerCase()))
+        (item.trackingNumber &&
+          item.trackingNumber.toLowerCase().includes(searchInput.toLowerCase()))
       );
     });
 
@@ -100,7 +97,6 @@ export default function MyOrdersList() {
 
   const {
     isFiltered,
-    handlePaginate,
     searchTerm,
     handleSearch,
     sortConfig,

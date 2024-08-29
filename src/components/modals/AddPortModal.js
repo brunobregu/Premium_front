@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -28,7 +27,12 @@ const createPortSchema = yup.object().shape({
 });
 
 export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
     resolver: yupResolver(createPortSchema),
   });
 
@@ -38,14 +42,15 @@ export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
       return premiumApi.post('en/Port/add', data); // Adjusted API endpoint
     },
     onSuccess: () => {
-      toast.success('Port Created Successfully', { position: "top-right" });
+      toast.success('Port Created Successfully', { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.detail || 'Error creating port';
-      toast.error(errorMessage, { position: "top-right" });
+      const errorMessage =
+        error.response?.data?.detail || 'Error creating port';
+      toast.error(errorMessage, { position: 'top-right' });
     },
   });
 
@@ -59,8 +64,13 @@ export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={handleClose} style={modalStyles} ariaHideApp={false}>
-      <h2 className='mb-8'>Create New Port</h2>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={handleClose}
+      style={modalStyles}
+      ariaHideApp={false}
+    >
+      <h2 className="mb-8">Create New Port</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
@@ -70,9 +80,17 @@ export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
             error={errors.name?.message}
           />
         </div>
-        <div className='flex justify-between w-full gap-4'>
-          <Button type="submit" className='flex-1' isLoading={createPortMutation.isLoading}>Save</Button>
-          <Button type="button" className='flex-1' onClick={handleClose}>Cancel</Button>
+        <div className="flex w-full justify-between gap-4">
+          <Button
+            type="submit"
+            className="flex-1"
+            isLoading={createPortMutation.isLoading}
+          >
+            Save
+          </Button>
+          <Button type="button" className="flex-1" onClick={handleClose}>
+            Cancel
+          </Button>
         </div>
       </form>
     </Modal>

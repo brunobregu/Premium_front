@@ -2,29 +2,25 @@ import React from 'react';
 import Modal from 'react-modal';
 import { Button, Text } from 'rizzui';
 
-const ConfirmDeleteModal = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  itemId,
-}) => {
+const ConfirmDeleteModal = ({ isOpen, onClose, onConfirm, itemId }) => {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Confirm Deletion"
-      ariaHideApp={false} 
+      ariaHideApp={false}
       style={modalStyles}
-
     >
       <div className="modal-header">
-        <Text className='font-bold'>Confirm Deletion</Text>
+        <Text className="font-bold">Confirm Deletion</Text>
       </div>
       <div className="modal-body">
         <Text>Are you sure you want to delete this item ?</Text>
       </div>
-      <div className="modal-footer flex justify-between mt-4">
-        <Button onClick={onClose} variant="outline">Cancel</Button>
+      <div className="modal-footer mt-4 flex justify-between">
+        <Button onClick={onClose} variant="outline">
+          Cancel
+        </Button>
         <Button
           onClick={() => {
             onConfirm();
@@ -38,7 +34,6 @@ const ConfirmDeleteModal = ({
     </Modal>
   );
 };
-
 
 const modalStyles = {
     content: {

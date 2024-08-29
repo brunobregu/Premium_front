@@ -1,6 +1,5 @@
 import { HeaderCell } from '@/app/shared/table';
 import { Tooltip, ActionIcon } from 'rizzui';
-import { shippingStatuses, StatusType } from '@/data/shipment-data';
 import Link from 'next/link';
 import { routes } from '@/config/routes';
 import PencilIcon from '@components/icons/pencil';
@@ -23,60 +22,42 @@ export interface RecordType {
   fullname: string;
 }
 
-export const statusColors = (status: StatusType) => {
-  switch (status) {
-    case shippingStatuses.Approved:
-      return 'primary';
-    case shippingStatuses.InTransit:
-      return 'secondary';
-    case shippingStatuses.OutForDelivery:
-      return 'info';
-    case shippingStatuses.Delivered:
-      return 'success';
-    case shippingStatuses.DeliveryFailed:
-      return 'danger';
-    default:
-      return '';
-  }
-};
-
 export const getColumns = ({
-  data,
   sortConfig,
-  checkedItems,
   onHeaderCellClick,
-  handleSelectAll,
-  onChecked,
   handleDelete,
-  userId
+  userId,
 }: any) => {
-
   const columns = [
     ...(userId.length > 0
       ? []
       : [
-        {
-          title: (
-            <HeaderCell
-              title="Full Name"
-              sortable
-              ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'fullname'}
-            />
-          ),
-          onHeaderCell: () => onHeaderCellClick('fullname'),
-          dataIndex: 'fullname',
-          key: 'fullname',
-          width: 300,
-          render: (fullname: string) => fullname,
-        }
-      ]
-    ),
+          {
+            title: (
+              <HeaderCell
+                title="Full Name"
+                sortable
+                ascending={
+                  sortConfig?.direction === 'asc' &&
+                  sortConfig?.key === 'fullname'
+                }
+              />
+            ),
+            onHeaderCell: () => onHeaderCellClick('fullname'),
+            dataIndex: 'fullname',
+            key: 'fullname',
+            width: 300,
+            render: (fullname: string) => fullname,
+          },
+        ]),
     {
       title: (
         <HeaderCell
           title="VIN"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'vin'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'vin'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('vin'),
@@ -90,7 +71,9 @@ export const getColumns = ({
         <HeaderCell
           title="Make"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'make'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'make'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('make'),
@@ -104,7 +87,9 @@ export const getColumns = ({
         <HeaderCell
           title="Model"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'model'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'model'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('model'),
@@ -118,7 +103,9 @@ export const getColumns = ({
         <HeaderCell
           title="Year"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'year'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'year'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('year'),
@@ -132,7 +119,9 @@ export const getColumns = ({
         <HeaderCell
           title="Lot"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'lot'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'lot'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('lot'),
@@ -146,7 +135,9 @@ export const getColumns = ({
         <HeaderCell
           title="Order Id"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'orderID'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'orderID'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('orderID'),
@@ -160,7 +151,9 @@ export const getColumns = ({
         <HeaderCell
           title="Auction"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'auction'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'auction'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('auction'),
@@ -174,7 +167,10 @@ export const getColumns = ({
         <HeaderCell
           title="Tracking Number"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'trackingNumber'}
+          ascending={
+            sortConfig?.direction === 'asc' &&
+            sortConfig?.key === 'trackingNumber'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('trackingNumber'),
@@ -188,7 +184,10 @@ export const getColumns = ({
         <HeaderCell
           title="Payment Status"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'paymentStatus'}
+          ascending={
+            sortConfig?.direction === 'asc' &&
+            sortConfig?.key === 'paymentStatus'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('paymentStatus'),
@@ -202,7 +201,9 @@ export const getColumns = ({
         <HeaderCell
           title="Car Status"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'carStatus'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'carStatus'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('carStatus'),
@@ -216,7 +217,9 @@ export const getColumns = ({
         <HeaderCell
           title="Port"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'port'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'port'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('port'),
@@ -230,7 +233,9 @@ export const getColumns = ({
         <HeaderCell
           title="Client Total"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'clientTotal'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'clientTotal'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('clientTotal'),
@@ -244,7 +249,9 @@ export const getColumns = ({
         <HeaderCell
           title="Total Cost"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('totalCost'),
@@ -258,7 +265,9 @@ export const getColumns = ({
         <HeaderCell
           title="Profit"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'profit'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'profit'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('profit'),
@@ -274,21 +283,44 @@ export const getColumns = ({
       width: 120,
       render: (text: any, record: RecordType) => (
         <div className="flex items-center justify-end gap-3 pe-4">
-          <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
+          <Tooltip
+            size="sm"
+            content={'Detail Shipment'}
+            placement="top"
+            color="invert"
+          >
             <Link href={routes.logistics.detailShipmentAdmin(record?.id)}>
-              <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
+              <ActionIcon
+                size="sm"
+                variant="outline"
+                aria-label={'Detail Shipment'}
+              >
                 <EyeIcon className="h-4 w-4" />
               </ActionIcon>
             </Link>
           </Tooltip>
-          <Tooltip size="sm" content={'Edit Shipment'} placement="top" color="invert">
+          <Tooltip
+            size="sm"
+            content={'Edit Shipment'}
+            placement="top"
+            color="invert"
+          >
             <Link href={routes.logistics.editShipment(record?.id)}>
-              <ActionIcon size="sm" variant="outline" aria-label={'Edit Shipment'}>
+              <ActionIcon
+                size="sm"
+                variant="outline"
+                aria-label={'Edit Shipment'}
+              >
                 <PencilIcon className="h-4 w-4" />
               </ActionIcon>
             </Link>
           </Tooltip>
-          <Tooltip size="sm" content={'Delete Shipment'} placement="top" color="invert">
+          <Tooltip
+            size="sm"
+            content={'Delete Shipment'}
+            placement="top"
+            color="invert"
+          >
             <ActionIcon
               size="sm"
               variant="outline"
