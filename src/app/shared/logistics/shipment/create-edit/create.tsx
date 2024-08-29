@@ -364,6 +364,14 @@ export default function CreateEditShipment({
               {...register('clientStorage', { valueAsNumber: true })}
               error={errors.clientStorage?.message as string}
             />
+            <Input
+              label="Car Price"
+              placeholder="car price"
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('carPrice', { valueAsNumber: true })}
+              error={errors.carPrice?.message as string}
+            />
           </div>
 
           <h3>Total Cost</h3>
