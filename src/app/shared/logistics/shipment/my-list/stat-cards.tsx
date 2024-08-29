@@ -55,11 +55,6 @@ const defaultStatData: StatData[] = [
   },
 ];
 
-// const viewOptions = [
-//   { value: 'today', label: 'Today' },
-//   { value: 'this-week', label: 'This Week' },
-// ];
-
 const fetchStatData = async (user: string) => {
   const endpoint = 'en/OrderDetails/myDetails';
   // ? '/OrderDetails/details'
@@ -124,25 +119,24 @@ export default function MyDetails({ className }: { className?: string }) {
     },
   });
 
-  function handleChange(viewType: string) {
-  }
-
-
-  if (isLoading || error) return <div className="grid grid-flow-col gap-5 pb-1">
-    {defaultStatData?.map((stat) => (
-      <MetricCard
-        key={stat.id}
-        title={stat.title}
-        metric={stat.metric}
-        icon={stat.icon}
-        className="min-w-[240px] border-0 p-1 @2xl:min-w-[280px] lg:p-1"
-        titleClassName="capitalize"
-        contentClassName="ps-5"
-        iconClassName={cn('@5xl:w-20 @5xl:h-20 h-16 w-16')}
-        chartClassName="hidden @[200px]:flex @[200px]:items-center h-14 w-24"
-      />
-    ))}
-  </div>;
+  if (isLoading || error)
+    return (
+      <div className="grid grid-flow-col gap-5 pb-1">
+        {defaultStatData?.map((stat) => (
+          <MetricCard
+            key={stat.id}
+            title={stat.title}
+            metric={stat.metric}
+            icon={stat.icon}
+            className="min-w-[240px] border-0 p-1 @2xl:min-w-[280px] lg:p-1"
+            titleClassName="capitalize"
+            contentClassName="ps-5"
+            iconClassName={cn('@5xl:w-20 @5xl:h-20 h-16 w-16')}
+            chartClassName="hidden @[200px]:flex @[200px]:items-center h-14 w-24"
+          />
+        ))}
+      </div>
+    );
 
   return (
     <WidgetCard
@@ -150,13 +144,6 @@ export default function MyDetails({ className }: { className?: string }) {
       className={className}
       title="General Overview"
       headerClassName="mb-2 @2xl:mb-5"
-    // action={
-    //   <DropdownAction
-    //     options={viewOptions}
-    //     onChange={handleChange}
-    //     dropdownClassName="!z-0"
-    //   />
-    // }
     >
       <SimpleBar>
         <div className="grid grid-flow-col gap-5 pb-1">

@@ -3,9 +3,7 @@ import { Tooltip, ActionIcon } from 'rizzui';
 import { shippingStatuses, StatusType } from '@/data/shipment-data';
 import Link from 'next/link';
 import { routes } from '@/config/routes';
-import PencilIcon from '@components/icons/pencil';
 import EyeIcon from '@components/icons/eye';
-import TrashIcon from '@components/icons/trash';
 
 export interface RecordType {
   id: string;
@@ -20,26 +18,7 @@ export interface RecordType {
   port: string;
   clientTotal: number;
   paymentStatus: string;
-};
-
-
-export const statusColors = (status: StatusType) => {
-  if (shippingStatuses.Approved === status) {
-    return 'primary';
-  }
-  if (shippingStatuses.InTransit === status) {
-    return 'secondary';
-  }
-  if (shippingStatuses.OutForDelivery === status) {
-    return 'info';
-  }
-  if (shippingStatuses.Delivered === status) {
-    return 'success';
-  }
-  if (shippingStatuses.DeliveryFailed === status) {
-    return 'danger';
-  }
-};
+}
 
 export const getColumns = ({
   data,
@@ -56,7 +35,9 @@ export const getColumns = ({
         <HeaderCell
           title="VIN"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'vin'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'vin'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('vin'),
@@ -70,7 +51,9 @@ export const getColumns = ({
         <HeaderCell
           title="Make"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'make'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'make'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('make'),
@@ -84,7 +67,9 @@ export const getColumns = ({
         <HeaderCell
           title="Model"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'model'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'model'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('model'),
@@ -98,7 +83,9 @@ export const getColumns = ({
         <HeaderCell
           title="Year"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'year'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'year'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('year'),
@@ -112,7 +99,9 @@ export const getColumns = ({
         <HeaderCell
           title="Lot"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'lot'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'lot'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('lot'),
@@ -126,7 +115,9 @@ export const getColumns = ({
         <HeaderCell
           title="Port"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'port'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'port'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('port'),
@@ -140,7 +131,9 @@ export const getColumns = ({
         <HeaderCell
           title="Auction"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'auction'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'auction'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('auction'),
@@ -154,7 +147,10 @@ export const getColumns = ({
         <HeaderCell
           title="Payment Status"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'paymentStatus'}
+          ascending={
+            sortConfig?.direction === 'asc' &&
+            sortConfig?.key === 'paymentStatus'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('paymentStatus'),
@@ -168,7 +164,9 @@ export const getColumns = ({
         <HeaderCell
           title="Car Status"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'carStatus'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'carStatus'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('carStatus'),
@@ -182,7 +180,10 @@ export const getColumns = ({
         <HeaderCell
           title="Tracking Number"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'trackingNumber'}
+          ascending={
+            sortConfig?.direction === 'asc' &&
+            sortConfig?.key === 'trackingNumber'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('trackingNumber'),
@@ -196,7 +197,9 @@ export const getColumns = ({
         <HeaderCell
           title="Client Total"
           sortable
-          ascending={sortConfig?.direction === 'asc' && sortConfig?.key === 'clientTotal'}
+          ascending={
+            sortConfig?.direction === 'asc' && sortConfig?.key === 'clientTotal'
+          }
         />
       ),
       onHeaderCell: () => onHeaderCellClick('clientTotal'),
@@ -206,16 +209,27 @@ export const getColumns = ({
       render: (clientTotal: any) => clientTotal,
     },
     {
-      title: <HeaderCell title="Actions" className="text-gray-900 font-medium" />,
+      title: (
+        <HeaderCell title="Actions" className="font-medium text-gray-900" />
+      ),
       dataIndex: 'action',
       key: 'action',
       width: 120,
       render: (text: any, record: RecordType) => {
         return (
           <div className="flex items-center justify-start gap-3 pe-4">
-            <Tooltip size="sm" content={'Detail Shipment'} placement="top" color="invert">
+            <Tooltip
+              size="sm"
+              content={'Detail Shipment'}
+              placement="top"
+              color="invert"
+            >
               <Link href={routes.logistics.detailShipment(record.id)}>
-                <ActionIcon size="sm" variant="outline" aria-label={'Detail Shipment'}>
+                <ActionIcon
+                  size="sm"
+                  variant="outline"
+                  aria-label={'Detail Shipment'}
+                >
                   <EyeIcon className="h-4 w-4" />
                 </ActionIcon>
               </Link>
@@ -223,8 +237,8 @@ export const getColumns = ({
           </div>
         );
       },
-      onHeaderCell: () => ({})
-    }
+      onHeaderCell: () => ({}),
+    },
   ];
 
   return columns;

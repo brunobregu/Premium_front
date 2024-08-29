@@ -41,7 +41,7 @@ export default function FormNav({ className }: FormNavProps) {
   return (
     <div
       className={cn(
-        'sticky top-[68px] z-20 border-b border-gray-300 bg-white py-0 font-medium text-gray-500 @2xl:top-[72px] 2xl:top-20 dark:bg-gray-50',
+        'sticky top-[68px] z-20 border-b border-gray-300 bg-white py-0 font-medium text-gray-500 @2xl:top-[72px] dark:bg-gray-50 2xl:top-20',
         className
       )}
     >

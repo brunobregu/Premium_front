@@ -1,27 +1,32 @@
 import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 
-const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }) => {
-     const {  i18n } = useTranslation();
-    const capitalizeFirstLetter = (string) => {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    };
-    
+const TransportModal = ({
+  isOpen,
+  onRequestClose,
+  zipCode,
+  destination,
+  prices,
+}) => {
+  const { i18n } = useTranslation();
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
-    <Modal
-      isOpen={isOpen}
-      style={customStyles}
-      onRequestClose={onRequestClose}
-    >
+    <Modal isOpen={isOpen} style={customStyles} onRequestClose={onRequestClose}>
       <h4>{i18n.t('car-shipping-calculator')}</h4>
-      <div className="form-group" style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        className="form-group"
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
         <input
           className="form-control"
           type="text"
           value={zipCode}
           readOnly
           disabled
-          style={{ width: "49%" }}
+          style={{ width: '49%' }}
         />
         <input
           className="form-control"
@@ -29,53 +34,60 @@ const TransportModal = ({ isOpen, onRequestClose, zipCode, destination, prices }
           value={destination}
           readOnly
           disabled
-          style={{ width: "49%" }}
+          style={{ width: '49%' }}
         />
       </div>
       {prices && (
         <table style={tableStyles}>
-       <thead>
-  <tr>
-    <th style={headerStyles}></th>
-    {Object.keys(prices).map((key) => (
-      <th key={key} style={headerStyles}>{capitalizeFirstLetter(key)}</th>
-    ))}
-  </tr>
-</thead>
+          <thead>
+            <tr>
+              <th style={headerStyles}></th>
+              {Object.keys(prices).map((key) => (
+                <th key={key} style={headerStyles}>
+                  {capitalizeFirstLetter(key)}
+                </th>
+              ))}
+            </tr>
+          </thead>
           <tbody>
             <tr>
               <td style={headerStyles}>Land</td>
               {Object.keys(prices).map((key) => (
-                <td key={key} style={cellStyles}>{prices[key].land + ' $'}</td>
+                <td key={key} style={cellStyles}>
+                  {prices[key].land + ' $'}
+                </td>
               ))}
             </tr>
             <tr>
               <td style={headerStyles}>Ocean</td>
               {Object.keys(prices).map((key) => (
-                <td key={key} style={cellStyles}>{prices[key].ocean + ' $'}</td>
+                <td key={key} style={cellStyles}>
+                  {prices[key].ocean + ' $'}
+                </td>
               ))}
             </tr>
             <tr>
               <td style={headerStyles}>Total Cost</td>
               {Object.keys(prices).map((key) => (
-                <td key={key} style={ {...cellStyles,backgroundColor:"#a8e3e9"}}>{prices[key].total + ' $'}</td>
+                <td
+                  key={key}
+                  style={{ ...cellStyles, backgroundColor: '#a8e3e9' }}
+                >
+                  {prices[key].total + ' $'}
+                </td>
               ))}
             </tr>
           </tbody>
         </table>
       )}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button
-          className="btn btn-brand-1 btn-track"
-          onClick={onRequestClose}
-        >
+        <button className="btn btn-brand-1 btn-track" onClick={onRequestClose}>
           Close
         </button>
       </div>
     </Modal>
   );
 };
-
 
 const customStyles = {
   content: {
@@ -96,23 +108,22 @@ const customStyles = {
   },
 };
 
-  
-  const tableStyles = {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginBottom: '40px',
-  };
-  
-  const cellStyles = {
-    border: '1px solid #ddd',
-    padding: '8px',
-    textAlign: 'left',
-  };
-  
-  const headerStyles = {
-    ...cellStyles,
-    backgroundColor: '#f2f2f2',
-    fontWeight: 'bold',
-  };
+const tableStyles = {
+  width: '100%',
+  borderCollapse: 'collapse',
+  marginBottom: '40px',
+};
+
+const cellStyles = {
+  border: '1px solid #ddd',
+  padding: '8px',
+  textAlign: 'left',
+};
+
+const headerStyles = {
+  ...cellStyles,
+  backgroundColor: '#f2f2f2',
+  fontWeight: 'bold',
+};
 
 export default TransportModal;

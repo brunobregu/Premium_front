@@ -21,12 +21,24 @@ const modalStyles = {
 };
 
 const createProviderSchema = yup.object().shape({
-  name: yup.string().required('Provider  is required').min(1, 'At least 1 letter'),
+  name: yup
+    .string()
+    .required('Provider  is required')
+    .min(1, 'At least 1 letter'),
   link: yup.string().required('Link is required'),
 });
 
-export default function AddProviderModal({ isOpen, onRequestClose, onSuccess }) {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+export default function AddProviderModal({
+  isOpen,
+  onRequestClose,
+  onSuccess,
+}) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
     resolver: yupResolver(createProviderSchema),
   });
 
@@ -35,14 +47,15 @@ export default function AddProviderModal({ isOpen, onRequestClose, onSuccess }) 
       return premiumApi.post('en/Provider/add', data);
     },
     onSuccess: () => {
-      toast.success('Provider Created Successfully', { position: "top-right" });
+      toast.success('Provider Created Successfully', { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.detail || 'Error creating provider';
-      toast.error(errorMessage, { position: "top-right" });
+      const errorMessage =
+        error.response?.data?.detail || 'Error creating provider';
+      toast.error(errorMessage, { position: 'top-right' });
     },
   });
 
@@ -56,8 +69,13 @@ export default function AddProviderModal({ isOpen, onRequestClose, onSuccess }) 
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={handleClose} style={modalStyles} ariaHideApp={false}>
-      <h2 className='mb-8'>Create New Provider</h2>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={handleClose}
+      style={modalStyles}
+      ariaHideApp={false}
+    >
+      <h2 className="mb-8">Create New Provider</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
@@ -75,9 +93,17 @@ export default function AddProviderModal({ isOpen, onRequestClose, onSuccess }) 
             error={errors.link?.message}
           />
         </div>
-        <div className='flex justify-between w-full gap-4'>
-          <Button type="submit" className='flex-1' isLoading={createProviderMutation.isLoading}>Save</Button>
-          <Button type="button" className='flex-1' onClick={handleClose}>Cancel</Button>
+        <div className="flex w-full justify-between gap-4">
+          <Button
+            type="submit"
+            className="flex-1"
+            isLoading={createProviderMutation.isLoading}
+          >
+            Save
+          </Button>
+          <Button type="button" className="flex-1" onClick={handleClose}>
+            Cancel
+          </Button>
         </div>
       </form>
     </Modal>

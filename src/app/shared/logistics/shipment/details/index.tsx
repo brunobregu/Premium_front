@@ -11,8 +11,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
-import { shipmentData as fakeShipmentData } from '@/app/shared/logistics/shipment/create-edit/form-utils';
 
 interface IndexProps {
   id?: string;
@@ -155,11 +153,6 @@ export default function ViewShipment({
     setValue,
   } = methods;
 
-  // const query = useQuery({
-  //     queryKey: ['user'],
-  //     queryFn: () => premiumApi.get('en/Authentication/getUsersOfRole', { params: { role: 'Client' } }),
-  // });
-
   const orderDetailsQuery = useQuery({
     queryKey: ['orderDetails', id],
     queryFn: () =>
@@ -196,15 +189,6 @@ export default function ViewShipment({
       );
     },
   });
-
-  // const userOptions = query.data?.data?.map((user: any) => ({
-  //     label: user.firstName + ' ' + user.lastName,
-  //     value: user.id,
-  // })) ?? [];
-
-  // const handleModalSuccess = () => {
-  //     query.refetch(); // Refetch users after creating a new one
-  // };
 
   return (
     <div className="@container">
@@ -260,14 +244,6 @@ export default function ViewShipment({
               error={errors.lot?.message as string}
               disabled={true}
             />
-            {/* <Input
-                            label="Order ID"
-                            placeholder="order id"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('dspOrderID')}
-                            error={errors.orderID?.message as string}
-                            disabled={true}
-                        /> */}
             <Input
               label="Auction"
               placeholder="auction"
@@ -335,29 +311,12 @@ export default function ViewShipment({
             >
               Tracking URL
             </Button>
-
-            {/* <Input
-                            label="Images"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        /> */}
             <Button
               className="w-100 mt-6 bg-gray-900 text-white hover:bg-gray-800"
               onClick={handleImageClick}
             >
               View Images
             </Button>
-            {/* <Input
-                            label="Documents"
-                            placeholder="trackingNumber"
-                            labelClassName="font-medium text-gray-900"
-                            {...register('trackingNumber')}
-                            error={errors.auction?.message as string}
-                            disabled={true}
-                        /> */}
             <Button
               className="w-100 mt-6 bg-gray-900 text-white hover:bg-gray-800"
               onClick={handleDocumentClick}

@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { PiMagnifyingGlassBold, PiFunnel, PiXBold } from 'react-icons/pi';
-import { Button, ActionIcon, Input, Title, Select } from 'rizzui';
+import { PiFunnel } from 'react-icons/pi';
+import { Button } from 'rizzui';
 import cn from '@utils/class-names';
 import { useMedia } from '@hooks/use-media';
 import { ToggleColumns } from '@/app/shared/table';
 import { useFiltersContext } from '@/store/state';
-import axios from 'axios';
 
-const Drawer = dynamic(() => import('rizzui').then((module) => module.Drawer), {
-  ssr: false,
-});
 import { FilterDrawerView } from '../my-list/table-filter';
 import premiumApi from '@/util/premiumAPI';
-import { Controller } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 export type TableFilterProps = {
@@ -33,9 +28,6 @@ export type TableFilterProps = {
 };
 
 export default function TableFilter({
-  searchTerm,
-  onSearchClear,
-  onSearchChange,
   columns,
   checkedColumns,
   setCheckedColumns,
@@ -58,23 +50,24 @@ export default function TableFilter({
     // Fetch fullnames and userIds from the API
     const fetchFullnames = async () => {
       try {
-        const response = await premiumApi.get('/en/OrderDetails/clientsWithOrders');
+        const response = await premiumApi.get(
+          '/en/OrderDetails/clientsWithOrders'
+        );
         const data = response.data;
-        const options = data.map((item: { fullname: string; userId: string }) => ({
-          name: item.fullname,
-          id: item.userId,
-        }));
         setFullnameOptions(data);
       } catch (error: any) {
-        toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
+        toast.error(error.response?.data?.detail || 'Error, try againg', {
+          position: 'top-right',
+        });
       }
     };
 
     fetchFullnames();
   }, []);
 
-
-  const handleFullnameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFullnameChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const selected = event.target.value;
     setUserId(selected);
   };
@@ -83,26 +76,32 @@ export default function TableFilter({
     <div className=" mb-4 flex items-center justify-between">
       <div className="flex  items-center gap-4">
         {!showSearchOnTheRight ? (
-          <div className="flex flex-row gap-3 items-center">
-            <p >Select clients</p>
+          <div className="flex flex-row items-center gap-3">
+            <p>Select clients</p>
             <select
-              value={userId || ""}
+              value={userId || ''}
               onChange={handleFullnameChange}
-              className="form-select w-[300px] h-9 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
+              className="form-select h-9 w-[300px] rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
             >
-              <option value={""} className='font-bold'>All clients with orders</option>
-              {(fullnameOptions && fullnameOptions?.length > 0) ? fullnameOptions?.map((item: any) => (
-                <option key={item.userId} value={item.userId}>
-                  {item.fullname.trim()}
-                </option>
-              )) : null}
+              <option value={''} className="font-bold">
+                All clients with orders
+              </option>
+              {fullnameOptions && fullnameOptions?.length > 0
+                ? fullnameOptions?.map((item: any) => (
+                    <option key={item.userId} value={item.userId}>
+                      {item.fullname.trim()}
+                    </option>
+                  ))
+                : null}
             </select>
           </div>
         ) : null}
 
-        {showSearchOnTheRight && enableDrawerFilter ? (
-          menu ? menu : null
-        ) : null}
+        {showSearchOnTheRight && enableDrawerFilter
+          ? menu
+            ? menu
+            : null
+          : null}
 
         {children && (
           <>
@@ -125,24 +124,22 @@ export default function TableFilter({
       <div className="ms-4 flex items-center gap-4">
         {/* Fullname Select */}
 
-
-
         {/* Toggle Filters Button */}
         {children ? (
           <Button
             {...(isMediumScreen || enableDrawerFilter
               ? {
-                onClick: () => {
-                  setOpenDrawer(() => !openDrawer);
-                },
-              }
+                  onClick: () => {
+                    setOpenDrawer(() => !openDrawer);
+                  },
+                }
               : { onClick: () => setShowFilters(() => !showFilters) })}
             variant={'outline'}
             className={cn(
               'me-2.5 h-9 pe-3 ps-2.5',
               !(isMediumScreen || enableDrawerFilter) &&
-              showFilters &&
-              'border-dashed border-gray-700'
+                showFilters &&
+                'border-dashed border-gray-700'
             )}
           >
             <PiFunnel className="me-1.5 h-[18px] w-[18px]" strokeWidth={1.7} />

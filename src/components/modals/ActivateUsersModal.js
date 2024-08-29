@@ -5,19 +5,17 @@ import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI'; // Assuming this is the API helper
 import toast from 'react-hot-toast';
 
-const ActivateUserModal = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  userId,
-}) => {
+const ActivateUserModal = ({ isOpen, onClose, onConfirm, userId }) => {
   // Fetch roles from API
   const { data: roles, isLoading: rolesLoading } = useQuery({
     queryKey: ['roles'],
     queryFn: () => premiumApi.get('en/Authentication/getRoles'),
     select: (response) => response.data,
     onError: (error) => {
-      toast.error(error.response?.data?.detail || 'Error fetching roles, try againg', { position: "top-right" });
+      toast.error(
+        error.response?.data?.detail || 'Error fetching roles, try againg',
+        { position: 'top-right' }
+      );
     },
   });
 
@@ -35,13 +33,13 @@ const ActivateUserModal = ({
     onConfirm(selectedRole, userId); // Pass the selected role and userId
     onClose();
   };
-  
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Activate User"
-      ariaHideApp={false} 
+      ariaHideApp={false}
       style={modalStyles}
     >
       <div className="modal-header">
@@ -52,21 +50,22 @@ const ActivateUserModal = ({
         <div className="mt-4">
           <Select
             label="Role"
-            options={roles?.map(role => ({ value: role.name, label: role.name }))}
-            value={roles?.find(role => role.name === selectedRole)}
+            options={roles?.map((role) => ({
+              value: role.name,
+              label: role.name,
+            }))}
+            value={roles?.find((role) => role.name === selectedRole)}
             onChange={handleRoleChange} // Update here to receive the selected option directly
             isLoading={rolesLoading}
             placeholder="Select a role"
           />
         </div>
       </div>
-      <div className="modal-footer flex justify-between mt-4">
-        <Button onClick={onClose} variant="outline">Cancel</Button>
-        <Button
-          onClick={handleConfirm}
-          color="primary"
-          disabled={rolesLoading}
-        >
+      <div className="modal-footer mt-4 flex justify-between">
+        <Button onClick={onClose} variant="outline">
+          Cancel
+        </Button>
+        <Button onClick={handleConfirm} color="primary" disabled={rolesLoading}>
           Confirm
         </Button>
       </div>

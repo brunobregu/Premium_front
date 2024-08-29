@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,11 +21,19 @@ const modalStyles = {
 };
 
 const createRoleSchema = yup.object().shape({
-  name: yup.string().required('Role name is required').min(1, 'At least 1 letter'),
+  name: yup
+    .string()
+    .required('Role name is required')
+    .min(1, 'At least 1 letter'),
 });
 
 export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
     resolver: yupResolver(createRoleSchema),
   });
 
@@ -35,14 +42,15 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
       return premiumApi.post('en/Authentication/addRole', data);
     },
     onSuccess: () => {
-      toast.success('Role Created Successfully', {position:"top-right"});
+      toast.success('Role Created Successfully', { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.detail || 'Error creating role';
-      toast.error(errorMessage, {position:"top-right"});
+      const errorMessage =
+        error.response?.data?.detail || 'Error creating role';
+      toast.error(errorMessage, { position: 'top-right' });
     },
   });
 
@@ -56,8 +64,13 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={handleClose} style={modalStyles} ariaHideApp={false}>
-      <h2 className='mb-8'>Create New Role</h2>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={handleClose}
+      style={modalStyles}
+      ariaHideApp={false}
+    >
+      <h2 className="mb-8">Create New Role</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
@@ -67,9 +80,17 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
             error={errors.name?.message}
           />
         </div>
-        <div className='flex justify-between w-full gap-4'>
-          <Button type="submit" className='flex-1' isLoading={createRoleMutation.isLoading}>Save</Button>
-          <Button type="button" className='flex-1' onClick={handleClose}>Cancel</Button>
+        <div className="flex w-full justify-between gap-4">
+          <Button
+            type="submit"
+            className="flex-1"
+            isLoading={createRoleMutation.isLoading}
+          >
+            Save
+          </Button>
+          <Button type="button" className="flex-1" onClick={handleClose}>
+            Cancel
+          </Button>
         </div>
       </form>
     </Modal>
