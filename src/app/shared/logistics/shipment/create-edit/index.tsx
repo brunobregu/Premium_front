@@ -176,30 +176,25 @@ export default function CreateEditShipment({
       );
     },
   });
+  const userOptions = query.data?.data?.map((user: any) => ({
+    label: user.firstName + ' ' + user.lastName,
+    value: user.id,
+  })) ?? [];
 
-  const userOptions =
-    query.data?.data?.map((user: any) => ({
-      label: user.firstName + ' ' + user.lastName,
-      value: user.id,
-    })) ?? [];
+  const auctionOptions = auctionQuery.data?.data?.map((item: any) => ({
+    label: item.name,
+    value: item.id,
+  })) ?? [];
 
-  const auctionOptions =
-    auctionQuery.data?.data?.map((item: any) => ({
-      label: item.name,
-      value: item.id,
-    })) ?? [];
+  const portOptions = portQuery.data?.data?.map((item: any) => ({
+    label: item.name,
+    value: item.id,
+  })) ?? [];
 
-  const portOptions =
-    portQuery.data?.data?.map((item: any) => ({
-      label: item.name,
-      value: item.id,
-    })) ?? [];
-
-  const providerOptions =
-    providerQuery.data?.data?.map((item: any) => ({
-      label: item.name,
-      value: item.name,
-    })) ?? [];
+  const providerOptions = providerQuery.data?.data?.map((item: any) => ({
+    label: item.name,
+    value: item.name,
+  })) ?? [];
 
   const handleModalSuccess = () => {
     query.refetch(); // Refetch users after creating a new one
@@ -272,16 +267,10 @@ export default function CreateEditShipment({
                   inPortal={false}
                   value={value || null}
                   onChange={onChange}
-                  options={
-                    auctionOptions.length > 0
-                      ? auctionOptions
-                      : [{ label: 'No data available', value: '' }]
-                  }
-                  getOptionValue={(option) => option.value}
+                  options={auctionOptions.length > 0 ? auctionOptions : [{ label: 'No data available', value: '' }]}
+                  getOptionValue={(option) => option.label}
                   displayValue={(selected) =>
-                    auctionOptions.find(
-                      (c: any) => c.value.toString() === selected
-                    )?.label ?? 'No data available'
+                    auctionOptions.find((c: any) => c.label.toString() === selected)?.label ?? 'No data available'
                   }
                   error={errors?.port?.message as string}
                 />
@@ -299,11 +288,9 @@ export default function CreateEditShipment({
                   value={value || null}
                   onChange={onChange}
                   options={portOptions}
-                  getOptionValue={(option) => option.value}
+                  getOptionValue={(option) => option.label}
                   displayValue={(selected) =>
-                    portOptions.find(
-                      (c: any) => c.value.toString() === selected
-                    )?.label ?? 'No data available'
+                    portOptions.find((c: any) => c.label.toString() === selected)?.label ?? 'No data available'
                   }
                   error={errors?.port?.message as string}
                 />
