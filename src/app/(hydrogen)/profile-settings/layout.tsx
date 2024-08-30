@@ -1,3 +1,5 @@
+"use client"
+
 import { routes } from '@/config/routes';
 import PageHeader from '@/app/shared/page-header';
 import ProfileSettingsNav from '@/app/shared/account-settings/navigation';

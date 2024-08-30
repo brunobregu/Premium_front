@@ -105,22 +105,22 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
   }
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
-  const [locale, setLocale] = useState(i18n.language);
+  // const [locale, setLocale] = useState(i18n.language);
 
   useEffect(() => {
     const storedLang = localStorage.getItem('language');
     if (storedLang && storedLang !== lang) {
       setLang(storedLang);
       i18n.changeLanguage(storedLang);
-      setLocale(storedLang);
+      // setLocale(storedLang);
     }
-  }, [lang, i18n, setLang]);
+  }, [lang]);
 
   function handleLocaleClick(nextLocale: string) {
     localStorage.setItem('language', nextLocale);
     setLang(nextLocale);
     i18n.changeLanguage(nextLocale);
-    setLocale(nextLocale);
+    // setLocale(nextLocale);
   }
   const currentLang = localStorage.getItem('language');
 
@@ -158,7 +158,7 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
         ))}
       </div>
       <div className="border-t border-gray-300 px-6 pb-6 pt-5">
-        {locale === 'sq' ? <Button
+        {lang === 'sq' ? <Button
           className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
           variant="text"
           onClick={() => { handleLocaleClick('en') }}

@@ -292,8 +292,34 @@
   "error": {
     "fetch-roles": "Error fetching roles, try again",
     "select-role": "Please select a role"
-  }
+  },
        
+  "ocean":"Ocean",
+  "land":"Land",
+  "close":"Close",
+  "confirm-delete": {
+    "title": "Confirm Deletion",
+    "content-label": "Confirm Deletion",
+    "body": "Are you sure you want to delete this item?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "upload_photos": "Upload Photos (1-10, Max total size: 5MB):",
+  "car_at_terminal": "Car at terminal, book it",
+  "car_loaded": "Car loaded",
+  "tracking_number": "Tracking Number:",
+  "upload_documents": "Upload Documents (2, Max total size: 5MB):",
+  "photo_count_error": "You must upload at least 1 and no more than 10 photos.",
+  "photo_size_error": "Total size of photos must not exceed 5MB.",
+  "photo_format_error": "Allowed photo formats are: .jpg, .jpeg, .png",
+  "tracking_number_error": "You must insert the tracing number",
+  "document_count_error": "You must upload exactly 2 documents.",
+  "document_format_error": "All documents must be in PDF format.",
+  "document_size_error": "Total size of documents must not exceed 5MB.",
+  "status_changed": "Car status changed",
+  "update_error": "Error updating, try again",
+  "close_modal": "Close Modal",
+  "account-settings":"Account Settings"
   
   
 

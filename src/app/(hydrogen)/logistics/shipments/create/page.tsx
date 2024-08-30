@@ -1,14 +1,11 @@
+"use client"
+
 import { routes } from '@/config/routes';
 import PageHeader from '@/app/shared/page-header';
 import { metaObject } from '@/config/site.config';
 import ImportButton from '@/app/shared/import-button';
 import CreateEditShipment from '@/app/shared/logistics/shipment/create-edit/create';
 import { useTranslation } from 'react-i18next';
-
-export const metadata = {
-  ...metaObject('Create Shipment'),
-};
-
 
 
 export default function CreateShipmentPage() {

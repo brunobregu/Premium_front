@@ -51,7 +51,7 @@ const TransportModal = ({
           </thead>
           <tbody>
             <tr>
-              <td style={headerStyles}>Land</td>
+              <td style={headerStyles}>{i18n.t('land')}</td>
               {Object.keys(prices).map((key) => (
                 <td key={key} style={cellStyles}>
                   {prices[key].land + ' $'}
@@ -59,7 +59,7 @@ const TransportModal = ({
               ))}
             </tr>
             <tr>
-              <td style={headerStyles}>Ocean</td>
+              <td style={headerStyles}>{i18n.t('ocean')}</td>
               {Object.keys(prices).map((key) => (
                 <td key={key} style={cellStyles}>
                   {prices[key].ocean + ' $'}
@@ -67,7 +67,7 @@ const TransportModal = ({
               ))}
             </tr>
             <tr>
-              <td style={headerStyles}>Total Cost</td>
+              <td style={headerStyles}>{i18n.t('total-cost')}</td>
               {Object.keys(prices).map((key) => (
                 <td
                   key={key}
@@ -82,7 +82,7 @@ const TransportModal = ({
       )}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button className="btn btn-brand-1 btn-track" onClick={onRequestClose}>
-          Close
+        {i18n.t('close')}
         </button>
       </div>
     </Modal>

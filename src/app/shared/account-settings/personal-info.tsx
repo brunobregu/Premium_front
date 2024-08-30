@@ -43,10 +43,8 @@ export default function PersonalInfoView() {
         const response = await premiumApi.get('en/User/personalData');
 
         if (response.status === 200) {
-          // Clear the email input
+
           setData(response.data)
-          // Show success toast
-          toast.success(i18n.t('password-reset-link-sent'), { position: "top-right" });
         } else {
 
           toast.error("Error, try again!", { position: "top-right" })

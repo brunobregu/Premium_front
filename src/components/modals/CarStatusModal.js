@@ -2,6 +2,7 @@ import premiumApi from '@/util/premiumAPI';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { Button } from 'rizzui';
 
@@ -32,6 +33,7 @@ const UpdateCarStatusModal = ({
   const [documents, setDocuments] = useState([]);
   const [trackingNumber, setTrackingNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation(); // Add this line
   // const [currentStatus, setCurrentStatus] = useState(carStatus);
 
   const handleFileUpload = (e, setFileState) => {
@@ -52,26 +54,17 @@ const UpdateCarStatusModal = ({
       );
 
       if (photos.length < 1 || photos.length > 10) {
-        // alert("You must upload at least 1 and no more than 10 photos.");
-        toast.error('You must upload at least 1 and no more than 10 photos.', {
-          position: 'top-right',
-        });
+        toast.error(t('photo_count_error'), { position: 'top-right' });
         return;
       }
 
       if (totalSize > 5 * 1024 * 1024) {
-        // alert("Total size of photos must not exceed 5MB.");
-        toast.error('Total size of photos must not exceed 5MB.', {
-          position: 'top-right',
-        });
+        toast.error(t('photo_size_error'), { position: 'top-right' });
         return;
       }
 
       if (!isValidFormat) {
-        // alert("Allowed photo formats are: .jpg, .jpeg, .png");
-        toast.error('Allowed photo formats are: .jpg, .jpeg, .png', {
-          position: 'top-right',
-        });
+        toast.error(t('photo_format_error'), { position: 'top-right' });
         return;
       }
 
@@ -83,16 +76,11 @@ const UpdateCarStatusModal = ({
       formData.append('TrackingNumber', trackingNumber);
 
       if (trackingNumber.length < 3) {
-        toast.error('You must insert the tracing number', {
-          position: 'top-right',
-        });
+        toast.error(t('tracking_number_error'), { position: 'top-right' });
       }
 
       if (documents.length !== 2) {
-        // alert("You must upload exactly 2 documents.");
-        toast.error('You must upload exactly 2 documents.', {
-          position: 'top-right',
-        });
+        toast.error(t('document_count_error'), { position: 'top-right' });
         return;
       }
 
@@ -101,18 +89,13 @@ const UpdateCarStatusModal = ({
       );
 
       if (!areDocumentsPdf) {
-        toast.error('All documents must be in PDF format.', {
-          position: 'top-right',
-        });
+        toast.error(t('document_format_error'), { position: 'top-right' });
         return;
       }
 
       const totalSize = documents.reduce((acc, file) => acc + file.size, 0);
       if (totalSize > 5 * 1024 * 1024) {
-        // alert("Total size of documents must not exceed 5MB.");
-        toast.error('Total size of documents must not exceed 5MB.', {
-          position: 'top-right',
-        });
+        toast.error(t('document_size_error'), { position: 'top-right' });
         return;
       }
 
@@ -120,8 +103,7 @@ const UpdateCarStatusModal = ({
         formData.append('Documents', doc);
       });
     } else if (currentStatus === 'At terminal' || currentStatus === 'Loaded') {
-      // Skip adding body data if currentStatus is 'At terminal' or 'Loaded'
-      formData.append('CarStatus', currentStatus); // Preserve current status if needed
+      formData.append('CarStatus', currentStatus);
     }
     setLoading(true);
     premiumApi
@@ -131,13 +113,13 @@ const UpdateCarStatusModal = ({
         },
       })
       .then((response) => {
-        toast.success('Car status changed', { position: 'top-right' });
-        setCurrentStatus(response.data); // Assuming response data contains the updated status
-        onClose(); // Close modal after success
+        toast.success(t('status_changed'), { position: 'top-right' });
+        setCurrentStatus(response.data);
+        onClose();
       })
       .catch((error) => {
         toast.error(
-          error.response?.data?.detail || 'Error updating, try againg',
+          error.response?.data?.detail || t('update_error'),
           { position: 'top-right' }
         );
       })
@@ -154,7 +136,7 @@ const UpdateCarStatusModal = ({
         {currentStatus === 'Dispatch' && (
           <>
             <div className="mb-4 flex flex-col">
-              <label>Upload Photos (1-10, Max total size: 5MB):</label>
+              <label>{t('upload_photos')}</label>
               <input
                 type="file"
                 accept=".jpg,.jpeg,.png"
@@ -211,13 +193,13 @@ const UpdateCarStatusModal = ({
         )}
 
         {currentStatus === 'At terminal' && (
-          <p className="font-bold">Car at terminal, book it</p>
+          <p className="font-bold">{t('car_at_terminal')}</p>
         )}
         {currentStatus === 'Loaded' && <p className="font-bold">Car loaded</p>}
         {currentStatus === 'Booked' && (
           <>
             <div className="mb-4 flex flex-col">
-              <label>Tracking Number:</label>
+              <label>{t('tracking_number')}</label>
               <input
                 type="text"
                 value={trackingNumber}
@@ -225,7 +207,7 @@ const UpdateCarStatusModal = ({
               />
             </div>
 
-            <label>Upload Documents (2, Max total size: 5MB):</label>
+            <label>{t('upload_documents')}</label>
             <input
               type="file"
               accept=".pdf"
@@ -288,7 +270,7 @@ const UpdateCarStatusModal = ({
             className={`${loading ? 'opacity-50' : ''} w-[300px]`}
             disabled={loading}
           >
-            Update Status
+             {t('close_modal')}
           </Button>
           <Button
             type="button"

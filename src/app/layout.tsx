@@ -34,7 +34,7 @@ export default function RootLayout({
 
       i18n.changeLanguage(storedLang);
     }
-  }, [i18n.language]);
+  }, [children]);
 
   return (
     <html
