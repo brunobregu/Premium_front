@@ -86,14 +86,6 @@ const carStatusArray: SelectOption[] = [
   { label: 'Delivered', value: 'Delivered' },
 ];
 
-const portOptions: SelectOption[] = [
-  { label: 'Savannah', value: 'Savannah' },
-  { label: 'Elizabeth', value: 'Elizabeth' },
-  { label: 'Houston', value: 'Houston' },
-  { label: 'LosAngeles', value: 'LosAngeles' },
-  { label: 'Indianapolis', value: 'Indianapolis' },
-  { label: 'prov', value: 'prov' },
-];
 
 export default function ViewShipment({
   id,
@@ -101,10 +93,7 @@ export default function ViewShipment({
   className,
   isViewOnly,
 }: IndexProps) {
-  const { layout } = useLayout();
-  const [isLoading, setLoading] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const router = useRouter();
+
 
   const handleImageClick = async () => {
     try {
@@ -164,22 +153,6 @@ export default function ViewShipment({
     }
   }, [orderDetailsQuery.data, reset, setValue]);
 
-  const addOrderDetailsMutation = useMutation({
-    mutationFn: (data: CreateShipmentInput) => {
-      if (id) {
-        return premiumApi.put(`en/OrderDetails/update?id=${id}`, data);
-      } else {
-        return premiumApi.post('en/OrderDetails/add', data);
-      }
-    },
-    onSuccess: () => {
-      toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
-      router.push('/logistics/shipments');
-    },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Error saving shipment, try againg', { position: "top-right" });
-    },
-  });
 
   const link = orderDetailsQuery.data?.data.provider;
 
@@ -187,7 +160,7 @@ export default function ViewShipment({
   return (
     <div className="@container">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form>
           <h3>Vehicle</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -267,26 +240,13 @@ export default function ViewShipment({
                 />
               )}
             />
-            <Controller
-              control={control}
-              name="port"
-              render={({ field: { value, onChange } }) => (
-                <Select
-                  label="Port"
-                  labelClassName="text-gray-900"
-                  dropdownClassName="p-2 gap-1 grid !z-10"
-                  inPortal={false}
-                  value={value || null}
-                  onChange={isViewOnly ? undefined : onChange}
-                  options={portOptions}
-                  getOptionValue={(option) => option.value}
-                  displayValue={(selected) =>
-                    portOptions.find((c) => c.value === selected)?.label ?? ''
-                  }
-                  error={errors?.port?.message as string}
-                  disabled={true}
-                />
-              )}
+            <Input
+              label="Port"
+              placeholder="port"
+              labelClassName="font-medium text-gray-900"
+              {...register('port')}
+              error={errors.auction?.message as string}
+              disabled={true}
             />
             <Input
               label="Tracking Number"
@@ -407,15 +367,4 @@ export default function ViewShipment({
     </div >
   );
 
-  async function onSubmit(data: CreateShipmentInput) {
-    if (isViewOnly) return; // Prevent submission if view-only
-
-    setLoading(true);
-    try {
-      await addOrderDetailsMutation.mutateAsync(data);
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  }
 };

@@ -93,10 +93,6 @@ export default function ViewShipment({
     setStoredLang(langFromStorage); // Set the language in state // Update i18n language
   }, []);
 
-  useEffect(() => {
-    const langFromStorage = localStorage.getItem('language') || 'en';
-    setStoredLang(langFromStorage); // Set the language in state // Update i18n language
-  }, []);
 
   const handleImageClick = async () => {
     try {
@@ -157,25 +153,7 @@ export default function ViewShipment({
       reset(orderDetails);
       setValue('userId', orderDetails.userId);
     }
-  }, [orderDetailsQuery.data, reset, setValue]);
-
-  const addOrderDetailsMutation = useMutation({
-    mutationFn: (data: CreateShipmentInput) => {
-      if (id) {
-        return premiumApi.put(`en/OrderDetails/update?id=${id}`, data);
-      } else {
-        return premiumApi.post('en/OrderDetails/add', data);
-      }
-    },
-    onSuccess: () => {
-      toast.success(id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully');
-      router.push('/logistics/shipments');
-    },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.detail || 'Error saving shipment, try againg', { position: "top-right" });
-    },
-  });
-
+  }, [orderDetailsQuery.data]);
 
 
   const formatDate = (dateString: string) => {
@@ -197,7 +175,7 @@ export default function ViewShipment({
   return (
     <div className="@container">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form >
           <h3>Order Details</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -488,17 +466,4 @@ export default function ViewShipment({
       </FormProvider >
     </div >
   );
-
-  async function onSubmit(data: CreateShipmentInput) {
-    if (isViewOnly) return; // Prevent submission if view-only
-
-    setLoading(true);
-    try {
-      await addOrderDetailsMutation.mutateAsync(data);
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  }
-};
-
+}
