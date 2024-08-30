@@ -215,6 +215,13 @@
    "active-users":"Përdoruesit Aktiv",
   "non-active-users": "Përdoruesit Jo Aktiv",
   "shipment-list": "Lista e Dërgesave",
-  "all-shipments":"Të gjitha dërgesat"
+  "all-shipments":"Të gjitha dërgesat",
+   "create-shipment":"Krijo Dërgesë",
+   "number-of-orders": "Nr. i porosive",
+  "client-total": "Totali i klientit",
+  "to-be-paid": "Për t'u paguar",
+  "paid": "E paguar",
+  "not-available": "Nuk është i disponueshëm",
+  "general-overview":"Përmbledhje e përgjithshme"
 
 }

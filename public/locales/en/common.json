@@ -220,7 +220,14 @@
   "shipment-list": "Shipment List",
   "active-users":"Active Users",
   "non-active-users": "Non Active Users",
-  "all-shipments":"All Shipments"
+  "all-shipments":"All Shipments",
+  "create-shipment":"Create Shipment",
+  "number-of-orders": "Nr. of Orders",
+  "client-total": "Client Total",
+  "to-be-paid": "To be Paid",
+  "paid": "Paid",
+  "not-available": "Not available",
+  "general-overview":"Generale Overview"
 
 
 }

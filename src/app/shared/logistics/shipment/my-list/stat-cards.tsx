@@ -15,45 +15,9 @@ import TrendingDownIcon from '@components/icons/trending-down';
 import premiumApi from '@/util/premiumAPI';
 import { DetailsApiResponse, StatData } from '@/types/details';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
-const defaultStatData: StatData[] = [
-  {
-    id: '1',
-    title: 'Nr. of Orders',
-    icon: <ExpenseIcon className="h-7 w-7" />,
-    graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-green',
-    metric: 'Not available',
-    increased: true,
-  },
-  {
-    id: '2',
-    title: 'Client Total',
-    icon: <RevenueUpIcon className="h-7 w-7" />,
-    graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-green',
-    metric: 'Not available',
-    increased: true,
-  },
-  {
-    id: '3',
-    title: 'To be Paid',
-    icon: <SalesIcon className="h-9 w-9" />,
-    graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-green',
-    metric: 'Not available',
-    increased: true,
-  },
-  {
-    id: '4',
-    title: 'Paid',
-    icon: <ContainersIcon className="h-7 w-7" />,
-    graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-red',
-    metric: 'Not available',
-    decreased: true,
-  },
-];
+
 
 const fetchStatData = async (user: string) => {
   const endpoint = 'en/OrderDetails/myDetails';
@@ -64,7 +28,46 @@ const fetchStatData = async (user: string) => {
 
 export default function MyDetails({ className }: { className?: string }) {
   const user = localStorage.getItem('userRole') || 'User';
+  const { i18n } = useTranslation();
 
+  const defaultStatData: StatData[] = [
+    {
+      id: '1',
+      title: i18n.t("number-of-orders"),
+      icon: <ExpenseIcon className="h-7 w-7" />,
+      graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-green',
+      metric: i18n.t("not-available"),
+      increased: true,
+    },
+    {
+      id: '2',
+      title: i18n.t("client-total"),
+      icon: <RevenueUpIcon className="h-7 w-7" />,
+      graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-green',
+      metric: i18n.t("not-available"),
+      increased: true,
+    },
+    {
+      id: '3',
+      title: i18n.t("to-be-paid"),
+      icon: <SalesIcon className="h-9 w-9" />,
+      graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-green',
+      metric: i18n.t("not-available"),
+      increased: true,
+    },
+    {
+      id: '4',
+      title: i18n.t("paid"),
+      icon: <ContainersIcon className="h-7 w-7" />,
+      graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-red',
+      metric: i18n.t("not-available"),
+      decreased: true,
+    },
+  ];
   const { data, error, isLoading } = useQuery({
     queryKey: ['details', user],
     queryFn: () => fetchStatData(user),
@@ -81,7 +84,7 @@ export default function MyDetails({ className }: { className?: string }) {
       return [
         {
           id: '1',
-          title: 'Nr. of Orders',
+          title: i18n.t("number-of-orders"),
           icon: <ExpenseIcon className="h-7 w-7" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
@@ -90,7 +93,7 @@ export default function MyDetails({ className }: { className?: string }) {
         },
         {
           id: '2',
-          title: 'Client Total',
+          title: i18n.t("client-total"),
           icon: <RevenueUpIcon className="h-7 w-7" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
@@ -150,7 +153,7 @@ export default function MyDetails({ className }: { className?: string }) {
           {data?.map((stat) => (
             <MetricCard
               key={stat.id}
-              title={stat.title}
+              title={i18n.t("general-overview")}
               metric={stat.metric}
               icon={stat.icon}
               className="min-w-[240px] border-0 p-1 @2xl:min-w-[280px] lg:p-1"

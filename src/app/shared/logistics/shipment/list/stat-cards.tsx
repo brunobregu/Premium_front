@@ -14,45 +14,9 @@ import premiumApi from '@/util/premiumAPI';
 import { DetailsApiResponse, StatData } from '@/types/details';
 import { useQuery } from '@tanstack/react-query';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
-const defaultStatData: StatData[] = [
-  {
-    id: '1',
-    title: 'Nr. of Orders',
-    icon: <ExpenseIcon className="h-7 w-7" />,
-    graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-green',
-    metric: 'Not available',
-    increased: true,
-  },
-  {
-    id: '2',
-    title: 'Client Total',
-    icon: <RevenueUpIcon className="h-7 w-7" />,
-    graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-green',
-    metric: 'Not available',
-    increased: true,
-  },
-  {
-    id: '3',
-    title: 'To be Paid',
-    icon: <SalesIcon className="h-9 w-9" />,
-    graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-green',
-    metric: 'Not available',
-    increased: true,
-  },
-  {
-    id: '4',
-    title: 'Paid',
-    icon: <ContainersIcon className="h-7 w-7" />,
-    graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
-    graphColor: 'text-red',
-    metric: 'Not available',
-    decreased: true,
-  },
-];
+
 
 const fetchStatData = async (userId: string) => {
   const endpoint = userId
@@ -65,6 +29,47 @@ const fetchStatData = async (userId: string) => {
 export default function Details({ className }: { className?: string }) {
   const { userId } = useFiltersContext();
   const user = localStorage.getItem('userRole') || 'User';
+  const { i18n } = useTranslation();
+
+  const defaultStatData: StatData[] = [
+    {
+      id: '1',
+      title: i18n.t("number-of-orders"),
+      icon: <ExpenseIcon className="h-7 w-7" />,
+      graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-green',
+      metric: i18n.t("not-available"),
+      increased: true,
+    },
+    {
+      id: '2',
+      title: i18n.t("client-total"),
+      icon: <RevenueUpIcon className="h-7 w-7" />,
+      graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-green',
+      metric: i18n.t("not-available"),
+      increased: true,
+    },
+    {
+      id: '3',
+      title: i18n.t("to-be-paid"),
+      icon: <SalesIcon className="h-9 w-9" />,
+      graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-green',
+      metric: i18n.t("not-available"),
+      increased: true,
+    },
+    {
+      id: '4',
+      title: i18n.t("paid"),
+      icon: <ContainersIcon className="h-7 w-7" />,
+      graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
+      graphColor: 'text-red',
+      metric: i18n.t("not-available"),
+      decreased: true,
+    },
+  ];
+
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['details', userId],
@@ -82,7 +87,7 @@ export default function Details({ className }: { className?: string }) {
       return [
         {
           id: '1',
-          title: 'Nr. of Orders',
+          title: i18n.t("number-of-orders"),
           icon: <ExpenseIcon className="h-7 w-7" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
@@ -91,7 +96,7 @@ export default function Details({ className }: { className?: string }) {
         },
         {
           id: '2',
-          title: 'Client Total',
+          title: i18n.t("client-total"),
           icon: <RevenueUpIcon className="h-7 w-7" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
@@ -100,7 +105,7 @@ export default function Details({ className }: { className?: string }) {
         },
         {
           id: '3',
-          title: 'To be Paid',
+          title: i18n.t("to-be-paid"),
           icon: <SalesIcon className="h-9 w-9" />,
           graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-green',
@@ -109,7 +114,7 @@ export default function Details({ className }: { className?: string }) {
         },
         {
           id: '4',
-          title: 'Paid',
+          title: i18n.t("paid"),
           icon: <ContainersIcon className="h-7 w-7" />,
           graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
           graphColor: 'text-red',
@@ -143,7 +148,7 @@ export default function Details({ className }: { className?: string }) {
     <WidgetCard
       rounded="lg"
       className={className}
-      title="General Overview"
+      title={i18n.t("general-overview")}
       headerClassName="mb-2 @2xl:mb-5"
     >
       <SimpleBar>
