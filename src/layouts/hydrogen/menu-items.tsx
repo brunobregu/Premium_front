@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { routes } from '@/config/routes';
 import { PiPackageDuotone } from 'react-icons/pi';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 export interface MenuItemsType {
   name: string;
@@ -15,6 +16,8 @@ export interface MenuItemsType {
 const useMenuItems = () => {
   const { t, i18n } = useTranslation();
   const [menuItems, setMenuItems] = useState<MenuItemsType[]>([]);
+  const { lang, setLang } = useFiltersContext();
+
 
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
@@ -90,7 +93,7 @@ const useMenuItems = () => {
     ];
 
     setMenuItems(items);
-  }, []);
+  }, [lang]);
 
   return menuItems;
 }
