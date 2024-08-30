@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 interface IndexProps {
   id?: string;
@@ -94,7 +95,7 @@ export default function ViewShipment({
   isViewOnly,
 }: IndexProps) {
 
-
+  const { i18n } = useTranslation();
   const handleImageClick = async () => {
     try {
       const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
@@ -161,36 +162,36 @@ export default function ViewShipment({
     <div className="@container">
       <FormProvider {...methods}>
         <form>
-          <h3>Vehicle</h3>
+          <h3>{i18n.t('vehicle')}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="VIN"
-              placeholder="vin"
+              label={i18n.t('vin')}
+              placeholder={i18n.t('vin')}
               labelClassName="font-medium text-gray-900"
               {...register('vin')}
               error={errors.vin?.message as string}
               disabled={true}
             />
             <Input
-              label="Make"
-              placeholder="make"
+              label={i18n.t('make')}
+              placeholder={i18n.t('make')}
               labelClassName="font-medium text-gray-900"
               {...register('make')}
               error={errors.make?.message as string}
               disabled={true}
             />
             <Input
-              label="Model"
-              placeholder="model"
+              label={i18n.t('model')}
+              placeholder={i18n.t('model')}
               labelClassName="font-medium text-gray-900"
               {...register('model')}
               error={errors.model?.message as string}
               disabled={true}
             />
             <Input
-              label="Year"
-              placeholder="year"
+              label={i18n.t('year')}
+              placeholder={i18n.t('year')}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('year', { valueAsNumber: true })}
@@ -203,8 +204,8 @@ export default function ViewShipment({
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Lot"
-              placeholder="lot"
+              label={i18n.t('lot')}
+              placeholder={i18n.t('lot')}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('lot', { valueAsNumber: true })}
@@ -212,8 +213,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label="Auction"
-              placeholder="auction"
+              label={i18n.t('auction')}
+              placeholder={i18n.t('auction')}
               labelClassName="font-medium text-gray-900"
               {...register('auction')}
               error={errors.auction?.message as string}

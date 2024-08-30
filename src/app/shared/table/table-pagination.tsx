@@ -6,6 +6,7 @@ import {
   PiCaretDoubleLeftBold,
   PiCaretDoubleRightBold,
 } from 'react-icons/pi';
+import { useTranslation } from 'react-i18next';
 
 const options = [
   { value: 5, label: '5' },
@@ -19,6 +20,7 @@ export default function TablePagination<TData extends Record<string, any>>({
 }: {
   table: ReactTableType<TData>;
 }) {
+  const { i18n } = useTranslation()
   return (
     <div className="flex w-full items-center justify-between @container">
       <div className="hidden @2xl:block">
@@ -30,7 +32,7 @@ export default function TablePagination<TData extends Record<string, any>>({
       <div className="flex w-full items-center justify-between gap-6 @2xl:w-auto @2xl:gap-12">
         <div className="flex items-center gap-4">
           <Text className="hidden font-medium text-gray-900 @md:block">
-            Rows per page
+            {i18n.t("rows-per-page")}
           </Text>
           <Select
             options={options}

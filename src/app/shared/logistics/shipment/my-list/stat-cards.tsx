@@ -37,7 +37,7 @@ export default function MyDetails({ className }: { className?: string }) {
       icon: <ExpenseIcon className="h-7 w-7" />,
       graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
       graphColor: 'text-green',
-      metric: i18n.t("not-available"),
+      metric: i18n.t("not-avaiable"),
       increased: true,
     },
     {
@@ -46,7 +46,7 @@ export default function MyDetails({ className }: { className?: string }) {
       icon: <RevenueUpIcon className="h-7 w-7" />,
       graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
       graphColor: 'text-green',
-      metric: i18n.t("not-available"),
+      metric: i18n.t("not-avaiable"),
       increased: true,
     },
     {
@@ -55,7 +55,7 @@ export default function MyDetails({ className }: { className?: string }) {
       icon: <SalesIcon className="h-9 w-9" />,
       graphIcon: <TrendingUpIcon className="me-1 h-4 w-4" />,
       graphColor: 'text-green',
-      metric: i18n.t("not-available"),
+      metric: i18n.t("not-avaiable"),
       increased: true,
     },
     {
@@ -64,7 +64,7 @@ export default function MyDetails({ className }: { className?: string }) {
       icon: <ContainersIcon className="h-7 w-7" />,
       graphIcon: <TrendingDownIcon className="me-1 h-4 w-4" />,
       graphColor: 'text-red',
-      metric: i18n.t("not-available"),
+      metric: i18n.t("not-avaiable"),
       decreased: true,
     },
   ];

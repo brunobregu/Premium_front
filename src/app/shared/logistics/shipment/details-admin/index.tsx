@@ -86,13 +86,6 @@ export default function ViewShipment({
   const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const { i18n } = useTranslation();
-  const [storedLang, setStoredLang] = useState('en'); // Initialize with default 'en'
-
-  useEffect(() => {
-    const langFromStorage = localStorage.getItem('language') || 'en';
-    setStoredLang(langFromStorage); // Set the language in state // Update i18n language
-  }, []);
-
 
   const handleImageClick = async () => {
     try {
@@ -143,7 +136,7 @@ export default function ViewShipment({
 
   const orderDetailsQuery = useQuery({
     queryKey: ['orderDetails'],
-    queryFn: () => premiumApi.get(`${storedLang}/OrderDetails/adminOrderDetailsById?id=${id}`),
+    queryFn: () => premiumApi.get(`en/OrderDetails/adminOrderDetailsById?id=${id}`),
     enabled: !!id,
   });
 
@@ -176,33 +169,33 @@ export default function ViewShipment({
     <div className="@container">
       <FormProvider {...methods}>
         <form >
-          <h3>Order Details</h3>
+          <h3>{i18n.t("order-details")}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Created By"
-              placeholder="Not avaible"
+              label={i18n.t('created-by')}
+              placeholder={i18n.t('not-avaiable')}
               labelClassName="font-medium text-gray-900"
               {...register('createdBy')}
               disabled={true}
             />
             <Input
-              label="Created On"
-              placeholder="Not avaible"
+              label={i18n.t('created-on')}
+              placeholder={i18n.t('not-avaiable')}
               labelClassName="font-medium text-gray-900"
               value={formattedCreatedOn}
               disabled={true} />
             <Input
-              label="Updated By"
-              placeholder="Not avaible"
+              label={i18n.t('updated-by')}
+              placeholder={i18n.t('not-avaiable')}
               labelClassName="font-medium text-gray-900"
               {...register('updatedBy', { valueAsNumber: true })}
               error={errors.year?.message as string}
               disabled={true}
             />
             <Input
-              label="Updated On"
-              placeholder="Not avaible"
+              label={i18n.t('created-on')}
+              placeholder={i18n.t('not-avaiable')}
               labelClassName="font-medium text-gray-900"
               value={formattedUpdatedOn}
               disabled={true}
@@ -210,36 +203,36 @@ export default function ViewShipment({
 
           </div>
 
-          <h3>Vehicle</h3>
+          <h3>{i18n.t('vehicle')}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="VIN"
-              placeholder="vin"
+              label={i18n.t('vin')}
+              placeholder={i18n.t('vin')}
               labelClassName="font-medium text-gray-900"
               {...register('vin')}
               error={errors.vin?.message as string}
               disabled={true}
             />
             <Input
-              label="Make"
-              placeholder="make"
+              label={i18n.t('make')}
+              placeholder={i18n.t('make')}
               labelClassName="font-medium text-gray-900"
               {...register('make')}
               error={errors.make?.message as string}
               disabled={true}
             />
             <Input
-              label="Model"
-              placeholder="model"
+              label={i18n.t('model')}
+              placeholder={i18n.t('model')}
               labelClassName="font-medium text-gray-900"
               {...register('model')}
               error={errors.model?.message as string}
               disabled={true}
             />
             <Input
-              label="Year"
-              placeholder="year"
+              label={i18n.t('year')}
+              placeholder={i18n.t('year')}
               labelClassName="font-medium text-gray-900"
               {...register('year', { valueAsNumber: true })}
               error={errors.year?.message as string}
@@ -247,28 +240,28 @@ export default function ViewShipment({
             />
           </div>
 
-          <h3>Shipment details</h3>
+          <h3>{i18n.t('shipment-detail')}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Lot"
-              placeholder="lot"
+              label={i18n.t('lot')}
+              placeholder={i18n.t('lot')}
               labelClassName="font-medium text-gray-900"
               {...register('lot', { valueAsNumber: true })}
               error={errors.lot?.message as string}
               disabled={true}
             />
             <Input
-              label="Order ID"
-              placeholder="order id"
+              label={i18n.t('order-id')}
+              placeholder={i18n.t('order-id')}
               labelClassName="font-medium text-gray-900"
               {...register("orderID")}
               error={errors.orderID?.message as string}
               disabled={true}
             />
             <Input
-              label="Auction"
-              placeholder="auction"
+              label={i18n.t('auction')}
+              placeholder={i18n.t('auction')}
               labelClassName="font-medium text-gray-900"
               {...register('auction')}
               error={errors.auction?.message as string}
@@ -276,24 +269,24 @@ export default function ViewShipment({
             />
 
             <Input
-              label="Port"
-              placeholder="port"
+              label={i18n.t('port')}
+              placeholder={i18n.t('port')}
               labelClassName="font-medium text-gray-900"
               {...register('port')}
               error={errors.auction?.message as string}
               disabled={true}
             />
             <Input
-              label="Provider"
-              placeholder="provider"
+              label={i18n.t('provider')}
+              placeholder={i18n.t('provider')}
               labelClassName="font-medium text-gray-900"
               {...register('provider')}
               error={errors.auction?.message as string}
               disabled={true}
             />
             <Input
-              label="Tracking Number"
-              placeholder="Not avaible"
+              label={i18n.t('tracking-number')}
+              placeholder={i18n.t('not-avaiable')}
               labelClassName="font-medium text-gray-900"
               {...register('trackingNumber')}
               error={errors.auction?.message as string}
@@ -303,17 +296,17 @@ export default function ViewShipment({
               className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={handleImageClick}
             >
-              View Images
+              {i18n.t("view-images")}
             </Button>
             <Button
               className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={handleDocumentClick}
             >
-              View Documents
+              {i18n.t("view-documents")}
             </Button>
             <Input
-              label="Car Status"
-              placeholder="carStatus"
+              label={i18n.t('car-status')}
+              placeholder={i18n.t('car-status')}
               labelClassName="font-medium text-gray-900"
               {...register('carStatus')}
               error={errors.carStatus?.message as string}
@@ -321,52 +314,52 @@ export default function ViewShipment({
             />
           </div>
 
-          <h3>Client Total</h3>
+          <h3>{i18n.t('client-total')}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Client Total"
-              placeholder="Not avaible"
+              label={i18n.t('client-total')}
+              placeholder={i18n.t('not-avaiable')}
               labelClassName="font-medium text-gray-900"
               {...register('clientTotal', { valueAsNumber: true })}
               error={errors.clientTotal?.message as string}
               disabled={true}
             />
             <Input
-              label="Inland Price"
-              placeholder="inland price"
+              label={i18n.t('inland-price')}
+              placeholder={i18n.t('inland-price')}
               labelClassName="font-medium text-gray-900"
               {...register('inlandPrice', { valueAsNumber: true })}
               error={errors.inlandPrice?.message as string}
               disabled={true}
             />
             <Input
-              label="Ocean Price"
-              placeholder="ocean price"
+              label={i18n.t('ocean-price')}
+              placeholder={i18n.t('ocean-price')}
               labelClassName="font-medium text-gray-900"
               {...register('oceanPrice', { valueAsNumber: true })}
               error={errors.oceanPrice?.message as string}
               disabled={true}
             />
             <Input
-              label="Broker"
-              placeholder="broker"
+              label={i18n.t('broker')}
+              placeholder={i18n.t('broker')}
               labelClassName="font-medium text-gray-900"
               {...register('broker', { valueAsNumber: true })}
               error={errors.broker?.message as string}
               disabled={true}
             />
             <Input
-              label="Client Storage"
-              placeholder="client storage"
+              label={i18n.t('client-storage')}
+              placeholder={i18n.t('client-storage')}
               labelClassName="font-medium text-gray-900"
               {...register('clientStorage', { valueAsNumber: true })}
               error={errors.clientStorage?.message as string}
               disabled={true}
             />
             <Input
-              label="Car Price"
-              placeholder="car price"
+              label={i18n.t('car-price')}
+              placeholder={i18n.t('car-price')}
               labelClassName="font-medium text-gray-900"
               {...register('carPrice', { valueAsNumber: true })}
               error={errors.carPrice?.message as string}
@@ -374,44 +367,44 @@ export default function ViewShipment({
             />
           </div>
 
-          <h3>Total Cost</h3>
+          <h3>{i18n.t('total-cost')}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Total Cost"
-              placeholder="Total cost"
+              label={i18n.t('total-cost')}
+              placeholder={i18n.t('total-cost')}
               labelClassName="font-medium text-gray-900"
               {...register('totalCost', { valueAsNumber: true })}
               error={errors.totalCost?.message as string}
               disabled={true}
             />
             <Input
-              label="Inland Cost"
-              placeholder="inland cost"
+              label={i18n.t('inland-cost')}
+              placeholder={i18n.t('inland-cost')}
               labelClassName="font-medium text-gray-900"
               {...register('inlandCost', { valueAsNumber: true })}
               error={errors.inlandCost?.message as string}
               disabled={true}
             />
             <Input
-              label="Ocean Cost"
-              placeholder="ocean cost"
+              label={i18n.t('ocean-cost')}
+              placeholder={i18n.t('ocean-cost')}
               labelClassName="font-medium text-gray-900"
               {...register('oceanCost', { valueAsNumber: true })}
               error={errors.oceanCost?.message as string}
               disabled={true}
             />
             <Input
-              label="Storage Cost"
-              placeholder="storage cost"
+              label={i18n.t('storage-cost')}
+              placeholder={i18n.t('storage-cost')}
               labelClassName="font-medium text-gray-900"
               {...register('storageCost', { valueAsNumber: true })}
               error={errors.storageCost?.message as string}
               disabled={true}
             />
             <Input
-              label="Profit"
-              placeholder="profit"
+              label={i18n.t('profit')}
+              placeholder={i18n.t('profit')}
               labelClassName="font-medium text-gray-900"
               {...register('profit' || null, { valueAsNumber: true })}
               error={errors.profit?.message as string}
@@ -420,11 +413,11 @@ export default function ViewShipment({
           </div>
 
 
-          <h3 className='w-full'>Payment info</h3>
+          <h3 className='w-full'>{i18n.t("payment-info")}</h3>
           <hr />
           <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Payment Status"
+              label={i18n.t("payment-status")}
               placeholder="100"
               labelClassName="font-medium text-gray-900"
               {...register('paymentStatus', { valueAsNumber: true })}
@@ -432,7 +425,7 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label="Partly Paid"
+              label={i18n.t("partly-paid")}
               placeholder="100"
               labelClassName="font-medium text-gray-900"
               {...register('partlyPaid', { valueAsNumber: true })}
@@ -440,7 +433,7 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label="To Be Paid"
+              label={i18n.t("to-be-paid")}
               placeholder="100"
               labelClassName="font-medium text-gray-900"
               {...register('toBePaid', { valueAsNumber: true })}
@@ -450,11 +443,11 @@ export default function ViewShipment({
 
           </div>
 
-          <h3 className='w-full mt-4'>User</h3>
+          <h3 className='w-full mt-4'>{i18n.t("user")}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Client"
+              label={i18n.t('client')}
               placeholder="fullName"
               labelClassName="font-medium text-gray-900"
               {...register('fullName', { valueAsNumber: true })}

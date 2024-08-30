@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { serialize, parse } from 'cookie';
 import parseJwt from '@/util/parseJwt';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 export default function ProfileMenu({
   buttonClassName,
@@ -102,23 +103,32 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
     document.cookie = cookie;
     router.replace('/');
   }
-
   const { i18n } = useTranslation();
+  const { lang, setLang } = useFiltersContext();
   const [locale, setLocale] = useState(i18n.language);
 
-  const currentLang = localStorage.getItem('language');
-  function handleLocaleClick(nextLocale: string) {
-    // i18n.changeLanguage(nextLocale);
-    localStorage.setItem('language', nextLocale);
-    setLocale(nextLocale)
+  useEffect(() => {
+    const storedLang = localStorage.getItem('language');
+    if (storedLang && storedLang !== lang) {
+      setLang(storedLang);
+      i18n.changeLanguage(storedLang);
+      setLocale(storedLang);
+    }
+  }, [lang, i18n, setLang]);
 
+  function handleLocaleClick(nextLocale: string) {
+    localStorage.setItem('language', nextLocale);
+    setLang(nextLocale);
+    i18n.changeLanguage(nextLocale);
+    setLocale(nextLocale);
   }
+  const currentLang = localStorage.getItem('language');
 
 
 
   useEffect(() => {
-    setLocale(i18n.language);
-  }, [i18n.language]);
+    handleLocaleClick(lang)
+  }, [lang]);
 
 
 
@@ -147,7 +157,7 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
           </Link>
         ))}
       </div>
-      {/* <div className="border-t border-gray-300 px-6 pb-6 pt-5">
+      <div className="border-t border-gray-300 px-6 pb-6 pt-5">
         {locale === 'sq' ? <Button
           className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
           variant="text"
@@ -161,7 +171,7 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
         >
           Change to albanian
         </Button>}
-      </div> */}
+      </div>
       <div className="border-t border-gray-300 px-6 pb-6 pt-5">
         <Button
           className="h-auto w-full justify-start p-0 font-medium text-gray-700 outline-none focus-within:text-gray-600 hover:text-gray-900 focus-visible:ring-0"
