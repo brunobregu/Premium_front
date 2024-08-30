@@ -54,7 +54,7 @@ export default function PersonalInfoView() {
       }
     }
     getData();
-  }, [])
+  }, [data])
 
   const onSubmit: SubmitHandler<PersonalInfoFormTypes> = (data) => {
     toast.success(<Text as="b">Successfully added!</Text>);
@@ -85,25 +85,25 @@ export default function PersonalInfoView() {
         return (
           <>
             <FormGroup
-              title="Personal Info"
+              title={i18n.t("personal-info")}
               //description="Update your photo and personal details here"
               className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
             />
 
             <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
               <FormGroup
-                title="Name"
+                title={i18n.t("name")}
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
                 <Input
-                  placeholder={data?.firstName || 'Not avaible'}
+                  placeholder={data?.firstName || i18n.t("not-avaiable")}
                   {...register('first_name')}
                   error={errors.first_name?.message}
                   className="flex-grow"
                   disabled
                 />
                 <Input
-                  placeholder={data?.lastName || 'Not avaible'}
+                  placeholder={data?.lastName || i18n.t("not-avaiable")}
                   {...register('last_name')}
                   error={errors.last_name?.message}
                   className="flex-grow"
@@ -112,7 +112,7 @@ export default function PersonalInfoView() {
               </FormGroup>
 
               <FormGroup
-                title="Email Address"
+                title={i18n.t("email-address")}
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
                 <Input
@@ -121,7 +121,7 @@ export default function PersonalInfoView() {
                     <PiEnvelopeSimple className="h-6 w-6 text-gray-500" />
                   }
                   type="email"
-                  placeholder={data?.email || 'Not avaible'}
+                  placeholder={data?.email || i18n.t("not-avaiable")}
                   {...register('email')}
                   error={errors.email?.message}
                   disabled
@@ -129,11 +129,11 @@ export default function PersonalInfoView() {
               </FormGroup>
 
               <FormGroup
-                title="Phone"
+                title={i18n.t("phone")}
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
                 <Input
-                  placeholder={data?.phoneNumber || 'No number avaible'}
+                  placeholder={data?.phoneNumber || i18n.t("not-avaiable")}
                   {...register('last_name')}
                   error={errors.last_name?.message}
                   className="flex-grow"
@@ -142,11 +142,11 @@ export default function PersonalInfoView() {
               </FormGroup>
 
               <FormGroup
-                title="Creation Time"
+                title={i18n.t("creation-time")}
                 className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
               >
                 <Input
-                  placeholder={formattedDate || 'Not avaible'}
+                  placeholder={formattedDate || i18n.t("not-avaiable")}
                   {...register('last_name')}
                   error={errors.last_name?.message}
                   className="flex-grow"

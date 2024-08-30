@@ -85,12 +85,7 @@ function ProfileMenuPopover({ children, user }: React.PropsWithChildren<{ user: 
   );
 }
 
-const menuItems = [
-  {
-    name: 'Account Settings',
-    href: routes.forms.profileSettings,
-  },
-];
+
 
 function DropdownMenu({ user }: { user: { name: string; email: string; username: string } }) {
   const router = useRouter();
@@ -130,7 +125,12 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
     handleLocaleClick(lang)
   }, [lang]);
 
-
+  const menuItems = [
+    {
+      name: i18n.t('account-settings'),
+      href: routes.forms.profileSettings,
+    },
+  ];
 
   return (
     <div className="w-64 text-left rtl:text-right">
@@ -178,7 +178,7 @@ function DropdownMenu({ user }: { user: { name: string; email: string; username:
           variant="text"
           onClick={handleLogout}
         >
-          Sign Out
+          {i18n.t('sign-out')}
         </Button>
       </div>
     </div>

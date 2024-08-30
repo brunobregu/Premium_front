@@ -313,8 +313,28 @@
   "status_changed": "Statusi i makinës u ndryshua",
   "update_error": "Gabim në përditësim, provoni përsëri",
   "close_modal": "Mbyll Modalin",
-   "account-settings":"Cilësimet e llogarisë"
-  
-  
+   "account-settings":"Cilësimet e llogarisë",
+   "creation-time":"Koha e krijimit",
+   "phone":"Celulari",
+   "name": "Emer Mbiemer",
+   "personal-info": "Informacioni Personal",
+   "password": {
+    "current": "Fjalëkalimi aktual",
+    "new": "Fjalëkalim i ri",
+    "enter": "Shkruani fjalëkalimin tuaj",
+    "confirm":"Konfirmo fjalëkalimin",
+    "label":"Fjalëkalimi",
+    "validation": {
+      "length": "Fjalëkalimi juaj i ri duhet të jetë më shumë se 8 karaktere"
+    },
+    "actions": {
+      "cancel": "Anullo",
+      "update": "Përditëso Fjalëkalimin"
+    },
+    "success": "Fjalëkalimi u ndryshua me sukses"
+  },
+  "my-details": "Të dhënat e mia",
+  "sign-out": "Dilni"
+
 
 }

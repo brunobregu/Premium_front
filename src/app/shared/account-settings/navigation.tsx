@@ -9,19 +9,26 @@ import { usePathname } from 'next/navigation';
 import { useLayout } from '@/layouts/use-layout';
 import { LAYOUT_OPTIONS } from '@/config/enums';
 import { useBerylliumSidebars } from '@/layouts/beryllium/beryllium-utils';
+import { useTranslation } from 'react-i18next';
 
-const menuItems = [
-  {
-    label: 'My Details',
-    value: '/profile-settings',
-  },
-  {
-    label: 'Password',
-    value: '/profile-settings/password',
-  },
-];
+
 
 export default function ProfileSettingsNav() {
+  const { i18n } = useTranslation();
+
+
+  const menuItems = [
+    {
+      label: i18n.t('my-details'),
+      value: '/profile-settings',
+    },
+    {
+      label: i18n.t('password.label'),
+      value: '/profile-settings/password',
+    },
+  ];
+
+
   const pathname = usePathname();
   const { layout } = useLayout();
   const {
@@ -42,8 +49,8 @@ export default function ProfileSettingsNav() {
             ? 'top-[62px] sm:top-[72px] 2xl:top-[72px]'
             : 'top-[62px] md:top-[71px]',
         layout === LAYOUT_OPTIONS.BERYLLIUM &&
-          expandedLeft &&
-          'xl:-ms-1 xl:px-0 3xl:-ms-2 3xl:ps-0 4xl:-ms-2'
+        expandedLeft &&
+        'xl:-ms-1 xl:px-0 3xl:-ms-2 3xl:ps-0 4xl:-ms-2'
       )}
     >
       <div className="relative flex items-center overflow-hidden">

@@ -319,7 +319,30 @@
   "status_changed": "Car status changed",
   "update_error": "Error updating, try again",
   "close_modal": "Close Modal",
-  "account-settings":"Account Settings"
+  "account-settings":"Account Settings",
+  "personal-info": "Personal Info",
+  "creation-time":"Creation Time",
+   "phone":"Mobile",
+   "name": "Full Name",
+   "password": {
+    "current": "Current Password",
+    "new": "New Password",
+    "enter": "Enter your password",
+    "confirm":"Confirm your password",
+    "label":"Password",
+    "validation": {
+      "length": "Your new password must be more than 8 characters"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "update": "Update Password"
+    },
+    "success": "Password changed successfully",
+     "my-details": "My Details"
+  },
+    "sign-out": "Dilni"
+
+   
   
   
 

@@ -42,7 +42,7 @@ export default function PasswordSettingsView({
           confirmedPassword: '',
         });
 
-        toast.success("Password changed successfully", { position: "top-right" })
+        toast.success(i18n.t(('password.success')), { position: "top-right" })
       }
     } catch (error: any) {
       if (error) {
@@ -79,18 +79,18 @@ export default function PasswordSettingsView({
 
               <div className="mx-auto w-full max-w-screen-2xl">
                 <HorizontalFormBlockWrapper
-                  title="Current Password"
+                  title={i18n.t('password.current')}
                   titleClassName="text-base font-medium"
                 >
                   <Password
                     {...register('currentPassword')}
-                    placeholder="Enter your password"
+                    placeholder={i18n.t('password.enter')}
                     error={errors.currentPassword?.message}
                   />
                 </HorizontalFormBlockWrapper>
 
                 <HorizontalFormBlockWrapper
-                  title="New Password"
+                  title={i18n.t('password.new')}
                   titleClassName="text-base font-medium"
                 >
                   <Controller
@@ -98,10 +98,10 @@ export default function PasswordSettingsView({
                     name="newPassword"
                     render={({ field: { onChange, value } }) => (
                       <Password
-                        placeholder="Enter your password"
+                        placeholder={i18n.t('password.enter')}
                         helperText={
                           getValues().newPassword.length < 8 &&
-                          'Your new password must be more than 8 characters'
+                          i18n.t('password.validation.length')
                         }
                         onChange={onChange}
                         error={errors.newPassword?.message}
@@ -111,7 +111,7 @@ export default function PasswordSettingsView({
                 </HorizontalFormBlockWrapper>
 
                 <HorizontalFormBlockWrapper
-                  title="Confirm New Password"
+                  title={i18n.t('password.confirm')}
                   titleClassName="text-base font-medium"
                 >
                   <Controller
@@ -119,7 +119,7 @@ export default function PasswordSettingsView({
                     name="confirmedPassword"
                     render={({ field: { onChange, value } }) => (
                       <Password
-                        placeholder="Enter your password"
+                        placeholder={i18n.t('password.enter')}
                         onChange={onChange}
                         error={errors.confirmedPassword?.message}
                       />
@@ -129,10 +129,10 @@ export default function PasswordSettingsView({
 
                 <div className="mt-6 flex w-auto items-center justify-end gap-3">
                   <Button type="button" variant="outline">
-                    Cancel
+                    {i18n.t('password.actions.cancel')}
                   </Button>
                   <Button type="submit" variant="solid" isLoading={isLoading}>
-                    Update Password
+                    {i18n.t('password.actions.update')}
                   </Button>
                 </div>
               </div>
