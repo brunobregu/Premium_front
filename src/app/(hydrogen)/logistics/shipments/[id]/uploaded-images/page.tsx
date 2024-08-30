@@ -5,23 +5,25 @@ import premiumApi from '@/util/premiumAPI';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
-// Define the type for the image object
+
 interface Image {
   base64: string;
-  // Add other properties if they exist in the image object
+
 }
 
 const ImageSliderPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
-  // Explicitly set the state type to an array of Image objects
+
   const [images, setImages] = useState<Image[]>([]);
+  const { i18n } = useTranslation()
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
-        setImages(response.data); // Assuming response.data is an array of Image objects
+        setImages(response.data);
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error fetching images', { position: "top-right" });
 
@@ -33,7 +35,7 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <h1>Images uploaded for id: {id}</h1>
+      <h1>{i18n.t("image-slider")}: {id}</h1>
       <div style={{ width: 'auto', display: 'flex', flexDirection: 'row' }}>
         <Swiper
           pagination={{ clickable: true }}

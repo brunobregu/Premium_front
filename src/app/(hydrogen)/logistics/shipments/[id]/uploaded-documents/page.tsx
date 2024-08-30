@@ -5,6 +5,7 @@ import premiumApi from '@/util/premiumAPI';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 interface Document {
   base64: string;
@@ -13,6 +14,7 @@ interface Document {
 const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const [documents, setDocuments] = useState<Document[]>([]);
+  const { i18n } = useTranslation()
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -29,7 +31,7 @@ const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <h1>Document Slider for id: {id}</h1>
+      <h1>{i18n.t("document-slider")}: {id}</h1>
       <div style={{ width: 'auto', display: 'flex', flexDirection: 'row' }}>
         <Swiper
           pagination={{ clickable: true }}

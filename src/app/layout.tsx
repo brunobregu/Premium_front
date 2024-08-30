@@ -27,13 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
+
   useEffect(() => {
     const storedLang = localStorage.getItem('language');
     if (storedLang) {
 
       i18n.changeLanguage(storedLang);
     }
-  }, []);
+  }, [i18n.language]);
 
   return (
     <html

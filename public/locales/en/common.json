@@ -267,7 +267,34 @@
   "client-storage":"Client Storage",
   "order-id":"Order ID",
   "provider":"Provider",
-  "view-shipment":"View Shipment"
+  "view-shipment":"View Shipment",
+  "tracking-url":"Tracking URL",
+  "storage":"Storage",
+  "add-client":"Add Client",
+  "update-shipment":"Update Shipment",
+  "update-car-status":"Update Car Status",
+  "create-user":"Create User",
+  "create-auction":"Create Auction",
+  "create-port": "Create Port",
+    "create-provider": "Create Provider",
+       "create-role": "Create Role",
+       "document-slider":"Document Slider for id",
+       "image-slider":"Image Slider for id",
+       "account-setting":"Account Setting",
+       "activate-user": {
+    "title": "Activate User",
+    "select-role": "Select a role to activate this user:",
+    "role-label": "Role",
+    "select-role-placeholder": "Select a role",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "error": {
+    "fetch-roles": "Error fetching roles, try again",
+    "select-role": "Please select a role"
+  }
+       
+  
   
 
 

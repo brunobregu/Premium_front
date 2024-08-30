@@ -4,8 +4,11 @@ import { Button, Text, Select } from 'rizzui'; // Assuming you have a Select com
 import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI'; // Assuming this is the API helper
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const ActivateUserModal = ({ isOpen, onClose, onConfirm, userId }) => {
+  const { i18n } = useTranslation();
+  
   // Fetch roles from API
   const { data: roles, isLoading: rolesLoading } = useQuery({
     queryKey: ['roles'],
@@ -13,7 +16,7 @@ const ActivateUserModal = ({ isOpen, onClose, onConfirm, userId }) => {
     select: (response) => response.data,
     onError: (error) => {
       toast.error(
-        error.response?.data?.detail || 'Error fetching roles, try againg',
+        error.response?.data?.detail || i18n.t('error.fetch-roles'),
         { position: 'top-right' }
       );
     },
@@ -27,7 +30,7 @@ const ActivateUserModal = ({ isOpen, onClose, onConfirm, userId }) => {
 
   const handleConfirm = () => {
     if (!selectedRole) {
-      toast.error('Please select a role', { position: 'top-right' });
+      toast.error(i18n.t('error.select-role'), { position: 'top-right' });
       return;
     }
     onConfirm(selectedRole, userId); // Pass the selected role and userId
@@ -38,18 +41,18 @@ const ActivateUserModal = ({ isOpen, onClose, onConfirm, userId }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      contentLabel="Activate User"
+      contentLabel={i18n.t('activate-user.title')}
       ariaHideApp={false}
       style={modalStyles}
     >
       <div className="modal-header">
-        <Text className="font-bold">Activate User</Text>
+        <Text className="font-bold">{i18n.t('activate-user.title')}</Text>
       </div>
       <div className="modal-body">
-        <Text>Select a role to activate this user:</Text>
+        <Text>{i18n.t('activate-user.select-role')}</Text>
         <div className="mt-4">
           <Select
-            label="Role"
+            label={i18n.t('activate-user.role-label')}
             options={roles?.map((role) => ({
               value: role.name,
               label: role.name,
@@ -57,16 +60,16 @@ const ActivateUserModal = ({ isOpen, onClose, onConfirm, userId }) => {
             value={roles?.find((role) => role.name === selectedRole)}
             onChange={handleRoleChange} // Update here to receive the selected option directly
             isLoading={rolesLoading}
-            placeholder="Select a role"
+            placeholder={i18n.t('activate-user.select-role-placeholder')}
           />
         </div>
       </div>
       <div className="modal-footer mt-4 flex justify-between">
         <Button onClick={onClose} variant="outline">
-          Cancel
+          {i18n.t('activate-user.cancel')}
         </Button>
         <Button onClick={handleConfirm} color="primary" disabled={rolesLoading}>
-          Confirm
+          {i18n.t('activate-user.confirm')}
         </Button>
       </div>
     </Modal>

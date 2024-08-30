@@ -4,26 +4,27 @@
 import { PiPlusBold } from 'react-icons/pi';
 import { Button } from 'rizzui';
 import PageHeader from '@/app/shared/page-header';
+import { useTranslation } from 'react-i18next';
 
-const pageHeader = {
-    title: 'Non Active Users',
-    breadcrumb: [
-        {
-            name: 'Dashborad',
-        },
-        {
-            name: 'Non Active Users',
-        },
-    ],
-};
+
 
 interface ActiveUsersPageHeaderProps {
     setModalOpen: (value: boolean) => void;
 }
 
 export default function NonActiveUsersPageHeader({ setModalOpen }: ActiveUsersPageHeaderProps) {
-
-
+    const { i18n } = useTranslation()
+    const pageHeader = {
+        title: i18n.t("non-active-users"),
+        breadcrumb: [
+            {
+                name: i18n.t("dashboard")
+            },
+            {
+                name: i18n.t("non-active-users"),
+            },
+        ],
+    };
     return (
         <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
 

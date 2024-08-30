@@ -262,7 +262,32 @@
   "client-storage":"Magazinimi per klientin",
    "order-id":"ID e Dërgesës",
   "provider":"Ofruesi",
-  "view-shipment":"Shiko Dërgesën"
+  "view-shipment":"Shiko Dërgesën",
+  "tracking-url":"URL e Ndjekjes",
+  "storage":"Magazinimi",
+  "add-client":"Shto Klient",
+    "update-shipment":"Përditësoni dërgesën",
+  "update-car-status":"Përditësoni Statusin e Makinës",
+ "create-user":"Krijo Përdorues",
+ "create-auction":"Krijo Ankand",
+ "create-port": "Krijo Port",
+   "create-provider": "Krijo Furnizues",
+ "create-role": "Krijo Rol",
+ "document-slider":"Documentet për ID",
+  "image-slider":"Fotot për ID",
+   "account-setting":"Cilësimet e llogarisë",
+   "activate-user": {
+    "title": "Aktivizo Përdoruesin",
+    "select-role": "Zgjidh një rol për të aktivizuar këtë përdorues:",
+    "role-label": "Roli",
+    "select-role-placeholder": "Zgjidh një rol",
+    "cancel": "Anulo",
+    "confirm": "Konfirmo"
+  },
+  "error": {
+    "fetch-roles": "Gabim gjatë marrjes së roleve, provoni përsëri",
+    "select-role": "Ju lutem zgjidhni një rol"
+  }
   
 
 }

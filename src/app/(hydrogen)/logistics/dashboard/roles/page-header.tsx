@@ -4,6 +4,7 @@
 import { PiPlusBold } from 'react-icons/pi';
 import { Button } from 'rizzui';
 import PageHeader from '@/app/shared/page-header';
+import { useTranslation } from 'react-i18next';
 
 const pageHeader = {
     title: 'Roles',
@@ -22,6 +23,18 @@ interface RoleHeaderProps {
 }
 
 export default function RolesPageHeader({ setModalOpen }: RoleHeaderProps) {
+    const { i18n } = useTranslation()
+    const pageHeader = {
+        title: i18n.t('roles'),
+        breadcrumb: [
+            {
+                name: i18n.t('dashboard'),
+            },
+            {
+                name: i18n.t('roles')
+            },
+        ],
+    };
 
 
     return (
@@ -29,7 +42,7 @@ export default function RolesPageHeader({ setModalOpen }: RoleHeaderProps) {
 
             <Button as="span" className="cursor-pointer w-full @lg:w-auto" onClick={() => setModalOpen(true)}>
                 <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
-                Create Role
+                {i18n.t('create-role')}
             </Button>
         </PageHeader>
     );

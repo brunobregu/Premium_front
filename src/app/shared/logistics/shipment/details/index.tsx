@@ -200,7 +200,7 @@ export default function ViewShipment({
             />
           </div>
 
-          <h3>Shipment details</h3>
+          <h3>{i18n.t('shipment-detail')}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
@@ -225,7 +225,7 @@ export default function ViewShipment({
               name="carStatus"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label="Car Status"
+                  label={i18n.t('car-status')}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -242,16 +242,16 @@ export default function ViewShipment({
               )}
             />
             <Input
-              label="Port"
-              placeholder="port"
+              label={i18n.t('port')}
+              placeholder={i18n.t('port')}
               labelClassName="font-medium text-gray-900"
               {...register('port')}
               error={errors.auction?.message as string}
               disabled={true}
             />
             <Input
-              label="Tracking Number"
-              placeholder="trackingNumber"
+              label={i18n.t('tracking-number')}
+              placeholder={i18n.t('tracking-number')}
               labelClassName="font-medium text-gray-900"
               {...register('trackingNumber')}
               error={errors.auction?.message as string}
@@ -263,29 +263,29 @@ export default function ViewShipment({
                 window.open(link, '_blank');
               }}
             >
-              Tracking URL
+              {i18n.t("tracking-url")}
             </Button>
 
             <Button
               className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={handleImageClick}
             >
-              View Images
+              {i18n.t("view-images")}
             </Button>
             <Button
               className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={handleDocumentClick}
             >
-              View Documents
+              {i18n.t("view-documents")}
             </Button>
           </div>
 
-          <h3>Client Total</h3>
+          <h3>  {i18n.t("client-total")}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Input
-              label="Inland Price"
-              placeholder="inland price"
+              label={i18n.t("inland-price")}
+              placeholder={i18n.t("inland-price")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('inlandPrice', { valueAsNumber: true })}
@@ -293,8 +293,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label="Ocean Price"
-              placeholder="ocean price"
+              label={i18n.t("ocean-price")}
+              placeholder={i18n.t("ocean-price")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('oceanPrice', { valueAsNumber: true })}
@@ -302,8 +302,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label="Broker"
-              placeholder="broker"
+              label={i18n.t("broker")}
+              placeholder={i18n.t("broker")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('broker', { valueAsNumber: true })}
@@ -311,8 +311,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label="Storage"
-              placeholder="storage"
+              label={i18n.t("storage")}
+              placeholder={i18n.t("storage")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('clientStorage', { valueAsNumber: true })}
@@ -320,8 +320,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label="Car Price"
-              placeholder="car price"
+              label={i18n.t("car-price")}
+              placeholder={i18n.t("car-price")}
               labelClassName="font-medium text-gray-900"
               {...register('carPrice', { valueAsNumber: true })}
               error={errors.carPrice?.message as string}
@@ -329,7 +329,7 @@ export default function ViewShipment({
             />
           </div>
 
-          <h3 className='w-full'>Payment info</h3>
+          <h3 className='w-full'>{i18n.t("payment-info")}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Controller
@@ -337,7 +337,7 @@ export default function ViewShipment({
               name="paymentStatus"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label="Payment Status"
+                  label={i18n.t("payment-status")}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -354,7 +354,7 @@ export default function ViewShipment({
               )}
             />
             <Input
-              label="Partly Paid"
+              label={i18n.t("partly-paid")}
               placeholder="100"
               labelClassName="font-medium text-gray-900"
               type="number"

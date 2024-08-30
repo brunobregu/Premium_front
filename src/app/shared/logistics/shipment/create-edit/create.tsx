@@ -12,6 +12,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
+import { useTranslation } from 'react-i18next';
 
 interface IndexProps {
   id?: string;
@@ -88,6 +89,7 @@ export default function CreateEditShipment({
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const router = useRouter();
+  const { i18n } = useTranslation();
 
   const methods = useForm<any>({
     resolver: yupResolver(addOrderDetailsDtoSchema),
@@ -197,33 +199,33 @@ export default function CreateEditShipment({
     <div className="@container">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <h3>Vehicle</h3>
+          <h3>{i18n.t("vehicle")}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Input
-              label="VIN"
-              placeholder="vin"
+              label={i18n.t("vin")}
+              placeholder={i18n.t("vin")}
               labelClassName="font-medium text-gray-900"
               {...register('vin')}
               error={errors.vin?.message as string}
             />
             <Input
-              label="Make"
-              placeholder="make"
+              label={i18n.t("make")}
+              placeholder={i18n.t("make")}
               labelClassName="font-medium text-gray-900"
               {...register('make')}
               error={errors.make?.message as string}
             />
             <Input
-              label="Model"
-              placeholder="model"
+              label={i18n.t("model")}
+              placeholder={i18n.t("model")}
               labelClassName="font-medium text-gray-900"
               {...register('model')}
               error={errors.model?.message as string}
             />
             <Input
-              label="Year"
-              placeholder="year"
+              label={i18n.t("year")}
+              placeholder={i18n.t("year")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('year', { valueAsNumber: true })}
@@ -231,20 +233,20 @@ export default function CreateEditShipment({
             />
           </div>
 
-          <h3>Shipment details</h3>
+          <h3>{i18n.t("shipment-detail")}</h3>
           <hr />
           <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Input
-              label="Lot"
-              placeholder="lot"
+              label={i18n.t("lot")}
+              placeholder={i18n.t("lot")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('lot', { valueAsNumber: true })}
               error={errors.lot?.message as string}
             />
             <Input
-              label="Order ID"
-              placeholder="order id"
+              label={i18n.t("order-id")}
+              placeholder={i18n.t("order-id")}
               labelClassName="font-medium text-gray-900"
               {...register('orderID')}
               error={errors.orderID?.message as string}
@@ -254,7 +256,7 @@ export default function CreateEditShipment({
               name="auction"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label="Auction"
+                  label={i18n.t("auction")}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -263,11 +265,11 @@ export default function CreateEditShipment({
                   options={
                     auctionOptions.length > 0
                       ? auctionOptions
-                      : [{ label: 'No data available', value: 'auction' }]
+                      : [{ label: i18n.t("not-avaiable"), value: 'auction' }]
                   }
                   getOptionValue={(option) => option.label}
                   displayValue={(selected) =>
-                    auctionOptions.find((c: any) => c.label === selected)?.label ?? 'No data available'
+                    auctionOptions.find((c: any) => c.label === selected)?.label ?? i18n.t("not-avaiable")
                   }
                   error={errors?.auction?.message as string}
                 />
@@ -279,7 +281,7 @@ export default function CreateEditShipment({
               name="port"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label="Port"
+                  label={i18n.t("port")}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -288,12 +290,12 @@ export default function CreateEditShipment({
                   options={
                     portOptions.length > 0
                       ? portOptions
-                      : [{ label: 'No data available', value: 'port' }]
+                      : [{ label: i18n.t("not-avaiable"), value: 'port' }]
                   }
                   getOptionValue={(option) => option.label}
                   displayValue={(selected) =>
                     portOptions.find((c: any) => c.label === selected)?.label ??
-                    'No data available'
+                    i18n.t("not-avaiable")
                   }
                   error={errors?.port?.message as string}
                 />
@@ -305,7 +307,7 @@ export default function CreateEditShipment({
               name="provider"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label="Provider"
+                  label={i18n.t("provider")}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -314,12 +316,12 @@ export default function CreateEditShipment({
                   options={
                     providerOptions.length > 0
                       ? providerOptions
-                      : [{ label: 'No data available', value: 'provider' }]
+                      : [{ label: i18n.t("not-avaiable"), value: 'provider' }]
                   }
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
                     providerOptions.find((c: any) => c.value === selected)
-                      ?.label ?? 'No data available'
+                      ?.label ?? i18n.t("not-avaiable")
                   }
                   error={errors?.provider?.message as string}
                 />
@@ -327,28 +329,28 @@ export default function CreateEditShipment({
             />
           </div>
 
-          <h3>Client Total</h3>
+          <h3>{i18n.t("client-total")}</h3>
           <hr />
           <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Input
-              label="Inland Price"
-              placeholder="inland price"
+              label={i18n.t("inland-price")}
+              placeholder={i18n.t("inland-price")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('inlandPrice', { valueAsNumber: true })}
               error={errors.inlandPrice?.message as string}
             />
             <Input
-              label="Ocean Price"
-              placeholder="ocean price"
+              label={i18n.t("ocean-price")}
+              placeholder={i18n.t("ocean-price")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('oceanPrice', { valueAsNumber: true })}
               error={errors.oceanPrice?.message as string}
             />
             <Input
-              label="Broker"
-              placeholder="broker"
+              label={i18n.t("broker")}
+              placeholder={i18n.t("broker")}
               labelClassName="font-medium text-gray-900"
               type="number"
               defaultValue={0}
@@ -356,8 +358,8 @@ export default function CreateEditShipment({
               error={errors.broker?.message as string}
             />
             <Input
-              label="Client Storage"
-              placeholder="client storage"
+              label={i18n.t("client-storage")}
+              placeholder={i18n.t("client-storage")}
               labelClassName="font-medium text-gray-900"
               type="number"
               defaultValue={0}
@@ -365,8 +367,8 @@ export default function CreateEditShipment({
               error={errors.clientStorage?.message as string}
             />
             <Input
-              label="Car Price"
-              placeholder="car price"
+              label={i18n.t("car-price")}
+              placeholder={i18n.t("car-price")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('carPrice', { valueAsNumber: true })}
@@ -374,28 +376,28 @@ export default function CreateEditShipment({
             />
           </div>
 
-          <h3>Total Cost</h3>
+          <h3>{i18n.t("total-cost")}</h3>
           <hr />
           <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Input
-              label="Inland Cost"
-              placeholder="inland cost"
+              label={i18n.t("inland-cost")}
+              placeholder={i18n.t("inland-cost")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('inlandCost', { valueAsNumber: true })}
               error={errors.inlandCost?.message as string}
             />
             <Input
-              label="Ocean Cost"
-              placeholder="ocean cost"
+              label={i18n.t("ocean-cost")}
+              placeholder={i18n.t("ocean-cost")}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('oceanCost', { valueAsNumber: true })}
               error={errors.oceanCost?.message as string}
             />
             <Input
-              label="Storage Cost"
-              placeholder="storage cost"
+              label={i18n.t("storage-cost")}
+              placeholder={i18n.t("storage-cost")}
               labelClassName="font-medium text-gray-900"
               type="number"
               defaultValue={0}
@@ -404,7 +406,7 @@ export default function CreateEditShipment({
             />
           </div>
 
-          <h3>Payment info</h3>
+          <h3>{i18n.t("payment-info")}</h3>
           <hr />
           <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Controller
@@ -412,7 +414,7 @@ export default function CreateEditShipment({
               name="paymentStatus"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label="Payment Status"
+                  label={i18n.t("payment-status")}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -429,7 +431,7 @@ export default function CreateEditShipment({
             />
             <Input
               defaultValue={0}
-              label="Partly Paid"
+              label={i18n.t("partly-paid")}
               placeholder="100"
               labelClassName="font-medium text-gray-900"
               type="number"
@@ -438,7 +440,7 @@ export default function CreateEditShipment({
             />
           </div>
 
-          <h3>User</h3>
+          <h3>{i18n.t("user")}</h3>
           <hr />
           <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Controller
@@ -446,7 +448,7 @@ export default function CreateEditShipment({
               name="userId"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label="User"
+                  label={i18n.t("user")}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -455,11 +457,11 @@ export default function CreateEditShipment({
                   options={
                     userOptions.length > 0
                       ? userOptions
-                      : [{ label: 'No data available', value: '' }]
+                      : [{ label: i18n.t("not-avaiable"), value: '' }]
                   }
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    userOptions.find((c: any) => c.value === selected)?.label ?? 'No data available'
+                    userOptions.find((c: any) => c.value === selected)?.label ?? i18n.t("not-avaiable")
                   }
                   error={errors?.userId?.message as string}
                 />
@@ -469,7 +471,7 @@ export default function CreateEditShipment({
               className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
               onClick={() => setModalOpen(true)}
             >
-              Add Client
+              {i18n.t("add-client")}
             </Button>
           </div>
 
@@ -479,7 +481,7 @@ export default function CreateEditShipment({
             isLoading={isLoading}
             disabled={isLoading}
           >
-            Create Shipment
+            {i18n.t("create-shipment")}
           </Button>
         </form>
       </FormProvider>
