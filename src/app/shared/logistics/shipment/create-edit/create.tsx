@@ -233,7 +233,7 @@ export default function CreateEditShipment({
 
           <h3>Shipment details</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+          <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Input
               label="Lot"
               placeholder="lot"
@@ -329,7 +329,7 @@ export default function CreateEditShipment({
 
           <h3>Client Total</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+          <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Input
               label="Inland Price"
               placeholder="inland price"
@@ -406,7 +406,7 @@ export default function CreateEditShipment({
 
           <h3>Payment info</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+          <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Controller
               control={control}
               name="paymentStatus"
@@ -440,7 +440,7 @@ export default function CreateEditShipment({
 
           <h3>User</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-4 gap-4">
+          <div className="mb-4 mt-4  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
             <Controller
               control={control}
               name="userId"
@@ -475,7 +475,7 @@ export default function CreateEditShipment({
 
           <Button
             type="submit"
-            className="!px-14 !py-[.6rem] bg-gray-900 hover:bg-gray-800 text-white"
+            className="!px-14 !py-[.6rem]  flex-1 mx-auto md:mx-0 flex sm:justify-center md:justify-start bg-gray-900 hover:bg-gray-800 text-white"
             isLoading={isLoading}
             disabled={isLoading}
           >

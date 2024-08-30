@@ -76,22 +76,22 @@ export default function TableFilter({
     <div className=" mb-4 flex items-center justify-between">
       <div className="flex  items-center gap-4">
         {!showSearchOnTheRight ? (
-          <div className="flex flex-row items-center gap-3">
+          <div className="flex flex-row items-center gap-3 w-full">
             <p>Select clients</p>
             <select
               value={userId || ''}
               onChange={handleFullnameChange}
-              className="form-select h-9 w-[300px] rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
+              className="form-select h-9 md:w-[300px] w-[200px] rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
             >
               <option value={''} className="font-bold">
                 All clients with orders
               </option>
               {fullnameOptions && fullnameOptions?.length > 0
                 ? fullnameOptions?.map((item: any) => (
-                    <option key={item.userId} value={item.userId}>
-                      {item.fullname.trim()}
-                    </option>
-                  ))
+                  <option key={item.userId} className='w-full' value={item.userId}>
+                    {item.fullname.trim()}
+                  </option>
+                ))
                 : null}
             </select>
           </div>
@@ -129,17 +129,17 @@ export default function TableFilter({
           <Button
             {...(isMediumScreen || enableDrawerFilter
               ? {
-                  onClick: () => {
-                    setOpenDrawer(() => !openDrawer);
-                  },
-                }
+                onClick: () => {
+                  setOpenDrawer(() => !openDrawer);
+                },
+              }
               : { onClick: () => setShowFilters(() => !showFilters) })}
             variant={'outline'}
             className={cn(
               'me-2.5 h-9 pe-3 ps-2.5',
               !(isMediumScreen || enableDrawerFilter) &&
-                showFilters &&
-                'border-dashed border-gray-700'
+              showFilters &&
+              'border-dashed border-gray-700'
             )}
           >
             <PiFunnel className="me-1.5 h-[18px] w-[18px]" strokeWidth={1.7} />

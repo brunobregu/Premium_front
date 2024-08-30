@@ -160,7 +160,7 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
               </div>
               <div className="header-right">
                 <LanguageDropdown />
-                <div className="d-none d-sm-inline-block">
+                <div className=" d-sm-inline-block">
                   <button
                     className="btn btn-default hover-up mr-10"
                     onClick={handleDashboardClick}
