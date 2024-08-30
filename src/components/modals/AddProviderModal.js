@@ -6,6 +6,7 @@ import { Input, Button } from 'rizzui';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useFiltersContext } from '@/store/state';
 
 const modalStyles = {
   content: {
@@ -42,10 +43,10 @@ export default function AddProviderModal({
   } = useForm({
     resolver: yupResolver(createProviderSchema),
   });
-
+  const { lang, setLang } = useFiltersContext();
   const createProviderMutation = useMutation({
     mutationFn: (data) => {
-      return premiumApi.post('en/Provider/add', data);
+      return premiumApi.post(`${lang}/Provider/add`, data);
     },
     onSuccess: () => {
       toast.success('Provider Created Successfully', { position: 'top-right' });

@@ -30,13 +30,14 @@ export default function NonActiveUsersTable({
     currentPage,
     pageSize,
     setTotalRecords,
+    lang
   } = useFiltersContext();
   const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ['non-active-users'],
     queryFn: () => {
-      return premiumApi.get('/en/User/nonActiveUsers');
+      return premiumApi.get(`${lang}/User/nonActiveUsers`);
     },
     select: (response) => response.data,
   });
@@ -98,7 +99,7 @@ export default function NonActiveUsersTable({
     async (id: string, role: string) => {
       try {
         await premiumApi.post(
-          `/en/User/activateUser?userId=${id}&role=${role}`
+          `${lang}/User/activateUser?userId=${id}&role=${role}`
         );
         toast.success('User activated successfully', { position: 'top-right' });
         queryClient.invalidateQueries({ queryKey: ['non-active-users'] });

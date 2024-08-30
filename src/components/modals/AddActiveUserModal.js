@@ -7,6 +7,7 @@ import { Input, Button, Select } from 'rizzui';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useFiltersContext } from '@/store/state';
 
 const modalStyles = {
   content: {
@@ -40,6 +41,7 @@ export default function AddActiveUserModal({
   onSuccess,
 }) {
   const [loading, setLoading] = useState(false);
+  const { lang, setLang } = useFiltersContext();
   const {
     register,
     handleSubmit,
@@ -53,7 +55,7 @@ export default function AddActiveUserModal({
   const createUserMutation = useMutation({
     mutationFn: (data) => {
       setLoading(true);
-      return premiumApi.post('en/Authentication/addUser', data);
+      return premiumApi.post(`${lang}/Authentication/addUser`, data);
     },
     onSuccess: (data) => {
       toast.success('User Created Successfully', { position: 'top-right' });
@@ -72,7 +74,7 @@ export default function AddActiveUserModal({
 
   const roleQuery = useQuery({
     queryKey: ['role'],
-    queryFn: () => premiumApi.get('en/Authentication/getRoles'),
+    queryFn: () => premiumApi.get(`${lang}/Authentication/getRoles`),
   });
 
   const roleOptions =

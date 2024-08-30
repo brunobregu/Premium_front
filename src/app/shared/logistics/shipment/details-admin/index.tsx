@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
 import { shipmentData as fakeShipmentData } from '@/app/shared/logistics/shipment/create-edit/form-utils';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 interface IndexProps {
   id?: string;
@@ -86,10 +87,10 @@ export default function ViewShipment({
   const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const { i18n } = useTranslation();
-
+  const { lang, setLang } = useFiltersContext();
   const handleImageClick = async () => {
     try {
-      const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
+      const response = await premiumApi.get(`${lang}/OrderDetails/viewPhotos?id=${id}`);
       const images = response.data;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-images`;
@@ -104,7 +105,7 @@ export default function ViewShipment({
 
   const handleDocumentClick = async () => {
     try {
-      const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
+      const response = await premiumApi.get(`${lang}/OrderDetails/viewDocuments?id=${id}`);
       const images = response.data;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-documents`;
@@ -136,7 +137,7 @@ export default function ViewShipment({
 
   const orderDetailsQuery = useQuery({
     queryKey: ['orderDetails'],
-    queryFn: () => premiumApi.get(`en/OrderDetails/adminOrderDetailsById?id=${id}`),
+    queryFn: () => premiumApi.get(`${lang}/OrderDetails/adminOrderDetailsById?id=${id}`),
     enabled: !!id,
   });
 

@@ -6,6 +6,7 @@ import { Input, Button } from 'rizzui';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useFiltersContext } from '@/store/state';
 
 const modalStyles = {
   content: {
@@ -35,11 +36,11 @@ export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
   } = useForm({
     resolver: yupResolver(createPortSchema),
   });
-
+  const { lang, setLang } = useFiltersContext();
   // Mutation to handle the port creation
   const createPortMutation = useMutation({
     mutationFn: (data) => {
-      return premiumApi.post('en/Port/add', data); // Adjusted API endpoint
+      return premiumApi.post(`${lang}/Port/add`, data); // Adjusted API endpoint
     },
     onSuccess: () => {
       toast.success('Port Created Successfully', { position: 'top-right' });

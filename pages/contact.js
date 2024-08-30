@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import toast, {Toaster} from "react-hot-toast";
 import premiumApi from "../src/util/premiumAPI";
 import { useModal } from "../src/app/shared/modal-views/use-modal";
+import { useFiltersContext } from "../src/store/state";
 
 export default function Contact() {
   const {  i18n } = useTranslation();
@@ -17,7 +18,7 @@ export default function Contact() {
     message: '',
   });
 
-  const [locale, setLocale] = useState(i18n.language);
+  const {lang, setLang} =useFiltersContext();
 
   useEffect(() => {
     setLocale(i18n.language);
@@ -47,7 +48,7 @@ export default function Contact() {
     };
 
     try {
-      const response = await premiumApi.post(locale + '/Contact/add', payload);
+      const response = await premiumApi.post(lang + '/Contact/add', payload);
       if (response.status === 201) {
         setFormData({
           firstName: '',

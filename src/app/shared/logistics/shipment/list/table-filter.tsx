@@ -45,13 +45,15 @@ export default function TableFilter({
   const [fullnameOptions, setFullnameOptions] = useState<any>([]);
   const [showFilters, setShowFilters] = useState(true);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { lang, setLang } = useFiltersContext();
+
 
   useEffect(() => {
     // Fetch fullnames and userIds from the API
     const fetchFullnames = async () => {
       try {
         const response = await premiumApi.get(
-          '/en/OrderDetails/clientsWithOrders'
+          `${lang}/OrderDetails/clientsWithOrders`
         );
         const data = response.data;
         setFullnameOptions(data);

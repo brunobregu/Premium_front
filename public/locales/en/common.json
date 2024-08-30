@@ -337,9 +337,10 @@
       "cancel": "Cancel",
       "update": "Update Password"
     },
-    "success": "Password changed successfully",
-     "my-details": "My Details"
+    "success": "Password changed successfully"
+ 
   },
+      "my-details": "My Details",
     "sign-out": "Dilni"
 
    

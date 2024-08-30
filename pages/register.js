@@ -11,6 +11,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useFiltersContext } from '../src/store/state';
 
 
 export default function Register() {
@@ -26,7 +27,7 @@ export default function Register() {
   } = useForm();
   const [loadingRegister, setLoadingRegister] = useState(false);
   const { t, i18n } = useTranslation('common');
-  const [locale, setLocale] = useState(i18n.language);
+  const {lang, setLang} =useFiltersContext();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function Register() {
       phoneNumber,
       password,
     };
-    const registerResponse = await premiumApi.post(locale + '/Authentication/register', payload);
+    const registerResponse = await premiumApi.post(lang + '/Authentication/register', payload);
 
     if (registerResponse.status ) {
       reset();
@@ -54,7 +55,7 @@ export default function Register() {
       });
     }
 
-    const loginResponse = await premiumApi.post(locale + '/Authentication/login', {
+    const loginResponse = await premiumApi.post(lang + '/Authentication/login', {
       email: data.email,
       password: data.password,
     });

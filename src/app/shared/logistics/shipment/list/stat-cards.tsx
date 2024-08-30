@@ -18,18 +18,22 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const fetchStatData = async (userId: string) => {
-  const endpoint = userId
-    ? `/en/OrderDetails/detailsByClient?userId=${userId}`
-    : '/en/OrderDetails/details';
 
-  const response = await premiumApi.get<DetailsApiResponse>(endpoint);
-  return response.data;
-};
 export default function Details({ className }: { className?: string }) {
-  const { userId } = useFiltersContext();
+  const { userId, lang, setLang } = useFiltersContext();
   const user = localStorage.getItem('userRole') || 'User';
   const { i18n } = useTranslation();
+
+
+
+  const fetchStatData = async (userId: string) => {
+    const endpoint = userId
+      ? `${lang}/OrderDetails/detailsByClient?userId=${userId}`
+      : `${lang}/OrderDetails/details`;
+
+    const response = await premiumApi.get<DetailsApiResponse>(endpoint);
+    return response.data;
+  };
 
   const defaultStatData: StatData[] = [
     {

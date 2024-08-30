@@ -32,13 +32,14 @@ export default function AuctionsTable({
     currentPage,
     pageSize,
     setTotalRecords,
+    lang
   } = useFiltersContext();
   const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ['auction'],
     queryFn: () => {
-      return premiumApi.get('en/Auction/auctions');
+      return premiumApi.get(`${lang}/Auction/auctions`);
     },
     select: (response) => response.data,
   });
@@ -83,7 +84,7 @@ export default function AuctionsTable({
   const handleDelete = useCallback(
     async (id: string) => {
       try {
-        await premiumApi.delete(`en/Auction/delete?id=${id}`);
+        await premiumApi.delete(`${lang}/Auction/delete?id=${id}`);
         toast.success('Auction deleted', { position: 'top-right' });
         queryClient.invalidateQueries({ queryKey: ['auction'] });
       } catch (error: any) {

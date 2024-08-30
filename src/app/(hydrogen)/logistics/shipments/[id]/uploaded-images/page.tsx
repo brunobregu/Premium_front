@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 
 interface Image {
@@ -15,14 +16,14 @@ interface Image {
 
 const ImageSliderPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
-
+  const { lang, setLang } = useFiltersContext();
   const [images, setImages] = useState<Image[]>([]);
   const { i18n } = useTranslation()
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
+        const response = await premiumApi.get(`${lang}/OrderDetails/viewPhotos?id=${id}`);
         setImages(response.data);
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error fetching images', { position: "top-right" });

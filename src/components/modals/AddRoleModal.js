@@ -6,6 +6,7 @@ import { Input, Button } from 'rizzui';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useFiltersContext } from '@/store/state';
 
 const modalStyles = {
   content: {
@@ -37,10 +38,10 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
   } = useForm({
     resolver: yupResolver(createRoleSchema),
   });
-
+  const { lang, setLang } = useFiltersContext();
   const createRoleMutation = useMutation({
     mutationFn: (data) => {
-      return premiumApi.post('en/Authentication/addRole', data);
+      return premiumApi.post(`${lang}/Authentication/addRole`, data);
     },
     onSuccess: () => {
       toast.success('Role Created Successfully', { position: 'top-right' });

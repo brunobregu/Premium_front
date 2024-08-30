@@ -7,6 +7,7 @@ import { Input, Button } from 'rizzui';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useFiltersContext } from '@/store/state';
 
 const modalStyles = {
   content: {
@@ -35,6 +36,7 @@ const createUserSchema = yup.object().shape({
 
 export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
+  const { lang, setLang } = useFiltersContext();
   const {
     register,
     handleSubmit,
@@ -48,7 +50,7 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
   const createUserMutation = useMutation({
     mutationFn: (data) => {
       setLoading(true);
-      return premiumApi.post('en/Authentication/addUser', data);
+      return premiumApi.post(`${lang}/Authentication/addUser`, data);
     },
     onSuccess: (data) => {
       toast.success('User Created Successfully', { position: 'top-right' });

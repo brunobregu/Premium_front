@@ -14,7 +14,7 @@ export default function ForgotPassword({locale}) {
    const {  i18n } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const{setEmail}= useFiltersContext();
+  const{setEmail, lang}= useFiltersContext();
   const {
     register,
     formState: { errors },
@@ -26,7 +26,7 @@ export default function ForgotPassword({locale}) {
     setEmail(data.email)
     setLoading(true)
     try {
-      const response = await premiumApi.post( 'en/Authentication/requestResetPassword', {email: data.email}, {
+      const response = await premiumApi.post( `${lang}/Authentication/requestResetPassword`, {email: data.email}, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': '*/*'

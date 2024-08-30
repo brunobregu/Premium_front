@@ -3,6 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import TransportModal from '../modals/TransportModal';
 import premiumApi from '../../util/premiumAPI';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '../../store/state';
 
 
 export default function Hero1Slider() {
@@ -14,6 +15,7 @@ export default function Hero1Slider() {
   const destination = 'Albania';
   const [locale, setLocale] = useState(i18n.language);
   const [validation, setValidation] = useState("")
+  const { lang, setLang } = useFiltersContext();
 
   useEffect(() => {
     setLocale(i18n.language);
@@ -55,7 +57,7 @@ export default function Hero1Slider() {
 
   const fetchPrices = async (locale, zipCode, destination) => {
     try {
-      const response = await premiumApi.get(`/${locale}/Transportation/price`, {
+      const response = await premiumApi.get(`${lang}/Transportation/price`, {
         params: {
           zip: zipCode,
           terminal: destination

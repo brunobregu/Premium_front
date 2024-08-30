@@ -34,11 +34,12 @@ export default function ActiveUsersTable({
     setTotalRecords,
   } = useFiltersContext();
   const queryClient = useQueryClient();
+  const { lang, setLang } = useFiltersContext();
 
   const query = useQuery({
     queryKey: ['active-users'],
     queryFn: () => {
-      return premiumApi.get('en/User/activeUsers');
+      return premiumApi.get(`${lang}/User/activeUsers`);
     },
     select: (response) => response.data,
   });
@@ -96,7 +97,7 @@ export default function ActiveUsersTable({
   const handleDelete = useCallback(
     async (id: string) => {
       try {
-        await premiumApi.delete(`en/User/deleteUser?userId=${id}`);
+        await premiumApi.delete(`${lang}/User/deleteUser?userId=${id}`);
         toast.success('Active user deleted', { position: 'top-right' });
         queryClient.invalidateQueries({ queryKey: ['active-users'] });
       } catch (error: any) {

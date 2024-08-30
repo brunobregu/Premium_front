@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import premiumApi from '@/util/premiumAPI';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 export default function PasswordSettingsView({
   settings
@@ -26,11 +27,13 @@ export default function PasswordSettingsView({
   const [reset, setReset] = useState({});
   const router = useRouter(); // Correct usage inside a component
   const { i18n } = useTranslation();
+  const { lang, setLang } = useFiltersContext();
+
 
   const onSubmit: SubmitHandler<PasswordFormTypes> = async (data) => {
     setLoading(true);
     try {
-      const response = await premiumApi.post('en/Authentication/changePassword', {
+      const response = await premiumApi.post(`${lang}/Authentication/changePassword`, {
         oldPassword: data.currentPassword,
         newPassword: data.newPassword,
         confirmPassword: data.confirmedPassword,

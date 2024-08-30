@@ -16,6 +16,7 @@ export default function ResetPassword() {
   const{email}= useFiltersContext();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [passwordVisibleVerify, setPasswordVisibleVerify] = useState(false);
+  const {lang, setLang} =useFiltersContext();
   const {
     register,
     formState: { errors },
@@ -32,7 +33,7 @@ export default function ResetPassword() {
     }
 
     try {
-      const response = await premiumApi.post('/en/Authentication/resetPassword', {
+      const response = await premiumApi.post(`${lang}/Authentication/resetPassword`, {
         email: email,
         temporaryPassword: data.temporaryPassword,
         newPassword: data.newPassword,

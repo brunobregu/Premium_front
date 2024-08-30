@@ -32,13 +32,14 @@ export default function ProvidersTable({
     currentPage,
     pageSize,
     setTotalRecords,
+    lang
   } = useFiltersContext();
   const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ['roles'],
     queryFn: () => {
-      return premiumApi.get('en/Provider/providers');
+      return premiumApi.get(`${lang}/Provider/providers`);
     },
     select: (response) => response.data,
   });
@@ -83,7 +84,7 @@ export default function ProvidersTable({
   const handleDelete = useCallback(
     async (id: string) => {
       try {
-        await premiumApi.delete(`en/Provider/delete?id=${id}`);
+        await premiumApi.delete(`${lang}/Provider/delete?id=${id}`);
         queryClient.invalidateQueries({ queryKey: ['roles'] });
         toast.success('Provider deleted', { position: 'top-right' });
       } catch (error: any) {

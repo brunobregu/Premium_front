@@ -23,6 +23,7 @@ export default function MyOrdersList() {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
+  const { lang, setLang } = useFiltersContext();
   const {
     searchInput,
     setCurrentPage,
@@ -34,7 +35,7 @@ export default function MyOrdersList() {
   const query = useQuery({
     queryKey: ['shipments'],
     queryFn: () => {
-      return premiumApi.get('/en/OrderDetails/myOrders');
+      return premiumApi.get(`${lang}/OrderDetails/myOrders`);
     },
     select: (data) => transformData(data.data),
   });

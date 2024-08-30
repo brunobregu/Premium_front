@@ -32,13 +32,14 @@ export default function PortsTable({
     currentPage,
     pageSize,
     setTotalRecords,
+    lang
   } = useFiltersContext();
   const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ['ports'],
     queryFn: () => {
-      return premiumApi.get('en/Port/ports');
+      return premiumApi.get(`${lang}/Port/ports`);
     },
     select: (response) => response.data,
   });
@@ -83,7 +84,7 @@ export default function PortsTable({
   const handleDelete = useCallback(
     async (id: string) => {
       try {
-        await premiumApi.delete(`en/Port/delete?id=${id}`);
+        await premiumApi.delete(`${lang}/Port/delete?id=${id}`);
         queryClient.invalidateQueries({ queryKey: ['ports'] });
         toast.success('Port deleted', { position: 'top-right' });
       } catch (error: any) {

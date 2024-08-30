@@ -6,6 +6,7 @@ import { Input, Button } from 'rizzui';
 import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useFiltersContext } from '@/store/state';
 
 const modalStyles = {
   content: {
@@ -38,9 +39,11 @@ export default function AddAuctionModal({ isOpen, onRequestClose, onSuccess }) {
     resolver: yupResolver(createAuctionSchema),
   });
 
+  const { lang, setLang } = useFiltersContext();
+
   const createAuctionMutation = useMutation({
     mutationFn: (data) => {
-      return premiumApi.post('en/Auction/add', data); // Update API endpoint here
+      return premiumApi.post(`${lang}/Auction/add`, data); // Update API endpoint here
     },
     onSuccess: () => {
       toast.success('Auction Created Successfully', { position: 'top-right' });

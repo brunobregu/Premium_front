@@ -9,6 +9,7 @@ import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useFiltersContext } from '../src/store/state';
 
 
 export default function Login() {
@@ -24,11 +25,12 @@ export default function Login() {
   } = useForm();
   const [loadingLogin, setLoadingLogin] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const {lang, setLang} =useFiltersContext();
 
   async function onSubmit(data) {
     setLoadingLogin(true);
     try {
-      const apiResponse = await premiumApi.post( '/en/Authentication/login', {
+      const apiResponse = await premiumApi.post( `${lang}/Authentication/login`, {
         email: data.email,
         password: data.password,
       });

@@ -32,13 +32,14 @@ export default function RolesTable({
     currentPage,
     pageSize,
     setTotalRecords,
+    lang
   } = useFiltersContext();
   const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ['roles'],
     queryFn: () => {
-      return premiumApi.get('/en/Authentication/getRoles');
+      return premiumApi.get(`${lang}/Authentication/getRoles`);
     },
     select: (response) => response.data,
   });
@@ -83,7 +84,7 @@ export default function RolesTable({
   const handleDelete = useCallback(
     async (role: string) => {
       try {
-        await premiumApi.delete(`en/User/deleteRole?role=${role}`);
+        await premiumApi.delete(`${lang}/User/deleteRole?role=${role}`);
         queryClient.invalidateQueries({ queryKey: ['roles'] });
         toast.success('Role deleted', { position: 'top-right' });
       } catch (error: any) {

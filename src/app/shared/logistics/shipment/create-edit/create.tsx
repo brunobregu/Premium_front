@@ -13,6 +13,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import CreateUserModal from '../../../../../components/modals/AddUserModal'; // Adjust the path as necessary
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 interface IndexProps {
   id?: string;
@@ -90,6 +91,7 @@ export default function CreateEditShipment({
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const router = useRouter();
   const { i18n } = useTranslation();
+  const { lang, setLang } = useFiltersContext();
 
   const methods = useForm<any>({
     resolver: yupResolver(addOrderDetailsDtoSchema),
@@ -107,30 +109,30 @@ export default function CreateEditShipment({
   const query = useQuery({
     queryKey: ['user'],
     queryFn: () =>
-      premiumApi.get('en/Authentication/getUsersOfRole', {
+      premiumApi.get(`${lang}/Authentication/getUsersOfRole`, {
         params: { role: 'Client' },
       }),
   });
 
   const orderDetailsQuery = useQuery({
     queryKey: ['orderDetails', id],
-    queryFn: () => premiumApi.get(`en/OrderDetails/orderById?id=${id}`),
+    queryFn: () => premiumApi.get(`${lang}/OrderDetails/orderById?id=${id}`),
     enabled: !!id,
   });
 
   const auctionQuery = useQuery({
     queryKey: ['auctions'],
-    queryFn: () => premiumApi.get('en/Auction/auctions'),
+    queryFn: () => premiumApi.get(`${lang}/Auction/auctions`),
   });
 
   const portQuery = useQuery({
     queryKey: ['ports'],
-    queryFn: () => premiumApi.get('en/Port/ports'),
+    queryFn: () => premiumApi.get(`${lang}/Port/ports`),
   });
 
   const providerQuery = useQuery({
     queryKey: ['providers'],
-    queryFn: () => premiumApi.get('en/Provider/providers'),
+    queryFn: () => premiumApi.get(`${lang}/Provider/providers`),
   });
 
   useEffect(() => {
@@ -144,9 +146,9 @@ export default function CreateEditShipment({
   const addOrderDetailsMutation = useMutation({
     mutationFn: (data: CreateShipmentInput) => {
       if (id) {
-        return premiumApi.put(`en/OrderDetails/update?id=${id}`, data);
+        return premiumApi.put(`${lang}/OrderDetails/update?id=${id}`, data);
       } else {
-        return premiumApi.post('en/OrderDetails/add', data);
+        return premiumApi.post(`${lang}/OrderDetails/add`, data);
       }
     },
     onSuccess: () => {

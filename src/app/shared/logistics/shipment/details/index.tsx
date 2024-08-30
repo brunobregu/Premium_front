@@ -12,6 +12,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 interface IndexProps {
   id?: string;
@@ -96,9 +97,10 @@ export default function ViewShipment({
 }: IndexProps) {
 
   const { i18n } = useTranslation();
+  const { lang, setLang } = useFiltersContext();
   const handleImageClick = async () => {
     try {
-      const response = await premiumApi.get(`en/OrderDetails/viewPhotos?id=${id}`);
+      const response = await premiumApi.get(`${lang}/OrderDetails/viewPhotos?id=${id}`);
       const images = response.data;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-images`;
@@ -113,7 +115,7 @@ export default function ViewShipment({
 
   const handleDocumentClick = async () => {
     try {
-      const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
+      const response = await premiumApi.get(`${lang}/OrderDetails/viewDocuments?id=${id}`);
       const images = response.data;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-documents`;
@@ -142,7 +144,7 @@ export default function ViewShipment({
 
   const orderDetailsQuery = useQuery({
     queryKey: ['orderDetails', id],
-    queryFn: () => premiumApi.get(`en/OrderDetails/myOrderDetailsById?id=${id}`),
+    queryFn: () => premiumApi.get(`${lang}/OrderDetails/myOrderDetailsById?id=${id}`),
     enabled: !!id,
   });
 

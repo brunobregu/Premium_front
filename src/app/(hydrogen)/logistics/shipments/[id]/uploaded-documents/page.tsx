@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 interface Document {
   base64: string;
@@ -15,11 +16,12 @@ const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const [documents, setDocuments] = useState<Document[]>([]);
   const { i18n } = useTranslation()
+  const { lang, setLang } = useFiltersContext();
 
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await premiumApi.get(`en/OrderDetails/viewDocuments?id=${id}`);
+        const response = await premiumApi.get(`${lang}/OrderDetails/viewDocuments?id=${id}`);
         setDocuments(response.data);
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error fetching documents', { position: "top-right" });

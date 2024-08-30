@@ -28,7 +28,7 @@ export default function OrderList() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
   const queryClient = useQueryClient();
-  const { userId, setCurrentPage, currentPage, pageSize, setTotalRecords } =
+  const { userId, setCurrentPage, currentPage, pageSize, setTotalRecords, lang } =
     useFiltersContext();
 
   const query = useQuery({
@@ -36,8 +36,8 @@ export default function OrderList() {
     queryFn: () => {
       return premiumApi.get(
         userId.length > 0
-          ? `en/OrderDetails/ordersByClient?userId=${userId}`
-          : '/en/OrderDetails/orders'
+          ? `${lang}/OrderDetails/ordersByClient?userId=${userId}`
+          : `${lang}/OrderDetails/orders`
       );
     },
     select: (data) => transformData(data.data),
@@ -77,7 +77,7 @@ export default function OrderList() {
   const handleDelete = useCallback(
     async (id: string) => {
       try {
-        await premiumApi.delete(`/en/OrderDetails/delete?id=${id}`);
+        await premiumApi.delete(`${lang}/OrderDetails/delete?id=${id}`);
         queryClient.invalidateQueries({ queryKey: ['shipments'] });
         queryClient.invalidateQueries({ queryKey: ['details'] });
       } catch (error: any) {

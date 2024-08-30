@@ -16,19 +16,22 @@ import premiumApi from '@/util/premiumAPI';
 import { DetailsApiResponse, StatData } from '@/types/details';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 
 
-const fetchStatData = async (user: string) => {
-  const endpoint = 'en/OrderDetails/myDetails';
-  // ? '/OrderDetails/details'
-  const response = await premiumApi.get<DetailsApiResponse>(endpoint);
-  return response.data;
-};
 
 export default function MyDetails({ className }: { className?: string }) {
   const user = localStorage.getItem('userRole') || 'User';
   const { i18n } = useTranslation();
+  const { lang, setLang } = useFiltersContext();
+
+  const fetchStatData = async (user: string) => {
+    const endpoint = ` ${lang}/OrderDetails/myDetails`;
+    // ? '/OrderDetails/details'
+    const response = await premiumApi.get<DetailsApiResponse>(endpoint);
+    return response.data;
+  };
 
   const defaultStatData: StatData[] = [
     {

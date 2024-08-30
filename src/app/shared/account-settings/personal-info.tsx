@@ -19,6 +19,7 @@ import AvatarUpload from '@ui/file-upload/avatar-upload';
 import { useEffect, useState } from 'react';
 import premiumApi from '@/util/premiumAPI';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 const Select = dynamic(() => import('rizzui').then((mod) => mod.Select), {
   ssr: false,
@@ -36,11 +37,12 @@ const QuillEditor = dynamic(() => import('@ui/quill-editor'), {
 export default function PersonalInfoView() {
   const { i18n } = useTranslation();
   const [data, setData] = useState<any>();
+  const { lang, setLang } = useFiltersContext();
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await premiumApi.get('en/User/personalData');
+        const response = await premiumApi.get(`${lang}/User/personalData`);
 
         if (response.status === 200) {
 
@@ -54,7 +56,7 @@ export default function PersonalInfoView() {
       }
     }
     getData();
-  }, [data])
+  }, [])
 
   const onSubmit: SubmitHandler<PersonalInfoFormTypes> = (data) => {
     toast.success(<Text as="b">Successfully added!</Text>);

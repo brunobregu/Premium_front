@@ -5,14 +5,15 @@ import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI'; // Assuming this is the API helper
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 const ActivateUserModal = ({ isOpen, onClose, onConfirm, userId }) => {
   const { i18n } = useTranslation();
-  
+  const { lang, setLang } = useFiltersContext();
   // Fetch roles from API
   const { data: roles, isLoading: rolesLoading } = useQuery({
     queryKey: ['roles'],
-    queryFn: () => premiumApi.get('en/Authentication/getRoles'),
+    queryFn: () => premiumApi.get(`${lang}/Authentication/getRoles`),
     select: (response) => response.data,
     onError: (error) => {
       toast.error(

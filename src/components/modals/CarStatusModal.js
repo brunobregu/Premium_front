@@ -1,3 +1,4 @@
+import { useFiltersContext } from '@/store/state';
 import premiumApi from '@/util/premiumAPI';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -33,7 +34,8 @@ const UpdateCarStatusModal = ({
   const [documents, setDocuments] = useState([]);
   const [trackingNumber, setTrackingNumber] = useState('');
   const [loading, setLoading] = useState(false);
-  const { t } = useTranslation(); // Add this line
+  const { t } = useTranslation();
+  const { lang, setLang } = useFiltersContext();
   // const [currentStatus, setCurrentStatus] = useState(carStatus);
 
   const handleFileUpload = (e, setFileState) => {
@@ -107,7 +109,7 @@ const UpdateCarStatusModal = ({
     }
     setLoading(true);
     premiumApi
-      .put(`en/OrderDetails/updateCarStatus?id=${id}`, formData, {
+      .put(`${lang}/OrderDetails/updateCarStatus?id=${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

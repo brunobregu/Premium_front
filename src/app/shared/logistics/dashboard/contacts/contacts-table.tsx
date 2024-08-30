@@ -17,12 +17,13 @@ export default function ContactsTable() {
     currentPage,
     pageSize,
     setTotalRecords,
+    lang
   } = useFiltersContext();
 
   const query = useQuery({
     queryKey: ['roles'],
     queryFn: () => {
-      return premiumApi.get('en/Contact/contacts');
+      return premiumApi.get(`${lang}/Contact/contacts`);
     },
     select: (response) => response.data,
   });
@@ -46,10 +47,9 @@ export default function ContactsTable() {
   }, [filteredData, currentPage, pageSize]);
 
   useEffect(() => {
-    // Calculate new total pages
+
     const totalPages = Math.ceil(filteredData.length / pageSize);
 
-    // If the current page is greater than the total pages, reset to the last page
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     } else if (totalPages === 0 || currentPage === 0) {
