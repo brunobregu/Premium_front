@@ -1,5 +1,7 @@
+"use client"
+
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Popover } from "react-tiny-popover";
 import { useTranslation } from 'react-i18next';
 import { useFiltersContext } from '../../store/state';
@@ -7,12 +9,20 @@ import { useFiltersContext } from '../../store/state';
 
 export default function LanguageDropdown() {
   const router = useRouter();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 const {lang, setLang} =useFiltersContext();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   
 
   const { locale: currentLocale, pathname, asPath, query } = router;
+  useEffect(() => {
+    const storedLang = localStorage.getItem('language');
+    if (storedLang && storedLang !== lang) {
+      setLang(storedLang);
+      i18n.changeLanguage(storedLang);
+      router.push({ pathname, query }, asPath, { locale: storedLang });
+    }
+  }, []);
 
   function handleLocaleClick(nextLocale) {
       i18n.changeLanguage(nextLocale);

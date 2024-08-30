@@ -7,6 +7,7 @@ import { PiCaretDownBold } from 'react-icons/pi';
 import useMenuItems from '@/layouts/hydrogen/menu-items';
 import StatusBadge from '@components/get-status-badge';
 import { routes } from '@/config/routes';
+import { useTranslation } from 'react-i18next';
 
 export function SidebarMenu() {
   const pathname = usePathname();
@@ -15,6 +16,7 @@ export function SidebarMenu() {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [activeIsClicked, setActiveIsClicked] = useState<boolean>(false);
   const user = localStorage.getItem('userRole')
+  const { i18n } = useTranslation();
 
 
   const handleUsersToggle = () => {
@@ -103,7 +105,7 @@ export function SidebarMenu() {
                             )}
                           />{' '}
 
-                          Users
+                          {i18n.t("users")}
                         </div>
                         {/* {dropdownItem?.badge?.length ? (
                             <StatusBadge status={dropdownItem?.badge} />
@@ -131,7 +133,7 @@ export function SidebarMenu() {
                                   : 'opacity-40'
                               )}
                             />
-                            Active Users
+                            {i18n.t("active-users")}
                           </div>
                         </Link>
 
@@ -154,7 +156,7 @@ export function SidebarMenu() {
                                   : 'opacity-40'
                               )}
                             />
-                            Non Active Users
+                            {i18n.t("non-active-users")}
                           </div>
                         </Link>
                       </div>

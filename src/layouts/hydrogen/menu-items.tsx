@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { routes } from '@/config/routes';
 import { PiPackageDuotone } from 'react-icons/pi';
+import { useTranslation } from 'react-i18next';
 
 export interface MenuItemsType {
   name: string;
@@ -12,6 +13,7 @@ export interface MenuItemsType {
 }
 
 const useMenuItems = () => {
+  const { t, i18n } = useTranslation();
   const [menuItems, setMenuItems] = useState<MenuItemsType[]>([]);
 
   useEffect(() => {
@@ -20,11 +22,11 @@ const useMenuItems = () => {
     const items: MenuItemsType[] = [
       // label start
       {
-        name: 'Overview',
+        name: i18n.t('overview'),
       },
       ...(userRole === 'Admin' || userRole === 'Account Manager'
         ? [{
-          name: 'Dashboard',
+          name: i18n.t('dashboard'),
           href: "#",
           icon: <PiPackageDuotone />,
           dropdownItems: [
@@ -44,35 +46,35 @@ const useMenuItems = () => {
             //   : []),
             ...(userRole === 'Admin'
               ? [{
-                name: 'Roles',
+                name: i18n.t('roles'),
                 href: routes.logistics.roles,
                 icon: <PiPackageDuotone />,
               }]
               : []),
             ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
-                name: 'Ports',
+                name: i18n.t('ports'),
                 href: routes.logistics.ports,
                 icon: <PiPackageDuotone />,
               }]
               : []),
             ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
-                name: 'Providers',
+                name: i18n.t('providers'),
                 href: routes.logistics.providers,
                 icon: <PiPackageDuotone />,
               }]
               : []),
             ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
-                name: 'Auctions',
+                name: i18n.t('auctions'),
                 href: routes.logistics.auctions,
                 icon: <PiPackageDuotone />,
               }]
               : []),
             ...(userRole === 'Admin' || userRole === 'Account Manager'
               ? [{
-                name: 'Contacts',
+                name: i18n.t('contacts'),
                 href: routes.logistics.contacts,
                 icon: <PiPackageDuotone />,
               }]
@@ -81,7 +83,7 @@ const useMenuItems = () => {
         }]
         : []),
       {
-        name: 'Shipment List',
+        name: i18n.t("shipment-list"),
         href: routes.logistics.shipmentList,
         icon: <PiPackageDuotone />,
       },

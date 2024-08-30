@@ -1,3 +1,5 @@
+"use client"
+
 import { Toaster } from 'react-hot-toast';
 import GlobalDrawer from '@/app/shared/drawer-views/container';
 import GlobalModal from '@/app/shared/modal-views/container';
@@ -14,17 +16,25 @@ import '@/app/globals.css';
 import { QueryClientProvider } from '@tanstack/react-query';
 import premiumQueryClient from '@/util/premiumQueryClient';
 import { FiltersProvider } from '@/store/state';
+import { I18nextProvider } from 'react-i18next'; // Import I18nextProvider
+import i18n from '../../i18'; // Import the initialized i18n configuration
+import { useEffect } from 'react';
 
-export const metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
-};
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  useEffect(() => {
+    const storedLang = localStorage.getItem('language');
+    if (storedLang) {
+
+      i18n.changeLanguage(storedLang);
+    }
+  }, []);
+
   return (
     <html
       lang="en"
@@ -41,14 +51,17 @@ export default async function RootLayout({
         <FiltersProvider>
           <QueryClientProvider client={premiumQueryClient}>
             <ThemeProvider>
-              <NextProgress />
-              {children}
-              <Toaster />
-              <GlobalDrawer />
-              <GlobalModal />
+              <I18nextProvider i18n={i18n}>
+                <NextProgress />
+                {children}
+                <Toaster />
+                <GlobalDrawer />
+                <GlobalModal />
+              </I18nextProvider>
             </ThemeProvider>
           </QueryClientProvider>
         </FiltersProvider>
+
       </body>
     </html>
   );

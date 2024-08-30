@@ -8,15 +8,8 @@ import { Button } from 'rizzui';
 import { shipmentData } from '@/data/shipment-data';
 import PageHeader from '@/app/shared/page-header';
 import ExportButton from '@/app/shared/export-button';
+import { useTranslation } from 'react-i18next';
 
-const pageHeader = {
-  title: 'All Shipments',
-  breadcrumb: [
-    {
-      name: 'Shipment List',
-    },
-  ],
-};
 
 interface HeaderProps {
   className?: string;
@@ -24,6 +17,18 @@ interface HeaderProps {
 
 export default function ShipmentPageHeader({ className }: HeaderProps) {
   const user = localStorage.getItem('userRole')
+  const { i18n } = useTranslation();
+
+  const pageHeader = {
+    title: i18n.t("all-shipments"),
+    breadcrumb: [
+      {
+        name: i18n.t("shipment-list"),
+      },
+    ],
+  };
+
+
 
   return (
     <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>

@@ -208,7 +208,19 @@
   "temporary-password":"Temporary password",
   "new-password":"New password",
   "confirm-new-password": "Confirm new password",
-  "car-shipping-calculator": "Car shipping calculator"
+  "car-shipping-calculator": "Car shipping calculator",
+  "overview":"overview",
+  "dashboard":"Dashboard",
+  "roles":"Roles",
+  "ports":"Ports",
+  "providers":"Providers",
+  "auctions":"Auction",
+  "contacts":"Contacts",
+  "users":"Users",
+  "shipment-list": "Shipment List",
+  "active-users":"Active Users",
+  "non-active-users": "Non Active Users",
+  "all-shipments":"All Shipments"
 
 
 }

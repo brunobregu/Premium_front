@@ -203,6 +203,18 @@
   "temporary-password":"Fjalëkalimi i përkohshëm",
   "new-password":"Fjalëkalimi i ri",
   "confirm-new-password": "Konfirmo fjalëkalimin e ri",
-  "car-shipping-calculator": "Llogaritësi i transportit të makinave"
+  "car-shipping-calculator": "Llogaritësi i transportit të makinave",
+  "overview": "Përmbledhje",
+  "dashboard": "Paneli Kryesor",
+  "roles": "Roli",
+  "ports": "Portet",
+  "providers": "Furnizuesit",
+  "auctions": "Ankandet",
+  "contacts": "Kontaktet",
+  "users":"Përdoruesit",
+   "active-users":"Përdoruesit Aktiv",
+  "non-active-users": "Përdoruesit Jo Aktiv",
+  "shipment-list": "Lista e Dërgesave",
+  "all-shipments":"Të gjitha dërgesat"
 
 }
