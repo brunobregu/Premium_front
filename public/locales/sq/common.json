@@ -238,6 +238,7 @@
    "client":"Klienti",
  "edit-shipment":"Ndrysho dërgesën",
  "delete-shipment":"Fshi dërgesën",
+ "detail-shipment":"Shiko dërgesën",
  "rows-per-page":"Rreshta për faqe",
  "vehicle":"Automjeti",
  "order-details":"Detajet e porosisë",
@@ -407,7 +408,8 @@
                     "contact-deleted":"Kontakti u fshi",
                     "port-deleted":"Porti u fshi",
                     "provider-delete":"Furnizuesi u fshi",
-                    "role-deleted":"Roli u fshi"
+                    "role-deleted":"Roli u fshi",
+                     "order-delete":"Dërgesa u fshi"
     
  
 

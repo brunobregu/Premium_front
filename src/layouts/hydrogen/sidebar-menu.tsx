@@ -1,5 +1,7 @@
+"use client"
+
 import Link from 'next/link';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Title, Collapse } from 'rizzui';
 import cn from '@utils/class-names';
@@ -8,6 +10,7 @@ import useMenuItems from '@/layouts/hydrogen/menu-items';
 import StatusBadge from '@components/get-status-badge';
 import { routes } from '@/config/routes';
 import { useTranslation } from 'react-i18next';
+import { useFiltersContext } from '@/store/state';
 
 export function SidebarMenu() {
   const pathname = usePathname();
@@ -17,7 +20,17 @@ export function SidebarMenu() {
   const [activeIsClicked, setActiveIsClicked] = useState<boolean>(false);
   const user = localStorage.getItem('userRole')
   const { i18n } = useTranslation();
+  const { lang, setLang } = useFiltersContext();
 
+
+  useEffect(() => {
+    const storedLang = localStorage.getItem('language');
+    if (storedLang && storedLang !== lang) {
+      setLang(storedLang);
+      i18n.changeLanguage(storedLang);
+      // setLocale(storedLang);
+    }
+  }, [lang]);
 
   const handleUsersToggle = () => {
     setIsUsersOpen((prev) => !prev);

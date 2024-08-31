@@ -26,34 +26,35 @@ export const getColumns = ({
   sortConfig,
   onHeaderCellClick,
   handleDelete,
+  t,
   userId,
 }: any) => {
   const columns = [
     ...(userId.length > 0
       ? []
       : [
-          {
-            title: (
-              <HeaderCell
-                title="Full Name"
-                sortable
-                ascending={
-                  sortConfig?.direction === 'asc' &&
-                  sortConfig?.key === 'fullname'
-                }
-              />
-            ),
-            onHeaderCell: () => onHeaderCellClick('fullname'),
-            dataIndex: 'fullname',
-            key: 'fullname',
-            width: 300,
-            render: (fullname: string) => fullname,
-          },
-        ]),
+        {
+          title: (
+            <HeaderCell
+              title={t('full-name')}
+              sortable
+              ascending={
+                sortConfig?.direction === 'asc' &&
+                sortConfig?.key === 'fullname'
+              }
+            />
+          ),
+          onHeaderCell: () => onHeaderCellClick('fullname'),
+          dataIndex: 'fullname',
+          key: 'fullname',
+          width: 300,
+          render: (fullname: string) => fullname,
+        },
+      ]),
     {
       title: (
         <HeaderCell
-          title="VIN"
+          title={t('vin')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'vin'
@@ -69,7 +70,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Make"
+          title={t('make')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'make'
@@ -85,7 +86,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Model"
+          title={t('model')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'model'
@@ -101,7 +102,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Year"
+          title={t('year')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'year'
@@ -117,7 +118,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Lot"
+          title={t('lot')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'lot'
@@ -133,7 +134,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Order Id"
+          title={t('order-id')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'orderID'
@@ -149,7 +150,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Auction"
+          title={t('auction')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'auction'
@@ -165,7 +166,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Tracking Number"
+          title={t('tracking-number')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' &&
@@ -182,7 +183,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Payment Status"
+          title={t('payment-status')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' &&
@@ -199,7 +200,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Car Status"
+          title={t('car-status')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'carStatus'
@@ -215,7 +216,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Port"
+          title={t('port')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'port'
@@ -231,7 +232,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Client Total"
+          title={t('client-total')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'clientTotal'
@@ -247,7 +248,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Total Cost"
+          title={t('total-cost')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'totalCost'
@@ -263,7 +264,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Profit"
+          title={t('profit')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'profit'
@@ -277,7 +278,7 @@ export const getColumns = ({
       render: (profit: number) => profit,
     },
     {
-      title: <HeaderCell title="Actions" className="opacity-0" />,
+      title: <HeaderCell title={t('actions')} className="opacity-0" />,
       dataIndex: 'action',
       key: 'action',
       width: 120,
@@ -285,7 +286,7 @@ export const getColumns = ({
         <div className="flex items-center justify-end gap-3 pe-4">
           <Tooltip
             size="sm"
-            content={'Detail Shipment'}
+            content={t('detail-shipment')}
             placement="top"
             color="invert"
           >
@@ -293,7 +294,7 @@ export const getColumns = ({
               <ActionIcon
                 size="sm"
                 variant="outline"
-                aria-label={'Detail Shipment'}
+                aria-label={t('detail-shipment')}
               >
                 <EyeIcon className="h-4 w-4" />
               </ActionIcon>
@@ -301,7 +302,7 @@ export const getColumns = ({
           </Tooltip>
           <Tooltip
             size="sm"
-            content={'Edit Shipment'}
+            content={t('edit-shipment')}
             placement="top"
             color="invert"
           >
@@ -309,7 +310,7 @@ export const getColumns = ({
               <ActionIcon
                 size="sm"
                 variant="outline"
-                aria-label={'Edit Shipment'}
+                aria-label={t('edit-shipment')}
               >
                 <PencilIcon className="h-4 w-4" />
               </ActionIcon>
@@ -317,14 +318,14 @@ export const getColumns = ({
           </Tooltip>
           <Tooltip
             size="sm"
-            content={'Delete Shipment'}
+            content={t('delete-shipment')}
             placement="top"
             color="invert"
           >
             <ActionIcon
               size="sm"
               variant="outline"
-              aria-label={'Delete Shipment'}
+              aria-label={t('delete-shipment')}
               onClick={() => handleDelete(record.id)}
             >
               <TrashIcon className="h-4 w-4" />

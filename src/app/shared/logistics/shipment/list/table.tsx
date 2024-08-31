@@ -13,6 +13,7 @@ import { ShipmentData } from '@/types/orders';
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '../../../../../components/modals/DeleteOrderModal';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const transformData = (data: ShipmentData[]): ShipmentData[] => {
   return data.map((item: ShipmentData) => {
@@ -28,6 +29,7 @@ export default function OrderList() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
   const queryClient = useQueryClient();
+  const { i18n } = useTranslation();
   const { userId, setCurrentPage, currentPage, pageSize, setTotalRecords, lang } =
     useFiltersContext();
 
@@ -80,6 +82,9 @@ export default function OrderList() {
         await premiumApi.delete(`${lang}/OrderDetails/delete?id=${id}`);
         queryClient.invalidateQueries({ queryKey: ['shipments'] });
         queryClient.invalidateQueries({ queryKey: ['details'] });
+        toast.success(i18n.t('order-delete'), {
+          position: 'top-right',
+        });
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error, try againg', {
           position: 'top-right',
@@ -139,6 +144,7 @@ export default function OrderList() {
         handleSelectAll,
         handleDelete: openModal,
         userId: userId,
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]

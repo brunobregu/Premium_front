@@ -28,12 +28,13 @@ export const getColumns = ({
   handleSelectAll,
   onChecked,
   handleDelete,
+  t,
 }: any) => {
   const columns = [
     {
       title: (
         <HeaderCell
-          title="VIN"
+          title={t('vin')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'vin'
@@ -49,7 +50,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Make"
+          title={t('make')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'make'
@@ -65,7 +66,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Model"
+          title={t('model')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'model'
@@ -81,7 +82,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Year"
+          title={t('year')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'year'
@@ -97,7 +98,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Lot"
+          title={t('lot')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'lot'
@@ -113,7 +114,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Port"
+          title={t('port')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'port'
@@ -129,7 +130,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Auction"
+          title={t('auction')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'auction'
@@ -145,7 +146,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Payment Status"
+          title={t('payment-status')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' &&
@@ -162,7 +163,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Car Status"
+          title={t('car-status')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'carStatus'
@@ -178,7 +179,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Tracking Number"
+          title={t('tracking-number')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' &&
@@ -195,7 +196,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Client Total"
+          title={t('client-total')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'clientTotal'
@@ -210,7 +211,7 @@ export const getColumns = ({
     },
     {
       title: (
-        <HeaderCell title="Actions" className="font-medium text-gray-900" />
+        <HeaderCell title={t('actions')} className="font-medium text-gray-900" />
       ),
       dataIndex: 'action',
       key: 'action',
@@ -220,7 +221,7 @@ export const getColumns = ({
           <div className="flex items-center justify-start gap-3 pe-4">
             <Tooltip
               size="sm"
-              content={'Detail Shipment'}
+              content={t('detail-shipment')}
               placement="top"
               color="invert"
             >
@@ -228,7 +229,7 @@ export const getColumns = ({
                 <ActionIcon
                   size="sm"
                   variant="outline"
-                  aria-label={'Detail Shipment'}
+                  aria-label={t('detail-shipment')}
                 >
                   <EyeIcon className="h-4 w-4" />
                 </ActionIcon>

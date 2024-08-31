@@ -243,6 +243,7 @@
   "shipment-detail":"Shipment Details",
   "edit-shipment":"Edit Shipment",
   "delete-shipment":"Delete Shipment",
+  "detail-shipment":"Detail Shipment",
   "rows-per-page":"Rows per page",
   "vehicle":"Vehicle",
   "order-details":"Order Details",
@@ -416,8 +417,8 @@
                            "contact-deleted":"Contact delete",
                            "port-deleted":"Port delete",
                            "provider-delete":"Provider delete",
-                           "role-deleted":"Role delete"
-   
+                           "role-deleted":"Role delete",
+                           "order-delete":"Order deleted"
   
   
 

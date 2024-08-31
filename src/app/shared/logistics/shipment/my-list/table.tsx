@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { MyOrders } from '@/types/my-orders';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const transformData = (data: MyOrders[]): MyOrders[] => {
   return data.map((item: MyOrders) => {
@@ -24,6 +25,7 @@ export default function MyOrdersList() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentDeleteId, setCurrentDeleteId] = useState<string | null>(null);
   const { lang, setLang } = useFiltersContext();
+  const { i18n } = useTranslation();
   const {
     searchInput,
     setCurrentPage,
@@ -117,6 +119,7 @@ export default function MyOrdersList() {
         onChecked: handleRowSelect,
         handleSelectAll,
         // handleDelete: openModal
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]
