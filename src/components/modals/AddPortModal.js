@@ -7,6 +7,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const modalStyles = {
   content: {
@@ -22,12 +23,14 @@ const modalStyles = {
   },
 };
 
-// Schema for form validation
-const createPortSchema = yup.object().shape({
-  name: yup.string().required('Port is required').min(1, 'At least 1 letter'),
-});
+
 
 export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
+  const {i18n}= useTranslation();
+  const createPortSchema = yup.object().shape({
+    name: yup.string().required(i18n.t("port-required")),
+  });
+
   const {
     register,
     handleSubmit,
@@ -43,14 +46,14 @@ export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
       return premiumApi.post(`${lang}/Port/add`, data); // Adjusted API endpoint
     },
     onSuccess: () => {
-      toast.success('Port Created Successfully', { position: 'top-right' });
+      toast.success(i18n.t("port-created"), { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.detail || 'Error creating port';
+        error.response?.data?.detail || i18n.t("port-error");
       toast.error(errorMessage, { position: 'top-right' });
     },
   });
@@ -71,12 +74,12 @@ export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
       style={modalStyles}
       ariaHideApp={false}
     >
-      <h2 className="mb-8">Create New Port</h2>
+      <h2 className="mb-8">{i18n.t("create-port")}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
-            placeholder="Port Name"
-            label="Port Name"
+            placeholder={i18n.t("port-name")}
+            label={i18n.t("port-name")}
             {...register('name')}
             error={errors.name?.message}
           />
@@ -87,10 +90,10 @@ export default function AddPortModal({ isOpen, onRequestClose, onSuccess }) {
             className="flex-1"
             isLoading={createPortMutation.isLoading}
           >
-            Save
+           {i18n.t("save")}
           </Button>
           <Button type="button" className="flex-1" onClick={handleClose}>
-            Cancel
+          {i18n.t("cancel")}
           </Button>
         </div>
       </form>

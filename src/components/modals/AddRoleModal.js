@@ -7,6 +7,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const modalStyles = {
   content: {
@@ -22,12 +23,6 @@ const modalStyles = {
   },
 };
 
-const createRoleSchema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Role name is required')
-    .min(1, 'At least 1 letter'),
-});
 
 export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
   const {
@@ -39,19 +34,28 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
     resolver: yupResolver(createRoleSchema),
   });
   const { lang, setLang } = useFiltersContext();
+  const {i18n}= useTranslation()
+
+  const createRoleSchema = yup.object().shape({
+    name: yup
+      .string()
+      .required(i18n.t("role-required"))
+  });
+
+  
   const createRoleMutation = useMutation({
     mutationFn: (data) => {
       return premiumApi.post(`${lang}/Authentication/addRole`, data);
     },
     onSuccess: () => {
-      toast.success('Role Created Successfully', { position: 'top-right' });
+      toast.success(i18n.t("role-created"), { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.detail || 'Error creating role';
+        error.response?.data?.detail || i18n.t("role-error");
       toast.error(errorMessage, { position: 'top-right' });
     },
   });
@@ -72,12 +76,12 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
       style={modalStyles}
       ariaHideApp={false}
     >
-      <h2 className="mb-8">Create New Role</h2>
+      <h2 className="mb-8">{i18n.t("create-role")}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
-            placeholder="Role Name"
-            label="Role Name"
+            placeholder={i18n.t("role-name")}
+            label={i18n.t("role-name")}
             {...register('name')}
             error={errors.name?.message}
           />
@@ -88,10 +92,10 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
             className="flex-1"
             isLoading={createRoleMutation.isLoading}
           >
-            Save
+          {i18n.t("save")}
           </Button>
           <Button type="button" className="flex-1" onClick={handleClose}>
-            Cancel
+          {i18n.t("cancel")}
           </Button>
         </div>
       </form>

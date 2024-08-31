@@ -7,6 +7,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const modalStyles = {
   content: {
@@ -22,14 +23,17 @@ const modalStyles = {
   },
 };
 
-const createAuctionSchema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Auction is required')
-    .min(1, 'At least 1 letter'),
-});
 
 export default function AddAuctionModal({ isOpen, onRequestClose, onSuccess }) {
+
+  const {i18n}= useTranslation()
+  const createAuctionSchema = yup.object().shape({
+    name: yup
+      .string()
+      .required(i18n.t("auction-required"))
+  });
+
+  
   const {
     register,
     handleSubmit,
@@ -46,14 +50,14 @@ export default function AddAuctionModal({ isOpen, onRequestClose, onSuccess }) {
       return premiumApi.post(`${lang}/Auction/add`, data); // Update API endpoint here
     },
     onSuccess: () => {
-      toast.success('Auction Created Successfully', { position: 'top-right' });
+      toast.success(i18n.t('auction-created'), { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.detail || 'Error creating auction';
+        error.response?.data?.detail || i18n.t("auction-error");
       toast.error(errorMessage, { position: 'top-right' });
     },
   });
@@ -74,12 +78,12 @@ export default function AddAuctionModal({ isOpen, onRequestClose, onSuccess }) {
       style={modalStyles}
       ariaHideApp={false}
     >
-      <h2 className="mb-8">Create New Auction</h2>
+      <h2 className="mb-8">{i18n.t( "create-auction")}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
-            placeholder="Auction Name"
-            label="Auction Name"
+            placeholder={i18n.t("auction-name")}
+            label={i18n.t("auction-name")}
             {...register('name')}
             error={errors.name?.message}
           />
@@ -90,10 +94,10 @@ export default function AddAuctionModal({ isOpen, onRequestClose, onSuccess }) {
             className="flex-1"
             isLoading={createAuctionMutation.isLoading}
           >
-            Save
+             {i18n.t('save')}
           </Button>
           <Button type="button" className="flex-1" onClick={handleClose}>
-            Cancel
+            {i18n.t('cancel')}
           </Button>
         </div>
       </form>

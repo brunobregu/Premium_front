@@ -272,7 +272,7 @@ const UpdateCarStatusModal = ({
             className={`${loading ? 'opacity-50' : ''} w-[300px]`}
             disabled={loading}
           >
-             {t('close_modal')}
+             {t('save')}
           </Button>
           <Button
             type="button"
@@ -280,7 +280,7 @@ const UpdateCarStatusModal = ({
             onClick={onClose}
             className="w-[300px]"
           >
-            Close Modal{' '}
+          {t("close")}
           </Button>
         </div>
       </form>

@@ -7,6 +7,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const modalStyles = {
   content: {
@@ -22,19 +23,23 @@ const modalStyles = {
   },
 };
 
-const createProviderSchema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Provider  is required')
-    .min(1, 'At least 1 letter'),
-  link: yup.string().required('Link is required'),
-});
 
 export default function AddProviderModal({
   isOpen,
   onRequestClose,
   onSuccess,
 }) {
+
+const {i18n}= useTranslation()
+  const createProviderSchema = yup.object().shape({
+    name: yup
+      .string()
+      .required(i18n.t('provider-required')),
+    link: yup.string().required(i18n.t('provider-link-required')),
+  });
+
+  
+
   const {
     register,
     handleSubmit,
@@ -49,14 +54,14 @@ export default function AddProviderModal({
       return premiumApi.post(`${lang}/Provider/add`, data);
     },
     onSuccess: () => {
-      toast.success('Provider Created Successfully', { position: 'top-right' });
+      toast.success(i18n.t('provider-created'), { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
     },
     onError: (error) => {
       const errorMessage =
-        error.response?.data?.detail || 'Error creating provider';
+        error.response?.data?.detail || i18n.t('provider-error');
       toast.error(errorMessage, { position: 'top-right' });
     },
   });
@@ -77,20 +82,20 @@ export default function AddProviderModal({
       style={modalStyles}
       ariaHideApp={false}
     >
-      <h2 className="mb-8">Create New Provider</h2>
+      <h2 className="mb-8">{i18n.t('create-provider')}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
-            placeholder="Provider Name"
-            label="Provider Name"
+            placeholder={i18n.t('provider-name')}
+            label={i18n.t('provider-name')}
             {...register('name')}
             error={errors.name?.message}
           />
         </div>
         <div className="mb-4">
           <Input
-            placeholder="Provider Link"
-            label="Provider Link"
+            placeholder={i18n.t('provider-link')}
+            label={i18n.t('provider-link')}
             {...register('link')}
             error={errors.link?.message}
           />
@@ -101,10 +106,10 @@ export default function AddProviderModal({
             className="flex-1"
             isLoading={createProviderMutation.isLoading}
           >
-            Save
+            {i18n.t('save')}
           </Button>
           <Button type="button" className="flex-1" onClick={handleClose}>
-            Cancel
+          {i18n.t('cancel')}
           </Button>
         </div>
       </form>

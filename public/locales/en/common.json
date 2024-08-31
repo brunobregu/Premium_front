@@ -341,7 +341,45 @@
  
   },
       "my-details": "My Details",
-    "sign-out": "Dilni"
+    "sign-out": "Dilni",
+    "cancel":"Cancel",
+    "save":"Save",
+    "auction-required":"Auction is required",
+       "auction-created":"Auction Created Successfully",
+       "auction-name":"Auction Name",
+       "auction-error": "Error creating auction",
+
+       "port-required":"Port is required",
+       "port-created":"Port Created Successfully",
+       "port-name":"Port Name",
+       "port-error": "Error creating port",
+
+       
+       "provider-required":"Provider is required",
+       "provider-created":"Provider Created Successfully",
+       "provider-name":"Provider Name",
+       "provider-error": "Error creating provider",
+       "provider-link-required":"Provider link is required",
+           "provider-link":"Provider link",
+
+           "role-required":"Role is required",
+           "role-created":"Role Created Successfully",
+           "role-name":"Role Name",
+           "role-error": "Error creating role",
+
+           
+           "user-required":"User is required",
+           "user-created":"User Created Successfully",
+           "user-name":"User Name",
+           "user-error": "Error creating User",
+            "user-first-name":"First Name",
+                   "user-last-name":"Last Name",
+                   "first-name-required":"First name is required",
+                    "last-name-required": "Last name is required",
+                    "email-invalid":"Invalid email",
+                    "email-required":"Email  is required",
+                    "password-length":"Password must be at least 8 characters",
+                        "password-required":"Password is required"
 
    
   

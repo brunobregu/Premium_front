@@ -8,6 +8,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const modalStyles = {
   content: {
@@ -24,19 +25,24 @@ const modalStyles = {
   },
 };
 
-const createUserSchema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters'),
-});
+
 
 export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const { lang, setLang } = useFiltersContext();
+  const {i18n}= useTranslation()
+
+  const createUserSchema = yup.object().shape({
+    firstName: yup.string().required(i18n.t("first-name-required")),
+    lastName: yup.string().required(i18n.t("last-name-required")),
+    email: yup.string().email(i18n.t("email-invalid")).required(i18n.t("email-required")),
+    password: yup
+      .string()
+      .required(i18n.t("password-required"))
+      .min(8, i18n.t("password-length")),
+  });
+
+
   const {
     register,
     handleSubmit,
@@ -53,7 +59,7 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
       return premiumApi.post(`${lang}/Authentication/addUser`, data);
     },
     onSuccess: (data) => {
-      toast.success('User Created Successfully', { position: 'top-right' });
+      toast.success( i18n.t("user-created"), { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
@@ -62,7 +68,7 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
     onError: (error) => {
       setLoading(false);
       const errorMessage =
-        error.response?.data?.detail || 'Error creating user';
+        error.response?.data?.detail || i18n.t("user-error");
       toast.error(errorMessage, { position: 'top-right' });
     },
   });
@@ -83,28 +89,28 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
       style={modalStyles}
       ariaHideApp={false}
     >
-      <h2 className="mb-8">Create New Client</h2>
+      <h2 className="mb-8">{i18n.t('create-user')}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
-            placeholder="First Name"
-            label="First Name"
+            placeholder={i18n.t("user-first-name")}
+            label={i18n.t("user-first-name")}
             {...register('firstName')}
             error={errors.firstName?.message}
           />
         </div>
         <div className="mb-4">
           <Input
-            placeholder="Last Name"
-            label="Last Name"
+            placeholder={i18n.t("user-last-name")}
+            label={i18n.t("user-last-name")}
             {...register('lastName')}
             error={errors.lastName?.message}
           />
         </div>
         <div className="mb-4">
           <Input
-            placeholder="Email"
-            label="Email"
+            placeholder= {i18n.t('email-address')}
+            label={i18n.t('email-address')}
             type="email"
             {...register('email')}
             error={errors.email?.message}
@@ -112,8 +118,8 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
         </div>
         <div className="mb-4">
           <Input
-            placeholder="Password"
-            label="Password"
+            placeholder= {i18n.t('password.label')}
+            label=   {i18n.t('password.label')}
             type="password"
             {...register('password')}
             error={errors.password?.message}
@@ -127,10 +133,10 @@ export default function CreateUserModal({ isOpen, onRequestClose, onSuccess }) {
             isLoading={createUserMutation.isLoading}
             disabled={setLoading === true}
           >
-            Save
+               {i18n.t('save')}
           </Button>
           <Button type="button" className=" flex-1" onClick={handleClose}>
-            Cancel
+          {i18n.t('cancel')}
           </Button>
         </div>
       </form>

@@ -8,6 +8,7 @@ import premiumApi from '@/util/premiumAPI';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 const modalStyles = {
   content: {
@@ -24,16 +25,7 @@ const modalStyles = {
   },
 };
 
-const createUserSchema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters'),
-  roleName: yup.string().required('Role is required'),
-});
+
 
 export default function AddActiveUserModal({
   isOpen,
@@ -42,6 +34,19 @@ export default function AddActiveUserModal({
 }) {
   const [loading, setLoading] = useState(false);
   const { lang, setLang } = useFiltersContext();
+  const {i18n}= useTranslation();
+
+  const createUserSchema = yup.object().shape({
+    firstName: yup.string().required(i18n.t('first-name-required')),
+    lastName: yup.string().required(i18n.t('last-name-required')),
+    email: yup.string().email(i18n.t('email-invalid')).required(i18n.t('email-required')),
+    password: yup
+      .string()
+      .required(i18n.t('password-required'))
+      .min(8, i18n.t('password-length')),
+    roleName: yup.string().required(i18n.t('role-required')),
+  });
+
   const {
     register,
     handleSubmit,
@@ -58,7 +63,7 @@ export default function AddActiveUserModal({
       return premiumApi.post(`${lang}/Authentication/addUser`, data);
     },
     onSuccess: (data) => {
-      toast.success('User Created Successfully', { position: 'top-right' });
+      toast.success(i18n.t("user-created"), { position: 'top-right' });
       onRequestClose();
       onSuccess();
       reset();
@@ -67,7 +72,7 @@ export default function AddActiveUserModal({
     onError: (error) => {
       setLoading(false);
       const errorMessage =
-        error.response?.data?.detail || 'Error creating user';
+        error.response?.data?.detail || i18n.t('user-error');
       toast.error(errorMessage, { position: 'top-right' });
     },
   });
@@ -103,24 +108,24 @@ export default function AddActiveUserModal({
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <Input
-            placeholder="First Name"
-            label="First Name"
+            placeholder={i18n.t('user-first-name')}
+            label={i18n.t('user-first-name')}
             {...register('firstName')}
             error={errors.firstName?.message}
           />
         </div>
         <div className="mb-4">
           <Input
-            placeholder="Last Name"
-            label="Last Name"
+            placeholder={i18n.t('user-last-name')}
+            label={i18n.t('user-last-name')}
             {...register('lastName')}
             error={errors.lastName?.message}
           />
         </div>
         <div className="mb-4">
           <Input
-            placeholder="Email"
-            label="Email"
+            placeholder={i18n.t('email-address')}
+            label={i18n.t('email-address')}
             type="email"
             {...register('email')}
             error={errors.email?.message}
@@ -128,8 +133,8 @@ export default function AddActiveUserModal({
         </div>
         <div className="mb-4">
           <Input
-            placeholder="Password"
-            label="Password"
+            placeholder={i18n.t('password.label')}
+            label={i18n.t('password.label')}
             type="password"
             {...register('password')}
             error={errors.password?.message}
@@ -141,7 +146,7 @@ export default function AddActiveUserModal({
             name="roleName"
             render={({ field: { value, onChange } }) => (
               <Select
-                label="Role"
+                label={i18n.t('activate-user.role-label')}
                 labelClassName="text-gray-900"
                 dropdownClassName="p-2 gap-1 grid !z-10"
                 inPortal={false}
@@ -150,12 +155,12 @@ export default function AddActiveUserModal({
                 options={
                   roleOptions.length > 0
                     ? roleOptions
-                    : [{ label: 'No data available', value: '' }]
+                    : [{ label: i18n.t('not-avaiable'), value: '' }]
                 }
                 getOptionValue={(option) => option.value}
                 displayValue={(selected) =>
                   roleOptions.find((c) => c.value === selected)?.label ??
-                  'No data available'
+                  i18n.t('not-avaiable')
                 }
                 error={errors?.roleName?.message}
               />
@@ -171,10 +176,10 @@ export default function AddActiveUserModal({
             isLoading={createUserMutation.isLoading}
             disabled={setLoading === true}
           >
-            Save
+          {i18n.t('save')}
           </Button>
           <Button type="button" className=" flex-1" onClick={handleClose}>
-            Cancel
+          {i18n.t('cancel')}
           </Button>
         </div>
       </form>

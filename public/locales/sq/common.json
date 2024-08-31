@@ -334,7 +334,46 @@
     "success": "Fjalëkalimi u ndryshua me sukses"
   },
   "my-details": "Të dhënat e mia",
-  "sign-out": "Dilni"
+  "sign-out": "Dilni",
+  "cancel": "Anullo",
+  "save":"Ruaj",
+    "auction-required":"Ankanda është e detyrueshme",
+    "auction-created":"Ankanda u krijua me sukses",
+        "auction-name":"Emri i ankandës",
+       "auction-error": "Gabim gjatë krijimit te ankandës",
+
+       "port-required":"Porti është i detyrueshem",
+       "port-created":"Porti u krijua me sukses",
+           "port-name":"Emri i portit",
+          "port-error": "Gabim gjatë krijimit te portit",
+
+          "provider-required":"Furnizuesi është i detyrueshem",
+          "provider-created":"Furnizuesi u krijua me sukses",
+              "provider-name":"Emri i Furnizuesit",
+             "provider-error": "Gabim gjatë krijimit te furnizuesit",
+             "provider-link-required":"Linku eshte i detyrueshem",
+             "provider-link":"Linku i furnizuesit",
+
+             "role-required":"Roli është i detyrueshem",
+             "role-created":"Roli u krijua me sukses",
+                 "role-name":"Emri i rolit",
+                "role-error": "Gabim gjatë krijimit te rolit",
+
+                "user-required":"Përdoruesi është i detyrueshem",
+                "user-created":"Përdoruesi u krijua me sukses",
+                    "user-name":"Emri i Përdoruesit",
+                   "user-error": "Gabim gjatë krijimit te përdoruesit",
+                   "user-first-name":"Emri",
+                   "user-last-name":"Mbiemri",
+                   "first-name-required":"Emri është i detyrueshem",
+                    "last-name-required": "Mbiemri është i detyrueshem",
+                    "email-invalid":"Adresa elektroniko jo e saktë",
+                    "email-required":"Adresa elektronike është e detyrueshme",
+                    "password-length":"Fjalëkalimi duhet të ket të paktën 8 karaktere",
+                    "password-required":"Fjalëkalimi është i detyrueshem"
+                    
+    
+ 
 
 
 }
