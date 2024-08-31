@@ -11,6 +11,7 @@ import { useFiltersContext } from '@/store/state';
 import AddProviderModal from '../../../../../components/modals/AddProviderModal';
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
+import { useTranslation } from 'react-i18next';
 
 interface ProvidersTableProps {
   isModalOpen: boolean;
@@ -23,6 +24,7 @@ export default function ProvidersTable({
 }: ProvidersTableProps) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { i18n } = useTranslation();
   const [currentDeleteProvider, setCurrentDeleteProvider] = useState<
     string | null
   >(null);
@@ -86,7 +88,7 @@ export default function ProvidersTable({
       try {
         await premiumApi.delete(`${lang}/Provider/delete?id=${id}`);
         queryClient.invalidateQueries({ queryKey: ['roles'] });
-        toast.success('Provider deleted', { position: 'top-right' });
+        toast.success(i18n.t('provider-deleted'), { position: 'top-right' });
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error, try againg', {
           position: 'top-right',
@@ -139,6 +141,7 @@ export default function ProvidersTable({
         onChecked: handleRowSelect,
         handleSelectAll,
         handleDelete: openModal,
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]

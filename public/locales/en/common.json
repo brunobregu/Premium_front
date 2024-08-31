@@ -407,7 +407,16 @@
                           "userId-required": "User ID is required",
                               "carPrice-required": "Car Price  is required"
                         },
-                           "not-paid":"Not Paid"
+                           "not-paid":"Not Paid",
+                           "delete-role":"Delete Role",
+                           "delete":"Delete",
+                           "message":"Message",
+                           "user-deleted":"User delete",
+                           "auction-deleted":"Auction delete",
+                           "contact-deleted":"Contact delete",
+                           "port-deleted":"Port delete",
+                           "provider-delete":"Provider delete",
+                           "role-deleted":"Role delete"
    
   
   

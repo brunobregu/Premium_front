@@ -11,6 +11,7 @@ import { useFiltersContext } from '@/store/state';
 import AddRoleModal from '../../../../../components/modals/AddRoleModal';
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
+import { useTranslation } from 'react-i18next';
 
 interface RolesTableProps {
   isModalOpen: boolean;
@@ -23,6 +24,7 @@ export default function RolesTable({
 }: RolesTableProps) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { i18n } = useTranslation()
   const [currentDeleteRole, setCurrentDeleteRole] = useState<string | null>(
     null
   );
@@ -86,7 +88,7 @@ export default function RolesTable({
       try {
         await premiumApi.delete(`${lang}/User/deleteRole?role=${role}`);
         queryClient.invalidateQueries({ queryKey: ['roles'] });
-        toast.success('Role deleted', { position: 'top-right' });
+        toast.success(i18n.t('role-deleted'), { position: 'top-right' });
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error, try againg', {
           position: 'top-right',
@@ -139,6 +141,7 @@ export default function RolesTable({
         onChecked: handleRowSelect,
         handleSelectAll,
         handleDelete: openModal,
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]

@@ -8,9 +8,11 @@ import { useColumn } from '@hooks/use-column';
 import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { useFiltersContext } from '@/store/state';
+import { useTranslation } from 'react-i18next';
 
 export default function ContactsTable() {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const { i18n } = useTranslation();
   const {
     searchInput,
     setCurrentPage,
@@ -96,6 +98,7 @@ export default function ContactsTable() {
         onHeaderCellClick,
         onChecked: handleRowSelect,
         handleSelectAll,
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]

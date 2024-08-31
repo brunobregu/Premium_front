@@ -11,6 +11,7 @@ import { useFiltersContext } from '@/store/state';
 import AddAuctionModal from '../../../../../components/modals/AddAuctionModal';
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
+import { useTranslation } from 'react-i18next';
 
 interface AuctionsTableProps {
   isModalOpen: boolean;
@@ -23,6 +24,7 @@ export default function AuctionsTable({
 }: AuctionsTableProps) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { i18n } = useTranslation();
   const [currentDeleteAuction, setCurrentDeleteAuction] = useState<
     string | null
   >(null);
@@ -85,7 +87,7 @@ export default function AuctionsTable({
     async (id: string) => {
       try {
         await premiumApi.delete(`${lang}/Auction/delete?id=${id}`);
-        toast.success('Auction deleted', { position: 'top-right' });
+        toast.success(i18n.t('auction-deleted'), { position: 'top-right' });
         queryClient.invalidateQueries({ queryKey: ['auction'] });
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error, try againg', {
@@ -139,6 +141,7 @@ export default function AuctionsTable({
         onChecked: handleRowSelect,
         handleSelectAll,
         handleDelete: openModal,
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]

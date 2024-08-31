@@ -25,14 +25,7 @@ const modalStyles = {
 
 
 export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({
-    resolver: yupResolver(createRoleSchema),
-  });
+
   const { lang, setLang } = useFiltersContext();
   const {i18n}= useTranslation()
 
@@ -59,7 +52,14 @@ export default function AddRoleModal({ isOpen, onRequestClose, onSuccess }) {
       toast.error(errorMessage, { position: 'top-right' });
     },
   });
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(createRoleSchema),
+  });
   const onSubmit = (data) => {
     createRoleMutation.mutate(data);
   };

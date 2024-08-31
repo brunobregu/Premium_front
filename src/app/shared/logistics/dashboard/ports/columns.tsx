@@ -15,12 +15,13 @@ export const getColumns = ({
   handleSelectAll,
   onChecked,
   handleDelete,
+  t,
 }: any) => {
   const columns = [
     {
       title: (
         <HeaderCell
-          title="Name"
+          title={t('port-name')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'name'
@@ -35,7 +36,7 @@ export const getColumns = ({
     },
     {
       title: (
-        <HeaderCell title="Actions" className="font-medium text-gray-900" />
+        <HeaderCell title={t('actions')} className="font-medium text-gray-900" />
       ),
       dataIndex: 'action',
       key: 'action',
@@ -45,14 +46,14 @@ export const getColumns = ({
           <div className="flex items-center justify-start gap-3 pe-4">
             <Tooltip
               size="sm"
-              content={'Delete Port'}
+              content={t('delete')}
               placement="top"
               color="invert"
             >
               <ActionIcon
                 size="sm"
                 variant="outline"
-                aria-label={'Delete Port'}
+                aria-label={t('delete')}
                 onClick={() => handleDelete(record.id)}
               >
                 <TrashIcon className="h-4 w-4" />

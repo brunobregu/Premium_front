@@ -15,12 +15,13 @@ export const getColumns = ({
   handleSelectAll,
   onChecked,
   handleDelete,
+  t
 }: any) => {
   const columns = [
     {
       title: (
         <HeaderCell
-          title="First Name"
+          title={t('user-first-name')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'firstName'
@@ -36,7 +37,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Last Name"
+          title={t('user-last-name')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'lastName'
@@ -52,7 +53,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Email"
+          title={t('email-address')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'email'
@@ -68,7 +69,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title="Message"
+          title={t('message')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'message'

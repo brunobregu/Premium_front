@@ -398,8 +398,16 @@
                           "userId-required": "ID e përdoruesit është e nevojshme",
                           "carPrice-required": "Cmimi makinës është e nevojshme"
                         },
-                        "not-paid":"E Pa Paguar"
-                    
+                        "not-paid":"E Pa Paguar",
+                        "delete-role":"Fshij Rolin",
+                        "delete":"Fshij",
+                          "message":"Mesazhi",
+                    "user-deleted":"Përdoruesi u fshi",
+                    "auction-deleted":"Ankanda u fshi",
+                    "contact-deleted":"Kontakti u fshi",
+                    "port-deleted":"Porti u fshi",
+                    "provider-delete":"Furnizuesi u fshi",
+                    "role-deleted":"Roli u fshi"
     
  
 

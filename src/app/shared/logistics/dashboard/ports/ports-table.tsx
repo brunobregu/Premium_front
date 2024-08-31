@@ -11,6 +11,8 @@ import { useFiltersContext } from '@/store/state';
 import AddPortModal from '../../../../../components/modals/AddPortModal';
 import toast from 'react-hot-toast';
 import ConfirmDeleteModal from '@/components/modals/DeleteOrderModal';
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18';
 
 interface PortsTableProps {
   isModalOpen: boolean;
@@ -23,6 +25,7 @@ export default function PortsTable({
 }: PortsTableProps) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { i18n } = useTranslation();
   const [currentDeletePorts, setCurrentDeletePorts] = useState<string | null>(
     null
   );
@@ -86,7 +89,7 @@ export default function PortsTable({
       try {
         await premiumApi.delete(`${lang}/Port/delete?id=${id}`);
         queryClient.invalidateQueries({ queryKey: ['ports'] });
-        toast.success('Port deleted', { position: 'top-right' });
+        toast.success(i18n.t('port-deleted'), { position: 'top-right' });
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error, try againg', {
           position: 'top-right',
@@ -139,6 +142,7 @@ export default function PortsTable({
         onChecked: handleRowSelect,
         handleSelectAll,
         handleDelete: openModal,
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]

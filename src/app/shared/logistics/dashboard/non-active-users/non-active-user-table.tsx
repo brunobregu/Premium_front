@@ -11,6 +11,7 @@ import { useFiltersContext } from '@/store/state';
 import toast from 'react-hot-toast';
 import ActivateUserModal from '@/components/modals/ActivateUsersModal';
 import AddActiveUserModal from '@/components/modals/AddActiveUserModal';
+import { useTranslation } from 'react-i18next';
 
 interface ActiveUsersTableProps {
   isModalOpen: boolean;
@@ -23,6 +24,7 @@ export default function NonActiveUsersTable({
 }: ActiveUsersTableProps) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { i18n } = useTranslation();
   const [activateUser, setActivateUser] = useState<string | null>(null);
   const {
     searchInput,
@@ -156,6 +158,7 @@ export default function NonActiveUsersTable({
         onChecked: handleRowSelect,
         handleSelectAll,
         handleActivateUser: openModal,
+        t: i18n.t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [onHeaderCellClick, sortConfig.key, sortConfig.direction, onChecked]
