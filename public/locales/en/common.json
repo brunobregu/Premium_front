@@ -379,8 +379,35 @@
                     "email-invalid":"Invalid email",
                     "email-required":"Email  is required",
                     "password-length":"Password must be at least 8 characters",
-                        "password-required":"Password is required"
-
+                        "password-required":"Password is required",
+                        "select-client":" Select client",
+                        "all-clients":"All clients with orders",
+                         "search": "Search ...",
+                         "validation": {
+                          "vin-required": "VIN is required",
+                          "make-required": "Make is required",
+                          "model-required": "Model is required",
+                          "year-min": "Year must be at least 1990",
+                          "year-required": "Year is required",
+                          "lot-required": "Lot is required",
+                          "orderID-required": "Order ID is required",
+                          "port-required": "Port is required",
+                          "auction-required": "Auction is required",
+                          "provider-required": "Provider is required",
+                          "inlandPrice-min": "Inland price must be at least 1",
+                          "inlandPrice-required": "Inland price is required",
+                          "oceanPrice-min": "Ocean price must be at least 1",
+                          "oceanPrice-required": "Ocean price is required",
+                          "inlandCost-min": "Inland cost must be at least 1",
+                          "inlandCost-required": "Inland cost is required",
+                          "oceanCost-min": "Ocean cost must be at least 1",
+                          "oceanCost-required": "Ocean cost is required",
+                          "paymentStatus-required": "Payment status is required",
+                          "partlyPaid-required": "Partly Paid is required",
+                          "userId-required": "User ID is required",
+                              "carPrice-required": "Car Price  is required"
+                        },
+                           "not-paid":"Not Paid"
    
   
   

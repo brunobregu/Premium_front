@@ -10,6 +10,7 @@ import { useFiltersContext } from '@/store/state';
 import { FilterDrawerView } from '../my-list/table-filter';
 import premiumApi from '@/util/premiumAPI';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 export type TableFilterProps = {
   searchTerm: string;
@@ -46,6 +47,7 @@ export default function TableFilter({
   const [showFilters, setShowFilters] = useState(true);
   const [openDrawer, setOpenDrawer] = useState(false);
   const { lang, setLang } = useFiltersContext();
+  const { i18n } = useTranslation();
 
 
   useEffect(() => {
@@ -79,14 +81,14 @@ export default function TableFilter({
       <div className="flex  items-center gap-4">
         {!showSearchOnTheRight ? (
           <div className="flex flex-row items-center gap-3 w-full">
-            <p>Select clients</p>
+            <p>{i18n.t("select-client")}</p>
             <select
               value={userId || ''}
               onChange={handleFullnameChange}
               className="form-select h-9 md:w-[300px] w-[200px] rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
             >
               <option value={''} className="font-bold">
-                All clients with orders
+                {i18n.t("all-clients")}
               </option>
               {fullnameOptions && fullnameOptions?.length > 0
                 ? fullnameOptions?.map((item: any) => (

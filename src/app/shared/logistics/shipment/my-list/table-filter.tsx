@@ -9,6 +9,7 @@ import { useMedia } from '@hooks/use-media';
 import { ToggleColumns } from '@/app/shared/table';
 import { useFiltersContext } from '@/store/state';
 import { TableFilterProps } from '../list/table-filter';
+import { useTranslation } from 'react-i18next';
 const Drawer = dynamic(() => import('rizzui').then((module) => module.Drawer), {
     ssr: false,
 });
@@ -82,6 +83,7 @@ export default function TableFilter({
     const [showFilters, setShowFilters] = useState(true);
     const [openDrawer, setOpenDrawer] = useState(false);
     const { searchInput, setSearchInput } = useFiltersContext()
+    const { i18n } = useTranslation();
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
@@ -100,7 +102,7 @@ export default function TableFilter({
                 {!showSearchOnTheRight ? (
                     <Input
                         type="search"
-                        placeholder="Search by anything..."
+                        placeholder={i18n.t("search")}
                         value={searchTerm}
                         onClear={handleClear}
                         onChange={handleSearchChange}
@@ -136,7 +138,7 @@ export default function TableFilter({
                 {showSearchOnTheRight ? (
                     <Input
                         type="search"
-                        placeholder="Search by anything..."
+                        placeholder={i18n.t("search")}
                         value={searchTerm}
                         onClear={onSearchClear}
                         onChange={onSearchChange}

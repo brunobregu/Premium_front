@@ -92,6 +92,70 @@ export default function CreateEditShipment({
   const router = useRouter();
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
+  const addOrderDetailsDtoSchema = yup.object().shape({
+    vin: yup.string().required(i18n.t('validation.vin-required')),
+    make: yup.string().required(i18n.t('validation.make-required')),
+    model: yup.string().required(i18n.t('validation.model-required')),
+    year: yup
+      .number()
+      .transform((value) => (Number.isNaN(value) ? null : value))
+      .integer()
+      .min(1990, i18n.t('validation.year-min'))
+      .required(i18n.t('validation.year-required')),
+    lot: yup
+      .number()
+      .transform((value) => (Number.isNaN(value) ? null : value))
+      .integer()
+      .required(i18n.t('validation.lot-required')),
+    orderID: yup.string().required(i18n.t('validation.orderID-required')),
+    port: yup.string().required(i18n.t('validation.port-required')),
+    auction: yup.string().min(1, i18n.t('validation.auction-required')),
+    provider: yup.string().min(1, i18n.t('validation.provider-required')),
+    inlandPrice: yup
+      .number()
+      .transform((value) => (Number.isNaN(value) ? null : value))
+      .integer()
+      .min(1, i18n.t('validation.inlandPrice-min'))
+      .required(i18n.t('validation.inlandPrice-required')),
+    oceanPrice: yup
+      .number()
+      .transform((value) => (Number.isNaN(value) ? null : value))
+      .integer()
+      .min(1, i18n.t('validation.oceanPrice-min'))
+      .required(i18n.t('validation.oceanPrice-required')),
+    inlandCost: yup
+      .number()
+      .transform((value) => (Number.isNaN(value) ? null : value))
+      .integer()
+      .min(1, i18n.t('validation.inlandCost-min'))
+      .required(i18n.t('validation.inlandCost-required')),
+    oceanCost: yup
+      .number()
+      .transform((value) => (Number.isNaN(value) ? null : value))
+      .integer()
+      .min(1, i18n.t('validation.oceanCost-min'))
+      .required(i18n.t('validation.oceanCost-required')),
+    paymentStatus: yup.string().required(i18n.t('validation.paymentStatus-required')),
+    partlyPaid: yup
+      .number()
+      .transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value))
+      .integer()
+      .required(i18n.t('validation.partlyPaid-required')),
+    userId: yup.string().required(i18n.t('validation.userId-required')),
+    carPrice: yup
+      .number()
+      .transform((value) => (Number.isNaN(value) ? null : value))
+      .integer()
+      .required(i18n.t('validation.carPrice-required')),
+  });
+
+  const paymentStatusArray: SelectOption[] = [
+    { label: i18n.t('paid'), value: 'Paid' },
+    { label: i18n.t('not-paid'), value: 'Not Paid' },
+    { label: i18n.t('partly-paid'), value: 'Partly Paid' },
+  ];
+
+
 
   const methods = useForm<any>({
     resolver: yupResolver(addOrderDetailsDtoSchema),
