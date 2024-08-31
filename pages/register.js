@@ -30,10 +30,6 @@ export default function Register() {
   const {lang, setLang} =useFiltersContext();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  useEffect(() => {
-    setLocale(i18n.language);
-  }, [i18n.language]);
-
   async function onSubmit(data) {
     setLoadingRegister(true);
     try {
@@ -97,7 +93,7 @@ export default function Register() {
             <div className="col-lg-6">
               <div className="box-login-left">
                 <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
-                  Create an account
+                 {i18n.t("create-account")}
                 </h2>
                 {/* <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
                   Describe yourself as clearly so that there are no mistakes
