@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { useTranslation } from 'react-i18next';
 
 export default function Menu() {
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const router = useRouter();
 
   return (
@@ -12,7 +12,7 @@ export default function Menu() {
       <ul className="main-menu">
         <li>
           <Link className="active" href="/">
-            {i18n.t("home")}
+            {i18n.t('home')}
           </Link>
           {/* <ul className="sub-menu">
             <li>
@@ -30,10 +30,10 @@ export default function Menu() {
           </ul> */}
         </li>
         <li>
-          <Link href="/about"> {i18n.t("about-us")}</Link>
+          <Link href="/about"> {i18n.t('about-us')}</Link>
         </li>
-        <li className="has-children">
-          <Link href="#">{i18n.t("services")}</Link>
+        {/* <li className="has-children">
+          <Link href="#">{i18n.t('services')}</Link>
           <div className="sub-menu five-col">
             <div className="menu-col">
               <h6 className="color-brand-2 mb-15">Sea Forwarding</h6>
@@ -106,7 +106,7 @@ export default function Menu() {
                 </li>
               </ul>
             </div>
-            {/* <div className="menu-col">
+            <div className="menu-col">
               <h6 className="color-brand-2 mb-15">Railway Logistics</h6>
               <div className="menu-image">
                 <img src="/assets/imgs/page/homepage1/menu4.png" alt="transp" />
@@ -128,8 +128,8 @@ export default function Menu() {
                   <Link href="/services">Rail Logistics Consulting</Link>
                 </li>
               </ul>
-            </div> */}
-            {/* <div className="menu-col">
+            </div>
+            <div className="menu-col">
               <h6 className="color-brand-2 mb-15">Warehouse</h6>
               <div className="menu-image">
                 <img src="/assets/imgs/page/homepage1/menu5.png" alt="transp" />
@@ -151,35 +151,35 @@ export default function Menu() {
                   <Link href="/services">Inventory Management</Link>
                 </li>
               </ul>
-            </div> */}
+            </div>
           </div>
-        </li>
+        </li> */}
         <li className="has-children">
-          <Link href="#">{i18n.t("pages")}</Link>
+          <Link href="#">{i18n.t('pages')}</Link>
           <ul className="sub-menu">
             <li>
-              <Link href="/service-detail">{i18n.t("service-detail")}</Link>
+              <Link href="/service-detail">{i18n.t('service-detail')}</Link>
             </li>
             {/* <li>
               <Link href="/trackyourparcel">{i18n.t("track-your-parcel")}</Link>
             </li> */}
             <li>
-              <Link href="/workprocess">{i18n.t("work-process")}</Link>
+              <Link href="/workprocess">{i18n.t('work-process')}</Link>
             </li>
             <li>
-              <Link href="/request-a-quote">{i18n.t("request-a-quote")}</Link>
+              <Link href="/request-a-quote">{i18n.t('request-a-quote')}</Link>
             </li>
             <li>
-              <Link href="/our-team">{i18n.t("our-team")}</Link>
+              <Link href="/our-team">{i18n.t('our-team')}</Link>
             </li>
             <li>
-              <Link href="/faqs">{i18n.t("faq")}</Link>
+              <Link href="/faqs">{i18n.t('faq')}</Link>
             </li>
             <li>
-              <Link href="/register">{i18n.t("register")}</Link>
+              <Link href="/register">{i18n.t('register')}</Link>
             </li>
             <li>
-              <Link href="/login">{i18n.t("login")}</Link>
+              <Link href="/login">{i18n.t('login')}</Link>
             </li>
             {/* <li>
               <Link href="/comingsoon">Coming soon</Link>
@@ -201,7 +201,7 @@ export default function Menu() {
           </ul>
         </li> */}
         <li>
-          <Link href="/contact">{i18n.t("contact")}</Link>
+          <Link href="/contact">{i18n.t('contact')}</Link>
         </li>
       </ul>
     </>

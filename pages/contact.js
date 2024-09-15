@@ -1,16 +1,16 @@
-"use client"
+'use client';
 
-import Layout from "@/components/layout/Layout";
-import Link from "next/link";
+import Layout from '@/components/layout/Layout';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from "react";
-import toast, {Toaster} from "react-hot-toast";
-import premiumApi from "../src/util/premiumAPI";
-import { useModal } from "../src/app/shared/modal-views/use-modal";
-import { useFiltersContext } from "../src/store/state";
+import { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import premiumApi from '../src/util/premiumAPI';
+import { useModal } from '../src/app/shared/modal-views/use-modal';
+import { useFiltersContext } from '../src/store/state';
 
 export default function Contact() {
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,11 +18,11 @@ export default function Contact() {
     message: '',
   });
 
-  const {lang, setLang} =useFiltersContext();
+  const { lang, setLang } = useFiltersContext();
 
-  useEffect(() => {
-    setLocale(i18n.language);
-  }, [i18n.language]);
+  // useEffect(() => {
+  //   setLocale(i18n.language);
+  // }, [i18n.language]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +36,7 @@ export default function Contact() {
     e.preventDefault();
     const { firstName, lastName, email, message } = formData;
 
-    if (!firstName|| !lastName||!message || !email) {
+    if (!firstName || !lastName || !message || !email) {
       return;
     }
 
@@ -44,7 +44,7 @@ export default function Contact() {
       firstName,
       lastName,
       email,
-      ...(message && { message }), 
+      ...(message && { message }),
     };
 
     try {
@@ -57,17 +57,16 @@ export default function Contact() {
           message: '',
         });
 
-        toast.success('Form submitted successfully',  {
+        toast.success('Form submitted successfully', {
           position: 'top-right',
-        });}
+        });
+      }
     } catch (error) {
-      toast.error(error.response?.data?.detail ||'Try again',  {
+      toast.error(error.response?.data?.detail || 'Try again', {
         position: 'top-right',
       });
     }
   };
-
-
 
   return (
     <>
@@ -86,16 +85,16 @@ export default function Contact() {
         </div>
         <div className="mt-110" />
         <section className="section">
-          <div className="container position-relative">
+          <div className="position-relative container">
             <div className="box-cover-contactform">
               <div className="row align-items-center">
                 <div className="col-xl-8 col-lg-7">
                   <div className="box-contactform-left">
                     <h3 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn">
-                      {i18n.t("still-have-question")}
+                      {i18n.t('still-have-question')}
                     </h3>
                     <p className="font-md color-grey-900 mb-50 wow animate__animated animate__fadeIn">
-                      {i18n.t("cant-find-answer")}
+                      {i18n.t('cant-find-answer')}
                     </p>
                     <form action="#">
                       <div className="row wow animate__animated animate__fadeIn">
@@ -104,7 +103,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-name")}
+                              placeholder={i18n.t('your-name')}
                             />
                           </div>
                         </div>
@@ -113,7 +112,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-email")}
+                              placeholder={i18n.t('your-email')}
                             />
                           </div>
                         </div>
@@ -122,7 +121,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-phone-number")}
+                              placeholder={i18n.t('your-phone-number')}
                             />
                           </div>
                         </div>
@@ -131,7 +130,7 @@ export default function Contact() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("subject")}
+                              placeholder={i18n.t('subject')}
                             />
                           </div>
                         </div>
@@ -139,9 +138,9 @@ export default function Contact() {
                           <div className="form-group">
                             <textarea
                               className="form-control"
-                              placeholder={i18n.t("message-note")}
+                              placeholder={i18n.t('message-note')}
                               rows={8}
-                              defaultValue={""}
+                              defaultValue={''}
                             />
                           </div>
                         </div>
@@ -170,9 +169,9 @@ export default function Contact() {
                       <p className="color-grey-700 mb-25 wow animate__animated animate__fadeIn">
                         4517 Washington Ave. Manchester, Kentucky 39495
                       </p>
-                      <p className="color-grey-700 mb-10 wow animate__animated animate__fadeIn">
+                      <p className="color-grey-700 wow animate__animated animate__fadeIn mb-10">
                         <svg
-                          className="icon-16 mr-10 color-brand-1"
+                          className="icon-16 color-brand-1 mr-10"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="1.5"
@@ -190,7 +189,7 @@ export default function Contact() {
                       </p>
                       <p className="color-grey-700 mb-30 wow animate__animated animate__fadeIn">
                         <svg
-                          className="icon-16 mr-10 color-brand-1"
+                          className="icon-16 color-brand-1 mr-10"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="1.5"
@@ -219,15 +218,15 @@ export default function Contact() {
         </section>
         <section className="section mt-100">
           <div className="container">
-            <h2 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-              {i18n.t("branches-worldwide")}
+            <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-20">
+              {i18n.t('branches-worldwide')}
               <br className="d-none d-lg-block" />
-              {i18n.t("branches-worldwide_1")}
+              {i18n.t('branches-worldwide_1')}
             </h2>
             <div className="row align-items-center">
               <div className="col-lg-6 col-md-6 mb-30">
                 <p className="font-md color-gray-700 wow animate__animated animate__fadeIn">
-                  {i18n.t("experience-handling-formalities")}
+                  {i18n.t('experience-handling-formalities')}
                 </p>
               </div>
               <div className="col-lg-6 col-md-6 mb-30 text-md-end text-start">
@@ -249,7 +248,7 @@ export default function Contact() {
                       d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
                     />
                   </svg>
-                  {i18n.t("get-a-quote")}
+                  {i18n.t('get-a-quote')}
                 </Link>
               </div>
             </div>
@@ -381,15 +380,15 @@ export default function Contact() {
         </section>
         <section className="section pt-110 pb-100">
           <div className="container">
-            <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
-              {i18n.t("meet-our-team")}
+            <h2 className="title-favicon wow animate__animated animate__fadeIn mb-20">
+              {i18n.t('meet-our-team')}
             </h2>
             <div className="row align-items-center">
               <div className="col-md-6 mb-30">
                 <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                  {i18n.t("premium-logistics-welcome")}
+                  {i18n.t('premium-logistics-welcome')}
                   <br className="d-none d-lg-block" />
-                  {i18n.t("premium-logistics-welcome_1")}
+                  {i18n.t('premium-logistics-welcome_1')}
                 </p>
               </div>
               <div className="col-md-6 mb-30 text-md-end text-start">
@@ -411,7 +410,7 @@ export default function Contact() {
                       d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
                     />
                   </svg>
-                  {i18n.t("get-a-quote")}
+                  {i18n.t('get-a-quote')}
                 </Link>
               </div>
             </div>
@@ -419,7 +418,7 @@ export default function Contact() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team1.png"
                       alt="transp"
@@ -478,7 +477,7 @@ export default function Contact() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team2.png"
                       alt="transp"
@@ -537,7 +536,7 @@ export default function Contact() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team3.png"
                       alt="transp"
@@ -596,7 +595,7 @@ export default function Contact() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team4.png"
                       alt="transp"
@@ -883,73 +882,73 @@ export default function Contact() {
         <div className="section bg-map d-block">
           <div className="container">
             <div className="box-newsletter">
-              <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-                {i18n.t("get-in-touch")}
+              <h3 className="color-brand-2 wow animate__animated animate__fadeIn mb-20">
+                {i18n.t('get-in-touch')}
               </h3>
               <div className="row">
                 <div className="col-lg-5 mb-30">
                   <div className="form-newsletter wow animate__animated animate__fadeIn">
-                  <form onSubmit={handleSubmit}>
-      <div className="row">
-        <div className="col-md-6">
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              name="firstName"
-              placeholder={i18n.t("your-name")}
-              onChange={handleChange}
-              value={formData.firstName}
-              required
-            />
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              name="lastName"
-              placeholder="Surname *"
-              onChange={handleChange}
-              value={formData.lastName}
-              required
-            />
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="email"
-              name="email"
-              placeholder={i18n.t("your-email")}
-              onChange={handleChange}
-              value={formData.email}
-              required
-            />
-          </div>
-        </div>
-        <div className="col-md-12">
-          <div className="form-group">
-            <textarea
-              className="form-control"
-              name="message"
-              placeholder={i18n.t("message-note") + " *"}
-              rows={5}
-              onChange={handleChange}
-              value={formData.message}
-              required
-            />
-          </div>
-        </div>
-        <div className="col-md-12">
-          <button className="btn btn-brand-1-big" type="submit">
-            {i18n.t("submit")}
-          </button>
-        </div>
-      </div>
-    </form>
+                    <form onSubmit={handleSubmit}>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <input
+                              className="form-control"
+                              type="text"
+                              name="firstName"
+                              placeholder={i18n.t('your-name')}
+                              onChange={handleChange}
+                              value={formData.firstName}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <input
+                              className="form-control"
+                              type="text"
+                              name="lastName"
+                              placeholder="Surname *"
+                              onChange={handleChange}
+                              value={formData.lastName}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <input
+                              className="form-control"
+                              type="email"
+                              name="email"
+                              placeholder={i18n.t('your-email')}
+                              onChange={handleChange}
+                              value={formData.email}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <textarea
+                              className="form-control"
+                              name="message"
+                              placeholder={i18n.t('message-note') + ' *'}
+                              rows={5}
+                              onChange={handleChange}
+                              value={formData.message}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <button className="btn btn-brand-1-big" type="submit">
+                            {i18n.t('submit')}
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
                 <div className="col-lg-7 mb-30">
@@ -1024,7 +1023,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
-        <Toaster/>
+        <Toaster />
       </Layout>
     </>
   );

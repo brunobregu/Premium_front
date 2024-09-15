@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 export default function Howitwork1() {
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
   return (
     <>
       <section className="section pt-85 bg-worldmap">
@@ -12,11 +12,11 @@ export default function Howitwork1() {
               src="/assets/imgs/template/icons/favicon.svg"
               alt="transp"
             /> */}
-            <h2 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-              {i18n.t("how-it-works")}
+            <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-20">
+              {i18n.t('how-it-works')}
             </h2>
             <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-              {i18n.t("how-it-works-description")}
+              {i18n.t('how-it-works-description')}
             </p>
           </div>
           <div className="row mt-50">
@@ -35,14 +35,14 @@ export default function Howitwork1() {
                       alt="transp"
                     /> */}
                   </div>
-                  <div className="info-play">
+                  {/* <div className="info-play">
                     <h4 className="color-white mb-15 wow animate__animated animate__fadeIn">
                       {i18n.t("25-years-experience")}
                     </h4>
                     <p className="font-sm color-white wow animate__animated animate__fadeIn">
                       {i18n.t("experience-description")}
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -59,10 +59,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      {i18n.t("customer-places-order")}
+                      {i18n.t('customer-places-order')}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      {i18n.t("inspection-quality-check")}
+                      {i18n.t('inspection-quality-check')}
                     </p>
                   </div>
                 </li>
@@ -77,10 +77,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      {i18n.t("payment-successful")}
+                      {i18n.t('payment-successful')}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      {i18n.t("payment-methods")}
+                      {i18n.t('payment-methods')}
                     </p>
                   </div>
                 </li>
@@ -95,10 +95,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      {i18n.t("warehouse-receives-order")}
+                      {i18n.t('warehouse-receives-order')}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      {i18n.t("check-accuracy")}
+                      {i18n.t('check-accuracy')}
                     </p>
                   </div>
                 </li>
@@ -113,10 +113,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      {i18n.t("item-picked-packed-shipped")}
+                      {i18n.t('item-picked-packed-shipped')}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      {i18n.t("ship-local-carrier")}
+                      {i18n.t('ship-local-carrier')}
                     </p>
                   </div>
                 </li>
@@ -131,10 +131,10 @@ export default function Howitwork1() {
                   </div>
                   <div className="info-how">
                     <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                      {i18n.t("delivered-measure-success")}
+                      {i18n.t('delivered-measure-success')}
                     </h5>
                     <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                      {i18n.t("update-order-status")}
+                      {i18n.t('update-order-status')}
                     </p>
                   </div>
                 </li>
