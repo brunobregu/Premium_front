@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { useState } from "react";
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Sidebar({ openClass, handleMobileMenuClose }) {
   const [isActive, setIsActive] = useState({
     status: false,
-    key: "",
+    key: '',
   });
 
   const handleToggle = (key) => {
@@ -63,14 +63,14 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                     <li
                       className={
                         isActive.key == 1
-                          ? "has-children active"
-                          : "has-children"
+                          ? 'has-children active'
+                          : 'has-children'
                       }
                       onClick={() => handleToggle(1)}
                     >
-                      <span className="menu-expand">
+                      {/* <span className="menu-expand">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -83,18 +83,18 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                             d="M19 9l-7 7-7-7"
                           ></path>
                         </svg>
-                      </span>
+                      </span> */}
                       <Link className="active" href="/">
                         Home
                       </Link>
                       <ul
                         className={
                           isActive.key == 1
-                            ? "sub-menu d-block"
-                            : "sub-menu d-none"
+                            ? 'sub-menu d-block'
+                            : 'sub-menu d-none'
                         }
                       >
-                        <li>
+                        {/* <li>
                           <Link href="/">Homepage - 1</Link>
                         </li>
                         <li>
@@ -105,23 +105,23 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                         </li>
                         <li>
                           <Link href="/index-4">Homepage - 4</Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </li>
                     <li>
-                      <Link href="/about">About</Link>
+                      <Link href="/about">About us</Link>
                     </li>
-                    <li
+                    {/* <li
                       className={
                         isActive.key == 2
-                          ? "has-children active"
-                          : "has-children"
+                          ? 'has-children active'
+                          : 'has-children'
                       }
                       onClick={() => handleToggle(2)}
                     >
                       <span className="menu-expand">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -139,26 +139,26 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                       <ul
                         className={
                           isActive.key == 2
-                            ? "sub-menu d-block"
-                            : "sub-menu d-none"
+                            ? 'sub-menu d-block'
+                            : 'sub-menu d-none'
                         }
                       >
                         <li>
                           <Link href="/service-detail">Service Details</Link>
                         </li>
                       </ul>
-                    </li>
+                    </li> */}
                     <li
                       className={
                         isActive.key == 3
-                          ? "has-children active"
-                          : "has-children"
+                          ? 'has-children active'
+                          : 'has-children'
                       }
                       onClick={() => handleToggle(3)}
                     >
                       <span className="menu-expand">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -176,12 +176,12 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                       <ul
                         className={
                           isActive.key == 3
-                            ? "sub-menu d-block"
-                            : "sub-menu d-none"
+                            ? 'sub-menu d-block'
+                            : 'sub-menu d-none'
                         }
                       >
                         <li>
-                          <Link href="/trackyourparcel">Track Your Parcel</Link>
+                          <Link href="/service-detail">Service Detail</Link>
                         </li>
                         <li>
                           <Link href="/workprocess">Work Process</Link>
@@ -189,37 +189,37 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                         <li>
                           <Link href="/request-a-quote">Request a quote</Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link href="/our-team">Our team</Link>
-                        </li>
+                        </li> */}
                         <li>
                           <Link href="/faqs">FAQ's</Link>
                         </li>
                         <li>
                           <Link href="/register">Register</Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link href="/login">Login</Link>
-                        </li>
-                        <li>
+                        </li> */}
+                        {/* <li>
                           <Link href="/comingsoon">Coming soon</Link>
                         </li>
                         <li>
                           <Link href="/404">Error 404</Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </li>
-                    <li
+                    {/* <li
                       className={
                         isActive.key == 4
-                          ? "has-children active"
-                          : "has-children"
+                          ? 'has-children active'
+                          : 'has-children'
                       }
                       onClick={() => handleToggle(4)}
                     >
                       <span className="menu-expand">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -237,22 +237,22 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                       <ul
                         className={
                           isActive.key == 4
-                            ? "sub-menu d-block"
-                            : "sub-menu d-none"
+                            ? 'sub-menu d-block'
+                            : 'sub-menu d-none'
                         }
                       >
                         <li>
                           <Link href="/blog-single">Blog Details</Link>
                         </li>
                       </ul>
-                    </li>
+                    </li> */}
                     <li>
                       <Link href="/contact">Contact</Link>
                     </li>
                   </ul>
                 </nav>
               </div>
-              <div className="site-copyright color-grey-400 mt-0">
+              {/* <div className="site-copyright color-grey-400 mt-0">
                 <div className="box-download-app">
                   <p className="font-xs color-grey-900 mb-25">
                     Download our Apps and get extra 15% Discount on your first
@@ -281,7 +281,7 @@ export default function Sidebar({ openClass, handleMobileMenuClose }) {
                     reversed.
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
