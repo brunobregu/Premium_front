@@ -1,5 +1,5 @@
-import Accordion from "@/components/elements/Accordion";
-import Link from "next/link";
+import Accordion from '@/components/elements/Accordion';
+import Link from 'next/link';
 
 export default function Faqs1() {
   return (
@@ -9,9 +9,7 @@ export default function Faqs1() {
           <div className="row">
             <div className="col-lg-6">
               <div className="box-faqs-left">
-                <h2 className=" mb-20 wow animate__animated animate__fadeIn">
-                  FAQs
-                </h2>
+                <h2 className=" wow animate__fadeIn  mb-20">FAQs</h2>
                 <p className="font-md color-grey-700 mb-50 wow animate__animated animate__fadeIn">
                   Feeling inquisitive? Have a read through some of our FAQs or
                   contact our supporters for help
@@ -49,7 +47,7 @@ export default function Faqs1() {
                 </h3>
                 <div className="mt-20">
                   <Link
-                    className="btn btn-brand-1-big mr-20 wow animate__animated animate__fadeIn"
+                    className="btn btn-brand-1-big wow animate__animated animate__fadeIn mr-20"
                     href="/contact"
                   >
                     Contact Us

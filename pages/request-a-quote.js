@@ -1,21 +1,21 @@
-import Layout from "@/components/layout/Layout";
-import Pricing2 from "@/components/sections/homepage2/Pricing2";
-import Project1Slider from "@/components/slider/Project1Slider";
-import Link from "next/link";
-import { useState } from "react";
-import ModalVideo from "react-modal-video";
+import Layout from '@/components/layout/Layout';
+import Pricing2 from '@/components/sections/homepage2/Pricing2';
+import Project1Slider from '@/components/slider/Project1Slider';
+import Link from 'next/link';
+import { useState } from 'react';
+import ModalVideo from 'react-modal-video';
 import { useTranslation } from 'react-i18next';
 
 export default function Quote() {
   const [isOpen, setOpen] = useState(false);
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
   return (
     <>
       <Layout>
         <section className="section box-requestaquote-4">
           <div className="box-bg-requestaquote-4" />
           <div className="container">
-            <div className="text-center mt-100">
+            <div className="mt-100 text-center">
               <h2 className="color-brand-2 wow animate__animated animate__fadeIn">
                 Request a quote for
                 <br className="d-none d-lg-block" />
@@ -23,7 +23,7 @@ export default function Quote() {
               </h2>
               <div className="box-button mt-30">
                 <Link
-                  className="btn btn-brand-1-big hover-up mr-40 wow animate__animated animate__fadeIn"
+                  className="btn btn-brand-1-big hover-up wow animate__animated animate__fadeIn mr-40"
                   href="#"
                 >
                   Calculate Package
@@ -134,7 +134,7 @@ export default function Quote() {
                           name="message"
                           rows={5}
                           placeholder="Message / Note"
-                          defaultValue={""}
+                          defaultValue={''}
                         />
                       </div>
                     </div>
@@ -143,7 +143,7 @@ export default function Quote() {
                         <strong className="font-sm-bold color-grey-900">
                           Extra Services
                         </strong>
-                        <div className="row mt-10 box-cb-form">
+                        <div className="row box-cb-form mt-10">
                           <div className="col-lg-6 col-md-6">
                             <div className="form-group">
                               <input className="cd-form" type="checkbox" />
@@ -186,7 +186,7 @@ export default function Quote() {
                       <Link className="btn btn-link-medium" href="/contact">
                         Contact Us
                         <svg
-                          className="w-6 h-6 icon-16 ml-5"
+                          className="icon-16 ml-5 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -217,7 +217,7 @@ export default function Quote() {
         </section>
         <section className="section mt-100">
           <div className="container">
-            <h2 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
+            <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-20">
               We have branches in many
               <br className="d-none d-lg-block" />
               regions of the world
@@ -230,28 +230,6 @@ export default function Quote() {
                   with all international station to guarantee that your load
                   will safely reach without any delays.
                 </p>
-              </div>
-              <div className="col-lg-6 col-md-6 mb-30 text-md-end text-start">
-                <Link
-                  className="btn btn-brand-1 hover-up wow animate__animated animate__fadeIn"
-                  href="/request-a-quote"
-                >
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
-                    />
-                  </svg>
-                  Get a quote
-                </Link>
               </div>
             </div>
             <div className="row mt-50">
@@ -315,68 +293,6 @@ export default function Quote() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-3 col-md-6 mb-50">
-                <div className="cardService">
-                  <div className="cardImage wow animate__animated animate__fadeIn">
-                    <img
-                      src="/assets/imgs/page/contact/branch3.png"
-                      alt="transp"
-                    />
-                  </div>
-                  <div className="cardInfo wow animate__animated animate__fadeIn">
-                    <img
-                      src="/assets/imgs/page/homepage1/delivery.png"
-                      alt="transp"
-                    />
-                    <h6 className="color-brand-2 mb-15">
-                      Shipping Co. Asia Pacific
-                    </h6>
-                    <p className="font-xs color-grey-900 mb-10">
-                      <strong className="color-brand-2">Address:</strong>1-2-1
-                      Otemachi, Chiyoda-ku, Tokyo, Japan
-                    </p>
-                    <p className="font-xs color-grey-900 mb-10">
-                      <strong className="color-brand-2">Phone Number:</strong>
-                      +81 3 5251 5300
-                    </p>
-                    <p className="font-xs color-grey-900">
-                      <strong className="color-brand-2">Email:</strong>
-                      contact.jp@transp.eu.com
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-3 col-md-6 mb-50">
-                <div className="cardService">
-                  <div className="cardImage wow animate__animated animate__fadeIn">
-                    <img
-                      src="/assets/imgs/page/contact/branch4.png"
-                      alt="transp"
-                    />
-                  </div>
-                  <div className="cardInfo wow animate__animated animate__fadeIn">
-                    <img
-                      src="/assets/imgs/page/homepage1/plane.png"
-                      alt="transp"
-                    />
-                    <h6 className="color-brand-2 mb-15">
-                      Shipping Co. Middle East
-                    </h6>
-                    <p className="font-xs color-grey-900 mb-10">
-                      <strong className="color-brand-2">Address:</strong>Dubai
-                      Logistics City, Building B, Office 203, Dubai, UAE
-                    </p>
-                    <p className="font-xs color-grey-900 mb-10">
-                      <strong className="color-brand-2">Phone Number:</strong>
-                      +971 4 887 8000
-                    </p>
-                    <p className="font-xs color-grey-900">
-                      <strong className="color-brand-2">Email:</strong>
-                      contact@transp.eu.com
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -388,7 +304,7 @@ export default function Quote() {
                 src="/assets/imgs/template/icons/favicon.svg"
                 alt="transp"
               /> */}
-              <h2 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
+              <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-20">
                 How It Works
               </h2>
               <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
@@ -441,10 +357,10 @@ export default function Quote() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                        Customer places order
+                        {i18n.t('customer-places-order')}
                       </h5>
                       <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                        Inspection and quality check of goods
+                        {i18n.t('inspection-quality-check')}
                       </p>
                     </div>
                   </li>
@@ -459,10 +375,10 @@ export default function Quote() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                        Payment successful
+                        {i18n.t('payment-successful')}
                       </h5>
                       <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                        Payoneer, Paypal, or Visa master card
+                        {i18n.t('payment-methods')}
                       </p>
                     </div>
                   </li>
@@ -477,10 +393,10 @@ export default function Quote() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                        Warehouse receives order
+                        {i18n.t('warehouse-receives-order')}
                       </h5>
                       <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                        Check the accuracy of the goods.
+                        {i18n.t('check-accuracy')}
                       </p>
                     </div>
                   </li>
@@ -495,10 +411,10 @@ export default function Quote() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                        Item picked, packed &amp; shipped
+                        {i18n.t('item-picked-packed-shipped')}
                       </h5>
                       <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                        Ship the goods to a local carrier
+                        {i18n.t('ship-local-carrier')}
                       </p>
                     </div>
                   </li>
@@ -513,10 +429,10 @@ export default function Quote() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2 wow animate__animated animate__fadeIn">
-                        Delivered &amp; Measure success
+                        {i18n.t('delivered-measure-success')}
                       </h5>
                       <p className="font-md color-grey-700 wow animate__animated animate__fadeIn">
-                        Update order status on the system
+                        {i18n.t('update-order-status')}
                       </p>
                     </div>
                   </li>
@@ -529,9 +445,9 @@ export default function Quote() {
         {/* <Pricing2 /> */}
 
         <div className="line-border" />
-        <section className="section pb-5 pt-110">
+        <section className="section pt-110 pb-5">
           <div className="container">
-            <h2 className=" mb-20 wow animate__animated animate__fadeIn">
+            <h2 className=" wow animate__animated animate__fadeIn mb-20">
               What We Have Done
             </h2>
             <div className="row align-items-end">
@@ -541,7 +457,7 @@ export default function Quote() {
                   amazing partners
                 </p>
               </div>
-              <div className="col-lg-4 col-md-4 mb-30 text-md-end text-start">
+              {/* <div className="col-lg-4 col-md-4 mb-30 text-md-end text-start">
                 <Link className="btn btn-brand-1 hover-up" href="#">
                   <svg
                     className="mr-10"
@@ -560,7 +476,7 @@ export default function Quote() {
                   </svg>
                   View All Projects
                 </Link>
-              </div>
+              </div> */}
             </div>
             <div className="mt-35">
               <div className="box-swiper">
@@ -572,7 +488,7 @@ export default function Quote() {
           </div>
         </section>
         <div className="mt-90" />
-        <div className="section bg-map d-block">
+        {/* <div className="section bg-map d-block">
           <div className="container">
             <div className="box-newsletter">
               <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
@@ -711,7 +627,7 @@ export default function Quote() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </Layout>
     </>
   );

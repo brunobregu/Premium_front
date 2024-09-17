@@ -1,11 +1,11 @@
-import Layout from "@/components/layout/Layout";
-import Pricing2 from "@/components/sections/homepage2/Pricing2";
-import Project1Slider from "@/components/slider/Project1Slider";
-import Link from "next/link";
+import Layout from '@/components/layout/Layout';
+import Pricing2 from '@/components/sections/homepage2/Pricing2';
+import Project1Slider from '@/components/slider/Project1Slider';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 
 export default function WorkProcess() {
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
   return (
     <>
       <Layout>
@@ -19,7 +19,7 @@ export default function WorkProcess() {
                   alt="transp"
                 /> */}
                 <h2 className="color-brand-2 mb-25 wow animate__animated animate__fadeIn">
-                  {i18n.t("how-it-works")}
+                  {i18n.t('how-it-works')}
                 </h2>
                 <p className="color-grey-700 font-md wow animate__animated animate__fadeIn">
                   You choose the cities where you’d like to deliver. All
@@ -41,19 +41,19 @@ export default function WorkProcess() {
                     alt="transp"
                   />
                   <div className="box-info-bottom-img">
-                    <div className="image-play wow animate__animated animate__fadeIn">
+                    {/* <div className="image-play wow animate__animated animate__fadeIn">
                       <img
                         className="mb-15"
                         src="/assets/imgs/template/icons/play.svg"
                         alt="transp"
                       />
-                    </div>
+                    </div> */}
                     <div className="info-play wow animate__animated animate__fadeIn">
                       <h4 className="color-white mb-15">
-                        {i18n.t("25-years-experience")}
+                        {i18n.t('25-years-experience')}
                       </h4>
                       <p className="font-sm color-white">
-                        {i18n.t("experience-description")}
+                        {i18n.t('experience-description')}
                       </p>
                     </div>
                   </div>
@@ -72,10 +72,10 @@ export default function WorkProcess() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2">
-                        {i18n.t("customer-places-order")}
+                        {i18n.t('customer-places-order')}
                       </h5>
                       <p className="font-md color-grey-700">
-                        {i18n.t("inspection-quality-check")}
+                        {i18n.t('inspection-quality-check')}
                       </p>
                     </div>
                   </li>
@@ -90,10 +90,10 @@ export default function WorkProcess() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2">
-                        {i18n.t("payment-successful")}
+                        {i18n.t('payment-successful')}
                       </h5>
                       <p className="font-md color-grey-700">
-                        {i18n.t("payment-methods")}
+                        {i18n.t('payment-methods')}
                       </p>
                     </div>
                   </li>
@@ -108,10 +108,10 @@ export default function WorkProcess() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2">
-                        {i18n.t("warehouse-receives-order")}
+                        {i18n.t('warehouse-receives-order')}
                       </h5>
                       <p className="font-md color-grey-700">
-                        {i18n.t("check-accuracy")}
+                        {i18n.t('check-accuracy')}
                       </p>
                     </div>
                   </li>
@@ -126,10 +126,10 @@ export default function WorkProcess() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2">
-                        {i18n.t("item-picked-packed-shipped")}
+                        {i18n.t('item-picked-packed-shipped')}
                       </h5>
                       <p className="font-md color-grey-700">
-                        {i18n.t("ship-local-carrier")}
+                        {i18n.t('ship-local-carrier')}
                       </p>
                     </div>
                   </li>
@@ -144,10 +144,10 @@ export default function WorkProcess() {
                     </div>
                     <div className="info-how">
                       <h5 className="color-brand-2">
-                        {i18n.t("delivered-measure-success")}
+                        {i18n.t('delivered-measure-success')}
                       </h5>
                       <p className="font-md color-grey-700">
-                        {i18n.t("update-order-status")}
+                        {i18n.t('update-order-status')}
                       </p>
                     </div>
                   </li>
@@ -380,13 +380,13 @@ export default function WorkProcess() {
         {/* <Pricing2 /> */}
         <section className="section bg-what-done pb-95 pt-110">
           <div className="container">
-            <h2 className=" mb-20 wow animate__animated animate__fadeIn">
-              {i18n.t("what-we-have-done")}
+            <h2 className=" wow animate__animated animate__fadeIn mb-20">
+              {i18n.t('what-we-have-done')}
             </h2>
             <div className="row align-items-end">
               <div className="col-lg-8 col-md-8 mb-30">
                 <p className="font-md color-gray-700 wow animate__animated animate__fadeIn">
-                  {i18n.t("check-out-projects")}
+                  {i18n.t('check-out-projects')}
                 </p>
               </div>
               {/* <div className="col-lg-4 col-md-4 mb-30 text-md-end text-start">
@@ -438,10 +438,10 @@ export default function WorkProcess() {
                         </div>
                         <div className="card-info">
                           <h5 className="color-brand-2 mb-15">
-                            {i18n.t("shipping-options")}
+                            {i18n.t('shipping-options')}
                           </h5>
                           <p className="font-sm color-grey-900">
-                            {i18n.t("shipping-options-description")}
+                            {i18n.t('shipping-options-description')}
                           </p>
                         </div>
                       </div>
@@ -456,10 +456,10 @@ export default function WorkProcess() {
                         </div>
                         <div className="card-info">
                           <h5 className="color-brand-2 mb-15">
-                            {i18n.t("customer-service")}
+                            {i18n.t('customer-service')}
                           </h5>
                           <p className="font-sm color-grey-900">
-                            {i18n.t("customer-service-description")}
+                            {i18n.t('customer-service-description')}
                           </p>
                         </div>
                       </div>
@@ -476,10 +476,10 @@ export default function WorkProcess() {
                         </div>
                         <div className="card-info">
                           <h5 className="color-brand-2 mb-15">
-                            {i18n.t("timely-deliveries")}
+                            {i18n.t('timely-deliveries')}
                           </h5>
                           <p className="font-sm color-grey-900">
-                            {i18n.t("timely-deliveries-description")}
+                            {i18n.t('timely-deliveries-description')}
                           </p>
                         </div>
                       </div>
@@ -494,10 +494,10 @@ export default function WorkProcess() {
                         </div>
                         <div className="card-info">
                           <h5 className="color-brand-2 mb-15">
-                            {i18n.t("tracking-systems")}
+                            {i18n.t('tracking-systems')}
                           </h5>
                           <p className="font-sm color-grey-900">
-                            {i18n.t("tracking-systems-description")}
+                            {i18n.t('tracking-systems-description')}
                           </p>
                         </div>
                       </div>
@@ -510,17 +510,17 @@ export default function WorkProcess() {
                   {/* <span className="btn btn-tag color-grey-900 wow animate__animated animate__fadeIn">
                     Our Features
                   </span> */}
-                  <h2 className="color-brand-2 mb-15 mt-20 wow animate__animated animate__fadeIn">
-                    {i18n.t("why-choose-us")}
+                  <h2 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn mt-20">
+                    {i18n.t('why-choose-us')}
                   </h2>
                   <p className="font-md color-grey-900">
-                    {i18n.t("sustainability-description")}
+                    {i18n.t('sustainability-description')}
                   </p>
                   <div className="mt-30">
                     <ul className="list-ticks">
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -533,11 +533,11 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("reliable-timely-deliveries")}
+                        {i18n.t('reliable-timely-deliveries')}
                       </li>
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -550,11 +550,11 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("advanced-tracking-systems")}
+                        {i18n.t('advanced-tracking-systems')}
                       </li>
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -567,11 +567,11 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("cost-effective-shipping-options")}
+                        {i18n.t('cost-effective-shipping-options')}
                       </li>
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -584,11 +584,11 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("commitment-sustainability")}
+                        {i18n.t('commitment-sustainability')}
                       </li>
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -601,11 +601,11 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("exceptional-customer-service")}
+                        {i18n.t('exceptional-customer-service')}
                       </li>
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -618,11 +618,11 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("international-shipping-expertise")}
+                        {i18n.t('international-shipping-expertise')}
                       </li>
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -635,11 +635,11 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("flexibility-customization")}
+                        {i18n.t('flexibility-customization')}
                       </li>
                       <li className="wow animate__animated animate__fadeIn">
                         <svg
-                          className="w-6 h-6 icon-16"
+                          className="icon-16 h-6 w-6"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -652,24 +652,24 @@ export default function WorkProcess() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        {i18n.t("insurance-liability-coverage")}
+                        {i18n.t('insurance-liability-coverage')}
                       </li>
                     </ul>
                   </div>
                   <div className="mt-30 text-start">
                     <Link
-                      className="btn btn-brand-2 mr-20 wow animate__animated animate__fadeIn"
+                      className="btn btn-brand-2 wow animate__animated animate__fadeIn mr-20"
                       href="/contact"
                     >
-                      {i18n.t("contact-us")}
+                      {i18n.t('contact-us')}
                     </Link>
                     <Link
                       className="btn btn-link-medium wow animate__animated animate__fadeIn"
                       href="#"
                     >
-                      {i18n.t("learn-more")}
+                      {i18n.t('learn-more')}
                       <svg
-                        className="w-6 h-6 icon-16 ml-5"
+                        className="icon-16 ml-5 h-6 w-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -689,11 +689,11 @@ export default function WorkProcess() {
             </div>
           </div>
         </section>
-        <div className="section bg-map d-block">
+        {/* <div className="section bg-map d-block">
           <div className="container">
             <div className="box-newsletter">
-              <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
-                {i18n.t("get-in-touch")}
+              <h3 className="color-brand-2 wow animate__animated animate__fadeIn mb-20">
+                {i18n.t('get-in-touch')}
               </h3>
               <div className="row">
                 <div className="col-lg-5 mb-30">
@@ -705,7 +705,7 @@ export default function WorkProcess() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-name")}
+                              placeholder={i18n.t('your-name')}
                             />
                           </div>
                         </div>
@@ -714,11 +714,11 @@ export default function WorkProcess() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-email")}
+                              placeholder={i18n.t('your-email')}
                             />
                           </div>
                         </div>
-                        {/* <div className="col-md-6">
+                        <div className="col-md-6">
                           <div className="form-group">
                             <input
                               className="form-control"
@@ -735,14 +735,14 @@ export default function WorkProcess() {
                               placeholder="Height"
                             />
                           </div>
-                        </div> */}
+                        </div>
                         <div className="col-md-12">
                           <div className="form-group">
                             <textarea
                               className="form-control"
-                              placeholder={i18n.t("message-note")}
+                              placeholder={i18n.t('message-note')}
                               rows={5}
-                              defaultValue={""}
+                              defaultValue={''}
                             />
                           </div>
                         </div>
@@ -828,7 +828,7 @@ export default function WorkProcess() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </Layout>
     </>
   );

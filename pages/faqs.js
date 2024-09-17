@@ -1,23 +1,23 @@
-import Accordion from "@/components/elements/Accordion";
-import Layout from "@/components/layout/Layout";
-import Link from "next/link";
+import Accordion from '@/components/elements/Accordion';
+import Layout from '@/components/layout/Layout';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 
 export default function Faq() {
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
   return (
     <>
       <Layout>
         <section className="section d-block hero-faqs">
-          <div className="container position-relative">
+          <div className="position-relative container">
             <div className="banner-trackyourparcel" />
             <div className="box-info-trackyourparcel">
               <h2 className="color-brand-2 mb-25 wow animate__animated animate__fadeIn">
-                {i18n.t("frequently-asked-questions")}
+                {i18n.t('frequently-asked-questions')}
                 <br className="d-none d-lg-block" />
               </h2>
               <p className="color-grey-900 font-md wow animate__animated animate__fadeIn">
-                {i18n.t("faq-description")}
+                {i18n.t('faq-description')}
               </p>
               {/* <div className="form-trackparcel mb-0">
                                 <form action="#">
@@ -122,16 +122,16 @@ export default function Faq() {
             </div>
           </div>
         </section> */}
-        <section className="section pt-80 mb-70 bg-faqs">
+        <section className="section mb-70 bg-faqs pt-80">
           <div className="container">
             <div className="row">
               <div className="col-lg-6">
                 <div className="box-faqs-left">
-                  <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
-                    {i18n.t("faqs")}
+                  <h2 className=" wow animate__animated animate__fadeIn mb-20">
+                    {i18n.t('faqs')}
                   </h2>
                   <p className="font-md color-grey-700 mb-50 wow animate__animated animate__fadeIn">
-                    {i18n.t("feeling-inquisitive")}
+                    {i18n.t('feeling-inquisitive')}
                   </p>
                   <div className="box-gallery-faqs">
                     <div className="image-top wow animate__animated animate__fadeIn">
@@ -160,54 +160,22 @@ export default function Faq() {
               <div className="col-lg-6">
                 <div className="box-accordion">
                   <Accordion />
-                  <div className="line-border mt-50 mb-50" />
-                  <h3 className="color-brand-2 wow animate__animated animate__fadeIn">
-                    {i18n.t("need-more-help")}
-                  </h3>
-                  <div className="mt-20">
-                    <Link
-                      className="btn btn-brand-1-big mr-20 wow animate__animated animate__fadeIn"
-                      href="/contact"
-                    >
-                      {i18n.t("contact-us")}
-                    </Link>
-                    <Link
-                      className="btn btn-link-medium wow animate__animated animate__fadeIn"
-                      href="#"
-                    >
-                      {i18n.t("learn-more")}
-                      <svg
-                        className="w-6 h-6 icon-16 ml-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                      </svg>
-                    </Link>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
         <section className="section">
-          <div className="container position-relative">
+          <div className="position-relative container">
             <div className="box-cover-contactform">
               <div className="row align-items-center">
                 <div className="col-xl-8 col-lg-7">
                   <div className="box-contactform-left">
                     <h3 className="color-brand-2 mb-15 wow animate__animated animate__fadeIn">
-                      {i18n.t("still-have-question")}
+                      {i18n.t('still-have-question')}
                     </h3>
                     <p className="font-md color-grey-900 mb-50 wow animate__animated animate__fadeIn">
-                      {i18n.t("cant-find-answer")}
+                      {i18n.t('cant-find-answer')}
                     </p>
                     <form action="#">
                       <div className="row wow animate__animated animate__fadeIn">
@@ -216,7 +184,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-name") + " *"}
+                              placeholder={i18n.t('your-name') + ' *'}
                             />
                           </div>
                         </div>
@@ -225,7 +193,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-email")}
+                              placeholder={i18n.t('your-email')}
                             />
                           </div>
                         </div>
@@ -234,7 +202,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("your-phone-number")}
+                              placeholder={i18n.t('your-phone-number')}
                             />
                           </div>
                         </div>
@@ -243,7 +211,7 @@ export default function Faq() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder={i18n.t("subject")}
+                              placeholder={i18n.t('subject')}
                             />
                           </div>
                         </div>
@@ -251,9 +219,9 @@ export default function Faq() {
                           <div className="form-group">
                             <textarea
                               className="form-control"
-                              placeholder={i18n.t("message-note")}
+                              placeholder={i18n.t('message-note')}
                               rows={8}
-                              defaultValue={""}
+                              defaultValue={''}
                             />
                           </div>
                         </div>
@@ -274,17 +242,12 @@ export default function Faq() {
                       Headquarters
                     </h5>
                     <div className="map-info">
-                      <img
-                        className="mb-25 wow animate__animated animate__fadeIn"
-                        src="/assets/imgs/template/logo.svg"
-                        alt="transp"
-                      />
                       <p className="color-grey-700 mb-25 wow animate__animated animate__fadeIn">
                         4517 Washington Ave. Manchester, Kentucky 39495
                       </p>
-                      <p className="color-grey-700 mb-10 wow animate__animated animate__fadeIn">
+                      <p className="color-grey-700 wow animate__animated animate__fadeIn mb-10">
                         <svg
-                          className="icon-16 mr-10 color-brand-1"
+                          className="icon-16 color-brand-1 mr-10"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="1.5"
@@ -302,7 +265,7 @@ export default function Faq() {
                       </p>
                       <p className="color-grey-700 mb-30 wow animate__animated animate__fadeIn">
                         <svg
-                          className="icon-16 mr-10 color-brand-1"
+                          className="icon-16 color-brand-1 mr-10"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="1.5"

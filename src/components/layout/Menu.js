@@ -169,18 +169,18 @@ export default function Menu() {
             <li>
               <Link href="/request-a-quote">{i18n.t('request-a-quote')}</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/our-team">{i18n.t('our-team')}</Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/faqs">{i18n.t('faq')}</Link>
             </li>
             <li>
               <Link href="/register">{i18n.t('register')}</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/login">{i18n.t('login')}</Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link href="/comingsoon">Coming soon</Link>
             </li> */}
