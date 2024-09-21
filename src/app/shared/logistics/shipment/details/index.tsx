@@ -88,49 +88,51 @@ const carStatusArray: SelectOption[] = [
   { label: 'Delivered', value: 'Delivered' },
 ];
 
-
 export default function ViewShipment({
   id,
   shipment,
   className,
   isViewOnly,
 }: IndexProps) {
-
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
   const handleImageClick = async () => {
     try {
-      const response = await premiumApi.get(`${lang}/OrderDetails/viewPhotos?id=${id}`);
+      const response = await premiumApi.get(
+        `${lang}/OrderDetails/viewPhotos?id=${id}`
+      );
       const images = response.data;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-images`;
         window.open(url, '_blank');
       } else {
-        toast.error('No image uploaded', { position: "top-right" });
+        toast.error('No image uploaded', { position: 'top-right' });
       }
     } catch (error) {
-      toast.error('No image uploaded', { position: "top-right" });
+      toast.error('No image uploaded', { position: 'top-right' });
     }
   };
 
   const handleDocumentClick = async () => {
     try {
-      const response = await premiumApi.get(`${lang}/OrderDetails/viewDocuments?id=${id}`);
+      const response = await premiumApi.get(
+        `${lang}/OrderDetails/viewDocuments?id=${id}`
+      );
       const images = response.data;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-documents`;
         window.open(url, '_blank');
       } else {
-        toast.error('No documents uploaded', { position: "top-right" });
+        toast.error('No documents uploaded', { position: 'top-right' });
       }
     } catch (error) {
-      toast.error('No documents uploaded', { position: "top-right" });
+      toast.error('No documents uploaded', { position: 'top-right' });
     }
   };
 
   const methods = useForm<any>({
     resolver: yupResolver(addOrderDetailsDtoSchema),
-    defaultValues: shipment || {} // Initialize form with shipment data if available
+    defaultValues: shipment || {}, // Initialize form with shipment data if available
   });
 
   const {
@@ -138,13 +140,13 @@ export default function ViewShipment({
     control,
     formState: { errors },
     reset,
-    setValue
+    setValue,
   } = methods;
-
 
   const orderDetailsQuery = useQuery({
     queryKey: ['orderDetails', id],
-    queryFn: () => premiumApi.get(`${lang}/OrderDetails/myOrderDetailsById?id=${id}`),
+    queryFn: () =>
+      premiumApi.get(`${lang}/OrderDetails/myOrderDetailsById?id=${id}`),
     enabled: !!id,
   });
 
@@ -156,9 +158,7 @@ export default function ViewShipment({
     }
   }, [orderDetailsQuery.data, reset, setValue]);
 
-
   const link = orderDetailsQuery.data?.data.provider;
-
 
   return (
     <div className="@container">
@@ -166,7 +166,7 @@ export default function ViewShipment({
         <form>
           <h3>{i18n.t('vehicle')}</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mb-4 mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Input
               label={i18n.t('vin')}
               placeholder={i18n.t('vin')}
@@ -204,7 +204,7 @@ export default function ViewShipment({
 
           <h3>{i18n.t('shipment-detail')}</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mb-4 mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Input
               label={i18n.t('lot')}
               placeholder={i18n.t('lot')}
@@ -236,7 +236,8 @@ export default function ViewShipment({
                   options={carStatusArray}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    carStatusArray?.find((c) => c.value === selected)?.label ?? ''
+                    carStatusArray?.find((c) => c.value === selected)?.label ??
+                    ''
                   }
                   error={errors?.carStatus?.message as string}
                   disabled={true}
@@ -260,34 +261,34 @@ export default function ViewShipment({
               disabled={true}
             />
             <Button
-              className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+              className="w-100 mt-6 bg-gray-900 text-white hover:bg-gray-800"
               onClick={() => {
                 window.open(link, '_blank');
               }}
             >
-              {i18n.t("tracking-url")}
+              {i18n.t('tracking-url')}
             </Button>
 
             <Button
-              className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+              className="w-100 mt-6 bg-gray-900 text-white hover:bg-gray-800"
               onClick={handleImageClick}
             >
-              {i18n.t("view-images")}
+              {i18n.t('view-images')}
             </Button>
             <Button
-              className="w-100 mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+              className="w-100 mt-6 bg-gray-900 text-white hover:bg-gray-800"
               onClick={handleDocumentClick}
             >
-              {i18n.t("view-documents")}
+              {i18n.t('view-documents')}
             </Button>
           </div>
 
-          <h3>  {i18n.t("client-total")}</h3>
+          <h3> {i18n.t('client-total')}</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mb-4 mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Input
-              label={i18n.t("inland-price")}
-              placeholder={i18n.t("inland-price")}
+              label={i18n.t('inland-price')}
+              placeholder={i18n.t('inland-price')}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('inlandPrice', { valueAsNumber: true })}
@@ -295,8 +296,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label={i18n.t("ocean-price")}
-              placeholder={i18n.t("ocean-price")}
+              label={i18n.t('ocean-price')}
+              placeholder={i18n.t('ocean-price')}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('oceanPrice', { valueAsNumber: true })}
@@ -304,8 +305,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label={i18n.t("broker")}
-              placeholder={i18n.t("broker")}
+              label={i18n.t('broker')}
+              placeholder={i18n.t('broker')}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('broker', { valueAsNumber: true })}
@@ -313,8 +314,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label={i18n.t("storage")}
-              placeholder={i18n.t("storage")}
+              label={i18n.t('storage')}
+              placeholder={i18n.t('storage')}
               labelClassName="font-medium text-gray-900"
               type="number"
               {...register('clientStorage', { valueAsNumber: true })}
@@ -322,8 +323,8 @@ export default function ViewShipment({
               disabled={true}
             />
             <Input
-              label={i18n.t("car-price")}
-              placeholder={i18n.t("car-price")}
+              label={i18n.t('car-price')}
+              placeholder={i18n.t('car-price')}
               labelClassName="font-medium text-gray-900"
               {...register('carPrice', { valueAsNumber: true })}
               error={errors.carPrice?.message as string}
@@ -331,15 +332,15 @@ export default function ViewShipment({
             />
           </div>
 
-          <h3 className='w-full'>{i18n.t("payment-info")}</h3>
+          <h3 className="w-full">{i18n.t('payment-info')}</h3>
           <hr />
-          <div className="mb-4 mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mb-4 mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Controller
               control={control}
               name="paymentStatus"
               render={({ field: { value, onChange } }) => (
                 <Select
-                  label={i18n.t("payment-status")}
+                  label={i18n.t('payment-status')}
                   labelClassName="text-gray-900"
                   dropdownClassName="p-2 gap-1 grid !z-10"
                   inPortal={false}
@@ -348,7 +349,8 @@ export default function ViewShipment({
                   options={paymentStatusArray}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    paymentStatusArray.find((c) => c.value === selected)?.label ?? ''
+                    paymentStatusArray.find((c) => c.value === selected)
+                      ?.label ?? ''
                   }
                   error={errors?.paymentStatus?.message as string}
                   disabled={true}
@@ -356,7 +358,7 @@ export default function ViewShipment({
               )}
             />
             <Input
-              label={i18n.t("partly-paid")}
+              label={i18n.t('partly-paid')}
               placeholder="100"
               labelClassName="font-medium text-gray-900"
               type="number"
@@ -365,9 +367,8 @@ export default function ViewShipment({
               disabled={true}
             />
           </div>
-        </form >
-      </FormProvider >
-    </div >
+        </form>
+      </FormProvider>
+    </div>
   );
-
-};
+}

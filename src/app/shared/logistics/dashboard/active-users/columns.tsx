@@ -18,7 +18,7 @@ export const getColumns = ({
   handleSelectAll,
   onChecked,
   handleDelete,
-  t
+  t,
 }: any) => {
   const columns = [
     {
@@ -56,7 +56,7 @@ export const getColumns = ({
     {
       title: (
         <HeaderCell
-          title={t('email-address')}
+          title={t('email')}
           sortable
           ascending={
             sortConfig?.direction === 'asc' && sortConfig?.key === 'userName'
@@ -88,7 +88,10 @@ export const getColumns = ({
     },
     {
       title: (
-        <HeaderCell title={t('actions')} className="font-medium text-gray-900" />
+        <HeaderCell
+          title={t('actions')}
+          className="font-medium text-gray-900"
+        />
       ),
       dataIndex: 'action',
       key: 'action',

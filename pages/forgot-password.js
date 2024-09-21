@@ -10,48 +10,58 @@ import premiumApi from '../src/util/premiumAPI';
 import { useState } from 'react';
 import { useFiltersContext } from '../src/store/state';
 
-export default function ForgotPassword({locale}) {
-   const {  i18n } = useTranslation();
+export default function ForgotPassword({ locale }) {
+  const { i18n } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const{setEmail, lang}= useFiltersContext();
+  const { setEmail, lang } = useFiltersContext();
   const {
     register,
     formState: { errors },
     handleSubmit,
-    resetField
+    resetField,
   } = useForm();
 
   async function onSubmit(data) {
-    setEmail(data.email)
-    setLoading(true)
+    setEmail(data.email);
+    setLoading(true);
     try {
-      const response = await premiumApi.post( `${lang}/Authentication/requestResetPassword`, {email: data.email}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*/*'
+      const response = await premiumApi.post(
+        `${lang}/Authentication/requestResetPassword`,
+        { email: data.email },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: '*/*',
+          },
         }
-      });
+      );
 
       if (response.status === 200) {
         // Clear the email input
-        router.push('/reset-password')
+        router.push('/reset-password');
         resetField('email');
         // Show success toast
-        toast.success('We send you a temporary password', {position:"top-right"});
-      } else{
-        setLoading(false)
-        toast.error("Error, try again!", {position:"top-right"})
+        toast.success('We send you a temporary password', {
+          position: 'top-right',
+        });
+      } else {
+        setLoading(false);
+        toast.error('Error, try again!', { position: 'top-right' });
       }
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       if (error.response && error.response.status === 400) {
-        toast.error("Invalid request. Please check the provided email.", { position: "top-right" });
+        toast.error('Invalid request. Please check the provided email.', {
+          position: 'top-right',
+        });
       } else {
         // General error handling
-        toast.error(error.response?.data?.detail || i18n.t('form-validation.error'), { position: "top-right" });
-      
-    }
+        toast.error(
+          error.response?.data?.detail || i18n.t('form-validation.error'),
+          { position: 'top-right' }
+        );
+      }
     }
   }
 
@@ -75,7 +85,7 @@ export default function ForgotPassword({locale}) {
                   </span>
                 </div>
                 <div className="box-form-login wow animate__animated animate__fadeIn">
-                <form onSubmit={handleSubmit(onSubmit)}>
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <input
                         {...register('email', {
@@ -91,7 +101,7 @@ export default function ForgotPassword({locale}) {
                         })}
                         className="form-control"
                         type="text"
-                        placeholder={i18n.t('email-address')}
+                        placeholder={i18n.t('email')}
                       />
                       {errors.email?.message && (
                         <p
@@ -106,8 +116,8 @@ export default function ForgotPassword({locale}) {
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="box-button-form-login">
                           <input
-                          disabled={loading}
-                            className={`${loading ? "opacity-50": ""} btn btn-brand-1-big mr-20`}
+                            disabled={loading}
+                            className={`${loading ? 'opacity-50' : ''} btn btn-brand-1-big mr-20`}
                             type="submit"
                             value={i18n.t('submit')}
                           />
@@ -174,7 +184,7 @@ export default function ForgotPassword({locale}) {
             </div>
           </div>
         </div>
-        <Toaster/>
+        <Toaster />
       </Layout>
     </>
   );
