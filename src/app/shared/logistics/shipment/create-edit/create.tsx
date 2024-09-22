@@ -163,7 +163,7 @@ export default function CreateEditShipment({
     },
     onSuccess: () => {
       toast.success(
-        id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully',
+        id ? i18n.t('shipment-updated') : i18n.t('shipment-created'),
         { position: 'top-right' }
       );
       router.push('/logistics/shipments');

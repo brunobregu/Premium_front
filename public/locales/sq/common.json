@@ -424,5 +424,7 @@
   "provider-delete": "Furnizuesi u fshi",
   "role-deleted": "Roli u fshi",
   "order-delete": "Dërgesa u fshi",
-  "create-account": " Krijo një llogari"
+  "create-account": " Krijo një llogari",
+  "shipment-updated":"Dërgesa u modifikua me sukses",
+  "shipment-created":"Dërgesa u krijua me sukses"
 }

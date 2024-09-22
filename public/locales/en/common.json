@@ -429,5 +429,7 @@
   "provider-delete": "Provider delete",
   "role-deleted": "Role delete",
   "order-delete": "Order deleted",
-  "create-account": " Create an account"
+  "create-account": " Create an account",
+  "shipment-updated":"Shipment updated successfully",
+  "shipment-created":"Shipment created successfully"
 }

@@ -155,7 +155,7 @@ export default function CreateEditShipment({
       return premiumApi.put(`${lang}/OrderDetails/update?id=${id}`, data);
     },
     onSuccess: () => {
-      toast.success('Shipment Updated Successfully', { position: 'top-right' });
+      toast.success(i18n.t('shipment-updated'), { position: 'top-right' });
       router.push('/logistics/shipments');
     },
     onError: (error: any) => {
@@ -311,11 +311,11 @@ export default function CreateEditShipment({
                   options={providerOptions}
                   getOptionValue={(option) => option.value}
                   displayValue={(selected) =>
-                    providerOptions.find(
+                    providerOptions.length > 0 ? providerOptions.find(
                       (c: any) => c.value.toString() === selected
-                    )?.label ?? 'No data available'
+                    )?.label : 'No data available'
                   }
-                  error={errors?.provider?.message as string}
+                // error={errors?.provider?.message as string}
                 />
               )}
             />
