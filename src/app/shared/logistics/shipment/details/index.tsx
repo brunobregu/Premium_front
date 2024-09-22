@@ -96,6 +96,7 @@ export default function ViewShipment({
 }: IndexProps) {
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
+  const [link, setLink] = useState<string>('')
   const handleImageClick = async () => {
     try {
       const response = await premiumApi.get(
@@ -155,10 +156,14 @@ export default function ViewShipment({
       const orderDetails = orderDetailsQuery.data.data;
       reset(orderDetails);
       setValue('userId', orderDetails.userId);
+      setLink(orderDetails.link)
     }
   }, [orderDetailsQuery.data, reset, setValue]);
 
-  const link = orderDetailsQuery.data?.data.provider;
+  const handleClick = () => {
+    const url = link.startsWith('http') ? link : `https://${link}`;
+    window.open(url, '_blank');
+  };
 
   return (
     <div className="@container">
@@ -262,9 +267,8 @@ export default function ViewShipment({
             />
             <Button
               className="w-100 mt-6 bg-gray-900 text-white hover:bg-gray-800"
-              onClick={() => {
-                window.open(link, '_blank');
-              }}
+              disabled={link?.length === 0}
+              onClick={handleClick}
             >
               {i18n.t('tracking-url')}
             </Button>
