@@ -27,7 +27,7 @@ export default function MyDetails({ className }: { className?: string }) {
   const { lang, setLang } = useFiltersContext();
 
   const fetchStatData = async (user: string) => {
-    const endpoint = ` ${lang}/OrderDetails/myDetails`;
+    const endpoint = `${lang}/OrderDetails/myDetails`;
     // ? '/OrderDetails/details'
     const response = await premiumApi.get<DetailsApiResponse>(endpoint);
     return response.data;
