@@ -54,7 +54,7 @@ export default function CreateEditShipment({
     orderID: yup.string().required(i18n.t('validation.orderID-required')),
     port: yup.string().required(i18n.t('validation.port-required')),
     auction: yup.string().min(1, i18n.t('validation.auction-required')),
-    provider: yup.string().min(1, i18n.t('validation.provider-required')),
+    // provider: yup.string().min(1, i18n.t('validation.provider-required')),
     inlandPrice: yup
       .number()
       .transform((value) => (Number.isNaN(value) ? null : value))
@@ -159,10 +159,19 @@ export default function CreateEditShipment({
       router.push('/logistics/shipments');
     },
     onError: (error: any) => {
-      toast.error(
-        error.response?.data?.detail || 'Error sabing shipment, try againg',
-        { position: 'top-right' }
-      );
+      if (error.response?.data?.errors) {
+        const errorMessages = Object.values(error.response.data.errors)
+          .flat()
+          .join(', ');
+
+        toast.error(errorMessages, { position: 'top-right' });
+      } else {
+        toast.error(
+          error.response?.data?.detail || error.response?.data?.errors[0] || 'Error saving shipment, try againg',
+          { position: 'top-right' }
+        );
+      }
+
     },
   });
   const userOptions =
