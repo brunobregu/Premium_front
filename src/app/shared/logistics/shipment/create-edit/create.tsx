@@ -459,6 +459,14 @@ export default function CreateEditShipment({
               {...register('storageCost', { valueAsNumber: true })}
               error={errors.storageCost?.message as string}
             />
+            <Input
+              label={i18n.t('car-cost')}
+              placeholder={i18n.t('car-cost')}
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('carCost', { valueAsNumber: true })}
+              error={errors.carCost?.message as string}
+            />
           </div>
 
           <h3>{i18n.t('payment-info')}</h3>
