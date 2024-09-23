@@ -102,7 +102,7 @@ export function SidebarMenu() {
                       </div>
                     )}
                   >
-                    {(user === 'Admin' || user === 'Account Manager') && <span onClick={handleUsersToggle}>
+                    {(user === 'Admin') && <span onClick={handleUsersToggle}>
                       <Link
                         href="#"
                         className={cn(
