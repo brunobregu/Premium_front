@@ -148,7 +148,7 @@ export default function MyDetails({ className }: { className?: string }) {
     <WidgetCard
       rounded="lg"
       className={className}
-      title="General Overview"
+      title={i18n.t("general-overview")}
       headerClassName="mb-2 @2xl:mb-5"
     >
       <SimpleBar>
@@ -156,7 +156,7 @@ export default function MyDetails({ className }: { className?: string }) {
           {data?.map((stat) => (
             <MetricCard
               key={stat.id}
-              title={i18n.t("general-overview")}
+              title={stat.title}
               metric={stat.metric}
               icon={stat.icon}
               className="min-w-[240px] border-0 p-1 @2xl:min-w-[280px] lg:p-1"
