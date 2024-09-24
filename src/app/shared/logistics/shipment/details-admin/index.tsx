@@ -88,12 +88,13 @@ export default function ViewShipment({
   const [isModalOpen, setModalOpen] = useState(false);
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
+
   const handleImageClick = async () => {
     try {
       const response = await premiumApi.get(
         `${lang}/OrderDetails/viewPhotos?id=${id}`
       );
-      const images = response.data;
+      const images = response.data.files;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-images`;
         window.open(url, '_blank');
@@ -112,8 +113,8 @@ export default function ViewShipment({
       const response = await premiumApi.get(
         `${lang}/OrderDetails/viewDocuments?id=${id}`
       );
-      const images = response.data;
-      if (images.length > 0) {
+      const documents = response.data.files;
+      if (documents.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-documents`;
         window.open(url, '_blank');
       } else {

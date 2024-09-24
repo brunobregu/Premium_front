@@ -17,12 +17,14 @@ const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const { i18n } = useTranslation()
   const { lang, setLang } = useFiltersContext();
+  const [vin, setVin] = useState<string>('')
 
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
         const response = await premiumApi.get(`${lang}/OrderDetails/viewDocuments?id=${id}`);
-        setDocuments(response.data);
+        setDocuments(response.data.files);
+        setVin(response.data.vin)
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error fetching documents', { position: "top-right" });
       }
@@ -33,7 +35,7 @@ const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <h1>{i18n.t("document-slider")}: {id}</h1>
+      <h1 className='mb-4'>{i18n.t("document-slider")}: {vin}</h1>
       <div style={{ width: 'auto', display: 'flex', flexDirection: 'row' }}>
         <Swiper
           pagination={{ clickable: true }}

@@ -19,12 +19,14 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
   const { lang, setLang } = useFiltersContext();
   const [images, setImages] = useState<Image[]>([]);
   const { i18n } = useTranslation()
+  const [vin, setVin] = useState<string>('')
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await premiumApi.get(`${lang}/OrderDetails/viewPhotos?id=${id}`);
-        setImages(response.data);
+        setImages(response.data.files);
+        setVin(response.data.vin)
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error fetching images', { position: "top-right" });
 
@@ -32,11 +34,11 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
     };
 
     fetchImages();
-  }, []);
+  }, [id]);
 
   return (
     <>
-      <h1>{i18n.t("image-slider")}: {id}</h1>
+      <h1 className='mb-4'>{i18n.t("image-slider")}: {vin}</h1>
       <div style={{ width: 'auto', display: 'flex', flexDirection: 'row' }}>
         <Swiper
           pagination={{ clickable: true }}
