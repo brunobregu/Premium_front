@@ -167,6 +167,11 @@ export default function Contact() {
                         alt="transp"
                       />
                       <p className="color-grey-700 mb-25 wow animate__animated animate__fadeIn">
+                        {i18n.t('address-details_1')}
+                        <br />
+                        <br />
+                        {i18n.t('address-details_2')}
+                        <br />
                         {i18n.t('address-details')}
                       </p>
                       <p className="color-grey-700 wow animate__animated animate__fadeIn mb-10">
