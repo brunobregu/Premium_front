@@ -82,6 +82,19 @@
   "faq-description": "Gjithçka që duhet të dini për shërbimet tona logjistike dhe faturimin. Nuk mund të gjeni përgjigjen që kërkoni? Ju lutem kontaktoni ekipin tonë të mbështetjes.",
   "faqs": "Pyetje të Shpeshta",
   "feeling-inquisitive": "Ndjeheni kurioz? Lexoni disa nga pyetjet tona të shpeshta ose kontaktoni mbështetësit tanë për ndihmë.",
+
+  "faq_title_1": "Sa kohë do të duhet që porosia ime të arrijë?",
+  "faq_desc_1": "Për automjetet/porositë nga SHBA-ja dhe Kanadaja, dorëzimi zakonisht zgjat 30 deri në 60 ditë, në varësi të portit të nisjes. Porosia juaj mund të dërgohet nga New Jersey, Indiana, Georgia, Toronto ose vende të tjera dhe do të merrni një numër gjurmimi të drejtpërdrejtë për të ndjekur porosinë tuaj në kohë reale. Për automjetet/porositë nga Koreja e Jugut, dërgesa zakonisht zgjat 30 deri në 45 ditë për të mbërritur në portin e Durrësit. Për automjetet/porositë nga Kina, dërgesa zakonisht zgjat deri në 60 ditë për të mbërritur në portin e Durrësit.",
+
+  "faq_title_2": "Çfarë lloji të dorëzimit përdorni?",
+  "faq_desc_2": "Për makinat nga SHBA dhe Kanada, ne përdorim një kombinim të transportit auto për transportin në brendësi dhe transportin me kontejnerë në portin e Durrësit. Për makinat nga Koreja e Jugut, ne përdorim metodën e sigurt dhe të besueshme të transportit RoRo (Roll on Roll off).",
+
+  "faq_title_3": "Si mund të paguaj për blerjen time?",
+  "faq_desc_3": "Premium Logistics e bën blerjen e automjetit tuaj nga SHBA, Kanadaja, Kina ose Koreja e Jugut të lehtë dhe pa probleme. Kontaktoni agjentët tanë për ndihmë me opsionet e pagesës dhe më shumë detaje",
+
+  "faq_title_4": "Unë u referova në Premium Logistics!",
+  "faq_desc_4": "E mrekullueshme! Nëse jeni referuar nga një prej klientëve tanë të lumtur, do të gëzoni një zbritje prej 5% në blerjen tuaj të radhës, së bashku me konsultimin falas. Na kontaktoni sot për të filluar blerjen për makinën tuaj të ëndrrave!",
+
   "return-item": "Si mund të kthej një artikull të blerë online?",
   "cancel-change-order": "A mund të anuloj ose ndryshoj porosinë time?",
   "promotional-discount-code": "Kam një kod promocional ose zbritjeje.",
@@ -158,7 +171,7 @@
   "telephone": "Telefon",
   "telephone-number": "+355 69 669 6154",
   "email": "Email",
-  "email-address": "premiumlogistics@gmail.com",
+  "email-address": " info@premium-ship.com",
   "enter-your-password": "Futni fjalëkalimin tuaj",
   "forgot-your-password": "Keni harruar fjalëkalimin?",
   "submit": "Dërgo",

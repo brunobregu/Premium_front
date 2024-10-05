@@ -85,6 +85,19 @@
   "faq-description": "Everything you need to know about our logistics services and billing. Can't find the answer you are looking for? Please contact our support team.",
   "faqs": "FAQs",
   "feeling-inquisitive": "Feeling inquisitive? Have a read through some of our FAQs or contact our supporters for help.",
+
+  "faq_title_1": "How long will it take for my order to arrive?",
+  "faq_desc_1": "For vehicles/orders from the US and Canada, delivery usually takes 30 to 60 days, depending on the departure port. Your order might ship from New Jersey, Indiana, Georgia, Toronto, or other locations, and you'll receive a live tracking number to follow your order in real time. For vehicles/orders from South Korea, delivery typically takes 30 to 45 days to reach the port of Durres. For vehicles/orders from China, delivery typically takes up to 60 days to reach the port of Durres.",
+
+  "faq_title_2": "What type of delivery do you use?",
+  "faq_desc_2": "For cars from the US and Canada, we use a combination of auto hauling for inland transport and container shipping to Durres port. For cars from South Korea, we use the safe and reliable RoRo (Roll on Roll off) transport method.For cars/orders from South Korea, we use container shipping as well for which you receive a tracking number",
+
+  "faq_title_3": "How can I pay for my purchase?",
+  "faq_desc_3": "Premium Logistics makes purchasing your vehicle from the US, Canada, China, or South Korea easy and hassle-free. Reach out to our agents for assistance with payment options and more details.",
+
+  "faq_title_4": "I was referred to Premium Logistics!",
+  "faq_desc_4": "Awesome! If you were referred by one of our happy customers, you’ll enjoy a 5% discount on your next purchase, along with free consulting. Contact us today to start shopping for your dream car!",
+
   "return-item": "How can I return an item purchased online?",
   "cancel-change-order": "Can I cancel or change my order?",
   "promotional-discount-code": "I have a promotional or discount code.",
@@ -157,11 +170,13 @@
   },
 
   "address": "Address",
+  "address-details_1": "PREMIUM LOGISTICS EU,",
+  "address-details_2": "Tirana, Albania Branch",
   "address-details": "Rruga e Kosovarëve, Tirana",
   "telephone": "Telephone",
   "telephone-number": "+355 69 669 6154",
   "email": "Email",
-  "email-address": "premiumlogistics@gmail.com",
+  "email-address": " info@premium-ship.com",
   "enter-your-password": "Password",
   "forgot-your-password": "Forgot your password?",
   "submit": "Submit",
