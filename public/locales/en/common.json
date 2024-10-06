@@ -296,8 +296,8 @@
   "payment-info": "Payment info",
   "total-cost": "Total Cost",
   "inland-cost": "Inland Cost",
-  "ocaen-cost": "Ocean Cost",
   "storage-cost": "Storage Cost",
+  "car-cost": "Car Cost",
   "profit": "Profit",
   "view-images": "View Images",
   "view-documents": "View Documents",
@@ -319,7 +319,7 @@
   "create-port": "Create Port",
   "create-provider": "Create Provider",
   "create-role": "Create Role",
-  "document-slider": "Document Slider for id",
+  "document-slider": "Document Slider for VIN",
   "image-slider": "Image Slider for VIN",
   "account-setting": "Account Setting",
   "activate-user": {
@@ -457,7 +457,12 @@
   "role-deleted": "Role delete",
   "order-delete": "Order deleted",
   "create-account": " Create an account",
+<<<<<<< HEAD
   "testimonial-1": "Premium Logistics is a great logistics company. They offer fast, reliable, and affordable solutions for all the services they provide. Their customer service is friendly and helpful. I trust them with my business needs.",
   "testimonial-2": "Bought a Mercedes Benz C200 CGI from South Korea, Ardis helped me with picking the best possible vehicle while navigating through the South Korean Car market and it took about a month and a half for the car to arrive in Durres. They helped and advised for the customs as well. 10/10 service.",
   "testimonial-3": "Bought my Volvo with Premium, best choice that could have made, came on 32 days and price was much better than what others were asking."
+=======
+  "shipment-updated":"Shipment updated successfully",
+  "shipment-created":"Shipment created successfully"
+>>>>>>> aa632bfa0d2a43492a7675c5afbf9d5a63bc0e55
 }
