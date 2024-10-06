@@ -1,7 +1,9 @@
 import Accordion from '@/components/elements/Accordion';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export default function Faqs1() {
+  const { i18n } = useTranslation();
   return (
     <>
       <section className="section bg-grey-100 bg-choose-plan pt-110 pb-110">
@@ -11,8 +13,7 @@ export default function Faqs1() {
               <div className="box-faqs-left">
                 <h2 className=" wow animate__fadeIn  mb-20">FAQs</h2>
                 <p className="font-md color-grey-700 mb-50 wow animate__animated animate__fadeIn">
-                  Feeling inquisitive? Have a read through some of our FAQs or
-                  contact our supporters for help
+                  {i18n.t('feeling-inquisitive')}
                 </p>
                 <div className="box-gallery-faqs">
                   <div className="image-top">

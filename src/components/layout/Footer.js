@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function Footer1({}) {
   return (
@@ -9,33 +9,36 @@ export default function Footer1({}) {
             <div className="row">
               <div className="col-lg-3 width-23 mb-30">
                 <div className="mb-20">
-                  <h5 className="mb-10 color-brand-1">Premium Logistics</h5>
+                  <h5 className="color-brand-1 mb-10">Premium Logistics</h5>
                 </div>
-                <p className="font-xs mb-20 color-white">
-                  [We fuse our global network with our depth of expertise in air
-                  freight, ocean freight, railway transportation, trucking, and
-                  multimode transportation, also we are providing sourcing,
-                  warehousing, E-commercial fulfillment, and value-added service
-                  to our customers including kitting, assembly, customized
-                  package and business inserts, etc.]
-                </p>
+
                 <h6 className="color-brand-1">Follow Us</h6>
                 <div className="mt-15">
-                  <Link className="icon-socials icon-facebook" href="#" />
-                  <Link className="icon-socials icon-instagram" href="#" />
-                  <Link className="icon-socials icon-twitter" href="#" />
-                  <Link className="icon-socials icon-youtube" href="#" />
-                  <Link className="icon-socials icon-skype" href="#" />
+                  <Link
+                    className="icon-socials icon-facebook"
+                    href="https://m.facebook.com/100092358017361/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                  <Link
+                    className="icon-socials icon-instagram"
+                    href="https://www.instagram.com/premium_logisticss?igsh=M3VqeXUwangzcWF4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                  <Link
+                    className="icon-socials icon-linkedin"
+                    href="https://al.linkedin.com/company/premium-logistics"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
                 </div>
               </div>
               <div className="col-lg-3 width-16 mb-30">
-                <h5 className="mb-10 color-brand-1">Company</h5>
+                <h5 className="color-brand-1 mb-10">Company</h5>
                 <ul className="menu-footer">
                   <li>
-                    <Link href="/about">Mission &amp; Vision</Link>
-                  </li>
-                  <li>
-                    <Link href="/team">Our Team</Link>
+                    <Link href="../../../pages/our-team.js">Our Team</Link>
                   </li>
 
                   <li>
@@ -44,7 +47,7 @@ export default function Footer1({}) {
                 </ul>
               </div>
               <div className="col-lg-3 width-16 mb-30">
-                <h5 className="mb-10 color-brand-1">Industries</h5>
+                <h5 className="color-brand-1 mb-10">Industries</h5>
                 <ul className="menu-footer">
                   <li>
                     <Link href="#">Global coverage</Link>
@@ -67,7 +70,7 @@ export default function Footer1({}) {
                 </ul>
               </div>
               <div className="col-lg-3 width-16 mb-30">
-                <h5 className="mb-10 color-brand-1">Services</h5>
+                <h5 className="color-brand-1 mb-10">Services</h5>
                 <ul className="menu-footer">
                   <li>
                     <Link href="#">Ocean Freight</Link>
@@ -107,7 +110,7 @@ export default function Footer1({}) {
           <div className="container">
             <div className="footer-bottom">
               <div className="row align-items-center">
-                <div className="col-lg-6 col-md-12 text-center text-lg-start">
+                <div className="col-lg-6 col-md-12 text-lg-start text-center">
                   <span className="color-grey-300 font-md">
                     ©Premium Logistics {new Date().getFullYear()}. All right
                     reversed.

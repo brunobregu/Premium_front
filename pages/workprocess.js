@@ -22,11 +22,7 @@ export default function WorkProcess() {
                   {i18n.t('how-it-works')}
                 </h2>
                 <p className="color-grey-700 font-md wow animate__animated animate__fadeIn">
-                  You choose the cities where you’d like to deliver. All
-                  deliveries are within a specific service area and delivery
-                  services vary by location. Whatever the mode or requirement,
-                  we will find and book the ideal expedited shipping solution to
-                  ensure a timely delivery.
+                  {i18n.t('how-it-works-2')}
                 </p>
               </div>
             </div>
@@ -50,11 +46,8 @@ export default function WorkProcess() {
                     </div> */}
                     <div className="info-play wow animate__animated animate__fadeIn">
                       <h4 className="color-white mb-15">
-                        {i18n.t('25-years-experience')}
-                      </h4>
-                      <p className="font-sm color-white">
                         {i18n.t('experience-description')}
-                      </p>
+                      </h4>
                     </div>
                   </div>
                 </div>
@@ -384,11 +377,11 @@ export default function WorkProcess() {
               {i18n.t('what-we-have-done')}
             </h2>
             <div className="row align-items-end">
-              <div className="col-lg-8 col-md-8 mb-30">
+              {/* <div className="col-lg-8 col-md-8 mb-30">
                 <p className="font-md color-gray-700 wow animate__animated animate__fadeIn">
                   {i18n.t('check-out-projects')}
                 </p>
-              </div>
+              </div> */}
               {/* <div className="col-lg-4 col-md-4 mb-30 text-md-end text-start">
                 <Link
                   className="btn btn-brand-1 hover-up wow animate__animated animate__fadeIn"
@@ -662,26 +655,6 @@ export default function WorkProcess() {
                       href="/contact"
                     >
                       {i18n.t('contact-us')}
-                    </Link>
-                    <Link
-                      className="btn btn-link-medium wow animate__animated animate__fadeIn"
-                      href="#"
-                    >
-                      {i18n.t('learn-more')}
-                      <svg
-                        className="icon-16 ml-5 h-6 w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                      </svg>
                     </Link>
                   </div>
                 </div>

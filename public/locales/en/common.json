@@ -4,28 +4,27 @@
   "services": "Services",
   "pages": "Pages",
   "contact": "Contact",
-  "about-us-desc": "Premium Logistics is a leading shipping company based in Albania, specializing in global shipping services. With years of experience in the industry, we have built a reputation for excellence, reliability, and customer satisfaction. Our dedicated team is committed to providing seamless shipping solutions tailored to meet the unique needs of our clients. At Premium Logistics, we prioritize efficiency, safety, and customer service, ensuring that your shipments arrive on time, every time.",
+  "about-us-desc": "Premium Logistics is a leading shipping company based in Albania, specializing in shipping services. With years of experience in the industry, we have built a reputation for excellence, reliability, and customer satisfaction. Our dedicated team is committed to providing seamless shipping solutions tailored to meet the unique needs of our clients. At Premium Logistics, we prioritize efficiency, safety, and customer service, ensuring that your shipments arrive on time, every time.",
   "simplifying-complex-shipping-challenges-with-innovative-solutions": "Simplifying complex shipping challenges with innovative solutions",
-  "premium-logistics-text": "Premium Logistics, located in Albania, is essential to the smooth functioning of global supply chains. We offer a range of services such as transportation, warehousing, inventory management, and distribution to businesses across different industries. Our role has become increasingly important in recent years due to the growth of e-commerce and global trade.",
+  "premium-logistics-text": "Albania-based Premium Logistics is specialized  in shipping services. We provide a variety of services to companies and individuals in many industries, including distribution, inventory management, warehousing, and transportation. ",
   "zip-code-required": "* Zip code is required!",
   "zip-code-number": "* Please enter a valid zip code consisting only of numbers.",
   "zip-exist": "Zip code does not exist",
   "globally-connected-large-network": "Globally Connected by Large Network",
   "premium-logistics-mission": "At Premium Logistics, our mission is to provide our clients with exceptional transportation services that meet and exceed their expectations. We aim to be the most reliable, efficient, and cost-effective transportation provider in the industry.",
   "affordable-cost": "Affordable Cost",
-  "affordable-cost-description": "The latest design trends meet hand-crafted templates.",
+  "affordable-cost-description": "We offer you the best rates in the industry.",
   "short-time-delivery": "Short Time Delivery",
-  "short-time-delivery-description": "The latest design trends meet hand-crafted templates.",
+  "short-time-delivery-description": "Record time delivery with the lowest rate time.",
 
-  "premium-logistics-founding": "Premium Logistics was founded by a group of transportation professionals who saw an opportunity to provide a better level of service to businesses. Since our founding, we have grown to become a leading transportation provider, with a presence in over 30 countries around the world.",
+  "premium-logistics-founding": "Premium Logistics was founded by a group of transportation professionals who saw an opportunity to provide a better level of service to businesses. Since our founding, we have grown to become a leading transportation provider within Balkans.",
   "contact-us": "Contact Us",
   "learn-more": "Learn More",
 
   "established-strong-relationships": "We have established strong relationships with our partners",
-  "premium-logistics-pioneers": "At Premium Logistics, we strive to become pioneers in the field, providing first quality and cost-effective service, and smart solutions to the market. Our 30 years’ experience in the shipping, transport and logistics industry is our strength, which supports us to deliver our promises to our customers.",
+  "premium-logistics-pioneers": "At Premium Logistics, we provide first quality, cost-effective service, and smart solutions. Our 7 years’ experience in the shipping, transport and logistics industry is our strength, which supports us to deliver our promises to our customers.",
 
-  "proud-deliver-excellence": "Proud to Deliver",
-  "proud-deliver-excellence_1": "Excellence Every Time",
+  "proud-deliver-excellence_1": "Delivering Excellence Every Time",
   "premium-logistics-commitment": "At Premium Logistics, we are proud to deliver excellence every time. Our commitment to quality and customer satisfaction is unparalleled. We offer innovative solutions to meet your logistics needs and ensure timely delivery.",
   "boost-your-sale": "Boost your sale",
   "boost-your-sale-description": "The latest design trends meet hand-crafted templates.",
@@ -48,16 +47,17 @@
   "proud-workforce": "We are proud of our workforce ",
   "proud-workforce_1": "and have worked hard at Premium Logistics.",
   "fast-shipping-modern-technology": "Fast shipping with the most modern technology",
-  "network-expansion": "Over the years, at Premium Logistics, we have expanded our network of partners to deliver reliability and consistency. We have made significant strides to integrate technology with our processes, providing our clients with greater visibility into every engagement.",
-  "task-tracking": "Vehicle tracking during shipment",
-  "task-visualization": " Ensure timely delivery of vehicles",
+  "network-expansion": "Over the years, at Premium Logistics, we have expanded our network of partners to deliver reliability and consistency. We have made significant strides to integrate technology with our processes, providing our clients with greater transparency.",
+  "task-tracking": "Shipment tracking",
+  "task-visualization": "Ensure timely delivery of vehicles",
   "meet-deadlines-faster": "Visualization of shipment progress",
-  "create-task-dependencies": "Share shipment documents, discuss logistics",
+  "create-task-dependencies": "Documentation management",
   "share-files-discuss": "Track time spent on each shipment",
   "track-time-spent": "Tracking the time spent on each project",
 
   "how-it-works": "How It Works",
-  "how-it-works-description": "You choose the cities where you’d like to deliver. All deliveries are within a specific service area and delivery services vary by location. Whatever the mode or requirement, Premium Logistics will find and book the ideal expedited shipping solution to ensure a timely delivery.",
+  "how-it-works-2": "You choose the cities where you’d like to deliver. All deliveries are within a specific service area and delivery services vary by location. Whatever the mode or requirement, we will find and book the ideal expedited shipping solution to ensure a timely delivery.",
+  "how-it-works-description": "USA, Canada, South Korea, or China – wherever you choose to deliver from, it’s entirely up to you. No matter the mode of transportation or specific requirements, Premium Logistics will manage the entire process with care and precision.",
   "customer-places-order": "Consultation about the order",
   "inspection-quality-check": "The first step in placing an order is the consultation to determine the requirements and details.",
   "payment-successful": "Order inspection",
@@ -68,14 +68,27 @@
   "ship-local-carrier": "Preparation for land, sea, or air transport ensures that the order is packaged and ready for shipment according to the chosen transportation method.",
   "delivered-measure-success": "Order delivery",
   "update-order-status": "Order delivery includes transporting the goods to the destination specified by the customer.",
-  "25-years-experience": "We have 25 years of experience in this passion",
-  "experience-description": "With over 25 years of experience, Premium Logistics ensures the highest quality service, adapting to all your logistics needs.",
+  "25-years-experience": "We have 7 years of experience in this passion",
+  "experience-description": "With over 7 years of experience, Premium Logistics ensures the highest quality service, adapting to all your logistics needs.",
 
   "what-customers-saying": "What our customers are saying",
   "hear-from-customers": "Hear from our customers who have experienced",
   "hear-from-customers_1": "service and cost savings with Premium Logistics.",
 
-  "what-we-have-done": "What We Have Done",
+  "what-we-have-done": "What We Offer",
+
+  "what-we-have-done-air": "Sea Transportation",
+  "what-we-have-done-air-desc": "Air desc...",
+
+  "what-we-have-done-sea": "Inland Transport",
+  "what-we-have-done-sea-desc": "Sea desc...",
+
+  "what-we-have-done-trucking": "Tracking",
+  "what-we-have-done-trucking-desc": "Tracking desc...",
+
+  "what-we-have-done-warehouse": "Warehousing & Distribution",
+  "what-we-have-done-warehouse-desc": "Warehouse desc...",
+
   "check-out-projects": "Check out some of the successful projects we have completed with our valued partners.",
   "view-all-projects": "View All Projects",
   "view-details": "View Details",
@@ -84,7 +97,7 @@
 
   "faq-description": "Everything you need to know about our logistics services and billing. Can't find the answer you are looking for? Please contact our support team.",
   "faqs": "FAQs",
-  "feeling-inquisitive": "Feeling inquisitive? Have a read through some of our FAQs or contact our supporters for help.",
+  "feeling-inquisitive": "Have a read through some of our FAQs or contact our supporters for help.",
 
   "faq_title_1": "How long will it take for my order to arrive?",
   "faq_desc_1": "For vehicles/orders from the US and Canada, delivery usually takes 30 to 60 days, depending on the departure port. Your order might ship from New Jersey, Indiana, Georgia, Toronto, or other locations, and you'll receive a live tracking number to follow your order in real time. For vehicles/orders from South Korea, delivery typically takes 30 to 45 days to reach the port of Durres. For vehicles/orders from China, delivery typically takes up to 60 days to reach the port of Durres.",
@@ -443,5 +456,8 @@
   "provider-delete": "Provider delete",
   "role-deleted": "Role delete",
   "order-delete": "Order deleted",
-  "create-account": " Create an account"
+  "create-account": " Create an account",
+  "testimonial-1": "Premium Logistics is a great logistics company. They offer fast, reliable, and affordable solutions for all the services they provide. Their customer service is friendly and helpful. I trust them with my business needs.",
+  "testimonial-2": "Bought a Mercedes Benz C200 CGI from South Korea, Ardis helped me with picking the best possible vehicle while navigating through the South Korean Car market and it took about a month and a half for the car to arrive in Durres. They helped and advised for the customs as well. 10/10 service.",
+  "testimonial-3": "Bought my Volvo with Premium, best choice that could have made, came on 32 days and price was much better than what others were asking."
 }

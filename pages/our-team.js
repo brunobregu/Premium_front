@@ -1,11 +1,11 @@
-import Layout from "@/components/layout/Layout";
-import Link from "next/link";
-import { useState } from "react";
-import ModalVideo from "react-modal-video";
+import Layout from '@/components/layout/Layout';
+import Link from 'next/link';
+import { useState } from 'react';
+import ModalVideo from 'react-modal-video';
 import { useTranslation } from 'react-i18next';
 
 export default function OurTeam() {
-  const {  i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   return (
     <>
@@ -15,22 +15,22 @@ export default function OurTeam() {
             <div className="row align-items-center">
               <div className="col-lg-6 mb-30">
                 <span className="btn btn-tag wow animate__animated animate__fadeIn">
-                  {i18n.t("meet-our-team")}
+                  {i18n.t('meet-our-team')}
                 </span>
                 <h3 className="color-grey-900 mb-25 mt-15 wow animate__animated animate__fadeIn">
-                  {i18n.t("ntroduce-dedicated-individuals")}
+                  {i18n.t('ntroduce-dedicated-individuals')}
                 </h3>
                 <p className="font-md color-grey-900 wow animate__animated animate__fadeIn">
-                  {i18n.t("strive-to-serve")}
+                  {i18n.t('strive-to-serve')}
                 </p>
                 <div className="mt-70 wow animate__animated animate__fadeIn">
                   <Link className="btn btn-brand-2 mr-20" href="/contact">
-                    {i18n.t("contact-us")}
+                    {i18n.t('contact-us')}
                   </Link>
                   <Link className="btn btn-link-medium" href="#">
-                    {i18n.t("learn-more")}
+                    {i18n.t('learn-more')}
                     <svg
-                      className="w-6 h-6 icon-16 ml-5"
+                      className="icon-16 ml-5 h-6 w-6"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -54,21 +54,21 @@ export default function OurTeam() {
                     alt="transp"
                   />
                   <div className="box-info-testimonial-4">
-                    <h3 className="color-brand-2 mb-10 wow animate__animated animate__fadeIn">
-                      {i18n.t("satisfied")}
+                    <h3 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
+                      {i18n.t('satisfied')}
                     </h3>
                     <p className="font-sm color-grey-900 wow animate__animated animate__fadeIn">
-                      {i18n.t("strive-to-serve")}
+                      {i18n.t('strive-to-serve')}
                     </p>
                     <div className="box-button mt-30">
                       <Link
                         className="btn btn-link font-sm color-brand-2 wow animate__animated animate__fadeIn"
                         href="#"
                       >
-                        {i18n.t("view-details")}
+                        {i18n.t('view-details')}
                         <span>
                           <svg
-                            className="w-6 h-6 icon-16"
+                            className="icon-16 h-6 w-6"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -92,7 +92,7 @@ export default function OurTeam() {
         </section>
         <section className="section pt-110 pb-5">
           <div className="container">
-            <h2 className="title-favicon mb-20 wow animate__animated animate__fadeIn">
+            <h2 className="title-favicon wow animate__animated animate__fadeIn mb-20">
               Our Leadership Team
             </h2>
             <div className="row align-items-end">
@@ -131,7 +131,7 @@ export default function OurTeam() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team1.png"
                       alt="transp"
@@ -190,7 +190,7 @@ export default function OurTeam() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team2.png"
                       alt="transp"
@@ -249,7 +249,7 @@ export default function OurTeam() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team3.png"
                       alt="transp"
@@ -308,7 +308,7 @@ export default function OurTeam() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {" "}
+                    {' '}
                     <img
                       src="/assets/imgs/page/homepage2/team4.png"
                       alt="transp"
@@ -575,7 +575,7 @@ export default function OurTeam() {
                   <span className="btn btn-tag wow animate__animated animate__fadeIn">
                     Who We Are?
                   </span>
-                  <h2 className="color-grey-900 mb-20 mt-15 wow animate__animated animate__fadeIn">
+                  <h2 className="color-grey-900 mt-15 wow animate__animated animate__fadeIn mb-20">
                     We are the world's leading shipping service provider
                   </h2>
                   <p className="font-md color-grey-900 mb-35 wow animate__animated animate__fadeIn">
@@ -660,7 +660,7 @@ export default function OurTeam() {
         <div className="section bg-map d-block">
           <div className="container">
             <div className="box-newsletter">
-              <h3 className="color-brand-2 mb-20 wow animate__animated animate__fadeIn">
+              <h3 className="color-brand-2 wow animate__animated animate__fadeIn mb-20">
                 Get in Touch
               </h3>
               <div className="row">
@@ -710,7 +710,7 @@ export default function OurTeam() {
                               className="form-control"
                               placeholder="Message / Note"
                               rows={5}
-                              defaultValue={""}
+                              defaultValue={''}
                             />
                           </div>
                         </div>
