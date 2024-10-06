@@ -21,60 +21,6 @@ interface IndexProps {
   shipment?: CreateShipmentInput;
 }
 
-const addOrderDetailsDtoSchema = yup.object().shape({
-  vin: yup.string().required('VIN is required'),
-  make: yup.string().required('Make is required'),
-  model: yup.string().required('Model is required'),
-  year: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .min(1990, 'Year must be at least 1990')
-    .required('Year is required'),
-  lot: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .required(),
-  orderID: yup.string().required('Order ID is required'),
-  port: yup.string().required('Port is required'),
-  auction: yup.string().min(1, 'Auction is required'),
-  // provider: yup.string().min(1, 'Provider is required'),
-  inlandPrice: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .min(1, 'Inland price must be at least 1')
-    .required('Inland price is required'),
-  oceanPrice: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .min(1, 'Ocean price must be at least 1')
-    .required('Ocean price is required'),
-  // broker: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required(),
-  inlandCost: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .min(1, 'Inland Cost must be at least 1')
-    .required('Inland Cost is required'),
-  oceanCost: yup
-    .number()
-    .transform((value) => (Number.isNaN(value) ? null : value))
-    .integer()
-    .min(1, 'Ocean Cost must be at least 1')
-    .required('Ocean Cost is required'),
-  // clientStorage: yup.number().transform((value) => (Number.isNaN(value) ? null : value)).integer().required('Client storage is required'),
-  paymentStatus: yup.string().required('Payment status is required'),
-  partlyPaid: yup
-    .number()
-    .transform((value) => (value === 0 || Number.isNaN(value) ? 0 : value))
-    .integer()
-    .required(),
-  userId: yup.string().required(),
-});
-
 const paymentStatusArray: SelectOption[] = [
   { label: 'Paid', value: 'Paid' },
   { label: 'Not Paid', value: 'Not Paid' },
@@ -109,7 +55,7 @@ export default function CreateEditShipment({
       .required(i18n.t('validation.lot-required')),
     orderID: yup.string().required(i18n.t('validation.orderID-required')),
     port: yup.string().required(i18n.t('validation.port-required')),
-    auction: yup.string().min(1, i18n.t('validation.auction-required')),
+    auction: yup.string().required(i18n.t('validation.auction-required')),
     provider: yup.string().min(1, i18n.t('validation.provider-required')),
     inlandPrice: yup
       .number()
@@ -217,14 +163,14 @@ export default function CreateEditShipment({
     },
     onSuccess: () => {
       toast.success(
-        id ? 'Shipment Updated Successfully' : 'Shipment Created Successfully',
+        id ? i18n.t('shipment-updated') : i18n.t('shipment-created'),
         { position: 'top-right' }
       );
       router.push('/logistics/shipments');
     },
     onError: (error: any) => {
       toast.error(
-        error.response?.data?.detail || 'Error saving order, try againg',
+        error.response?.data?.detail || error.response?.data?.errors || 'Error saving order, try againg',
         { position: 'top-right' }
       );
     },
@@ -458,6 +404,14 @@ export default function CreateEditShipment({
               defaultValue={0}
               {...register('storageCost', { valueAsNumber: true })}
               error={errors.storageCost?.message as string}
+            />
+            <Input
+              label={i18n.t('car-cost')}
+              placeholder={i18n.t('car-cost')}
+              labelClassName="font-medium text-gray-900"
+              type="number"
+              {...register('carCost', { valueAsNumber: true })}
+              error={errors.carCost?.message as string}
             />
           </div>
 

@@ -39,7 +39,7 @@ function LayoutProvider({ children }: LayoutProps) {
 
     setRole(
       parseJwt(session)?.[
-        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
       ]
     );
     setLoading(false);
@@ -54,7 +54,7 @@ function LayoutProvider({ children }: LayoutProps) {
     return null;
   }
 
-  if (pathname === '/logistics/shipments/create' && role !== 'Admin') {
+  if (pathname === '/logistics/shipments/create' && (role !== 'Admin' && role !== 'Account Manager')) {
     router.push('/login');
     return null;
   }

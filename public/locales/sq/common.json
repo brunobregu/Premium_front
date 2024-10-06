@@ -291,6 +291,7 @@
   "inland-cost": "Cmimi Tokësor",
   "ocean-cost": "Cmimi Detar",
   "storage-cost": "Cmimi Magazinimit",
+  "car-cost": "Kostoja e Makinës",
   "profit": "Fitimi",
   "view-images": "Shiko Fotot",
   "view-documents": "Shiko Dokumentat",
@@ -312,8 +313,8 @@
   "create-port": "Krijo Port",
   "create-provider": "Krijo Furnizues",
   "create-role": "Krijo Rol",
-  "document-slider": "Documentet për ID",
-  "image-slider": "Fotot për VIN",
+  "document-slider": "Documentet për TARGEN",
+  "image-slider": "Fotot për TARGEN",
   "account-setting": "Cilësimet e llogarisë",
   "activate-user": {
     "title": "Aktivizo Përdoruesin",
@@ -448,5 +449,7 @@
   "provider-delete": "Furnizuesi u fshi",
   "role-deleted": "Roli u fshi",
   "order-delete": "Dërgesa u fshi",
-  "create-account": " Krijo një llogari"
+  "create-account": " Krijo një llogari",
+  "shipment-updated":"Dërgesa u modifikua me sukses",
+  "shipment-created":"Dërgesa u krijua me sukses"
 }

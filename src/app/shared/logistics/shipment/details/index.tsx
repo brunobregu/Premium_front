@@ -96,12 +96,13 @@ export default function ViewShipment({
 }: IndexProps) {
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
+  const [link, setLink] = useState<string>('')
   const handleImageClick = async () => {
     try {
       const response = await premiumApi.get(
         `${lang}/OrderDetails/viewPhotos?id=${id}`
       );
-      const images = response.data;
+      const images = response.data.files;
       if (images.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-images`;
         window.open(url, '_blank');
@@ -118,8 +119,8 @@ export default function ViewShipment({
       const response = await premiumApi.get(
         `${lang}/OrderDetails/viewDocuments?id=${id}`
       );
-      const images = response.data;
-      if (images.length > 0) {
+      const documents = response.data.files;
+      if (documents.length > 0) {
         const url = `/logistics/shipments/${id}/uploaded-documents`;
         window.open(url, '_blank');
       } else {
@@ -155,10 +156,14 @@ export default function ViewShipment({
       const orderDetails = orderDetailsQuery.data.data;
       reset(orderDetails);
       setValue('userId', orderDetails.userId);
+      setLink(orderDetails.link)
     }
   }, [orderDetailsQuery.data, reset, setValue]);
 
-  const link = orderDetailsQuery.data?.data.provider;
+  const handleClick = () => {
+    const url = link.startsWith('http') ? link : `https://${link}`;
+    window.open(url, '_blank');
+  };
 
   return (
     <div className="@container">
@@ -262,9 +267,8 @@ export default function ViewShipment({
             />
             <Button
               className="w-100 mt-6 bg-gray-900 text-white hover:bg-gray-800"
-              onClick={() => {
-                window.open(link, '_blank');
-              }}
+              disabled={link?.length === 0}
+              onClick={handleClick}
             >
               {i18n.t('tracking-url')}
             </Button>

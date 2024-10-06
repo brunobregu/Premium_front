@@ -19,12 +19,33 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
   const { lang, setLang } = useFiltersContext();
   const [images, setImages] = useState<Image[]>([]);
   const { i18n } = useTranslation()
+  const [vin, setVin] = useState<string>('')
+
+  const [windowWidth, setWindowWidth] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Set initial window width
+    handleResize();
+    setIsMobile(window.innerWidth <= 768);
+    // Add event listener to update window width on resize
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await premiumApi.get(`${lang}/OrderDetails/viewPhotos?id=${id}`);
-        setImages(response.data);
+        setImages(response.data.files);
+        setVin(response.data.vin)
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error fetching images', { position: "top-right" });
 
@@ -32,12 +53,40 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
     };
 
     fetchImages();
-  }, []);
+  }, [id]);
+
+  const getImageStyles = () => {
+    if (windowWidth <= 768) {
+      // Mobile: Smaller images, ensure full image is visible
+      return {
+        width: '100%',
+        height: 'auto',
+        maxHeight: '80vh', // Limit max height to prevent overflow
+        objectFit: 'contain' as 'contain', // Use 'contain' to ensure the full image fits
+      };
+    } else if (windowWidth > 768 && windowWidth <= 1024) {
+      // Tablet: Medium-sized images
+      return {
+        width: '70%',
+        height: 'auto',
+        maxHeight: '80vh', // Ensure full image is visible
+        objectFit: 'contain' as 'contain',
+      };
+    } else {
+      // Desktop: Larger images
+      return {
+        width: '75%',
+        height: 'auto',
+        maxHeight: '80vh', // Ensure full image is visible
+        objectFit: 'cover' as 'cover',
+      };
+    }
+  };
 
   return (
     <>
-      <h1>{i18n.t("image-slider")}: {id}</h1>
-      <div style={{ width: 'auto', display: 'flex', flexDirection: 'row' }}>
+      <h1 className='mb-8'>{i18n.t("image-slider")}: {vin}</h1>
+      <div className='w-[90%] flex justify-center items-center'>
         <Swiper
           pagination={{ clickable: true }}
           navigation={true}
@@ -58,9 +107,8 @@ const ImageSliderPage = ({ params }: { params: { id: string } }) => {
                 src={`data:image/jpeg;base64,${image.base64}`}
                 alt={`Image ${index + 1}`}
                 style={{
-                  width: '400px',
-                  height: '600px',
-                  objectFit: 'cover',
+                  ...getImageStyles(),
+
                 }}
               />
             </SwiperSlide>

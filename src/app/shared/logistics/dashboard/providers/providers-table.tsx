@@ -88,7 +88,7 @@ export default function ProvidersTable({
       try {
         await premiumApi.delete(`${lang}/Provider/delete?id=${id}`);
         queryClient.invalidateQueries({ queryKey: ['roles'] });
-        toast.success(i18n.t('provider-deleted'), { position: 'top-right' });
+        toast.success(i18n.t('provider-delete'), { position: 'top-right' });
       } catch (error: any) {
         toast.error(error.response?.data?.detail || 'Error, try againg', {
           position: 'top-right',
