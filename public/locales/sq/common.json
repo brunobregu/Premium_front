@@ -74,17 +74,17 @@
 
   "what-we-have-done": "Çfarë Ne Ofrojmë",
 
-  "what-we-have-done-air": "Sea Transportation",
-  "what-we-have-done-air-desc": "Pershkrim...",
+  "what-we-have-done-air": "Transporti Detar",
+  "what-we-have-done-air-desc": "Ne ofrojmë transportin më të shpejtë detar me anije kontejnerësh ose RoRo.",
 
-  "what-we-have-done-sea": "Inland Transport",
-  "what-we-have-done-sea-desc": "Pershkrim...",
+  "what-we-have-done-sea": "Transporti Tokësor",
+  "what-we-have-done-sea-desc": "Makinë, ngarkesë të rëndë, paketë të vogël? Premium Logistics menaxhon transportin brenda vendit në SHBA, Kore të Jugut, Ballkan dhe madje edhe drejt BE-së.",
 
-  "what-we-have-done-trucking": "Tracking",
-  "what-we-have-done-trucking-desc": "Pershkrim...",
+  "what-we-have-done-trucking": "Monitorimi i Transportit",
+  "what-we-have-done-trucking-desc": "Ngarkesa juaj është e sigurt dhe e mbrojtur, do të jeni në gjendje ta shihni vetë.",
 
-  "what-we-have-done-warehouse": "Warehousing & Distribution",
-  "what-we-have-done-warehouse-desc": "Pershkrim...",
+  "what-we-have-done-warehouse": "Magazina",
+  "what-we-have-done-warehouse-desc": "Nuk mund të merrni mallrat tuaja sapo mbërrijnë? Ne do t'i ruajmë ose i shpërndajmë në adresën tuaj të zgjedhur.",
 
   "check-out-projects": "Shikoni disa nga projektet e suksesshme që kemi përfunduar me partnerët tanë të çmuar.",
   "view-all-projects": "Shikoni të Gjitha Projektet",
@@ -119,7 +119,7 @@
   "logistics-description": "Në Premium Logistics, logjistika është korniza e planifikimit e përdorur nga menaxhmenti ynë për të lehtësuar shpërndarjen e personelit, materialeve, shërbimeve, informacionit dhe rrjedhave të kapitalit.",
 
   "why-choose-us": "Pse të na zgjidhni ne",
-  "sustainability-description": "Në Premium Logistics, qëndrueshmëria është një faktor kyç për shumë klientë kur zgjedhin një kompani transporti. Ne dallohemi duke demonstruar përkushtimin tonë ndaj praktikave të qëndrueshme, si përdorimi i mjeteve me efikasitet energjie, reduktimi i mbetjeve dhe kompensimi i emetimeve të karbonit.",
+  "sustainability-description": "Te Premium Logistics, shërbimi i jashtëzakonshëm nuk është thjesht një slogan marketingu. Çdo sfidë të transportit që po përballni, ne ose kemi një zgjidhje ose jemi të përkushtuar për ta gjetur një për ju. E GARANTUAR!.",
   "reliable-timely-deliveries": "Dorëzime të Besueshme dhe në Kohë",
   "cost-effective-shipping-options": "Opsione Transporti me Kosto Efektive",
   "exceptional-customer-service": "Shërbim i Jashtëzakonshëm ndaj Klientit",
@@ -450,6 +450,6 @@
   "role-deleted": "Roli u fshi",
   "order-delete": "Dërgesa u fshi",
   "create-account": " Krijo një llogari",
-  "shipment-updated":"Dërgesa u modifikua me sukses",
-  "shipment-created":"Dërgesa u krijua me sukses"
+  "shipment-updated": "Dërgesa u modifikua me sukses",
+  "shipment-created": "Dërgesa u krijua me sukses"
 }

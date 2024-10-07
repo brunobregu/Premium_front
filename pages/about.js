@@ -52,9 +52,9 @@ export default function About() {
                 <div className="box-button mt-40">
                   <Link
                     className="btn btn-brand-1-big hover-up wow animate__animated animate__fadeIn mr-40"
-                    href="#"
+                    href="/contact"
                   >
-                    Get a quote
+                    {i18n.t('get-a-quote')}
                   </Link>
                   <a
                     className="btn btn-play popup-youtube hover-up wow animate__animated animate__fadeIn"

@@ -5,7 +5,6 @@ import premiumApi from '../../util/premiumAPI';
 import { useTranslation } from 'react-i18next';
 import { useFiltersContext } from '../../store/state';
 
-
 export default function Hero1Slider() {
   const { t, i18n } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,42 +13,48 @@ export default function Hero1Slider() {
   const [loading, setLoading] = useState(false);
   const destination = 'Albania';
   const [locale, setLocale] = useState(i18n.language);
-  const [validation, setValidation] = useState("")
+  const [validation, setValidation] = useState('');
   const { lang, setLang } = useFiltersContext();
 
   useEffect(() => {
     setLocale(i18n.language);
   }, [i18n.language]);
 
-
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    if(zipCode.length===0) {
-      setValidation(i18n.t("zip-code-required"))
-      setLoading(false)
+    if (zipCode.length === 0) {
+      setValidation(i18n.t('zip-code-required'));
+      setLoading(false);
       return;
-    } else if (zipCode.length>0 && !/^\d+$/.test(zipCode)) {
-      setLoading(false)
-      setValidation(i18n.t("zip-code-number"))
+    } else if (zipCode.length > 0 && !/^\d+$/.test(zipCode)) {
+      setLoading(false);
+      setValidation(i18n.t('zip-code-number'));
       return;
     }
     try {
       const fetchedPrices = await fetchPrices(locale, zipCode, destination);
-      if(fetchedPrices ){
+      if (fetchedPrices) {
         setPrices(fetchedPrices);
         setIsModalOpen(true);
-        setValidation('')
+        setValidation('');
       } else {
         setLoading(false);
-        setValidation(i18n.t("zip-exist"))
+        setValidation(i18n.t('zip-exist'));
       }
     } catch (error) {
       setLoading(false);
-      toast.error(error.response?.data?.detail || 'An error occurred while fetching prices', {
-        position: 'top-right',
-      });
-      setValidation(error.response?.data?.detail || 'An error occurred while fetching prices')
+      toast.error(
+        error.response?.data?.detail ||
+          'An error occurred while fetching prices',
+        {
+          position: 'top-right',
+        }
+      );
+      setValidation(
+        error.response?.data?.detail ||
+          'An error occurred while fetching prices'
+      );
     } finally {
       setLoading(false);
     }
@@ -60,28 +65,27 @@ export default function Hero1Slider() {
       const response = await premiumApi.get(`${lang}/Transportation/price`, {
         params: {
           zip: zipCode,
-          terminal: destination
-        }
+          terminal: destination,
+        },
       });
       return response.data;
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Error, try againg', { position: "top-right" });
+      toast.error(error.response?.data?.detail || 'Error, try againg', {
+        position: 'top-right',
+      });
     }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setPrices(null);
-    setValidation('')
-    
+    setValidation('');
   };
-
 
   const handleZipCodeChange = (e) => {
     setZipCode(e.target.value);
-setValidation('')
+    setValidation('');
   };
-
 
   return (
     <div
@@ -121,9 +125,10 @@ setValidation('')
                   <br className="d-none d-lg-block" />
                   Aliexpress, UPS, Shein, FedEx, Pitney Bowes, eBay, Amazon
                 </p>
+
                 <div className="form-trackparcel wow animate__animated animate__fadeIn">
                   <form onSubmit={handleSubmit}>
-                  <div className='responsive-div'>
+                    <div className="responsive-div">
                       <input
                         className="form-control"
                         type="text"
@@ -139,13 +144,16 @@ setValidation('')
                         disabled
                       />
                       <input
-                      disabled={loading}
-                        className= {` ${loading ? "opacity-50":""} btn btn-brand-1 btn-track`}
+                        disabled={loading}
+                        className={` ${loading ? 'opacity-50' : ''} btn btn-brand-1 btn-track`}
                         type="submit"
                         value="Calculate shipping"
                       />
                     </div>
-                    <p className='text-red-600' style={{color:"red"}}> {validation}</p>
+                    <p className="text-red-600" style={{ color: 'red' }}>
+                      {' '}
+                      {validation}
+                    </p>
                   </form>
                   <TransportModal
                     isOpen={isModalOpen}
@@ -164,4 +172,3 @@ setValidation('')
     </div>
   );
 }
-

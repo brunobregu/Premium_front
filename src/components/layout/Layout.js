@@ -3,8 +3,6 @@ import BackToTop from "../elements/BackToTop";
 import Footer from "./Footer";
 import FooterNewsletter from "./FooterNewsletter";
 import Header1 from "./Header1";
-import Header2 from "./Header2";
-import HeaderNewsletter from "./HeaderNewsletter";
 import PageHead from "./PageHead";
 import Sidebar from "./Sidebar";
 

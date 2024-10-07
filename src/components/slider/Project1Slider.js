@@ -111,7 +111,7 @@ export default function Project1Slider() {
                 {i18n.t('what-we-have-done-trucking')}
               </h5>
               <p className="font-xs color-grey-500">
-                {i18n.t('what-we-have-done-tracking-desc')}
+                {i18n.t('what-we-have-done-trucking-desc')}
               </p>
             </div>
           </div>

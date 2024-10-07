@@ -158,18 +158,18 @@ export default function Menu() {
         <li className="has-children">
           <Link href="#">{i18n.t('pages')}</Link>
           <ul className="sub-menu">
-            <li>
+            {/* <li>
               <Link href="/service-detail">{i18n.t('service-detail')}</Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link href="/trackyourparcel">{i18n.t("track-your-parcel")}</Link>
             </li> */}
             <li>
               <Link href="/workprocess">{i18n.t('work-process')}</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/request-a-quote">{i18n.t('request-a-quote')}</Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link href="/our-team">{i18n.t('our-team')}</Link>
             </li> */}

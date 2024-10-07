@@ -167,10 +167,10 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
                     className="btn btn-default hover-up mr-10"
                     onClick={handleDashboardClick}
                   >
-                    Login
+                    {i18n.t('login')}
                   </button>
 
-                  <Link
+                  {/* <Link
                     className="btn btn-brand-1 d-none d-xl-inline-block hover-up"
                     href="/request-a-quote"
                   >
@@ -189,7 +189,7 @@ export default function Header({ topBarStyle, handleMobileMenuOpen }) {
                       ></path>
                     </svg>
                     Get a quote
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
