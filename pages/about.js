@@ -79,19 +79,19 @@ export default function About() {
                   <div className="col-lg-5 col-md-5 col-sm-5">
                     <img
                       className="wow animate__animated animate__fadeIn mb-20"
-                      src="/assets/imgs/page/about/img-about-1-1.png"
+                      src="/assets/imgs/page/about/img-about-2-1.jpg"
                       alt="transp"
                     />
                     <img
                       className="wow animate__animated animate__fadeIn"
-                      src="/assets/imgs/page/about/img-about-1-2.png"
+                      src="/assets/imgs/page/about/img-about-2-2.jpg"
                       alt="transp"
                     />
                   </div>
                   <div className="col-lg-7 col-md-7 col-sm-7">
                     <img
                       className="wow animate__animated animate__fadeIn"
-                      src="/assets/imgs/page/about/img-about-1-3.png"
+                      src="/assets/imgs/page/about/img-about-2-3.jpg"
                       alt="transp"
                     />
                   </div>

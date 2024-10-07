@@ -1842,6 +1842,8 @@ body {
 }
 
 .card-testimonial-grid {
+  display: flex;
+  flex-direction: column;
   border-radius: 0px;
   display: inline-block;
   width: 100%;
@@ -1858,13 +1860,12 @@ body {
   text-decoration: none;
 }
 .card-testimonial-grid .card-bottom-info {
-  display: flex;
   width: 100%;
   align-items: flex-end;
   background-color: #034460;
   color: #fff;
   padding: 17px 25px;
-  margin-top: 20px;
+  margin-top: auto;
 }
 .card-testimonial-grid .card-bottom-info .rate-post {
   width: 30%;
@@ -4266,11 +4267,11 @@ footer a {
   transition-duration: 0.2s;
 }
 .icon-socials.icon-linkedin {
-  background: url(../imgs/template/icons/in.svg) no-repeat center;
+  background: url(../imgs/template/icons/linkedin.svg) no-repeat center;
   transition-duration: 0.2s;
 }
 .icon-socials.icon-linkedin:hover {
-  background: url(../imgs/template/icons/in.svg) no-repeat center;
+  background: url(../imgs/template/icons/linkedin.svg) no-repeat center;
   transition-duration: 0.2s;
 }
 .icon-socials.icon-youtube {
@@ -8620,4 +8621,114 @@ html {
   .responsive-div {
     flex-direction: column;
   }
+}
+
+/* new featuer css */
+
+/* Schedules.css */
+.schedules-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.underline {
+  width: 60px;
+  height: 4px;
+  background-color: #e4b83b;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+.tab-container {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-buttons button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.tab-buttons button.active {
+  color: #e4b83b;
+  border-bottom: 2px solid #e4b83b;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7;
+  padding: 10px 15px;
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+.input-group i {
+  margin-right: 10px;
+  color: #666;
+}
+
+.input-group input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #666;
+  width: 100%;
+}
+
+.exchange-icon {
+  justify-content: center;
+  background-color: #f0e8d6;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.search-button {
+  background-color: #e4b83b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #cba62f;
 }

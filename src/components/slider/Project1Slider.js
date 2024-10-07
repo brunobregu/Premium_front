@@ -55,7 +55,6 @@ export default function Project1Slider() {
             </div>
             <div className="cardInfo">
               <h5 className="color-brand-2 mb-10">
-                {' '}
                 {i18n.t('what-we-have-done-air')}
               </h5>
               <p className="font-xs color-grey-500">

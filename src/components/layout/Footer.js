@@ -38,7 +38,7 @@ export default function Footer1({}) {
                 <h5 className="color-brand-1 mb-10">Company</h5>
                 <ul className="menu-footer">
                   <li>
-                    <Link href="../../../pages/our-team.js">Our Team</Link>
+                    <Link href="#">Our Team</Link>
                   </li>
 
                   <li>
@@ -46,7 +46,7 @@ export default function Footer1({}) {
                   </li>
                 </ul>
               </div>
-              <div className="col-lg-3 width-16 mb-30">
+              {/* <div className="col-lg-3 width-16 mb-30">
                 <h5 className="color-brand-1 mb-10">Industries</h5>
                 <ul className="menu-footer">
                   <li>
@@ -68,22 +68,22 @@ export default function Footer1({}) {
                     <Link href="#">Warehousing</Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
               <div className="col-lg-3 width-16 mb-30">
                 <h5 className="color-brand-1 mb-10">Services</h5>
                 <ul className="menu-footer">
                   <li>
-                    <Link href="#">Ocean Freight</Link>
+                    <Link href="#">Sea Transportation</Link>
                   </li>
 
                   <li>
-                    <Link href="#">Warehousing</Link>
+                    <Link href="#">Inland Transport</Link>
                   </li>
                   <li>
-                    <Link href="#">Distribution</Link>
+                    <Link href="#">Tracking</Link>
                   </li>
                   <li>
-                    <Link href="#">Value added</Link>
+                    <Link href="#">Services</Link>
                   </li>
                 </ul>
               </div>
