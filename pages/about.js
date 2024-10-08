@@ -164,7 +164,7 @@ export default function About() {
               <div className="col-lg-6">
                 <img
                   className="wow animate__animated animate__fadeIn"
-                  src="/assets/imgs/page/about/img-about-2-2.png"
+                  src="/assets/imgs/page/about/about-new-2.jpg"
                   alt="transp"
                 />
               </div>
@@ -173,7 +173,7 @@ export default function About() {
               <div className="col-lg-6">
                 <img
                   className="wow animate__animated animate__fadeIn"
-                  src="/assets/imgs/page/about/img-about-2-3.png"
+                  src="/assets/imgs/page/about/about-new-1.jpg"
                   alt="transp"
                 />
               </div>
@@ -257,12 +257,14 @@ export default function About() {
             <div className="row mt-50">
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
+                  <br />
+                  <br />
+                  <br />
                   <div className="cardImage">
-                    {' '}
-                    <img
+                    {/* <img
                       src="/assets/imgs/page/homepage2/team1.png"
                       alt="transp"
-                    />
+                    /> */}
                   </div>
                   <div className="cardInfo">
                     <h6 className="color-brand-2">Ardis Biba</h6>
@@ -291,11 +293,13 @@ export default function About() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {' '}
-                    <img
+                    <br />
+                    <br />
+                    <br />
+                    {/* <img
                       src="/assets/imgs/page/homepage2/team2.png"
                       alt="transp"
-                    />
+                    /> */}
                   </div>
                   <div className="cardInfo">
                     <h6 className="color-brand-2">Sefer Cela</h6>
@@ -350,11 +354,13 @@ export default function About() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {' '}
-                    <img
+                    <br />
+                    <br />
+                    <br />
+                    {/* <img
                       src="/assets/imgs/page/homepage2/team3.png"
                       alt="transp"
-                    />
+                    /> */}
                   </div>
                   <div className="cardInfo">
                     <h6 className="color-brand-2">Egli Biba</h6>
@@ -368,11 +374,13 @@ export default function About() {
               <div className="col-xl-3 col-sm-6 mb-50 wow animate__animated animate__fadeIn">
                 <div className="cardTeam">
                   <div className="cardImage">
-                    {' '}
-                    <img
+                    <br />
+                    <br />
+                    <br />
+                    {/* <img
                       src="/assets/imgs/page/homepage2/team4.png"
                       alt="transp"
-                    />
+                    /> */}
                   </div>
                   <div className="cardInfo">
                     <h6 className="color-brand-2">Ixhena Gojka</h6>
@@ -874,7 +882,7 @@ export default function About() {
                   <div className="d-flex box-newsletter-right">
                     <div className="box-map-2 wow animate__animated animate__fadeIn">
                       <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3179.960389549842!2d-83.76408938441998!3d37.15364135542302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x884352a00e70879f%3A0x1ad06ed33b7003c!2sIangar!5e0!3m2!1svi!2s!4v1678013229780!5m2!1svi!2s"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2743.126222706639!2d19.810948875574233!3d41.314125900537036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135031aaacadf00f%3A0xebaebb708a954f13!2sPremium%20Logistics!5e1!3m2!1sen!2s!4v1726394070905!5m2!1sen!2s"
                         height={242}
                         style={{ border: 0 }}
                         allowFullScreen
@@ -894,10 +902,14 @@ export default function About() {
                         </div>
                         <div className="cardInfo">
                           <h6 className="font-sm-bold color-grey-900">
-                            Address
+                            {i18n.t('address-details_1')}
+                            <br />
+                            <br />
                           </h6>
                           <p className="font-sm color-grey-900">
-                            65 Allerton Street 901 N Pitt Str, USA
+                            {i18n.t('address-details_2')}
+                            <br />
+                            {i18n.t('address-details')}
                           </p>
                         </div>
                       </li>
@@ -911,9 +923,12 @@ export default function About() {
                           </span>
                         </div>
                         <div className="cardInfo">
-                          <h6 className="font-sm-bold color-grey-900">Email</h6>
+                          <h6 className="font-sm-bold color-grey-900">
+                            {' '}
+                            {i18n.t('email')}
+                          </h6>
                           <p className="font-sm color-grey-900">
-                            contact@transp.com
+                            {i18n.t('email-address')}
                           </p>
                         </div>
                       </li>
@@ -928,10 +943,10 @@ export default function About() {
                         </div>
                         <div className="cardInfo">
                           <h6 className="font-sm-bold color-grey-900">
-                            Telephone
+                            {i18n.t('telephone')}
                           </h6>
                           <p className="font-sm color-grey-900">
-                            (+380) 50 318 47 07 - (+182) 50 318 47 07
+                            {i18n.t('telephone-number')}
                           </p>
                         </div>
                       </li>
