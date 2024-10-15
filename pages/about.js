@@ -56,7 +56,7 @@ export default function About() {
                   >
                     {i18n.t('get-a-quote')}
                   </Link>
-                  <a
+                  {/* <a
                     className="btn btn-play popup-youtube hover-up wow animate__animated animate__fadeIn"
                     onClick={() => setOpen(true)}
                   >
@@ -64,7 +64,7 @@ export default function About() {
                       src="/assets/imgs/template/icons/play.svg"
                       alt="transp"
                     />
-                  </a>
+                  </a> */}
                 </div>
                 <ModalVideo
                   channel="youtube"
@@ -638,8 +638,12 @@ export default function About() {
             <div className="row align-items-center">
               <div className="col-lg-3 mb-30 text-lg-start wow animate__animated animate__fadeIn text-center">
                 <p className="font-2xl-bold color-brand-2">
-                  We are<span className="color-brand-1"> trusted</span> by major
-                  global brands
+                  {i18n.t('we-are-trusted')}
+                  <span className="color-brand-1">
+                    {' '}
+                    {i18n.t('we-are-trusted-1')}
+                  </span>{' '}
+                  {i18n.t('we-are-trusted-2')}
                 </p>
               </div>
               <div className="col-lg-9 mb-30">

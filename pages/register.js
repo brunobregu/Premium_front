@@ -6,81 +6,92 @@ import { Controller, useForm } from 'react-hook-form';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import premiumApi from '../src/util/premiumAPI';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { serialize } from 'cookie';
 import { useRouter } from 'next/router';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useFiltersContext } from '../src/store/state';
 
-
 export default function Register() {
   const router = useRouter();
-  const [errorText, setErrorText]=useState('')
+  const [errorText, setErrorText] = useState('');
   const {
     register,
     formState: { errors },
     handleSubmit,
     control,
     setError: setFormError,
-    reset
+    reset,
   } = useForm();
   const [loadingRegister, setLoadingRegister] = useState(false);
   const { t, i18n } = useTranslation('common');
-  const {lang, setLang} =useFiltersContext();
+  const { lang, setLang } = useFiltersContext();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   async function onSubmit(data) {
     setLoadingRegister(true);
     try {
-    const { firstName, lastName, email, phoneNumber, password } = data;
+      const { firstName, lastName, email, phoneNumber, password } = data;
 
-    const payload = {
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      password,
-    };
-    const registerResponse = await premiumApi.post(lang + '/Authentication/register', payload);
+      const payload = {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+      };
+      const registerResponse = await premiumApi.post(
+        lang + '/Authentication/register',
+        payload
+      );
 
-    if (registerResponse.status ) {
-      reset();
-      toast.success('User created', {
-        position: 'top-right',
-      });
-    }
-
-    const loginResponse = await premiumApi.post(lang + '/Authentication/login', {
-      email: data.email,
-      password: data.password,
-    });
-
-    const cookie = serialize('session', loginResponse.data.token, {
-      httpOnly: false,
-      maxAge: 60 * 60 * 24 * 7, // One week
-      path: '/',
-    });
-    document.cookie = cookie;
-
-   if (loginResponse.status){
-    const { role } = loginResponse.data;
-    if (localStorage) {
-    localStorage.setItem('userRole', role)
-   }
-   router.push('/logistics/shipments');
- }
-
-    
-    } catch (error) {
-      setLoadingRegister(false)
-      toast.error(error.response?.data?.detail || 'An error occurred while submitting the form', {
-        position: 'top-right',
-      });
-      if (error.config?.url === '/Authentication/register') {
-        toast.error(error.response?.data?.detail || 'An error occurred while submitting the form', {
+      if (registerResponse.status) {
+        reset();
+        toast.success('User created', {
           position: 'top-right',
         });
+      }
+
+      const loginResponse = await premiumApi.post(
+        lang + '/Authentication/login',
+        {
+          email: data.email,
+          password: data.password,
+        }
+      );
+
+      const cookie = serialize('session', loginResponse.data.token, {
+        httpOnly: false,
+        maxAge: 60 * 60 * 24 * 7, // One week
+        path: '/',
+      });
+      document.cookie = cookie;
+
+      if (loginResponse.status) {
+        const { role } = loginResponse.data;
+        if (localStorage) {
+          localStorage.setItem('userRole', role);
+        }
+        router.push('/logistics/shipments');
+      }
+    } catch (error) {
+      setLoadingRegister(false);
+      toast.error(
+        error.response?.data?.detail ||
+          'An error occurred while submitting the form',
+        {
+          position: 'top-right',
+        }
+      );
+      if (error.config?.url === '/Authentication/register') {
+        toast.error(
+          error.response?.data?.detail ||
+            'An error occurred while submitting the form',
+          {
+            position: 'top-right',
+          }
+        );
       }
     }
   }
@@ -93,7 +104,7 @@ export default function Register() {
             <div className="col-lg-6">
               <div className="box-login-left">
                 <h2 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
-                 {i18n.t("create-account")}
+                  {i18n.t('create-account')}
                 </h2>
                 {/* <p className="font-md color-grey-500 wow animate__animated animate__fadeIn">
                   Describe yourself as clearly so that there are no mistakes
@@ -111,7 +122,9 @@ export default function Register() {
                         <div className="form-group">
                           <input
                             {...register('firstName', {
-                              required: i18n.t('form-validation.firstName.required'),
+                              required: i18n.t(
+                                'form-validation.firstName.required'
+                              ),
                               maxLength: {
                                 value: 220,
                                 message: i18n.t(
@@ -144,7 +157,9 @@ export default function Register() {
                         <div className="form-group">
                           <input
                             {...register('lastName', {
-                              required: i18n.t('form-validation.lastName.required'),
+                              required: i18n.t(
+                                'form-validation.lastName.required'
+                              ),
                               maxLength: {
                                 value: 220,
                                 message: i18n.t(
@@ -191,7 +206,7 @@ export default function Register() {
                                 numberInputProps={{
                                   className: 'form-control',
                                 }}
-                                placeholder="Phone Number *"
+                                placeholder={i18n.t('telephone')}
                               />
                             )}
                           />
@@ -209,15 +224,21 @@ export default function Register() {
                         <div className="form-group">
                           <input
                             {...register('email', {
-                              required: i18n.t('form-validation.email.required'),
+                              required: i18n.t(
+                                'form-validation.email.required'
+                              ),
                               maxLength: {
                                 value: 220,
-                                message: i18n.t('form-validation.email.maxLength'),
+                                message: i18n.t(
+                                  'form-validation.email.maxLength'
+                                ),
                               },
                               pattern: {
                                 value:
                                   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: i18n.t('form-validation.email.invalid'),
+                                message: i18n.t(
+                                  'form-validation.email.invalid'
+                                ),
                               },
                             })}
                             className="form-control"
@@ -235,45 +256,60 @@ export default function Register() {
                         </div>
                       </div>
                       <div className="col-md-12">
-                      <div className="form-group" style={{ position: 'relative', minHeight: '75px' }}>
-  <input
-    {...register('password', {
-      required: i18n.t('form-validation.password.required'),
-      maxLength: {
-        value: 220,
-        message: i18n.t('form-validation.password.maxLength'),
-      },
-      minLength: {
-        value: 4,
-        message: i18n.t('form-validation.password.minLength'),
-      },
-    })}
-    className="form-control"
-    type={passwordVisible ? 'text' : 'password'}
-    placeholder={i18n.t('enter-your-password')}
-    style={{ paddingRight: '40px' }} // Add padding to avoid text overlap with the icon
-  />
-  <span
-    className="password-toggle-icon"
-    style={{
-      position: 'absolute',
-      right: '10px',
-      top: '40%',
-      transform: 'translateY(-50%)',
-      cursor: 'pointer',
-    }}
-    onClick={() => setPasswordVisible(!passwordVisible)}
-  >
-    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-  </span>
+                        <div
+                          className="form-group"
+                          style={{ position: 'relative', minHeight: '75px' }}
+                        >
+                          <input
+                            {...register('password', {
+                              required: i18n.t(
+                                'form-validation.password.required'
+                              ),
+                              maxLength: {
+                                value: 220,
+                                message: i18n.t(
+                                  'form-validation.password.maxLength'
+                                ),
+                              },
+                              minLength: {
+                                value: 4,
+                                message: i18n.t(
+                                  'form-validation.password.minLength'
+                                ),
+                              },
+                            })}
+                            className="form-control"
+                            type={passwordVisible ? 'text' : 'password'}
+                            placeholder={i18n.t('enter-your-password')}
+                            style={{ paddingRight: '40px' }} // Add padding to avoid text overlap with the icon
+                          />
+                          <span
+                            className="password-toggle-icon"
+                            style={{
+                              position: 'absolute',
+                              right: '10px',
+                              top: '40%',
+                              transform: 'translateY(-50%)',
+                              cursor: 'pointer',
+                            }}
+                            onClick={() => setPasswordVisible(!passwordVisible)}
+                          >
+                            {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                          </span>
 
-  {errors.password?.message && (
-    <p style={{ color: '#FF3E3E', position: 'absolute', bottom: '-20px' }} role="alert">
-      {errors.password?.message}
-    </p>
-  )}
-</div>
-
+                          {errors.password?.message && (
+                            <p
+                              style={{
+                                color: '#FF3E3E',
+                                position: 'absolute',
+                                bottom: '-20px',
+                              }}
+                              role="alert"
+                            >
+                              {errors.password?.message}
+                            </p>
+                          )}
+                        </div>
                       </div>
                       <div className="col-md-12">
                         <div className="form-group">
@@ -295,17 +331,17 @@ export default function Register() {
                         <div className="box-button-form-login">
                           <input
                             disabled={loadingRegister}
-                            className={`${loadingRegister? "opacity-50": ""} btn btn-brand-1-big mr-20`}
+                            className={`${loadingRegister ? 'opacity-50' : ''} btn btn-brand-1-big mr-20`}
                             type="submit"
                             defaultValue="Create Account"
                           />
                         </div>
                         <div className="box-text-form-login">
                           <span className="font-xs color-grey-500">
-                            Already have an account?
+                            {i18n.t('already-have-an-account? Sign In')}
                           </span>
                           <Link className="font-xs color-brand-2" href="/login">
-                            Sign In
+                            {i18n.t('sign-in')}
                           </Link>
                         </div>
                       </div>
@@ -319,15 +355,13 @@ export default function Register() {
                 {/* <div className="quote-shape shape-1" /> */}
                 <div className="box-info-bottom-img-3">
                   <div className="box-info-3-bottom">
-                    <h3 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
+                    {/* <h3 className="color-brand-2 wow animate__animated animate__fadeIn mb-10">
                       Warehousing
-                    </h3>
+                    </h3> */}
                     <p className="font-sm color-grey-900 wow animate__animated animate__fadeIn">
-                      We are professional in ocean freight with more than 12
-                      years of experience and have shipped more than 100k
-                      shipments.
+                      {i18n.t('premium-logistics-pioneers')}.
                     </p>
-                    <div className="mt-30 wow animate__animated animate__fadeIn">
+                    {/* <div className="mt-30 wow animate__animated animate__fadeIn">
                       <Link
                         className="btn btn-link font-sm color-brand-2"
                         href="#"
@@ -350,7 +384,7 @@ export default function Register() {
                           </svg>
                         </span>
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -362,8 +396,12 @@ export default function Register() {
             <div className="row align-items-center">
               <div className="col-lg-3 mb-30 text-lg-start wow animate__animated animate__fadeIn text-center">
                 <p className="font-2xl-bold color-brand-2">
-                  We are<span className="color-brand-1"> trusted</span> by major
-                  global brands
+                  {i18n.t('we-are-trusted')}
+                  <span className="color-brand-1">
+                    {' '}
+                    {i18n.t('we-are-trusted-1')}
+                  </span>{' '}
+                  {i18n.t('we-are-trusted-2')}
                 </p>
               </div>
               <div className="col-lg-9 mb-30">

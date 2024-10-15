@@ -236,7 +236,7 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-            <div className="row mt-50">
+            {/* <div className="row mt-50">
               <div className="col-xl-3 col-md-6 mb-50">
                 <div className="cardService">
                   <div className="cardImage wow animate__animated animate__fadeIn">
@@ -297,7 +297,7 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-              {/* <div className="col-xl-3 col-md-6 mb-50">
+              <div className="col-xl-3 col-md-6 mb-50">
                 <div className="cardService">
                   <div className="cardImage wow animate__animated animate__fadeIn">
                     <img
@@ -358,8 +358,8 @@ export default function Contact() {
                     </p>
                   </div>
                 </div>
-              </div> */}
-            </div>
+              </div>
+            </div> */}
           </div>
         </section>
         <section className="section pt-110 pb-100">

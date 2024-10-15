@@ -247,6 +247,7 @@ export default function Faq() {
                         <br />
                         <br />
                         {i18n.t('address-details_2')}
+                        <br />
                         {i18n.t('address-details')}
                       </p>
                       <p className="color-grey-700 wow animate__animated animate__fadeIn mb-10">
@@ -286,9 +287,9 @@ export default function Faq() {
                         {i18n.t('email')}: {i18n.t('email-address')}
                       </p>
                       <div className="line-border mb-25" />
-                      <p className="color-grey-700 font-md-bold wow animate__animated animate__fadeIn">
+                      {/* <p className="color-grey-700 font-md-bold wow animate__animated animate__fadeIn">
                         Hours: 8:00 - 17:00, Mon - Sat
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </div>

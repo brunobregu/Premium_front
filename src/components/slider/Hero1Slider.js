@@ -120,10 +120,9 @@ export default function Hero1Slider() {
                   className="color-white font-md wow animate__animated animate__fadeIn"
                   style={{ textAlign: 'center' }}
                 >
-                  Track packages from China, US Post, Canada Post, Royal Mail,
-                  Deutsche Post,
+                  {i18n.t('sub-header')},
                   <br className="d-none d-lg-block" />
-                  Aliexpress, UPS, Shein, FedEx, Pitney Bowes, eBay, Amazon
+                  {i18n.t('sub-header-1')}
                 </p>
 
                 <div className="form-trackparcel wow animate__animated animate__fadeIn">
