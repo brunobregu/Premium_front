@@ -56,6 +56,7 @@ export default function CreateEditShipment({
     orderID: yup.string().required(i18n.t('validation.orderID-required')),
     port: yup.string().required(i18n.t('validation.port-required')),
     auction: yup.string().required(i18n.t('validation.auction-required')),
+    orderDate: yup.date().required(i18n.t('validation.orderDate-required')),
     provider: yup.string().min(1, i18n.t('validation.provider-required')),
     inlandPrice: yup
       .number()
@@ -170,7 +171,9 @@ export default function CreateEditShipment({
     },
     onError: (error: any) => {
       toast.error(
-        error.response?.data?.detail || error.response?.data?.errors || 'Error saving order, try againg',
+        error.response?.data?.detail ||
+          error.response?.data?.errors ||
+          'Error saving order, try againg',
         { position: 'top-right' }
       );
     },
@@ -327,6 +330,15 @@ export default function CreateEditShipment({
                   error={errors?.provider?.message as string}
                 />
               )}
+            />
+
+            <Input
+              label={i18n.t('order-date')}
+              placeholder={i18n.t('order-date')}
+              labelClassName="font-medium text-gray-900"
+              type="date"
+              {...register('orderDate', { valueAsDate: true })}
+              error={errors.orderDate?.message as string}
             />
           </div>
 
