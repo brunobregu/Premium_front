@@ -96,8 +96,9 @@ export default function ViewShipment({
       );
       const images = response.data.files;
       if (images.length > 0) {
-        const url = `/logistics/shipments/${id}/uploaded-images`;
-        window.open(url, '_blank');
+        // const url = `/logistics/shipments/${id}/uploaded-images`;
+        // window.open(url, '_blank', 'noopener,noreferrer');
+        openNewTab(`/logistics/shipments/${id}/uploaded-images`);
       } else {
         toast.error('No image uploaded', { position: 'top-right' });
       }
@@ -115,8 +116,9 @@ export default function ViewShipment({
       );
       const documents = response.data.files;
       if (documents.length > 0) {
-        const url = `/logistics/shipments/${id}/uploaded-documents`;
-        window.open(url, '_blank');
+        // const url = `/logistics/shipments/${id}/uploaded-documents`;
+        // window.open(url, '_blank', 'noopener,noreferrer');
+        openNewTab(`/logistics/shipments/${id}/uploaded-documents`);
       } else {
         toast.error('No documents uploaded', { position: 'top-right' });
       }
@@ -125,6 +127,10 @@ export default function ViewShipment({
         position: 'top-right',
       });
     }
+  };
+
+  const openNewTab = (url: any) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const router = useRouter();
