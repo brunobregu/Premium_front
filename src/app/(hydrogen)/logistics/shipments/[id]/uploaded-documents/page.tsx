@@ -16,6 +16,16 @@ interface Document {
   filename: string;
 }
 
+const base64ToBlob = (base64: string, type: string) => {
+  const byteCharacters = atob(base64);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  return new Blob([byteArray], { type });
+};
+
 const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -86,41 +96,44 @@ const DocumentSliderPage = ({ params }: { params: { id: string } }) => {
           modules={[Pagination, Navigation]}
           style={{ width: '100%', height: '100%' }}
         >
-          {documents.map((document, index) => (
-            <SwiperSlide
-              key={index}
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-              }}
-            >
-              {isMobile ? (
-                // Mobile fallback: Link to open or download the PDF
-                <a
-                  href={`data:application/pdf;base64,${document.base64}`}
-                  download={`document_${index}.pdf`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className='flex justify-center items-center'
-                  style={{ ...getEmbedStyles(), color: 'blue', textDecoration: 'underline' }}
-                >
-                  {document.filename}
-                </a>
-              ) : (
-                // Desktop: Show embedded PDF
-                <embed
-                  src={`data:application/pdf;base64,${document.base64}`}
-                  type="application/pdf"
-                  style={{
-                    ...getEmbedStyles(),
-                    border: '1px solid #ddd',
-                  }}
-                />
-              )}
-            </SwiperSlide>
-          ))}
+          {documents.map((document, index) => {
+            const blob = base64ToBlob(document.base64, 'application/pdf');
+            const url = URL.createObjectURL(blob); // Create an object URL from the Blob
+
+            return (
+              <SwiperSlide
+                key={index}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                {isMobile ? (
+                  <a
+                    href={url}
+                    download={`document_${index}.pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className='flex justify-center items-center'
+                    style={{ ...getEmbedStyles(), color: 'blue', textDecoration: 'underline' }}
+                  >
+                    {document.filename}
+                  </a>
+                ) : (
+                  <embed
+                    src={url}
+                    type="application/pdf"
+                    style={{
+                      ...getEmbedStyles(),
+                      border: '1px solid #ddd',
+                    }}
+                  />
+                )}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </>
