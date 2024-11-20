@@ -8,17 +8,17 @@ import Modal from 'react-modal';
 import { Button } from 'rizzui';
 
 const modalStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        width: '90%', 
-        maxWidth: '800px',
-        height:"300px",
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    width: '90%',
+    maxWidth: '800px',
+    height: '300px',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 const UpdateCarStatusModal = ({
@@ -55,15 +55,15 @@ const UpdateCarStatusModal = ({
         ['image/jpeg', 'image/png'].includes(file.type)
       );
 
-      if (photos.length < 1 || photos.length > 10) {
+      if (photos.length < 1) {
         toast.error(t('photo_count_error'), { position: 'top-right' });
         return;
       }
 
-      if (totalSize > 5 * 1024 * 1024) {
-        toast.error(t('photo_size_error'), { position: 'top-right' });
-        return;
-      }
+      // if (totalSize > 5 * 1024 * 1024) {
+      //   toast.error(t('photo_size_error'), { position: 'top-right' });
+      //   return;
+      // }
 
       if (!isValidFormat) {
         toast.error(t('photo_format_error'), { position: 'top-right' });
@@ -81,7 +81,7 @@ const UpdateCarStatusModal = ({
         toast.error(t('tracking_number_error'), { position: 'top-right' });
       }
 
-      if (documents.length !== 2) {
+      if (documents.length < 1) {
         toast.error(t('document_count_error'), { position: 'top-right' });
         return;
       }
@@ -96,10 +96,10 @@ const UpdateCarStatusModal = ({
       }
 
       const totalSize = documents.reduce((acc, file) => acc + file.size, 0);
-      if (totalSize > 5 * 1024 * 1024) {
-        toast.error(t('document_size_error'), { position: 'top-right' });
-        return;
-      }
+      // if (totalSize > 5 * 1024 * 1024) {
+      //   toast.error(t('document_size_error'), { position: 'top-right' });
+      //   return;
+      // }
 
       documents.forEach((doc, index) => {
         formData.append('Documents', doc);
@@ -120,10 +120,9 @@ const UpdateCarStatusModal = ({
         onClose();
       })
       .catch((error) => {
-        toast.error(
-          error.response?.data?.detail || t('update_error'),
-          { position: 'top-right' }
-        );
+        toast.error(error.response?.data?.detail || t('update_error'), {
+          position: 'top-right',
+        });
       })
       .finally(() => setLoading(false));
   };
@@ -272,7 +271,7 @@ const UpdateCarStatusModal = ({
             className={`${loading ? 'opacity-50' : ''} w-[300px]`}
             disabled={loading}
           >
-             {t('save')}
+            {t('save')}
           </Button>
           <Button
             type="button"
@@ -280,7 +279,7 @@ const UpdateCarStatusModal = ({
             onClick={onClose}
             className="w-[300px]"
           >
-          {t("close")}
+            {t('close')}
           </Button>
         </div>
       </form>
