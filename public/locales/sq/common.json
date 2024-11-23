@@ -339,11 +339,11 @@
     "cancel": "Anullo",
     "confirm": "Konfirmo"
   },
-  "upload_photos": "Ngarko Foto (1-10, Maks. madhësia totale: 5MB):",
+  "upload_photos": "Ngarko Foto",
   "car_at_terminal": "Makina në terminal, rezervoje",
   "car_loaded": "Makina e ngarkuar",
   "tracking_number": "Numri i ndjekjes:",
-  "upload_documents": "Ngarko Dokumente (2, Maks. madhësia totale: 5MB):",
+  "upload_documents": "Ngarko Dokumente",
   "photo_count_error": "Duhet të ngarkoni të paktën 1 foto.",
   "photo_size_error": "Madhësia totale e fotove nuk duhet të tejkalojë 5MB.",
   "photo_format_error": "Formatet e lejuara për foto janë: .jpg, .jpeg, .png",
