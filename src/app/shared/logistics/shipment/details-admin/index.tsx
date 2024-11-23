@@ -89,45 +89,103 @@ export default function ViewShipment({
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
 
+
+  const isIOS = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+  };
+
   const handleImageClick = async () => {
-    try {
-      const response = await premiumApi.get(
-        `${lang}/OrderDetails/viewPhotos?id=${id}`
-      );
-      const images = response.data.files;
-      if (images.length > 0) {
-        // const url = `/logistics/shipments/${id}/uploaded-images`;
-        // window.open(url, '_blank', 'noopener,noreferrer');
-        openNewTab(`/logistics/shipments/${id}/uploaded-images`);
-      } else {
-        toast.error('No image uploaded', { position: 'top-right' });
+    if (isIOS()) {
+      const safariWindow = window.open("", "_blank");
+      if (!safariWindow) {
+        toast.error("Popup blocked by browser", { position: "top-right" });
+        return;
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.detail || 'Error, try againg', {
-        position: 'top-right',
-      });
+
+      try {
+        const response = await premiumApi.get(
+          `${lang}/OrderDetails/viewPhotos?id=${id}`
+        );
+        const images = response.data.files;
+
+        if (images.length > 0) {
+          const url = `/logistics/shipments/${id}/uploaded-images`;
+          safariWindow.location.href = url;
+        } else {
+          safariWindow.close();
+          toast.error("No image uploaded", { position: "top-right" });
+        }
+      } catch (error: any) {
+        safariWindow.close();
+        toast.error(error.response?.data?.detail || 'Error, try again', { position: 'top-right' });
+      }
+    } else {
+      // For other browsers, open the URL in a new tab directly
+      try {
+        const response = await premiumApi.get(
+          `${lang}/OrderDetails/viewPhotos?id=${id}`
+        );
+        const images = response.data.files;
+        if (images.length > 0) {
+          openNewTab(`/logistics/shipments/${id}/uploaded-images`);
+        } else {
+          toast.error("No image uploaded", { position: "top-right" });
+        }
+      } catch (error: any) {
+        toast.error(error.response?.data?.detail || 'Error, try again', {
+          position: 'top-right',
+        });
+      }
     }
   };
 
   const handleDocumentClick = async () => {
-    try {
-      const response = await premiumApi.get(
-        `${lang}/OrderDetails/viewDocuments?id=${id}`
-      );
-      const documents = response.data.files;
-      if (documents.length > 0) {
-        // const url = `/logistics/shipments/${id}/uploaded-documents`;
-        // window.open(url, '_blank', 'noopener,noreferrer');
-        openNewTab(`/logistics/shipments/${id}/uploaded-documents`);
-      } else {
-        toast.error('No documents uploaded', { position: 'top-right' });
+    if (isIOS()) {
+      // Safari iOS workaround: Open a blank window immediately
+      const safariWindow = window.open("", "_blank");
+
+      if (!safariWindow) {
+        toast.error("Popup blocked by browser", { position: "top-right" });
+        return;
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.detail || 'Error, try againg', {
-        position: 'top-right',
-      });
+
+      try {
+        const response = await premiumApi.get(
+          `${lang}/OrderDetails/viewDocuments?id=${id}`
+        );
+        const documents = response.data.files;
+
+        if (documents.length > 0) {
+          const url = `/logistics/shipments/${id}/uploaded-documents`;
+          safariWindow.location.href = url;
+        } else {
+          safariWindow.close();
+          toast.error("No documents uploaded", { position: "top-right" });
+        }
+      } catch (error: any) {
+        safariWindow.close();
+        toast.error(error.response?.data?.detail || 'Error, try again', { position: 'top-right' });
+      }
+    } else {
+      try {
+        const response = await premiumApi.get(
+          `${lang}/OrderDetails/viewDocuments?id=${id}`
+        );
+        const documents = response.data.files;
+        if (documents.length > 0) {
+          openNewTab(`/logistics/shipments/${id}/uploaded-documents`);
+        } else {
+          toast.error("No documents uploaded", { position: "top-right" });
+        }
+      } catch (error: any) {
+        toast.error(error.response?.data?.detail || 'Error, try again', {
+          position: 'top-right',
+        });
+      }
     }
   };
+
 
   const openNewTab = (url: any) => {
     window.open(url, '_blank', 'noopener,noreferrer');

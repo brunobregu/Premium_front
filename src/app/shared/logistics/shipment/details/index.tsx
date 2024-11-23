@@ -97,37 +97,77 @@ export default function ViewShipment({
   const { i18n } = useTranslation();
   const { lang, setLang } = useFiltersContext();
   const [link, setLink] = useState<string>('')
+
+
+  const isIOS = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+  };
+
   const handleImageClick = async () => {
+    // Open a blank window immediately (required by Safari)
+    const newWindow = window.open("", "_blank");
+
+    if (!newWindow) {
+      toast.error("Popup blocked by browser", { position: "top-right" });
+      return;
+    }
+
     try {
       const response = await premiumApi.get(
         `${lang}/OrderDetails/viewPhotos?id=${id}`
       );
       const images = response.data.files;
+
       if (images.length > 0) {
-        const url = `/logistics/shipments/${id}/uploaded-images`;
-        window.open(url, '_blank');
+        // For iOS, navigate normally without opening a new tab
+        if (isIOS()) {
+          window.location.href = `/logistics/shipments/${id}/uploaded-images`;
+        } else {
+          // For other devices, set the new URL in the blank window
+          newWindow.location.href = `/logistics/shipments/${id}/uploaded-images`;
+        }
       } else {
-        toast.error('No image uploaded', { position: 'top-right' });
+        // Close the window if no images are found
+        newWindow.close();
+        toast.error("No image uploaded", { position: "top-right" });
       }
     } catch (error) {
-      toast.error('No image uploaded', { position: 'top-right' });
+      // Close the window on error
+      newWindow.close();
+      toast.error("No image uploaded", { position: "top-right" });
     }
   };
 
   const handleDocumentClick = async () => {
+    // Open a blank window immediately (required by Safari)
+    const newWindow = window.open("", "_blank");
+
+    if (!newWindow) {
+      toast.error("Popup blocked by browser", { position: "top-right" });
+      return;
+    }
+
     try {
       const response = await premiumApi.get(
         `${lang}/OrderDetails/viewDocuments?id=${id}`
       );
       const documents = response.data.files;
       if (documents.length > 0) {
-        const url = `/logistics/shipments/${id}/uploaded-documents`;
-        window.open(url, '_blank');
+        // For iOS, navigate normally without opening a new tab
+        if (isIOS()) {
+          window.location.href = `/logistics/shipments/${id}/uploaded-documents`;
+        } else {
+          // For other devices, set the new URL in the blank window
+          newWindow.location.href = `/logistics/shipments/${id}/uploaded-documents`;
+        }
       } else {
-        toast.error('No documents uploaded', { position: 'top-right' });
+        newWindow.close();
+        toast.error("No documents uploaded", { position: "top-right" });
       }
     } catch (error) {
-      toast.error('No documents uploaded', { position: 'top-right' });
+      newWindow.close();
+      toast.error("No documents uploaded", { position: "top-right" });
     }
   };
 
