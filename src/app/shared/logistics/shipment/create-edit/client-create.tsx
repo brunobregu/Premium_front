@@ -1,7 +1,8 @@
 'use client';
 
 import { FormEvent, useEffect, useState } from 'react';
-import { Button, Input } from 'rizzui';
+import { Button, Input, Select } from 'rizzui';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -69,6 +70,28 @@ export default function ClientCreateShipment() {
   const [lookupError, setLookupError] = useState('');
   const [carId, setCarId] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const auctionQuery = useQuery({
+    queryKey: ['auctions', lang],
+    queryFn: () => premiumApi.get(`${lang}/Auction/auctions`),
+  });
+
+  const portQuery = useQuery({
+    queryKey: ['ports', lang],
+    queryFn: () => premiumApi.get(`${lang}/Port/ports`),
+  });
+
+  const auctionOptions =
+    auctionQuery.data?.data?.map((item: { id: string; name: string }) => ({
+      label: item.name,
+      value: item.id,
+    })) ?? [];
+
+  const portOptions =
+    portQuery.data?.data?.map((item: { id: string; name: string }) => ({
+      label: item.name,
+      value: item.id,
+    })) ?? [];
 
   useEffect(() => {
     const vin = shipment.vin.trim();
@@ -281,20 +304,58 @@ export default function ClientCreateShipment() {
             onChange={updateField('address')}
             {...shipmentDetailProps}
           />
-          <Input
-            label={t('auction')}
-            placeholder={t('auction')}
-            value={shipment.auction}
-            onChange={updateField('auction')}
-            {...shipmentDetailProps}
-          />
-          <Input
-            label={t('port')}
-            placeholder={t('port')}
-            value={shipment.port}
-            onChange={updateField('port')}
-            {...shipmentDetailProps}
-          />
+          {shipmentDetailsAreEditable ? (
+            <Select
+              label={t('auction')}
+              labelClassName="font-medium text-gray-900"
+              dropdownClassName="p-2 gap-1 grid !z-10"
+              inPortal={false}
+              value={shipment.auction || null}
+              onChange={(value: string) =>
+                setShipment((current) => ({ ...current, auction: value }))
+              }
+              options={auctionOptions}
+              getOptionValue={(option) => option.label}
+              displayValue={(selected) =>
+                auctionOptions.find((option: { label: string }) =>
+                  option.label === selected
+                )?.label
+              }
+            />
+          ) : (
+            <Input
+              label={t('auction')}
+              placeholder={t('auction')}
+              value={shipment.auction}
+              {...readOnlyInputProps}
+            />
+          )}
+          {shipmentDetailsAreEditable ? (
+            <Select
+              label={t('port')}
+              labelClassName="font-medium text-gray-900"
+              dropdownClassName="p-2 gap-1 grid !z-10"
+              inPortal={false}
+              value={shipment.port || null}
+              onChange={(value: string) =>
+                setShipment((current) => ({ ...current, port: value }))
+              }
+              options={portOptions}
+              getOptionValue={(option) => option.label}
+              displayValue={(selected) =>
+                portOptions.find((option: { label: string }) =>
+                  option.label === selected
+                )?.label
+              }
+            />
+          ) : (
+            <Input
+              label={t('port')}
+              placeholder={t('port')}
+              value={shipment.port}
+              {...readOnlyInputProps}
+            />
+          )}
         </div>
 
         <Button
