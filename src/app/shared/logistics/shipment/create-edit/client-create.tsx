@@ -31,7 +31,8 @@ type VehicleDetailsResponse = {
   model: string | null;
   enteredDate: string | null;
   terminal: string | null;
-  isCargoloop: boolean;
+  isCargoloop?: boolean | string;
+  isCargoLoop?: boolean | string;
 };
 
 type CreateShipmentRequest = {
@@ -70,15 +71,18 @@ export default function ClientCreateShipment() {
   const [lookupError, setLookupError] = useState('');
   const [carId, setCarId] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const shipmentDetailsAreEditable = lookupComplete && !isCargoloop;
 
   const auctionQuery = useQuery({
     queryKey: ['auctions', lang],
     queryFn: () => premiumApi.get(`${lang}/Auction/auctions`),
+    enabled: shipmentDetailsAreEditable,
   });
 
   const portQuery = useQuery({
     queryKey: ['ports', lang],
     queryFn: () => premiumApi.get(`${lang}/Port/ports`),
+    enabled: shipmentDetailsAreEditable,
   });
 
   const auctionOptions =
@@ -131,7 +135,11 @@ export default function ClientCreateShipment() {
           auction: vehicle.auction || '',
           port: vehicle.terminal || '',
         });
-        setIsCargoloop(vehicle.isCargoloop);
+        const cargoloopValue =
+          vehicle.isCargoloop ?? vehicle.isCargoLoop ?? false;
+        setIsCargoloop(
+          cargoloopValue === true || cargoloopValue === 'true'
+        );
         setCarId(vehicle.id ? Number(vehicle.id) : null);
         setLookupComplete(true);
       } catch (error: any) {
@@ -223,8 +231,6 @@ export default function ClientCreateShipment() {
     inputClassName: 'cursor-default bg-gray-50',
     labelClassName: 'font-medium text-gray-900',
   };
-
-  const shipmentDetailsAreEditable = lookupComplete && !isCargoloop;
 
   const updateField =
     (field: keyof ClientShipmentDetails) =>
