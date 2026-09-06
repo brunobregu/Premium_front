@@ -1,15 +1,19 @@
 "use client"
 
-import { routes } from '@/config/routes';
+import { useEffect, useState } from 'react';
 import PageHeader from '@/app/shared/page-header';
-import { metaObject } from '@/config/site.config';
-import ImportButton from '@/app/shared/import-button';
 import CreateEditShipment from '@/app/shared/logistics/shipment/create-edit/create';
+import ClientCreateShipment from '@/app/shared/logistics/shipment/create-edit/client-create';
 import { useTranslation } from 'react-i18next';
 
 
 export default function CreateShipmentPage() {
   const { i18n } = useTranslation();
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    setUserRole(localStorage.getItem('userRole'));
+  }, []);
 
 
   const pageHeader = {
@@ -32,7 +36,11 @@ export default function CreateShipmentPage() {
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
 
-      <CreateEditShipment />
+      {userRole === 'Client' ? (
+        <ClientCreateShipment />
+      ) : userRole ? (
+        <CreateEditShipment />
+      ) : null}
     </>
   );
 }

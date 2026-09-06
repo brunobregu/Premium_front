@@ -29,6 +29,7 @@ type ControlledTableProps = {
   tableFooter?: React.ReactNode;
   className?: string;
   paginatorClassName?: string;
+  simpleFilter?: boolean;
 } & TableProps;
 
 export default function ControlledTable({
@@ -39,6 +40,7 @@ export default function ControlledTable({
   tableFooter,
   showLoadingText,
   paginatorClassName,
+  simpleFilter = false,
   className,
   ...tableProps
 }: ControlledTableProps) {
@@ -57,7 +59,7 @@ export default function ControlledTable({
   const user = localStorage.getItem('userRole')
   return (
     <>
-      {user === 'Client' ? (!isEmpty(filterOptions) && (
+      {simpleFilter || user === 'Client' ? (!isEmpty(filterOptions) && (
         <TableFilter {...filterOptions}>{filterElement}</TableFilter>
       )) : (!isEmpty(filterOptions) && (
         <TableNameFilter {...filterOptions}>{filterElement}</TableNameFilter>

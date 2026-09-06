@@ -40,6 +40,7 @@ export const routes = {
   logistics: {
     dashboard: '/logistics',
     shipmentList: '/logistics/shipments',
+    shipmentRequests: '/logistics/shipment-requests',
     myOrders: '/logistics/my-orders',
     users: '/logistics/dashboard/users',
     activeUsers: '/logistics/dashboard/active-users',

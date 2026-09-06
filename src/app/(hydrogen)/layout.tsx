@@ -3,10 +3,9 @@
 import { useIsMounted } from '@hooks/use-is-mounted';
 import HydrogenLayout from '@/layouts/hydrogen/layout';
 import { usePathname, useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 import premiumApi from '@/util/premiumAPI';
 import { parse } from 'cookie';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import parseJwt from '@/util/parseJwt';
 
 type LayoutProps = {
@@ -54,8 +53,24 @@ function LayoutProvider({ children }: LayoutProps) {
     return null;
   }
 
-  if (pathname === '/logistics/shipments/create' && (role !== 'Admin' && role !== 'Account Manager')) {
+  const canCreateShipment =
+    role === 'Admin' || role === 'Account Manager' || role === 'Client';
+
+  if (
+    pathname === '/logistics/shipments/create' &&
+    !canCreateShipment
+  ) {
     router.push('/login');
+    return null;
+  }
+
+  if (
+    pathname?.startsWith('/logistics/shipment-requests') &&
+    role !== 'Admin' &&
+    role !== 'Account Manager' &&
+    role !== 'Client'
+  ) {
+    router.push('/logistics/shipments');
     return null;
   }
 

@@ -5,9 +5,7 @@ import Link from 'next/link';
 import { PiPlusBold } from 'react-icons/pi';
 import { routes } from '@/config/routes';
 import { Button } from 'rizzui';
-import { shipmentData } from '@/data/shipment-data';
 import PageHeader from '@/app/shared/page-header';
-import ExportButton from '@/app/shared/export-button';
 import { useTranslation } from 'react-i18next';
 
 
@@ -16,7 +14,6 @@ interface HeaderProps {
 }
 
 export default function ShipmentPageHeader({ className }: HeaderProps) {
-  const user = localStorage.getItem('userRole')
   const { i18n } = useTranslation();
 
   const pageHeader = {
@@ -32,7 +29,7 @@ export default function ShipmentPageHeader({ className }: HeaderProps) {
 
   return (
     <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-      {user && (user === 'Admin' || user === 'Account Manager') && <div className="mt-4 flex flex-col items-center gap-3 @sm:flex-row @lg:mt-0">
+      <div className="mt-4 flex flex-col items-center gap-3 @sm:flex-row @lg:mt-0">
         <Link
           href={routes.logistics.createShipment}
           className="w-full @lg:w-auto"
@@ -42,7 +39,7 @@ export default function ShipmentPageHeader({ className }: HeaderProps) {
             {i18n.t("create-shipment")}
           </Button>
         </Link>
-      </div>}
+      </div>
     </PageHeader>
   );
 }

@@ -90,6 +90,17 @@ const useMenuItems = () => {
         href: routes.logistics.shipmentList,
         icon: <PiPackageDuotone />,
       },
+      ...(userRole === 'Admin' ||
+      userRole === 'Account Manager' ||
+      userRole === 'Client'
+        ? [
+            {
+              name: i18n.t('shipment-requests'),
+              href: routes.logistics.shipmentRequests,
+              icon: <PiPackageDuotone />,
+            },
+          ]
+        : []),
     ];
 
     setMenuItems(items);
