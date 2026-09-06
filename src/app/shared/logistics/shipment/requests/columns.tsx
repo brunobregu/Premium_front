@@ -3,6 +3,7 @@ import { Button } from 'rizzui';
 
 export type ShipmentRequest = {
   id: string;
+  orderDetailsId: number | null;
   vin: string;
   make: string;
   model: string;

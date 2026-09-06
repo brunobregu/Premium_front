@@ -200,6 +200,8 @@
   "reject": "Reject",
   "shipment-request-accepted": "Shipment request accepted",
   "shipment-request-rejected": "Shipment request rejected",
+  "shipment-request-reject-error": "Unable to reject the shipment request.",
+  "shipment-request-id-missing": "The shipment request ID is missing.",
   "confirm-acceptance": "Confirm acceptance",
   "accept-shipment-request": "Accept shipment request",
   "reject-shipment-request": "Reject shipment request",

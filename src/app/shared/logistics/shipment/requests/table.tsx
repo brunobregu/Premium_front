@@ -35,10 +35,13 @@ const initialAcceptanceDetails: AcceptanceDetails = {
 
 type ShipmentRequestResponse = Omit<
   ShipmentRequest,
-  'id' | 'reason' | 'fullName'
+  'id' | 'orderDetailsId' | 'reason' | 'fullName' | 'address'
 > & {
+  id?: number | null;
+  orderDetailsId?: number | null;
   reason?: string | null;
   fullName?: string | null;
+  address?: string | null;
 };
 
 export default function ShipmentRequestsTable() {
@@ -54,6 +57,8 @@ export default function ShipmentRequestsTable() {
   const [requestToReject, setRequestToReject] =
     useState<ShipmentRequest | null>(null);
   const [rejectReason, setRejectReason] = useState('');
+  const [rejectError, setRejectError] = useState('');
+  const [isRejecting, setIsRejecting] = useState(false);
   const { currentPage, pageSize, setCurrentPage, setTotalRecords, lang } =
     useFiltersContext();
   const requestsQuery = useQuery({
@@ -70,8 +75,10 @@ export default function ShipmentRequestsTable() {
       response.data.map((request) => ({
         ...request,
         id: request.vin,
+        orderDetailsId: request.orderDetailsId ?? request.id ?? null,
         reason: request.reason ?? '',
         fullName: request.fullName ?? '',
+        address: request.address ?? '',
       })),
     enabled:
       roleLoaded &&
@@ -174,6 +181,65 @@ export default function ShipmentRequestsTable() {
       ),
       { position: 'top-right' }
     );
+  };
+
+  const handleRejectRequest = async () => {
+    if (!requestToReject || !rejectReason.trim() || isRejecting) return;
+
+    setRejectError('');
+
+    if (requestToReject.orderDetailsId == null) {
+      setRejectError(t('shipment-request-id-missing'));
+      return;
+    }
+
+    setIsRejecting(true);
+    try {
+      const response = await premiumApi.put(
+        `${lang}/OrderDetails/rejectShipmentRequest`,
+        { reason: rejectReason.trim() },
+        {
+          params: { id: requestToReject.orderDetailsId },
+          headers: { Accept: '*/*' },
+        }
+      );
+
+      if (response.status === 204) {
+        toast.success(t('shipment-request-rejected'), {
+          position: 'top-right',
+        });
+        setRequestToReject(null);
+        setRejectReason('');
+        await requestsQuery.refetch();
+      }
+    } catch (error: any) {
+      const status = error?.response?.status;
+      const detail = error?.response?.data?.detail;
+
+      if (status === 401) {
+        toast.error(t('shipment-requests-unauthorized'), {
+          position: 'top-right',
+        });
+        router.push('/login');
+        return;
+      }
+
+      toast.error(
+        detail ||
+          (status === 403
+            ? t('shipment-requests-forbidden')
+            : t('shipment-request-reject-error')),
+        { position: 'top-right' }
+      );
+      setRejectError(
+        detail ||
+          (status === 403
+            ? t('shipment-requests-forbidden')
+            : t('shipment-request-reject-error'))
+      );
+    } finally {
+      setIsRejecting(false);
+    }
   };
 
   const clientColumns = useMemo(
@@ -338,6 +404,7 @@ export default function ShipmentRequestsTable() {
           onClose={() => {
             setRequestToReject(null);
             setRejectReason('');
+            setRejectError('');
           }}
           size="lg"
         >
@@ -353,25 +420,26 @@ export default function ShipmentRequestsTable() {
               textareaClassName="min-h-32"
               labelClassName="font-medium text-gray-900"
             />
+            {rejectError ? (
+              <p className="mt-2 text-sm text-red-600">{rejectError}</p>
+            ) : null}
             <div className="mt-6 flex justify-end gap-3">
               <Button
                 variant="outline"
                 onClick={() => {
                   setRequestToReject(null);
                   setRejectReason('');
+                  setRejectError('');
                 }}
               >
                 {t('cancel')}
               </Button>
               <Button
+                type="button"
                 color="danger"
-                disabled={!rejectReason.trim()}
-                onClick={() => {
-                  if (!requestToReject || !rejectReason.trim()) return;
-                  handleDecision(requestToReject, 'rejected');
-                  setRequestToReject(null);
-                  setRejectReason('');
-                }}
+                isLoading={isRejecting}
+                disabled={!rejectReason.trim() || isRejecting}
+                onClick={() => void handleRejectRequest()}
               >
                 {t('confirm-rejection')}
               </Button>

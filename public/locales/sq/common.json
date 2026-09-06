@@ -196,6 +196,8 @@
   "reject": "Refuzo",
   "shipment-request-accepted": "Kërkesa për dërgesë u pranua",
   "shipment-request-rejected": "Kërkesa për dërgesë u refuzua",
+  "shipment-request-reject-error": "Kërkesa për dërgesë nuk mund të refuzohet.",
+  "shipment-request-id-missing": "Mungon ID-ja e kërkesës për dërgesë.",
   "confirm-acceptance": "Konfirmo pranimin",
   "accept-shipment-request": "Prano kërkesën për dërgesë",
   "reject-shipment-request": "Refuzo kërkesën për dërgesë",
